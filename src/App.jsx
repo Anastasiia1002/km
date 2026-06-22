@@ -168,8 +168,10 @@ function Header({ navigate }) {
     <header>
       <div className="container">
         <div className="header-inner">
-          <Logo navigate={navigate} />
-          <nav aria-label="Головна навігація">
+          <div className="header-brand">
+            <Logo navigate={navigate} />
+          </div>
+          <nav className="header-nav" aria-label="Головна навігація">
             <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
               {industries.slice(0, 6).map((item) => (
                 <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
@@ -203,9 +205,10 @@ function Header({ navigate }) {
           </nav>
           <div className="header-cta">
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
-              📞 {site.phoneDisplay}
+              <span className="header-phone-icon" aria-hidden="true">📞</span>
+              <span className="header-phone-text">{site.phoneDisplay}</span>
             </a>
-            <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary btn-header" type="button" onClick={() => scrollToForm()}>
               Залишити заявку
             </button>
           </div>
@@ -234,15 +237,19 @@ function Logo({ navigate }) {
 function Dropdown({ label, href, navigate, children }) {
   return (
     <div className="nav-dropdown">
-      <NavLink href={href} navigate={navigate}>{label}</NavLink>
+      <NavLink href={href} navigate={navigate} className="nav-link-has-menu">
+        <span>{label}</span>
+        <span className="nav-chevron" aria-hidden="true">▾</span>
+      </NavLink>
       <div className="dropdown-menu">{children}</div>
     </div>
   );
 }
 
-function NavLink({ href, navigate, children }) {
+function NavLink({ href, navigate, children, className = "" }) {
   return (
     <a
+      className={`nav-link ${className}`.trim()}
       href={href}
       onClick={(event) => {
         event.preventDefault();
