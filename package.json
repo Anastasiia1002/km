@@ -4,10 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-site.js",
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
     "check": "node scripts/check-site.js"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "^8.0.16"
   }
 }
