@@ -1,0 +1,13 @@
+{
+  "name": "km-trade-gps-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.js",
+    "check": "node scripts/check-site.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
