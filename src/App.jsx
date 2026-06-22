@@ -296,8 +296,14 @@ function Hero({ navigate }) {
             <h1>GPS-моніторинг автопарку на Заході України — <em>встановлення сьогодні</em></h1>
             <p className="hero-sub">
               КМ-Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по Чернівецькій,
-              Івано-Франківській, Тернопільській та Хмельницькій областях.
+              Івано-Франківській, Тернопільській та Хмельницькій областях і допомагаємо економити пальне,
+              контролювати маршрути та зменшувати втрати автопарку.
             </p>
+            <div className="hero-chips">
+              <span>🛰 Wialon Local / Hosting</span>
+              <span>⚡ Виїзд сьогодні</span>
+              <span>🧪 Тест 14 днів</span>
+            </div>
             <div className="region-badges">
               {regions.map((region) => (
                 <button key={region.slug} type="button" onClick={() => navigate(`/${region.slug}/`)}>{region.city}</button>
@@ -371,6 +377,11 @@ function PainSection() {
           {painCards.map(([icon, title, text, cost]) => (
             <article className="pain-card" key={title}><div className="pain-icon">{icon}</div><h3>{title}</h3><p>{text}</p><strong>{cost}</strong></article>
           ))}
+        </div>
+        <div className="center-cta">
+          <button className="btn btn-primary" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>
+            Впізнали своїх водіїв? Порахуємо збитки →
+          </button>
         </div>
       </div>
     </section>
@@ -449,6 +460,13 @@ function WhySection() {
         <h2 className="title">Єдиний авторизований партнер Wialon на Заході України з виїздом сьогодні</h2>
         <p className="subtitle">Не чекайте тиждень на майстра з Києва або Черкас. Ми поруч.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+        <div className="partner-strip">
+          <div className="partner-logo">Wialon</div>
+          <div>
+            <b>Авторизований партнер Gurtam</b>
+            <span>Єдиний локальний партнер Wialon на Заході України з виїздом сьогодні</span>
+          </div>
+        </div>
         <div className="compare-wrap">
           <table><thead><tr><th>Параметр</th><th>Overseer</th><th>GPS Партнер</th><th>FreeTrack</th><th>КМ-Трейд ✓</th></tr></thead>
             <tbody>{comparison.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td className={index === 4 ? "best" : ""} key={`${row[0]}-${cell}`}>{cell}</td>)}</tr>)}</tbody>
