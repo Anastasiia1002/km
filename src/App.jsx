@@ -375,19 +375,46 @@ function TrustBar() {
 
 function PainSection() {
   return (
-    <section className="section">
+    <section className="section pain-section">
       <div className="container">
-        <div className="tag">⚠️ Болі клієнта</div>
-        <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
-        <p className="subtitle">Кожна проблема коштує бізнесу тисячі гривень на рік. Wialon робить маршрут, пальне і стиль водіння прозорими.</p>
+        <div className="pain-head">
+          <div className="pain-head-copy">
+            <div className="tag">⚠️ Болі клієнта</div>
+            <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
+            <p className="subtitle">
+              Кожна з цих проблем обходиться бізнесу в десятки тисяч гривень щороку.
+              Wialon робить маршрут, пальне і стиль водіння прозорими.
+            </p>
+          </div>
+          <div className="pain-summary">
+            <span className="pain-summary-label">Типові втрати без GPS</span>
+            <strong>до 17 000+ грн</strong>
+            <span className="pain-summary-note">на 1 авто на рік</span>
+          </div>
+        </div>
         <div className="pain-grid">
-          {painCards.map(([icon, title, text, cost]) => (
-            <article className="pain-card" key={title}><div className="pain-icon">{icon}</div><h3>{title}</h3><p>{text}</p><strong>{cost}</strong></article>
+          {painCards.map((card, index) => (
+            <article className={`pain-card pain-card-${card.tone}`} key={card.title}>
+              <span className="pain-index">{String(index + 1).padStart(2, "0")}</span>
+              <div className="pain-card-top">
+                <div className="pain-icon" aria-hidden="true">{card.icon}</div>
+                <h3>{card.title}</h3>
+              </div>
+              <p>{card.text}</p>
+              <div className="pain-cost">
+                <span>Вартість для вас</span>
+                <strong>{card.cost}</strong>
+              </div>
+            </article>
           ))}
         </div>
-        <div className="center-cta">
+        <div className="pain-cta-panel">
+          <div>
+            <b>Впізнали своїх водіїв?</b>
+            <p>Порахуємо реальні збитки для вашого автопарку за 1 хвилину.</p>
+          </div>
           <button className="btn btn-primary" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>
-            Впізнали своїх водіїв? Порахуємо збитки →
+            Порахувати збитки →
           </button>
         </div>
       </div>
