@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { articles, comparison, industries, painCards, prices, regions, site } from "./data.js";
+import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
   home: "/",
@@ -9,11 +10,6 @@ const routes = {
 function pushEvent(event, payload = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event, ...payload });
-}
-
-function normalizePath(pathname) {
-  if (pathname === "/") return "/";
-  return pathname.endsWith("/") ? pathname : `${pathname}/`;
 }
 
 function setMeta({ title, description, type = "website", path = "/" }) {
@@ -60,8 +56,23 @@ function App() {
       document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    window.history.pushState({}, "", href);
-    setPath(normalizePath(new URL(href, window.location.origin).pathname));
+
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      const targetPath = path ? withBase(path) : window.location.pathname;
+      if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
+        window.history.pushState({}, "", targetPath);
+        setPath(normalizePath(new URL(targetPath, window.location.origin).pathname));
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 80);
+        return;
+      }
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    const target = withBase(href);
+    window.history.pushState({}, "", target);
+    setPath(normalizePath(new URL(target, window.location.origin).pathname));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -168,8 +179,10 @@ function Header({ navigate }) {
     <header>
       <div className="container">
         <div className="header-inner">
-          <Logo navigate={navigate} />
-          <nav aria-label="Головна навігація">
+          <div className="header-brand">
+            <Logo navigate={navigate} />
+          </div>
+          <nav className="header-nav" aria-label="Головна навігація">
             <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
               {industries.slice(0, 6).map((item) => (
                 <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
@@ -203,9 +216,10 @@ function Header({ navigate }) {
           </nav>
           <div className="header-cta">
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
-              📞 {site.phoneDisplay}
+              <span className="header-phone-icon" aria-hidden="true">📞</span>
+              <span className="header-phone-text">{site.phoneDisplay}</span>
             </a>
-            <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary btn-header" type="button" onClick={() => scrollToForm()}>
               Залишити заявку
             </button>
           </div>
@@ -234,26 +248,29 @@ function Logo({ navigate }) {
 function Dropdown({ label, href, navigate, children }) {
   return (
     <div className="nav-dropdown">
-      <NavLink href={href} navigate={navigate}>{label}</NavLink>
+      <NavLink href={href} navigate={navigate} className="nav-link-has-menu">
+        <span>{label}</span>
+        <span className="nav-chevron" aria-hidden="true">▾</span>
+      </NavLink>
       <div className="dropdown-menu">{children}</div>
     </div>
   );
 }
 
-function NavLink({ href, navigate, children }) {
+function NavLink({ href, navigate, children, className = "" }) {
   return (
     <a
-      href={href}
+      className={`nav-link ${className}`.trim()}
+      href={withBase(href)}
       onClick={(event) => {
         event.preventDefault();
         if (href.includes("#")) {
           const [path, hash] = href.split("#");
           if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
-            navigate(path);
-            setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 80);
-          } else {
-            document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+            navigate(href);
+            return;
           }
+          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
           return;
         }
         navigate(href);
@@ -296,8 +313,14 @@ function Hero({ navigate }) {
             <h1>GPS-моніторинг автопарку на Заході України — <em>встановлення сьогодні</em></h1>
             <p className="hero-sub">
               КМ-Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по Чернівецькій,
-              Івано-Франківській, Тернопільській та Хмельницькій областях.
+              Івано-Франківській, Тернопільській та Хмельницькій областях і допомагаємо економити пальне,
+              контролювати маршрути та зменшувати втрати автопарку.
             </p>
+            <div className="hero-chips">
+              <span>🛰 Wialon Local / Hosting</span>
+              <span>⚡ Виїзд сьогодні</span>
+              <span>🧪 Тест 14 днів</span>
+            </div>
             <div className="region-badges">
               {regions.map((region) => (
                 <button key={region.slug} type="button" onClick={() => navigate(`/${region.slug}/`)}>{region.city}</button>
@@ -362,15 +385,47 @@ function TrustBar() {
 
 function PainSection() {
   return (
-    <section className="section">
+    <section className="section pain-section">
       <div className="container">
-        <div className="tag">⚠️ Болі клієнта</div>
-        <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
-        <p className="subtitle">Кожна проблема коштує бізнесу тисячі гривень на рік. Wialon робить маршрут, пальне і стиль водіння прозорими.</p>
+        <div className="pain-head">
+          <div className="pain-head-copy">
+            <div className="tag">⚠️ Болі клієнта</div>
+            <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
+            <p className="subtitle">
+              Кожна з цих проблем обходиться бізнесу в десятки тисяч гривень щороку.
+              Wialon робить маршрут, пальне і стиль водіння прозорими.
+            </p>
+          </div>
+          <div className="pain-summary">
+            <span className="pain-summary-label">Типові втрати без GPS</span>
+            <strong>до 17 000+ грн</strong>
+            <span className="pain-summary-note">на 1 авто на рік</span>
+          </div>
+        </div>
         <div className="pain-grid">
-          {painCards.map(([icon, title, text, cost]) => (
-            <article className="pain-card" key={title}><div className="pain-icon">{icon}</div><h3>{title}</h3><p>{text}</p><strong>{cost}</strong></article>
+          {painCards.map((card, index) => (
+            <article className={`pain-card pain-card-${card.tone}`} key={card.title}>
+              <span className="pain-index">{String(index + 1).padStart(2, "0")}</span>
+              <div className="pain-card-top">
+                <div className="pain-icon" aria-hidden="true">{card.icon}</div>
+                <h3>{card.title}</h3>
+              </div>
+              <p>{card.text}</p>
+              <div className="pain-cost">
+                <span>Вартість для вас</span>
+                <strong>{card.cost}</strong>
+              </div>
+            </article>
           ))}
+        </div>
+        <div className="pain-cta-panel">
+          <div>
+            <b>Впізнали своїх водіїв?</b>
+            <p>Порахуємо реальні збитки для вашого автопарку за 1 хвилину.</p>
+          </div>
+          <button className="btn btn-primary" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>
+            Порахувати збитки →
+          </button>
         </div>
       </div>
     </section>
@@ -449,6 +504,13 @@ function WhySection() {
         <h2 className="title">Єдиний авторизований партнер Wialon на Заході України з виїздом сьогодні</h2>
         <p className="subtitle">Не чекайте тиждень на майстра з Києва або Черкас. Ми поруч.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+        <div className="partner-strip">
+          <div className="partner-logo">Wialon</div>
+          <div>
+            <b>Авторизований партнер Gurtam</b>
+            <span>Єдиний локальний партнер Wialon на Заході України з виїздом сьогодні</span>
+          </div>
+        </div>
         <div className="compare-wrap">
           <table><thead><tr><th>Параметр</th><th>Overseer</th><th>GPS Партнер</th><th>FreeTrack</th><th>КМ-Трейд ✓</th></tr></thead>
             <tbody>{comparison.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td className={index === 4 ? "best" : ""} key={`${row[0]}-${cell}`}>{cell}</td>)}</tr>)}</tbody>
@@ -575,7 +637,7 @@ function RegionPage({ region, navigate }) {
 }
 
 function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><a href="/">Головна</a><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><a className="btn btn-outline" href="/#calc">Порахувати економію</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ-Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ-Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
 function BlogPage({ navigate }) {
@@ -587,7 +649,7 @@ function ArticlePage({ article, navigate }) {
 }
 
 function LegalPage({ title }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><a href="/">Головна</a><span>›</span>{title}</div><h1 className="title title-lg">{title}</h1><p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p></div></section><section className="section"><div className="container"><main className="article-body"><p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p></main></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{title}</div><h1 className="title title-lg">{title}</h1><p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p></div></section><section className="section"><div className="container"><main className="article-body"><p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p></main></div></section><TrialSection /></>;
 }
 
 function ArticleCard({ article, navigate }) {

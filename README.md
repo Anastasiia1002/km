@@ -34,7 +34,24 @@ npm run preview
 Локально відкривати після `npm run dev`:
 
 ```text
-http://localhost:5173
+http://localhost:5173/km/
+```
+
+## GitHub Pages
+
+Сайт автоматично деплоїться з гілки `main` через GitHub Actions.
+
+Публічна адреса:
+
+```text
+https://anastasiia1002.github.io/km/
+```
+
+Команди для production-збірки під GitHub Pages:
+
+```bash
+npm run build:pages
+npm run check
 ```
 
 ## Telegram-заявки
