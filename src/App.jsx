@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { articles, comparison, industries, painCards, prices, regions, site } from "./data.js";
+import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
   home: "/",
@@ -9,11 +10,6 @@ const routes = {
 function pushEvent(event, payload = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event, ...payload });
-}
-
-function normalizePath(pathname) {
-  if (pathname === "/") return "/";
-  return pathname.endsWith("/") ? pathname : `${pathname}/`;
 }
 
 function setMeta({ title, description, type = "website", path = "/" }) {
@@ -60,8 +56,23 @@ function App() {
       document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    window.history.pushState({}, "", href);
-    setPath(normalizePath(new URL(href, window.location.origin).pathname));
+
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      const targetPath = path ? withBase(path) : window.location.pathname;
+      if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
+        window.history.pushState({}, "", targetPath);
+        setPath(normalizePath(new URL(targetPath, window.location.origin).pathname));
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 80);
+        return;
+      }
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    const target = withBase(href);
+    window.history.pushState({}, "", target);
+    setPath(normalizePath(new URL(target, window.location.origin).pathname));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -250,17 +261,16 @@ function NavLink({ href, navigate, children, className = "" }) {
   return (
     <a
       className={`nav-link ${className}`.trim()}
-      href={href}
+      href={withBase(href)}
       onClick={(event) => {
         event.preventDefault();
         if (href.includes("#")) {
           const [path, hash] = href.split("#");
           if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
-            navigate(path);
-            setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 80);
-          } else {
-            document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+            navigate(href);
+            return;
           }
+          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
           return;
         }
         navigate(href);
@@ -627,7 +637,7 @@ function RegionPage({ region, navigate }) {
 }
 
 function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><a href="/">Головна</a><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><a className="btn btn-outline" href="/#calc">Порахувати економію</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ-Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ-Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
 function BlogPage({ navigate }) {
@@ -639,7 +649,7 @@ function ArticlePage({ article, navigate }) {
 }
 
 function LegalPage({ title }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><a href="/">Головна</a><span>›</span>{title}</div><h1 className="title title-lg">{title}</h1><p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p></div></section><section className="section"><div className="container"><main className="article-body"><p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p></main></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{title}</div><h1 className="title title-lg">{title}</h1><p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p></div></section><section className="section"><div className="container"><main className="article-body"><p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p></main></div></section><TrialSection /></>;
 }
 
 function ArticleCard({ article, navigate }) {

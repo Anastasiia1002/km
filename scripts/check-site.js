@@ -60,6 +60,7 @@ for (const file of requiredPublicFiles) {
 }
 
 await assertFile(distDir, "index.html");
+await assertFile(distDir, "404.html");
 
 const distFiles = await collectFiles(distDir);
 const jsBundles = distFiles.filter((file) => file.endsWith(".js"));
