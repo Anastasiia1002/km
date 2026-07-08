@@ -183,6 +183,14 @@ function Header({ navigate }) {
             <Logo navigate={navigate} />
           </div>
           <nav className="header-nav" aria-label="Головна навігація">
+            <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
+              {industries.slice(0, 6).map((item) => (
+                <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
+                  <span className="di">{item.icon}</span>
+                  {item.name}
+                </NavLink>
+              ))}
+            </Dropdown>
             <Dropdown label="Статті" href="/statti/" navigate={navigate}>
               <NavLink href="/statti/" navigate={navigate}>
                 <span className="di">📚</span>Всі статті
@@ -283,6 +291,7 @@ function HomePage({ navigate }) {
       <WhySection />
       <Cases />
       <Stats />
+      <Industries navigate={navigate} />
       <Regions navigate={navigate} />
       <HowItWorks />
       <Pricing />
@@ -526,6 +535,27 @@ function Stats() {
   return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>3 200+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>4 області</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
+function Industries({ navigate }) {
+  return (
+    <section className="section" id="industries">
+      <div className="container">
+        <div className="tag">🏭 Галузеві рішення</div>
+        <h2 className="title">GPS під ваш тип бізнесу</h2>
+        <p className="subtitle">Вантажівки, агро, таксі, ЖКГ та інші напрями — окремі сценарії контролю й звіти Wialon.</p>
+        <div className="industry-grid">
+          {industries.map((item) => (
+            <button className="industry-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}>
+              <span>{item.icon}</span>
+              <b>{item.name}</b>
+              <small>{item.short}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Regions({ navigate }) {
   return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо у 4 області Заходу України</h2><div className="grid-4">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Локальна SEO-сторінка →</small></button>)}</div></div></section>;
 }
@@ -653,6 +683,7 @@ function Footer({ navigate }) {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по 4 областях Заходу України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{site.phoneDisplay2}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
