@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { articles, comparison, industries, painCards, prices, regions, site } from "./data.js";
+import { articles, industries, painCards, prices, regions, site } from "./data.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
@@ -183,14 +183,6 @@ function Header({ navigate }) {
             <Logo navigate={navigate} />
           </div>
           <nav className="header-nav" aria-label="Головна навігація">
-            <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
-              {industries.slice(0, 6).map((item) => (
-                <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
-                  <span className="di">{item.icon}</span>
-                  {item.name}
-                </NavLink>
-              ))}
-            </Dropdown>
             <Dropdown label="Статті" href="/statti/" navigate={navigate}>
               <NavLink href="/statti/" navigate={navigate}>
                 <span className="di">📚</span>Всі статті
@@ -291,7 +283,6 @@ function HomePage({ navigate }) {
       <WhySection />
       <Cases />
       <Stats />
-      <Industries navigate={navigate} />
       <Regions navigate={navigate} />
       <HowItWorks />
       <Pricing />
@@ -511,11 +502,6 @@ function WhySection() {
             <span>Єдиний локальний партнер Wialon на Заході України з виїздом сьогодні</span>
           </div>
         </div>
-        <div className="compare-wrap">
-          <table><thead><tr><th>Параметр</th><th>Overseer</th><th>GPS Партнер</th><th>FreeTrack</th><th>КМ-Трейд ✓</th></tr></thead>
-            <tbody>{comparison.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td className={index === 4 ? "best" : ""} key={`${row[0]}-${cell}`}>{cell}</td>)}</tr>)}</tbody>
-          </table>
-        </div>
       </div>
     </section>
   );
@@ -538,10 +524,6 @@ function Cases() {
 
 function Stats() {
   return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>3 200+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>4 області</b><span>виїзд і сервіс</span></div></div></div></section>;
-}
-
-function Industries({ navigate }) {
-  return <section className="section" id="industries"><div className="container"><div className="tag">🏭 Галузеві рішення</div><h2 className="title">8 SEO-лендінгів під ваш бізнес</h2><div className="industry-grid">{industries.map((item) => <button className="industry-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b><small>{item.short}</small></button>)}</div></div></section>;
 }
 
 function Regions({ navigate }) {
@@ -671,7 +653,6 @@ function Footer({ navigate }) {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по 4 областях Заходу України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{site.phoneDisplay2}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
-            <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
