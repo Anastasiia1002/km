@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momploy Banner — Accordion Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <p class="eyebrow">Momploy Banner</p>
+        <h1>Hover or tap a panel to expand it</h1>
+        <p class="page-note">Desktop: hover interaction. Mobile: tap to open a section.</p>
+      </header>
+
+      <section class="accordion" id="accordion" aria-label="Momploy audience panels">
+        <article class="card is-active" data-index="0" data-label="For Employer">
+          <div class="card-blob card-blob--blue" aria-hidden="true"></div>
+          <div class="card-blob card-blob--violet" aria-hidden="true"></div>
+
+          <button class="card-tab" type="button" aria-expanded="true">
+            <span class="card-tab-label">For Employer</span>
+          </button>
+
+          <div class="card-panel">
+            <div class="card-content">
+              <h2>For Employer</h2>
+              <p class="card-lead">Hiring part-time shouldn't take full-time effort.</p>
+              <ul class="card-list">
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Ever wished you could hire someone for just a few hours a week? But still wanted someone experienced, reliable, and qualified?</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Select the skills you need and get matched instantly with hundreds of local parents.</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Post a job and receive direct applications from parents who match your criteria.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="card-media">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=640&q=80"
+                alt="Employer working on a laptop"
+                width="320"
+                height="400"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-index="1" data-label="Match">
+          <div class="card-blob card-blob--cyan" aria-hidden="true"></div>
+          <div class="card-blob card-blob--indigo" aria-hidden="true"></div>
+
+          <button class="card-tab" type="button" aria-expanded="false">
+            <span class="card-tab-label">Match</span>
+          </button>
+
+          <div class="card-panel">
+            <div class="card-content">
+              <h2>Match</h2>
+              <p class="card-lead">Smart matching connects the right parent to the right role in minutes.</p>
+              <ul class="card-list">
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Filter by skills, availability, location, and experience level in one place.</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>See verified profiles with ratings, references, and work history.</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Chat, schedule interviews, and hire faster with built-in tools.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="card-media">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=640&q=80"
+                alt="Team matching and collaboration"
+                width="320"
+                height="400"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-index="2" data-label="For Parents">
+          <div class="card-blob card-blob--purple" aria-hidden="true"></div>
+          <div class="card-blob card-blob--pink" aria-hidden="true"></div>
+
+          <button class="card-tab" type="button" aria-expanded="false">
+            <span class="card-tab-label">For Parents</span>
+          </button>
+
+          <div class="card-panel">
+            <div class="card-content">
+              <h2>For Parents</h2>
+              <p class="card-lead">Flexible work that fits around family life — on your terms.</p>
+              <ul class="card-list">
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Choose hours that work for you — mornings, afternoons, or a few days a week.</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Apply to local employers who value experience and reliability.</span>
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"></span>
+                  <span>Build a profile once and get matched to roles that fit your skills.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="card-media">
+              <img
+                src="https://images.unsplash.com/photo-1581578731544-c64695cc6952?auto=format&fit=crop&w=640&q=80"
+                alt="Parent working flexibly from home"
+                width="320"
+                height="400"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
