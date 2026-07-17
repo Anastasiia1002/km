@@ -332,7 +332,7 @@ function Hero({ navigate }) {
             <p className="hero-price">Від <strong>250 грн / авто / місяць</strong> · Виїзд сьогодні або завтра</p>
             <div className="hero-stats">
               <div><b>350+</b><span>Клієнтів</span></div>
-              <div><b>3 200+</b><span>Авто обслужено</span></div>
+              <div><b>4 000+</b><span>Авто обслужено</span></div>
               <div><b>10 р.</b><span>Досвіду</span></div>
               <div><b>{regionCount} обл.</b><span>Покриття</span></div>
             </div>
@@ -531,7 +531,7 @@ function Cases() {
 }
 
 function Stats() {
-  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>3 200+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div></div></div></section>;
+  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4 000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
 function Industries({ navigate }) {
