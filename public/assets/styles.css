@@ -1890,18 +1890,18 @@ tr:last-child td {
 }
 
 .phone-prefix {
-  font-weight: 400 !important;
-  opacity: 0.72;
+  font-weight: 500;
+  font-size: 18px;
+  opacity: 1;
 }
 
 .contact-card .phone-accent,
 .footer-phone .phone-accent,
 .header-phone .phone-accent {
   display: inline;
-  font-family: "Space Grotesk", Manrope, sans-serif;
-  font-weight: 800 !important;
-  font-size: 1.18em;
-  letter-spacing: 0.03em;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
   opacity: 1;
   color: #fff;
 }
