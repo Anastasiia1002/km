@@ -347,19 +347,53 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 8px 0;
+  padding: 4px 0;
   border-bottom: 1px solid rgba(216, 224, 240, 0.7);
 }
 
-.header-mobile-label,
-.header-mobile-link-parent {
+.header-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header-mobile-toggle:hover {
+  background: rgba(27, 79, 216, 0.07);
+  color: var(--blue);
+}
+
+.header-mobile-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  margin: 0 0 6px;
-  padding: 0 4px;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.header-mobile-group.is-open .header-mobile-chevron {
+  transform: rotate(180deg);
+}
+
+.header-mobile-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0 6px;
 }
 
 .header-mobile-nav .header-mobile-link,
@@ -388,16 +422,6 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   font-weight: 600;
   color: var(--text-secondary);
   padding-left: 16px;
-}
-
-.header-mobile-nav .header-mobile-link-parent.nav-link {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 12px;
-  font-weight: 800;
-  min-height: auto;
-  padding: 4px;
-  color: var(--text-secondary);
 }
 
 .header-mobile-actions {
