@@ -1877,9 +1877,15 @@ tr:last-child td {
   position: relative;
 }
 
-.contact-card p {
+.contact-card p,
+.contact-card .contact-address {
   color: rgba(255, 255, 255, 0.68);
   margin: 0;
+}
+
+.contact-card .contact-address:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 .contact-card a:not(.btn) {

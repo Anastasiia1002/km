@@ -659,7 +659,15 @@ function ContactCard() {
   return (
     <div className="contact-card">
       <h3>Контакти</h3>
-      <p>м. Чернівці, вул. Фастівська 30в — головний офіс</p>
+      <a
+        className="contact-address"
+        href={site.mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => pushEvent("Contact", { type: "address" })}
+      >
+        {site.address}
+      </a>
       <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>{formatPhoneLabel(site.phoneDisplay2)}</a>
       <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>{formatPhoneLabel(site.phoneDisplay)}</a>
       <a href={`mailto:${site.email}`}>{site.email}</a>

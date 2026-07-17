@@ -4,7 +4,11 @@ export const site = {
   phoneSecondary: "+380950584385",
   phoneDisplay: "+38 096 158-43-85",
   phoneDisplay2: "+38 095 058-43-85",
-  email: "info@km-trade.net",
+  email: "gps@km-trade.net",
+  address: "м. Чернівці, вул. Фастівська 30в — головний офіс",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("Чернівці, вул. Фастівська 30в"),
 };
 
 export const regions = [
