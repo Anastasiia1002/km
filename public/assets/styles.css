@@ -1898,19 +1898,8 @@ tr:last-child td {
 
 .phone-prefix {
   font: inherit;
-  font-weight: 500;
-}
-
-.contact-card .phone-prefix {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.header-phone .phone-prefix {
-  color: color-mix(in srgb, currentColor 80%, transparent);
-}
-
-.footer-phone .phone-prefix {
-  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 .contact-card .phone-accent,
