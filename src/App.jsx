@@ -251,10 +251,17 @@ function Header({ navigate }) {
   );
 }
 
-function Logo({ navigate }) {
+function Logo({ navigate, variant = "default" }) {
+  const src = variant === "light" ? "/assets/logo-light.png" : "/assets/logo.png";
   return (
     <button className="logo logo-button" type="button" onClick={() => navigate("/")}>
-      <img className="logo-img" src={withBase("/assets/logo.svg")} alt="КМ Трейд — GPS моніторинг" width="168" height="42" />
+      <img
+        className={`logo-img${variant === "light" ? " logo-img-light" : ""}`}
+        src={withBase(src)}
+        alt="КМ Трейд — GPS моніторинг"
+        width="168"
+        height="42"
+      />
     </button>
   );
 }
@@ -760,7 +767,7 @@ function Footer({ navigate }) {
       <footer id="contacts">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <div className="footer-brand"><Logo navigate={navigate} variant="light" /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
