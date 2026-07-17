@@ -209,8 +209,9 @@ header {
   position: sticky;
   top: 0;
   z-index: 1002;
-  background: var(--glass);
-  backdrop-filter: blur(18px) saturate(160%);
+  background: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(216, 224, 240, 0.65);
   box-shadow: 0 8px 30px rgba(7, 20, 40, 0.04);
 }
