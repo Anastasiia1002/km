@@ -640,7 +640,7 @@ function TestimonialsNotice() {
 }
 
 function About() {
-  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, підтримка 24/7 і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
+  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, підтримка 24/7 і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div></div></div><ContactCard /></div></div></section>;
 }
 
 function formatPhoneLabel(display) {
