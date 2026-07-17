@@ -351,7 +351,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   flex-direction: column;
   gap: 4px;
   min-height: 100%;
-  padding: 16px 0 max(32px, env(safe-area-inset-bottom));
+  padding: 16px 0 max(24px, env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 
@@ -360,7 +360,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   flex-direction: column;
   gap: 2px;
   padding: 4px 0;
-  border-bottom: 1px solid rgba(216, 224, 240, 0.7);
+  border-bottom: 0;
 }
 
 .header-mobile-toggle {
@@ -440,7 +440,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 16px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.header-mobile-phones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .header-mobile-phone {

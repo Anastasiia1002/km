@@ -472,10 +472,18 @@ function Header({ navigate }) {
                       </div>
                     ) : null}
                   </div>
+                  <NavLink href="/#about" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+                    Контакти
+                  </NavLink>
                   <div className="header-mobile-actions">
-                    <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
-                      {formatPhoneLabel(site.phoneDisplay)}
-                    </a>
+                    <div className="header-mobile-phones">
+                      <a className="header-mobile-phone" href={`tel:${site.phoneSecondary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
+                        {formatPhoneLabel(site.phoneDisplay2)}
+                      </a>
+                      <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
+                        {formatPhoneLabel(site.phoneDisplay)}
+                      </a>
+                    </div>
                     <button className="btn btn-primary" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
                       Залишити заявку
                     </button>
