@@ -217,7 +217,7 @@ function Header({ navigate }) {
           <div className="header-cta">
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
               <span className="header-phone-icon" aria-hidden="true">📞</span>
-              <span className="header-phone-text">{site.phoneDisplay}</span>
+              <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
             </a>
             <button className="btn btn-primary btn-header" type="button" onClick={() => scrollToForm()}>
               Залишити заявку
@@ -643,8 +643,29 @@ function About() {
   return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, підтримка 24/7 і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
 }
 
+function formatPhoneLabel(display) {
+  if (!display.includes("158-43-85")) return display;
+  const [prefix, accent] = display.split("158-43-85");
+  return (
+    <>
+      {prefix}
+      <strong className="phone-accent">158-43-85</strong>
+      {accent}
+    </>
+  );
+}
+
 function ContactCard() {
-  return <div className="contact-card"><h3>Контакти</h3><p>м. Чернівці, головний офіс</p><a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>{site.phoneDisplay}</a><a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>{site.phoneDisplay2}</a><a href={`mailto:${site.email}`}>{site.email}</a><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button></div>;
+  return (
+    <div className="contact-card">
+      <h3>Контакти</h3>
+      <p>м. Чернівці, вул. Фастівська 30в — головний офіс</p>
+      <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>{formatPhoneLabel(site.phoneDisplay2)}</a>
+      <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>{formatPhoneLabel(site.phoneDisplay)}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
+    </div>
+  );
 }
 
 function BlogPreview({ navigate }) {
@@ -689,7 +710,7 @@ function Footer({ navigate }) {
       <footer id="contacts">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{site.phoneDisplay2}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
