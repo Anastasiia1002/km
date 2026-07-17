@@ -1884,24 +1884,26 @@ tr:last-child td {
 .contact-card a:not(.btn) {
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
   letter-spacing: 0.01em;
 }
 
 .phone-prefix {
-  font-weight: 500;
-  opacity: 0.78;
+  font-weight: 400 !important;
+  opacity: 0.72;
 }
 
 .contact-card .phone-accent,
 .footer-phone .phone-accent,
 .header-phone .phone-accent {
+  display: inline;
   font-family: "Space Grotesk", Manrope, sans-serif;
-  font-weight: 800;
-  font-size: 1.12em;
-  letter-spacing: 0.02em;
+  font-weight: 800 !important;
+  font-size: 1.18em;
+  letter-spacing: 0.03em;
   opacity: 1;
+  color: #fff;
 }
 
 .contact-card .btn {

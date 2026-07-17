@@ -644,12 +644,14 @@ function About() {
 }
 
 function formatPhoneLabel(display) {
-  if (!display.includes("158-43-85")) return display;
-  const [prefix] = display.split("158-43-85");
+  const match = display.match(/^(.*?)(\d{3}-\d{2}-\d{2})$/);
+  if (!match) return display;
+  const [, prefix, number] = match;
+  const isAccent = number === "158-43-85";
   return (
     <>
       <span className="phone-prefix">{prefix}</span>
-      <strong className="phone-accent">158-43-85</strong>
+      <span className={isAccent ? "phone-accent" : undefined}>{number}</span>
     </>
   );
 }
