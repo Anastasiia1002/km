@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host 127.0.0.1 --port 5173",
+    "dev:network": "vite --host 0.0.0.0 --port 5173",
     "dev:root": "VITE_BASE=/ vite --host 0.0.0.0",
     "build": "vite build",
     "build:pages": "VITE_BASE=/km/ vite build",
@@ -12,7 +13,7 @@
     "check": "node scripts/check-site.js"
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=20"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^6.0.2",
