@@ -564,7 +564,7 @@ function Industries({ navigate }) {
 }
 
 function Regions({ navigate }) {
-  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо у {regionCount} областей України</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
+  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо на Зх. Укр. + Київ</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
 }
 
 function HowItWorks() {
