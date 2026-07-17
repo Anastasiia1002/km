@@ -623,6 +623,10 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   white-space: nowrap;
 }
 
+.btn-header-short {
+  display: none;
+}
+
 .hero {
   padding: 96px 0 108px;
   background: var(--gradient-hero);
@@ -2614,8 +2618,8 @@ button {
 
 @media (max-width: 1123px) {
   .header-inner {
-    grid-template-columns: auto 1fr auto;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
   }
 
   .header-nav {
@@ -2626,14 +2630,29 @@ button {
     display: inline-flex;
   }
 
+  .header-cta {
+    gap: 6px;
+  }
+
   .header-phone-text {
     display: none;
   }
 
   .header-phone {
     width: 44px;
+    min-width: 44px;
     justify-content: center;
     padding: 0;
+    flex-shrink: 0;
+  }
+
+  .btn-header {
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .logo-img {
+    height: 38px;
   }
 }
 
@@ -2700,10 +2719,6 @@ button {
     display: flex;
   }
 
-  .header-cta .btn {
-    display: none;
-  }
-
   .section {
     padding: 72px 0;
   }
@@ -2719,8 +2734,42 @@ button {
     padding: 0 18px;
   }
 
+  .header-inner {
+    gap: 8px;
+  }
+
+  .header-cta {
+    gap: 4px;
+  }
+
   .header-phone {
+    display: inline-flex;
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .btn-header {
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .btn-header-full {
     display: none;
+  }
+
+  .btn-header-short {
+    display: inline;
+  }
+
+  .header-burger {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-img {
+    height: 34px;
   }
 
   .hero {
