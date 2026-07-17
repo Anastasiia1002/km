@@ -531,7 +531,7 @@ function Cases() {
 }
 
 function Stats() {
-  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4 000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div></div></div></section>;
+  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4 000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount}&nbsp;областей</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
 function Industries({ navigate }) {
