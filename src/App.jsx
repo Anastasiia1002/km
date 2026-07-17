@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { articles, industries, painCards, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { normalizePath, withBase } from "./lib/routes.js";
@@ -206,6 +206,17 @@ function renderPage(page, navigate) {
 function Header({ navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const syncHeaderOffset = () => {
+      const height = headerRef.current?.offsetHeight || 76;
+      document.documentElement.style.setProperty("--header-offset", `${height}px`);
+    };
+    syncHeaderOffset();
+    window.addEventListener("resize", syncHeaderOffset);
+    return () => window.removeEventListener("resize", syncHeaderOffset);
+  }, [menuOpen]);
 
   useEffect(() => {
     const onResize = () => {
@@ -216,16 +227,29 @@ function Header({ navigate }) {
     };
     window.addEventListener("resize", onResize);
     window.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
     };
-  }, [menuOpen]);
+  }, []);
 
   useEffect(() => {
-    if (!menuOpen) setOpenSection(null);
+    if (!menuOpen) {
+      setOpenSection(null);
+      return undefined;
+    }
+
+    const scrollY = window.scrollY;
+    document.documentElement.classList.add("is-mobile-menu-open");
+    document.body.classList.add("is-mobile-menu-open");
+    document.body.style.top = `-${scrollY}px`;
+
+    return () => {
+      document.documentElement.classList.remove("is-mobile-menu-open");
+      document.body.classList.remove("is-mobile-menu-open");
+      document.body.style.top = "";
+      window.scrollTo(0, scrollY);
+    };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -235,7 +259,7 @@ function Header({ navigate }) {
   };
 
   return (
-    <header className={menuOpen ? "is-menu-open" : undefined}>
+    <header ref={headerRef} className={menuOpen ? "is-menu-open" : undefined}>
       <div className="container">
         <div className="header-inner">
           <div className="header-brand">
@@ -435,7 +459,6 @@ function Header({ navigate }) {
               </nav>
             </div>
           </div>
-          <button className="header-mobile-backdrop" type="button" aria-label="Закрити меню" onClick={closeMenu} />
         </>
       ) : null}
     </header>
