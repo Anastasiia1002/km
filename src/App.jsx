@@ -187,39 +187,54 @@ function Header({ navigate }) {
             <Logo navigate={navigate} />
           </div>
           <nav className="header-nav" aria-label="Головна навігація">
-            <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
-              {industries.slice(0, 6).map((item) => (
-                <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
-                  <span className="di">{item.icon}</span>
-                  {item.name}
+            <div className="header-quick">
+              <div className="nav-dropdown">
+                <span className="nav-link nav-link-has-menu header-quick-link" role="button" tabIndex={0}>
+                  <span>Wialon</span>
+                  <span className="nav-chevron" aria-hidden="true">▾</span>
+                </span>
+                <div className="dropdown-menu">
+                  <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer">
+                    <span className="di">🛰</span>Wialon Local
+                  </a>
+                  <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer">
+                    <span className="di">☁️</span>Wialon Hosting
+                  </a>
+                </div>
+              </div>
+              <NavLink href="/oferta/" navigate={navigate} className="header-quick-link">Оферта</NavLink>
+            </div>
+            <div className="header-nav-main">
+              <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
+                {industries.slice(0, 6).map((item) => (
+                  <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
+                    <span className="di">{item.icon}</span>
+                    {item.name}
+                  </NavLink>
+                ))}
+              </Dropdown>
+              <Dropdown label="Статті" href="/statti/" navigate={navigate}>
+                <NavLink href="/statti/" navigate={navigate}>
+                  <span className="di">📚</span>Всі статті
                 </NavLink>
-              ))}
-            </Dropdown>
-            <Dropdown label="Статті" href="/statti/" navigate={navigate}>
-              <NavLink href="/statti/" navigate={navigate}>
-                <span className="di">📚</span>Всі статті
-              </NavLink>
-              {articles.slice(0, 3).map((item) => (
-                <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate}>
-                  <span className="di">{item.icon}</span>
-                  {item.category}
-                </NavLink>
-              ))}
-            </Dropdown>
-            <NavLink href="/#pricing" navigate={navigate}>Ціни</NavLink>
-            <NavLink href="/#cases" navigate={navigate}>Кейси</NavLink>
-            <Dropdown label="Регіони" href="/#regions" navigate={navigate}>
-              {regions.map((region) => (
-                <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate}>
-                  <span className="di">📍</span>
-                  {region.city}
-                </NavLink>
-              ))}
-            </Dropdown>
-            <NavLink href="/#contacts" navigate={navigate}>Контакти</NavLink>
-            <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer">Wialon Local</a>
-            <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer">Wialon Hosting</a>
-            <NavLink href="/oferta/" navigate={navigate}>Оферта</NavLink>
+                {articles.slice(0, 3).map((item) => (
+                  <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate}>
+                    <span className="di">{item.icon}</span>
+                    {item.category}
+                  </NavLink>
+                ))}
+              </Dropdown>
+              <NavLink href="/#pricing" navigate={navigate}>Ціни</NavLink>
+              <NavLink href="/#cases" navigate={navigate}>Кейси</NavLink>
+              <Dropdown label="Регіони" href="/#regions" navigate={navigate}>
+                {regions.map((region) => (
+                  <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate}>
+                    <span className="di">📍</span>
+                    {region.city}
+                  </NavLink>
+                ))}
+              </Dropdown>
+            </div>
           </nav>
           <div className="header-cta">
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
