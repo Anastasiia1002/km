@@ -205,6 +205,7 @@ function renderPage(page, navigate) {
 
 function Header({ navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
 
   useEffect(() => {
     const onResize = () => {
@@ -223,7 +224,15 @@ function Header({ navigate }) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!menuOpen) setOpenSection(null);
+  }, [menuOpen]);
+
   const closeMenu = () => setMenuOpen(false);
+
+  const toggleSection = (section) => {
+    setOpenSection((current) => (current === section ? null : section));
+  };
 
   return (
     <header className={menuOpen ? "is-menu-open" : undefined}>
@@ -319,39 +328,74 @@ function Header({ navigate }) {
           <div id="header-mobile-menu" className="header-mobile is-open">
             <div className="container">
               <nav className="header-mobile-nav" aria-label="Мобільна навігація">
-                <div className="header-mobile-group">
-                  <p className="header-mobile-label">Wialon</p>
-                  <a className="header-mobile-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
-                    <span className="di">🛰</span>Wialon Local
-                  </a>
-                  <a className="header-mobile-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
-                    <span className="di">☁️</span>Wialon Hosting
-                  </a>
+                <div className={`header-mobile-group${openSection === "wialon" ? " is-open" : ""}`}>
+                  <button
+                    className="header-mobile-toggle"
+                    type="button"
+                    aria-expanded={openSection === "wialon"}
+                    onClick={() => toggleSection("wialon")}
+                  >
+                    <span>Wialon</span>
+                    <span className="header-mobile-chevron" aria-hidden="true">▾</span>
+                  </button>
+                  {openSection === "wialon" ? (
+                    <div className="header-mobile-panel">
+                      <a className="header-mobile-link header-mobile-sublink" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                        <span className="di">🛰</span>Wialon Local
+                      </a>
+                      <a className="header-mobile-link header-mobile-sublink" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                        <span className="di">☁️</span>Wialon Hosting
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
                 <NavLink href="/oferta/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
                   Оферта
                 </NavLink>
-                <div className="header-mobile-group">
-                  <NavLink href="/#industries" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                    Рішення
-                  </NavLink>
-                  {industries.slice(0, 6).map((item) => (
-                    <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                      <span className="di">{item.icon}</span>
-                      {item.name}
-                    </NavLink>
-                  ))}
+                <div className={`header-mobile-group${openSection === "solutions" ? " is-open" : ""}`}>
+                  <button
+                    className="header-mobile-toggle"
+                    type="button"
+                    aria-expanded={openSection === "solutions"}
+                    onClick={() => toggleSection("solutions")}
+                  >
+                    <span>Рішення</span>
+                    <span className="header-mobile-chevron" aria-hidden="true">▾</span>
+                  </button>
+                  {openSection === "solutions" ? (
+                    <div className="header-mobile-panel">
+                      {industries.slice(0, 6).map((item) => (
+                        <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                          <span className="di">{item.icon}</span>
+                          {item.name}
+                        </NavLink>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
-                <div className="header-mobile-group">
-                  <NavLink href="/statti/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                    Статті
-                  </NavLink>
-                  {articles.slice(0, 3).map((item) => (
-                    <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                      <span className="di">{item.icon}</span>
-                      {item.category}
-                    </NavLink>
-                  ))}
+                <div className={`header-mobile-group${openSection === "articles" ? " is-open" : ""}`}>
+                  <button
+                    className="header-mobile-toggle"
+                    type="button"
+                    aria-expanded={openSection === "articles"}
+                    onClick={() => toggleSection("articles")}
+                  >
+                    <span>Статті</span>
+                    <span className="header-mobile-chevron" aria-hidden="true">▾</span>
+                  </button>
+                  {openSection === "articles" ? (
+                    <div className="header-mobile-panel">
+                      <NavLink href="/statti/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                        <span className="di">📚</span>Всі статті
+                      </NavLink>
+                      {articles.slice(0, 3).map((item) => (
+                        <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                          <span className="di">{item.icon}</span>
+                          {item.category}
+                        </NavLink>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <NavLink href="/#pricing" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
                   Ціни
@@ -359,16 +403,26 @@ function Header({ navigate }) {
                 <NavLink href="/#cases" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
                   Кейси
                 </NavLink>
-                <div className="header-mobile-group">
-                  <NavLink href="/#regions" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                    Регіони
-                  </NavLink>
-                  {regions.map((region) => (
-                    <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                      <span className="di">📍</span>
-                      {region.city}
-                    </NavLink>
-                  ))}
+                <div className={`header-mobile-group${openSection === "regions" ? " is-open" : ""}`}>
+                  <button
+                    className="header-mobile-toggle"
+                    type="button"
+                    aria-expanded={openSection === "regions"}
+                    onClick={() => toggleSection("regions")}
+                  >
+                    <span>Регіони</span>
+                    <span className="header-mobile-chevron" aria-hidden="true">▾</span>
+                  </button>
+                  {openSection === "regions" ? (
+                    <div className="header-mobile-panel">
+                      {regions.map((region) => (
+                        <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                          <span className="di">📍</span>
+                          {region.city}
+                        </NavLink>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <div className="header-mobile-actions">
                   <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
