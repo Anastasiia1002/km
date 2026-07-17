@@ -578,7 +578,7 @@ function Pricing() {
 }
 
 function TrialSection({ region = "" }) {
-  return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо на 1 авто без оплати. Ви побачите маршрути, витрати, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Підтримка 24/7</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
+  return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо тільки трекер маршруту на 1 авто без оплати. Ви побачите маршрути, витрати, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Підтримка 24/7</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
 }
 
 function LeadForm({ region = "" }) {
