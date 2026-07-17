@@ -500,7 +500,7 @@ function WhySection() {
     <section className="section" id="why">
       <div className="container">
         <div className="tag">✓ Чому КМ-Трейд</div>
-        <h2 className="title">Єдиний авторизований партнер Wialon на Заході України з виїздом сьогодні</h2>
+        <h2 className="title">Авторизований партнер Wialon на Заході України та в Києві з виїздом сьогодні</h2>
         <p className="subtitle">Не чекайте тиждень на майстра з Києва або Черкас. Ми поруч.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
