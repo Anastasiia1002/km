@@ -356,7 +356,24 @@ function Header({ navigate }) {
       </div>
       {menuOpen
         ? createPortal(
-            <div id="header-mobile-menu" className="header-mobile is-open">
+            <div
+              id="header-mobile-menu"
+              className="header-mobile is-open"
+              style={{
+                display: "block",
+                position: "fixed",
+                top: "var(--header-offset, 56px)",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 10050,
+                width: "100%",
+                background: "#fff",
+                overflowX: "hidden",
+                overflowY: "auto",
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
               <div className="container">
                 <nav className="header-mobile-nav" aria-label="Мобільна навігація">
                   <div className={`header-mobile-group${openSection === "wialon" ? " is-open" : ""}`}>
