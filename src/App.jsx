@@ -209,7 +209,6 @@ function Header({ navigate }) {
   const [openSection, setOpenSection] = useState(null);
   const headerRef = useRef(null);
   const afterCloseRef = useRef(null);
-  const skipScrollRestoreRef = useRef(false);
 
   useEffect(() => {
     const syncHeaderOffset = () => {
@@ -246,7 +245,6 @@ function Header({ navigate }) {
       return () => window.clearTimeout(timer);
     }
 
-    const scrollY = window.scrollY;
     document.documentElement.classList.add("is-mobile-menu-open");
     document.body.classList.add("is-mobile-menu-open");
 
@@ -260,16 +258,11 @@ function Header({ navigate }) {
       document.documentElement.classList.remove("is-mobile-menu-open");
       document.body.classList.remove("is-mobile-menu-open");
       document.removeEventListener("touchmove", preventTouchMove);
-      if (!skipScrollRestoreRef.current) {
-        window.scrollTo(0, scrollY);
-      }
-      skipScrollRestoreRef.current = false;
     };
   }, [menuOpen]);
 
   const closeMenu = (afterClose) => {
     if (typeof afterClose === "function") {
-      skipScrollRestoreRef.current = true;
       afterCloseRef.current = afterClose;
     }
     setMenuOpen(false);
