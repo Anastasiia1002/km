@@ -291,9 +291,9 @@ header {
   justify-content: center;
   gap: 4px;
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 10px;
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1;
   color: var(--text-secondary);
@@ -1925,6 +1925,25 @@ tr:last-child td {
   padding: 72px 0 60px;
   background: linear-gradient(180deg, #f7f9ff 0%, #fff 100%);
   border-bottom: 1px solid rgba(216, 224, 240, 0.9);
+}
+
+.legal-body {
+  max-width: 860px;
+}
+
+.legal-body .legal-doc-title {
+  font-size: clamp(24px, 3vw, 34px);
+  margin-top: 0;
+}
+
+.legal-body h2 {
+  margin-top: 36px;
+}
+
+.legal-body p,
+.legal-body li {
+  color: var(--text-secondary);
+  line-height: 1.75;
 }
 
 .breadcrumb {
