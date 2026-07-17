@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { articles, industries, painCards, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
+import { OfertaContent } from "./content/oferta.jsx";
 import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
@@ -140,13 +141,16 @@ function resolvePage(path) {
   }
 
   if (path === "/oferta/" || path === "/konfidentsiynist/") {
-    const title = path === "/oferta/" ? "Оферта" : "Політика конфіденційності";
+    const isOferta = path === "/oferta/";
+    const title = isOferta ? "Оферта" : "Політика конфіденційності";
     return {
       type: "legal",
-      data: { title },
+      data: { title, kind: isOferta ? "oferta" : "privacy" },
       meta: {
         title: `${title} — КМ-Трейд`,
-        description: `${title} КМ-Трейд. Текст потребує юридичного погодження перед production-запуском.`,
+        description: isOferta
+          ? "Договір публічної оферти на платне надання послуг GPS моніторингу КМ-Трейд."
+          : `${title} КМ-Трейд. Текст потребує юридичного погодження перед production-запуском.`,
         type: "website",
         path,
       },
@@ -170,7 +174,7 @@ function renderPage(page, navigate) {
   if (page.type === "industry") return <IndustryPage industry={page.data} navigate={navigate} />;
   if (page.type === "blog") return <BlogPage navigate={navigate} />;
   if (page.type === "article") return <ArticlePage article={page.data} navigate={navigate} />;
-  if (page.type === "legal") return <LegalPage title={page.data.title} />;
+  if (page.type === "legal") return <LegalPage title={page.data.title} kind={page.data.kind} navigate={navigate} />;
   return <HomePage navigate={navigate} />;
 }
 
@@ -213,6 +217,9 @@ function Header({ navigate }) {
               ))}
             </Dropdown>
             <NavLink href="/#contacts" navigate={navigate}>Контакти</NavLink>
+            <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer">Wialon Local</a>
+            <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer">Wialon Hosting</a>
+            <NavLink href="/oferta/" navigate={navigate}>Оферта</NavLink>
           </nav>
           <div className="header-cta">
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
@@ -696,8 +703,36 @@ function ArticlePage({ article, navigate }) {
   return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/statti/")}>Статті</button><span>›</span>{article.category}</div><div className="article-meta"><span>{article.category}</span><small>{article.date} · 5 хв читання</small></div><h1 className="title title-lg">{article.title}</h1></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><p className="lead">{article.excerpt}</p><h2>Що важливо знати</h2><p>{article.description}</p><h2>Як допомагає Wialon</h2><ul><li>Показує транспорт онлайн і зберігає історію маршрутів.</li><li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li><li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li></ul><CtaBox title="Хочете перевірити це на своєму автопарку?" /><h2>Читайте також</h2><div className="related-articles">{articles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/statti/${item.slug}/`)}><span>{item.icon}</span><b>{item.title}</b></button>)}</div></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
-function LegalPage({ title }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{title}</div><h1 className="title title-lg">{title}</h1><p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p></div></section><section className="section"><div className="container"><main className="article-body"><p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p></main></div></section><TrialSection /></>;
+function LegalPage({ title, kind, navigate }) {
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <span>›</span>
+            {title}
+          </div>
+          <h1 className="title title-lg">{title}</h1>
+          {kind !== "oferta" && (
+            <p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p>
+          )}
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <main className="article-body legal-body">
+            {kind === "oferta" ? (
+              <OfertaContent />
+            ) : (
+              <p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p>
+            )}
+          </main>
+        </div>
+      </section>
+      <TrialSection />
+    </>
+  );
 }
 
 function ArticleCard({ article, navigate }) {
