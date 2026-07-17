@@ -367,16 +367,24 @@ function Mockup() {
 }
 
 function TrustBar() {
+  const items = [
+    ["📍", `${regionCount} областей покриття`],
+    ["🛰", "Партнер Gurtam (Wialon)"],
+    ["⚡", "Встановлення за 1 день"],
+    ["🔧", "Підтримка 24/7"],
+    ["✅", "10 років досвіду"],
+  ];
   return (
     <div className="trust-bar">
       <div className="container">
-        <div className="trust-bar-inner">
-          <span>📍 {regionCitiesLine}</span>
-          <span>🛰 Авторизований партнер Gurtam (Wialon)</span>
-          <span>⚡ Встановлення за 1 день</span>
-          <span>🔧 Підтримка 24/7</span>
-          <span>✅ 10 років досвіду</span>
-        </div>
+        <ul className="trust-bar-inner">
+          {items.map(([icon, label]) => (
+            <li key={label}>
+              <span aria-hidden="true">{icon}</span>
+              {label}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

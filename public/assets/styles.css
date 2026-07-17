@@ -814,30 +814,39 @@ header {
 
 .trust-bar {
   background: var(--gradient-dark);
-  padding: 24px 0;
+  padding: 22px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .trust-bar-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 13px;
-  font-weight: 700;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.trust-bar-inner span {
-  display: inline-flex;
+.trust-bar-inner li {
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 48px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.trust-bar-inner li span {
+  flex-shrink: 0;
 }
 
 .pain-section {
@@ -2362,6 +2371,14 @@ button {
 @media (max-width: 980px) {
   .header-nav {
     display: none;
+  }
+
+  .trust-bar-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trust-bar-inner li:last-child {
+    grid-column: 1 / -1;
   }
 
   .pain-head,
