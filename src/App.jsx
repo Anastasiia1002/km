@@ -250,15 +250,15 @@ function Header({ navigate }) {
 }
 
 function Logo({ navigate, variant = "default" }) {
-  const src = variant === "light" ? "/assets/logo-light.png" : "/assets/logo.png";
+  const src = variant === "light" ? "/assets/logo-light.png" : "/assets/logo-full.png";
   return (
     <button className="logo logo-button" type="button" onClick={() => navigate("/")}>
       <img
         className={`logo-img${variant === "light" ? " logo-img-light" : ""}`}
         src={withBase(src)}
         alt="КМ Трейд — GPS моніторинг"
-        width="168"
-        height="42"
+        width="202"
+        height="40"
       />
     </button>
   );
