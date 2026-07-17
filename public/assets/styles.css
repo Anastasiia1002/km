@@ -2494,18 +2494,25 @@ footer {
   top: 92px;
   right: 24px;
   z-index: 9999;
+  max-width: min(360px, calc(100vw - 32px));
   background: linear-gradient(135deg, #00b4a6 0%, #0f9f93 100%);
   color: #fff;
   border-radius: 16px;
   padding: 16px 20px;
   font-weight: 800;
   box-shadow: var(--shadow-lg);
-  transform: translateX(130%);
-  transition: 0.35s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
 .notification.show {
-  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 button {
@@ -2716,7 +2723,8 @@ button {
     right: 16px;
     top: auto;
     bottom: 88px;
-    transform: translateY(160%);
+    max-width: none;
+    transform: translateY(10px);
   }
 
   .notification.show {

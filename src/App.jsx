@@ -45,11 +45,30 @@ function upsertLink(rel, href) {
 
 function App() {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+  const [toastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
     const onPopState = () => setPath(normalizePath(window.location.pathname));
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    const hideToast = () => setToastVisible(false);
+    window.addEventListener("resize", hideToast);
+    return () => window.removeEventListener("resize", hideToast);
+  }, []);
+
+  useEffect(() => {
+    if (!toastVisible) return undefined;
+    const timer = window.setTimeout(() => setToastVisible(false), 4200);
+    return () => window.clearTimeout(timer);
+  }, [toastVisible]);
+
+  useEffect(() => {
+    const onLeadSuccess = () => setToastVisible(true);
+    window.addEventListener("km:lead-success", onLeadSuccess);
+    return () => window.removeEventListener("km:lead-success", onLeadSuccess);
   }, []);
 
   const navigate = (href) => {
@@ -93,7 +112,13 @@ function App() {
       <Header navigate={navigate} />
       <main>{renderPage(page, navigate)}</main>
       <Footer navigate={navigate} />
-      <div className="notification" id="notification" role="status" aria-live="polite">
+      <div
+        className={`notification${toastVisible ? " show" : ""}`}
+        id="notification"
+        role="status"
+        aria-live="polite"
+        aria-hidden={!toastVisible}
+      >
         ✓ Заявку отримано! Передзвонимо за 15 хвилин
       </div>
     </>
@@ -743,8 +768,7 @@ function LeadForm({ region = "" }) {
     } catch (error) {
       console.warn("Lead endpoint unavailable", error);
     }
-    document.getElementById("notification")?.classList.add("show");
-    setTimeout(() => document.getElementById("notification")?.classList.remove("show"), 4200);
+    window.dispatchEvent(new Event("km:lead-success"));
     setState({ name: "", phone: "", cars: "", region, company_site: "" });
   };
 
