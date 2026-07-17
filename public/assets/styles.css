@@ -218,7 +218,7 @@ header {
 .header-inner {
   min-height: 76px;
   display: grid;
-  grid-template-columns: minmax(220px, auto) 1fr minmax(260px, auto);
+  grid-template-columns: minmax(200px, auto) 1fr minmax(320px, auto);
   align-items: center;
   gap: 20px;
 }
@@ -1890,20 +1890,18 @@ tr:last-child td {
 }
 
 .phone-prefix {
+  font: inherit;
   font-weight: 500;
-  font-size: 18px;
   opacity: 1;
 }
 
 .contact-card .phone-accent,
 .footer-phone .phone-accent,
 .header-phone .phone-accent {
-  display: inline;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.01em;
+  font: inherit;
+  font-weight: 700;
+  color: inherit;
   opacity: 1;
-  color: #fff;
 }
 
 .contact-card .btn {
