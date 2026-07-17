@@ -1411,10 +1411,11 @@ tr:last-child td {
 .stats-grid b {
   display: block;
   font-family: "Space Grotesk", sans-serif;
-  font-size: 48px;
+  font-size: clamp(28px, 2.4vw + 0.6rem, 48px);
   color: var(--blue);
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 .stats-grid span {
