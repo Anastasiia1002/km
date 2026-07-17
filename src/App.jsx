@@ -202,7 +202,7 @@ function Header({ navigate }) {
                   </a>
                 </div>
               </div>
-              <NavLink href="/oferta/" navigate={navigate} className="header-quick-link">Оферта</NavLink>
+              <NavLink href="/oferta/" navigate={navigate}>Оферта</NavLink>
             </div>
             <div className="header-nav-main">
               <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
