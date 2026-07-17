@@ -332,7 +332,7 @@ function Hero({ navigate }) {
             <p className="hero-price">Від <strong>250 грн</strong> включаючи моб.зв'язок · Виїзд сьогодні або завтра</p>
             <div className="hero-stats">
               <div><b>350+</b><span>Клієнтів</span></div>
-              <div><b>4 000+</b><span>Авто обслужено</span></div>
+              <div><b>4&nbsp;000+</b><span>Авто обслужено</span></div>
               <div><b>10 р.</b><span>Досвіду</span></div>
               <div><b>{regionCount} обл.</b><span>Покриття</span></div>
             </div>
@@ -531,7 +531,7 @@ function Cases() {
 }
 
 function Stats() {
-  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4 000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount}&nbsp;областей</b><span>виїзд і сервіс</span></div></div></div></section>;
+  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4&nbsp;000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount}&nbsp;областей</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
 function Industries({ navigate }) {
@@ -566,7 +566,7 @@ function HowItWorks() {
 
 function Pricing() {
   const [cars, setCars] = useState(10);
-  return <section className="section" id="pricing"><div className="container"><div className="tag">💳 Тарифи</div><h2 className="title">3 пакети під будь-який бізнес</h2><p className="subtitle">Абонплата від 250 грн включаючи моб.зв'язок. Повний перелік функцій і вартість трекера потребують підтвердження від клієнта.</p><div className="pricing-grid">{prices.map(([name, price, note, features], index) => <article className={`pricing-card ${index === 0 ? "featured" : ""}`} key={name}><span>{name}</span><h3>{price}</h3><small>{note}</small><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul><button className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`} type="button" onClick={() => scrollToForm()}>Обрати пакет</button></article>)}</div><div className="mini-cost"><label>Кількість авто для місячного платежу<input type="number" min="1" value={cars} onChange={(event) => setCars(Number(event.target.value))} /></label><strong>{money(Math.max(1, cars) * 250)} грн/міс</strong></div></div></section>;
+  return <section className="section" id="pricing"><div className="container"><div className="tag">💳 Тарифи</div><h2 className="title">3 пакети під будь-який бізнес</h2><p className="subtitle">Абонплата від 250 грн включаючи моб.зв'язок з роумінгом. Повний перелік функцій і вартість трекера потребують підтвердження від клієнта.</p><div className="pricing-grid">{prices.map(([name, price, note, features], index) => <article className={`pricing-card ${index === 0 ? "featured" : ""}`} key={name}><span>{name}</span><h3>{price}</h3><small>{note}</small><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul><button className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`} type="button" onClick={() => scrollToForm()}>Обрати пакет</button></article>)}</div><div className="mini-cost"><label>Кількість авто для місячного платежу<input type="number" min="1" value={cars} onChange={(event) => setCars(Number(event.target.value))} /></label><strong>{money(Math.max(1, cars) * 250)} грн/міс</strong></div></div></section>;
 }
 
 function TrialSection({ region = "" }) {
