@@ -216,6 +216,12 @@ header {
 }
 
 header.is-menu-open {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10060;
   background: #fff;
 }
 
@@ -223,6 +229,7 @@ html.is-mobile-menu-open,
 html.is-mobile-menu-open body {
   overflow: hidden !important;
   overscroll-behavior: none;
+  touch-action: none;
 }
 
 html.is-mobile-menu-open .sticky-cta {
