@@ -179,15 +179,41 @@ function renderPage(page, navigate) {
 }
 
 function Header({ navigate }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1124) setMenuOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    window.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <header>
+    <header className={menuOpen ? "is-menu-open" : undefined}>
       <div className="container">
         <div className="header-inner">
           <div className="header-brand">
-            <Logo navigate={navigate} />
+            <Logo
+              navigate={(href) => {
+                closeMenu();
+                navigate(href);
+              }}
+            />
           </div>
           <nav className="header-nav" aria-label="Головна навігація">
-            <div className="nav-dropdown header-nav-item header-nav-priority">
+            <div className="nav-dropdown">
               <span className="nav-link nav-link-has-menu" role="button" tabIndex={0}>
                 <span>Wialon</span>
                 <span className="nav-chevron" aria-hidden="true">▾</span>
@@ -201,7 +227,7 @@ function Header({ navigate }) {
                 </a>
               </div>
             </div>
-            <NavLink href="/oferta/" navigate={navigate} className="header-nav-item header-nav-priority">
+            <NavLink href="/oferta/" navigate={navigate}>
               Оферта
             </NavLink>
             <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
@@ -223,8 +249,12 @@ function Header({ navigate }) {
                 </NavLink>
               ))}
             </Dropdown>
-            <NavLink href="/#pricing" navigate={navigate}>Ціни</NavLink>
-            <NavLink href="/#cases" navigate={navigate}>Кейси</NavLink>
+            <NavLink href="/#pricing" navigate={navigate}>
+              Ціни
+            </NavLink>
+            <NavLink href="/#cases" navigate={navigate}>
+              Кейси
+            </NavLink>
             <Dropdown label="Регіони" href="/#regions" navigate={navigate}>
               {regions.map((region) => (
                 <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate}>
@@ -239,12 +269,96 @@ function Header({ navigate }) {
               <span className="header-phone-icon" aria-hidden="true">📞</span>
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
             </a>
-            <button className="btn btn-primary btn-header" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary btn-header" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
               Залишити заявку
+            </button>
+            <button
+              className="header-burger"
+              type="button"
+              aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}
+              aria-expanded={menuOpen}
+              aria-controls="header-mobile-menu"
+              onClick={() => setMenuOpen((value) => !value)}
+            >
+              <span className="header-burger-lines" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
           </div>
         </div>
       </div>
+      <div
+        id="header-mobile-menu"
+        className={`header-mobile${menuOpen ? " is-open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="container">
+          <nav className="header-mobile-nav" aria-label="Мобільна навігація">
+            <div className="header-mobile-group">
+              <p className="header-mobile-label">Wialon</p>
+              <a className="header-mobile-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                <span className="di">🛰</span>Wialon Local
+              </a>
+              <a className="header-mobile-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                <span className="di">☁️</span>Wialon Hosting
+              </a>
+            </div>
+            <NavLink href="/oferta/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+              Оферта
+            </NavLink>
+            <div className="header-mobile-group">
+              <NavLink href="/#industries" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                Рішення
+              </NavLink>
+              {industries.slice(0, 6).map((item) => (
+                <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                  <span className="di">{item.icon}</span>
+                  {item.name}
+                </NavLink>
+              ))}
+            </div>
+            <div className="header-mobile-group">
+              <NavLink href="/statti/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                Статті
+              </NavLink>
+              {articles.slice(0, 3).map((item) => (
+                <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                  <span className="di">{item.icon}</span>
+                  {item.category}
+                </NavLink>
+              ))}
+            </div>
+            <NavLink href="/#pricing" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+              Ціни
+            </NavLink>
+            <NavLink href="/#cases" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+              Кейси
+            </NavLink>
+            <div className="header-mobile-group">
+              <NavLink href="/#regions" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                Регіони
+              </NavLink>
+              {regions.map((region) => (
+                <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                  <span className="di">📍</span>
+                  {region.city}
+                </NavLink>
+              ))}
+            </div>
+            <div className="header-mobile-actions">
+              <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
+                {formatPhoneLabel(site.phoneDisplay)}
+              </a>
+              <button className="btn btn-primary" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
+                Залишити заявку
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+      {menuOpen ? <button className="header-mobile-backdrop" type="button" aria-label="Закрити меню" onClick={closeMenu} /> : null}
     </header>
   );
 }
@@ -276,13 +390,14 @@ function Dropdown({ label, href, navigate, children }) {
   );
 }
 
-function NavLink({ href, navigate, children, className = "" }) {
+function NavLink({ href, navigate, children, className = "", onNavigate }) {
   return (
     <a
       className={`nav-link ${className}`.trim()}
       href={withBase(href)}
       onClick={(event) => {
         event.preventDefault();
+        onNavigate?.();
         if (href.includes("#")) {
           const [path, hash] = href.split("#");
           if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
