@@ -494,7 +494,7 @@ function WhySection() {
     ["🛰", "Wialon №1", "Платформа, якій довіряють 45 000+ компаній у 130 країнах."],
     ["💰", "Від 250 грн", "Включаючи моб.зв'язок — менше ніж вартість 6 літрів пального."],
     ["🔧", "Гарантія 1 рік", "Беремо на себе сервіс протягом першого року без доплат."],
-    ["🤝", "Персональний менеджер", "Не колл-центр і не чат-бот — конкретна людина для вашого парку."],
+    ["🤝", "Підтримка 24/7", "Завжди на зв'язку — допоможемо з налаштуваннями, звітами і сервісом у будь-який час."],
   ];
   return (
     <section className="section" id="why">
@@ -560,7 +560,7 @@ function Regions({ navigate }) {
 }
 
 function HowItWorks() {
-  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по всіх ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Підтримка 24/7", "Особистий менеджер, гарантія 1 рік і допомога зі звітами."]];
+  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по всіх ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Підтримка 24/7", "Гарантія 1 рік і допомога зі звітами в будь-який час."]];
   return <section className="section how-section"><div className="container"><div className="center"><div className="tag">⚡ Процес</div><h2 className="title">Як ми працюємо</h2></div><div className="steps-grid">{steps.map(([n, title, text]) => <article className="step-card" key={n}><b>{n}</b><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>;
 }
 
@@ -570,7 +570,7 @@ function Pricing() {
 }
 
 function TrialSection({ region = "" }) {
-  return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо на 1 авто без оплати. Ви побачите маршрути, витрати, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Особистий менеджер</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
+  return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо на 1 авто без оплати. Ви побачите маршрути, витрати, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Підтримка 24/7</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
 }
 
 function LeadForm({ region = "" }) {
@@ -632,7 +632,7 @@ function TestimonialsNotice() {
 }
 
 function About() {
-  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, персональний менеджер і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
+  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, підтримка 24/7 і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
 }
 
 function ContactCard() {
@@ -644,7 +644,7 @@ function BlogPreview({ navigate }) {
 }
 
 function RegionPage({ region, navigate }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/#regions")}>Регіони</button><span>›</span>{region.city}</div><div className="tag">📍 {region.oblast}</div><h1 className="title title-lg">{region.hero}</h1><p className="subtitle">{region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Заявка на виїзд →</button><a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>GPS-моніторинг {region.inCity}: що входить</h2><p>КМ-Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.</p><h2>Локальні ключі для пошуку</h2><ul>{region.keys.map((key) => <li key={key}>{key}</li>)}</ul><h2>Чому локальний партнер важливий</h2><p>Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює, а менеджер знає специфіку маршруту і техніки.</p><CtaBox title={`Підключити автопарк ${region.inCity}`} /><h2>Рішення для регіону</h2><div className="related-articles">{industries.slice(0, 4).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b></button>)}</div></main><aside className="sidebar"><Sidebar region={region.city} /></aside></div></div></section><TrialSection region={region.city} /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/#regions")}>Регіони</button><span>›</span>{region.city}</div><div className="tag">📍 {region.oblast}</div><h1 className="title title-lg">{region.hero}</h1><p className="subtitle">{region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Заявка на виїзд →</button><a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>GPS-моніторинг {region.inCity}: що входить</h2><p>КМ-Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.</p><h2>Локальні ключі для пошуку</h2><ul>{region.keys.map((key) => <li key={key}>{key}</li>)}</ul><h2>Чому локальний партнер важливий</h2><p>Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — підтримка 24/7 враховує специфіку маршруту і техніки.</p><CtaBox title={`Підключити автопарк ${region.inCity}`} /><h2>Рішення для регіону</h2><div className="related-articles">{industries.slice(0, 4).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b></button>)}</div></main><aside className="sidebar"><Sidebar region={region.city} /></aside></div></div></section><TrialSection region={region.city} /></>;
 }
 
 function IndustryPage({ industry }) {
