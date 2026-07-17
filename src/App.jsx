@@ -208,10 +208,12 @@ function Header({ navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
   const headerRef = useRef(null);
+  const afterCloseRef = useRef(null);
+  const skipScrollRestoreRef = useRef(false);
 
   useEffect(() => {
     const syncHeaderOffset = () => {
-      const height = headerRef.current?.offsetHeight || 76;
+      const height = headerRef.current?.offsetHeight || 56;
       document.documentElement.style.setProperty("--header-offset", `${height}px`);
     };
     syncHeaderOffset();
@@ -237,7 +239,11 @@ function Header({ navigate }) {
   useEffect(() => {
     if (!menuOpen) {
       setOpenSection(null);
-      return undefined;
+      const action = afterCloseRef.current;
+      afterCloseRef.current = null;
+      if (!action) return undefined;
+      const timer = window.setTimeout(() => action(), 40);
+      return () => window.clearTimeout(timer);
     }
 
     const scrollY = window.scrollY;
@@ -254,11 +260,31 @@ function Header({ navigate }) {
       document.documentElement.classList.remove("is-mobile-menu-open");
       document.body.classList.remove("is-mobile-menu-open");
       document.removeEventListener("touchmove", preventTouchMove);
-      window.scrollTo(0, scrollY);
+      if (!skipScrollRestoreRef.current) {
+        window.scrollTo(0, scrollY);
+      }
+      skipScrollRestoreRef.current = false;
     };
   }, [menuOpen]);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = (afterClose) => {
+    if (typeof afterClose === "function") {
+      skipScrollRestoreRef.current = true;
+      afterCloseRef.current = afterClose;
+    }
+    setMenuOpen(false);
+  };
+
+  const goToLeadForm = () => {
+    closeMenu(() => {
+      const target = document.getElementById("trial") || document.getElementById("lead-form");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      navigate("/#trial");
+    });
+  };
 
   const toggleSection = (section) => {
     setOpenSection((current) => (current === section ? null : section));
@@ -333,7 +359,7 @@ function Header({ navigate }) {
               <span className="header-phone-icon" aria-hidden="true">📞</span>
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
             </a>
-            <button className="btn btn-primary btn-header" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
+            <button className="btn btn-primary btn-header" type="button" onClick={goToLeadForm}>
               <span className="btn-header-full">Залишити заявку</span>
               <span className="btn-header-short">Заявка</span>
             </button>
@@ -360,7 +386,8 @@ function Header({ navigate }) {
               id="header-mobile-menu"
               className="header-mobile is-open"
               style={{
-                display: "block",
+                display: "flex",
+                flexDirection: "column",
                 position: "fixed",
                 top: "var(--header-offset, 56px)",
                 left: 0,
@@ -368,13 +395,14 @@ function Header({ navigate }) {
                 bottom: 0,
                 zIndex: 10050,
                 width: "100%",
+                height: "auto",
                 background: "#fff",
                 overflowX: "hidden",
                 overflowY: "auto",
                 WebkitOverflowScrolling: "touch",
               }}
             >
-              <div className="container">
+              <div className="container header-mobile-shell">
                 <nav className="header-mobile-nav" aria-label="Мобільна навігація">
                   <div className={`header-mobile-group${openSection === "wialon" ? " is-open" : ""}`}>
                     <button
@@ -484,7 +512,7 @@ function Header({ navigate }) {
                         {formatPhoneLabel(site.phoneDisplay)}
                       </a>
                     </div>
-                    <button className="btn btn-primary" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
+                    <button className="btn btn-primary" type="button" onClick={goToLeadForm}>
                       Залишити заявку
                     </button>
                   </div>
@@ -1033,7 +1061,8 @@ function FooterColumn({ title, items, navigate }) {
 }
 
 function scrollToForm() {
-  document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const target = document.getElementById("trial") || document.getElementById("lead-form");
+  target?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function money(value) {
