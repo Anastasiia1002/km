@@ -226,9 +226,8 @@ html.is-mobile-menu-open body {
   height: 100%;
 }
 
-body.is-mobile-menu-open {
-  width: 100%;
-  touch-action: none;
+html.is-mobile-menu-open .sticky-cta {
+  display: none !important;
 }
 
 .header-inner {
@@ -324,13 +323,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 }
 
 .header-mobile {
-  display: none !important;
   position: fixed;
-  top: var(--header-offset, 76px);
+  top: var(--header-offset, 56px);
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1001;
+  z-index: 10050;
+  width: 100%;
+  height: auto;
   max-height: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -343,7 +343,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 }
 
 .header-mobile.is-open {
-  display: block !important;
+  display: block;
 }
 
 .header-mobile-nav {
