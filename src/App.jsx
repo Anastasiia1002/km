@@ -645,12 +645,11 @@ function About() {
 
 function formatPhoneLabel(display) {
   if (!display.includes("158-43-85")) return display;
-  const [prefix, accent] = display.split("158-43-85");
+  const [prefix] = display.split("158-43-85");
   return (
     <>
-      {prefix}
+      <span className="phone-prefix">{prefix}</span>
       <strong className="phone-accent">158-43-85</strong>
-      {accent}
     </>
   );
 }
