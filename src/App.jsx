@@ -187,9 +187,9 @@ function Header({ navigate }) {
             <Logo navigate={navigate} />
           </div>
           <nav className="header-nav" aria-label="Головна навігація">
-            <div className="header-quick">
-              <div className="nav-dropdown">
-                <span className="nav-link nav-link-has-menu header-quick-link" role="button" tabIndex={0}>
+            <div className="header-nav-main">
+              <div className="nav-dropdown header-nav-priority">
+                <span className="nav-link nav-link-has-menu" role="button" tabIndex={0}>
                   <span>Wialon</span>
                   <span className="nav-chevron" aria-hidden="true">▾</span>
                 </span>
@@ -202,9 +202,9 @@ function Header({ navigate }) {
                   </a>
                 </div>
               </div>
-              <NavLink href="/oferta/" navigate={navigate}>Оферта</NavLink>
-            </div>
-            <div className="header-nav-main">
+              <NavLink href="/oferta/" navigate={navigate} className="header-nav-priority">
+                Оферта
+              </NavLink>
               <Dropdown label="Рішення" href="/#industries" navigate={navigate}>
                 {industries.slice(0, 6).map((item) => (
                   <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate}>
