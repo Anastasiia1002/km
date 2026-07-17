@@ -289,76 +289,76 @@ function Header({ navigate }) {
           </div>
         </div>
       </div>
-      <div
-        id="header-mobile-menu"
-        className={`header-mobile${menuOpen ? " is-open" : ""}`}
-        aria-hidden={!menuOpen}
-      >
-        <div className="container">
-          <nav className="header-mobile-nav" aria-label="Мобільна навігація">
-            <div className="header-mobile-group">
-              <p className="header-mobile-label">Wialon</p>
-              <a className="header-mobile-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
-                <span className="di">🛰</span>Wialon Local
-              </a>
-              <a className="header-mobile-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
-                <span className="di">☁️</span>Wialon Hosting
-              </a>
-            </div>
-            <NavLink href="/oferta/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
-              Оферта
-            </NavLink>
-            <div className="header-mobile-group">
-              <NavLink href="/#industries" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                Рішення
-              </NavLink>
-              {industries.slice(0, 6).map((item) => (
-                <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                  <span className="di">{item.icon}</span>
-                  {item.name}
+      {menuOpen ? (
+        <>
+          <div id="header-mobile-menu" className="header-mobile is-open">
+            <div className="container">
+              <nav className="header-mobile-nav" aria-label="Мобільна навігація">
+                <div className="header-mobile-group">
+                  <p className="header-mobile-label">Wialon</p>
+                  <a className="header-mobile-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                    <span className="di">🛰</span>Wialon Local
+                  </a>
+                  <a className="header-mobile-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                    <span className="di">☁️</span>Wialon Hosting
+                  </a>
+                </div>
+                <NavLink href="/oferta/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+                  Оферта
                 </NavLink>
-              ))}
-            </div>
-            <div className="header-mobile-group">
-              <NavLink href="/statti/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                Статті
-              </NavLink>
-              {articles.slice(0, 3).map((item) => (
-                <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                  <span className="di">{item.icon}</span>
-                  {item.category}
+                <div className="header-mobile-group">
+                  <NavLink href="/#industries" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                    Рішення
+                  </NavLink>
+                  {industries.slice(0, 6).map((item) => (
+                    <NavLink key={item.slug} href={`/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                      <span className="di">{item.icon}</span>
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
+                <div className="header-mobile-group">
+                  <NavLink href="/statti/" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                    Статті
+                  </NavLink>
+                  {articles.slice(0, 3).map((item) => (
+                    <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                      <span className="di">{item.icon}</span>
+                      {item.category}
+                    </NavLink>
+                  ))}
+                </div>
+                <NavLink href="/#pricing" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+                  Ціни
                 </NavLink>
-              ))}
-            </div>
-            <NavLink href="/#pricing" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
-              Ціни
-            </NavLink>
-            <NavLink href="/#cases" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
-              Кейси
-            </NavLink>
-            <div className="header-mobile-group">
-              <NavLink href="/#regions" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
-                Регіони
-              </NavLink>
-              {regions.map((region) => (
-                <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
-                  <span className="di">📍</span>
-                  {region.city}
+                <NavLink href="/#cases" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link">
+                  Кейси
                 </NavLink>
-              ))}
+                <div className="header-mobile-group">
+                  <NavLink href="/#regions" navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-link-parent">
+                    Регіони
+                  </NavLink>
+                  {regions.map((region) => (
+                    <NavLink key={region.slug} href={`/${region.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
+                      <span className="di">📍</span>
+                      {region.city}
+                    </NavLink>
+                  ))}
+                </div>
+                <div className="header-mobile-actions">
+                  <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
+                    {formatPhoneLabel(site.phoneDisplay)}
+                  </a>
+                  <button className="btn btn-primary" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
+                    Залишити заявку
+                  </button>
+                </div>
+              </nav>
             </div>
-            <div className="header-mobile-actions">
-              <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
-                {formatPhoneLabel(site.phoneDisplay)}
-              </a>
-              <button className="btn btn-primary" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
-                Залишити заявку
-              </button>
-            </div>
-          </nav>
-        </div>
-      </div>
-      {menuOpen ? <button className="header-mobile-backdrop" type="button" aria-label="Закрити меню" onClick={closeMenu} /> : null}
+          </div>
+          <button className="header-mobile-backdrop" type="button" aria-label="Закрити меню" onClick={closeMenu} />
+        </>
+      ) : null}
     </header>
   );
 }
