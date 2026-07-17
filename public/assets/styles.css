@@ -281,8 +281,8 @@ header {
   color: #fff;
 }
 
-.footer-brand .logo-img {
-  filter: brightness(0) invert(1);
+.footer-brand .logo-img-light {
+  filter: none;
 }
 
 .header-nav .nav-link {
