@@ -2531,7 +2531,7 @@ footer {
 
 .notification {
   position: fixed;
-  top: 92px;
+  top: 72px;
   right: 24px;
   z-index: 9999;
   max-width: min(360px, calc(100vw - 32px));
@@ -2609,7 +2609,9 @@ button {
 @media (max-width: 1123px) {
   .header-inner {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px;
+    gap: 8px;
+    min-height: 56px;
+    height: 56px;
   }
 
   .header-nav {
@@ -2618,31 +2620,25 @@ button {
 
   .header-burger {
     display: inline-flex;
+    width: 40px;
+    height: 40px;
   }
 
   .header-cta {
-    gap: 6px;
+    gap: 0;
   }
 
-  .header-phone-text {
+  .header-phone,
+  .btn-header {
     display: none;
   }
 
-  .header-phone {
-    width: 44px;
-    min-width: 44px;
-    justify-content: center;
-    padding: 0;
-    flex-shrink: 0;
-  }
-
-  .btn-header {
-    padding: 0 14px;
-    font-size: 13px;
-  }
-
   .logo-img {
-    height: 38px;
+    height: 28px;
+  }
+
+  .sticky-cta {
+    display: flex;
   }
 }
 
@@ -2705,10 +2701,6 @@ button {
     position: static;
   }
 
-  .sticky-cta {
-    display: flex;
-  }
-
   .section {
     padding: 72px 0;
   }
@@ -2724,42 +2716,13 @@ button {
     padding: 0 18px;
   }
 
-  .header-inner {
-    gap: 8px;
-  }
-
-  .header-cta {
-    gap: 4px;
-  }
-
-  .header-phone {
-    display: inline-flex;
-    width: 40px;
-    min-width: 40px;
-    min-height: 40px;
-  }
-
-  .btn-header {
-    min-height: 40px;
-    padding: 0 12px;
-    font-size: 12px;
-  }
-
-  .btn-header-full {
-    display: none;
-  }
-
-  .btn-header-short {
-    display: inline;
-  }
-
   .header-burger {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
 
   .logo-img {
-    height: 34px;
+    height: 26px;
   }
 
   .hero {
