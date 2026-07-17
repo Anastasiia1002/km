@@ -176,6 +176,12 @@ main {
   gap: 20px;
 }
 
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
 .center {
   text-align: center;
 }
@@ -2391,6 +2397,7 @@ button {
 
   .industry-grid,
   .grid-4,
+  .region-grid,
   .steps-grid,
   .stats-grid,
   .hero-stats {
@@ -2441,6 +2448,7 @@ button {
   .pricing-grid,
   .industry-grid,
   .grid-4,
+  .region-grid,
   .steps-grid,
   .stats-grid,
   .footer-grid,

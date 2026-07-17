@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { articles, industries, painCards, prices, regions, site } from "./data.js";
+import { articles, industries, painCards, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
@@ -156,9 +156,9 @@ function resolvePage(path) {
   return {
     type: "home",
     meta: {
-      title: "КМ-Трейд — GPS-моніторинг автопарку на Заході України",
+      title: "КМ-Трейд — GPS-моніторинг автопарку в 7 областях України",
       description:
-        "GPS-моніторинг транспорту Wialon у Чернівецькій, Івано-Франківській, Тернопільській та Хмельницькій областях. Від 250 грн/авто/міс, тест 14 днів.",
+        "GPS-моніторинг транспорту Wialon у 7 областях: Чернівецька, Івано-Франківська, Тернопільська, Хмельницька, Львівська, Рівненська та Київська. Від 250 грн/авто/міс, тест 14 днів.",
       type: "website",
       path: "/",
     },
@@ -239,7 +239,7 @@ function Logo({ navigate }) {
       </span>
       <span>
         <span className="logo-text">KM-Trade</span>
-        <span className="logo-sub">GPS-моніторинг · Захід України</span>
+        <span className="logo-sub">GPS-моніторинг · 7 областей</span>
       </span>
     </button>
   );
@@ -309,11 +309,10 @@ function Hero({ navigate }) {
       <div className="container">
         <div className="hero-inner">
           <div>
-            <div className="hero-badge"><span /> Чернівці · Івано-Франківськ · Тернопіль · Хмельницький</div>
-            <h1>GPS-моніторинг автопарку на Заході України — <em>встановлення сьогодні</em></h1>
+            <div className="hero-badge"><span /> {regionCitiesLine}</div>
+            <h1>GPS-моніторинг автопарку в 7 областях України — <em>встановлення сьогодні</em></h1>
             <p className="hero-sub">
-              КМ-Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по Чернівецькій,
-              Івано-Франківській, Тернопільській та Хмельницькій областях і допомагаємо економити пальне,
+              КМ-Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по {regionOblastsLine} і допомагаємо економити пальне,
               контролювати маршрути та зменшувати втрати автопарку.
             </p>
             <div className="hero-chips">
@@ -335,7 +334,7 @@ function Hero({ navigate }) {
               <div><b>350+</b><span>Клієнтів</span></div>
               <div><b>3 200+</b><span>Авто обслужено</span></div>
               <div><b>10 р.</b><span>Досвіду</span></div>
-              <div><b>4 обл.</b><span>Покриття</span></div>
+              <div><b>{regionCount} обл.</b><span>Покриття</span></div>
             </div>
           </div>
           <Mockup />
@@ -372,7 +371,7 @@ function TrustBar() {
     <div className="trust-bar">
       <div className="container">
         <div className="trust-bar-inner">
-          <span>📍 Чернівці · Івано-Франківськ · Тернопіль · Хмельницький</span>
+          <span>📍 {regionCitiesLine}</span>
           <span>🛰 Авторизований партнер Gurtam (Wialon)</span>
           <span>⚡ Встановлення за 1 день</span>
           <span>🔧 Підтримка 24/7</span>
@@ -490,7 +489,7 @@ function Range({ label, value, min, max, onChange }) {
 
 function WhySection() {
   const usp = [
-    ["📍", "Локальність", "Ми з Чернівців і працюємо по всіх 4 областях Заходу України."],
+    ["📍", "Локальність", `Ми з Чернівців і працюємо по ${regionCount} областях України.`],
     ["⚡", "Виїзд сьогодні", "Сьогодні зателефонували — сьогодні або завтра встановили."],
     ["🛰", "Wialon №1", "Платформа, якій довіряють 45 000+ компаній у 130 країнах."],
     ["💰", "Від 250 грн", "Менше ніж вартість 6 літрів пального за місяць контролю."],
@@ -524,7 +523,7 @@ function Cases() {
         <div className="grid-3 case-grid">
           <article className="case-card"><span className="case-tag">Чернівці · 10 авто</span><h3>«Два відра»: диспетчеризація і контроль автопарку</h3><div className="case-metrics"><b>−20%<span>пального</span></b><b>200 л<span>економія/міс</span></b><b>1 рік<span>окупність</span></b></div><p className="case-quote">Потрібно отримати проблему ДО підключення GPS і цитату власника або диспетчера.</p></article>
           <article className="case-card placeholder"><span className="case-tag">Івано-Франківська обл.</span><h3>Кейс 2 після отримання даних</h3><p>Потрібні: галузь, кількість авто, проблема, результат у цифрах, термін окупності і цитата клієнта.</p></article>
-          <article className="case-card placeholder"><span className="case-tag">Тернопільська або Хмельницька обл.</span><h3>Кейс 3 після отримання даних</h3><p>Бажано показати іншу галузь, щоб підтвердити локальну присутність у 4 областях.</p></article>
+          <article className="case-card placeholder"><span className="case-tag">Тернопільська або Хмельницька обл.</span><h3>Кейс 3 після отримання даних</h3><p>Бажано показати іншу галузь, щоб підтвердити локальну присутність у 7 областях.</p></article>
         </div>
       </div>
     </section>
@@ -532,7 +531,7 @@ function Cases() {
 }
 
 function Stats() {
-  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>3 200+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>4 області</b><span>виїзд і сервіс</span></div></div></div></section>;
+  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>3 200+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
 function Industries({ navigate }) {
@@ -557,11 +556,11 @@ function Industries({ navigate }) {
 }
 
 function Regions({ navigate }) {
-  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо у 4 області Заходу України</h2><div className="grid-4">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Локальна SEO-сторінка →</small></button>)}</div></div></section>;
+  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо у {regionCount} областей України</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
 }
 
 function HowItWorks() {
-  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", "Безкоштовний виїзд по всіх 4 областях."], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Підтримка 24/7", "Особистий менеджер, гарантія 1 рік і допомога зі звітами."]];
+  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по всіх ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Підтримка 24/7", "Особистий менеджер, гарантія 1 рік і допомога зі звітами."]];
   return <section className="section how-section"><div className="container"><div className="center"><div className="tag">⚡ Процес</div><h2 className="title">Як ми працюємо</h2></div><div className="steps-grid">{steps.map(([n, title, text]) => <article className="step-card" key={n}><b>{n}</b><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>;
 }
 
@@ -633,7 +632,7 @@ function TestimonialsNotice() {
 }
 
 function About() {
-  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку Заходу України</h2><p className="subtitle">Офіс у Чернівцях, виїзд по 4 областях, персональний менеджер і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
+  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у Чернівцях, виїзд по {regionCount} областях, персональний менеджер і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div><div><b>📞 Регіональні телефони</b><span>Якщо окремих номерів немає — використовується загальний телефон.</span></div></div></div><ContactCard /></div></div></section>;
 }
 
 function ContactCard() {
@@ -669,7 +668,7 @@ function ArticleCard({ article, navigate }) {
 }
 
 function CtaBox({ title = "Готові спробувати на своєму автопарку?" }) {
-  return <div className="article-cta-box"><h3>{title}</h3><p>14 днів тест-драйву на 1 авто. Виїжджаємо по 4 областях Заходу України.</p><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати безкоштовно →</button></div>;
+  return <div className="article-cta-box"><h3>{title}</h3><p>14 днів тест-драйву на 1 авто. Виїжджаємо по {regionCount} областях України.</p><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати безкоштовно →</button></div>;
 }
 
 function Sidebar({ region = "Захід України" }) {
@@ -682,7 +681,7 @@ function Footer({ navigate }) {
       <footer id="contacts">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по 4 областях Заходу України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{site.phoneDisplay2}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <div className="footer-brand"><Logo navigate={navigate} /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{site.phoneDisplay2}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
