@@ -2453,12 +2453,6 @@ button {
     justify-content: flex-end;
   }
 
-  .header-quick {
-    border-right: 0;
-    padding-right: 0;
-    margin-right: 0;
-  }
-
   .header-phone-text {
     display: none;
   }
