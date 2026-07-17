@@ -548,7 +548,7 @@ function Industries({ navigate }) {
       <div className="container">
         <div className="tag">🏭 Галузеві рішення</div>
         <h2 className="title">GPS під ваш тип бізнесу</h2>
-        <p className="subtitle">Вантажівки, агро, таксі, ЖКГ та інші напрями — окремі сценарії контролю й звіти Wialon.</p>
+        <p className="subtitle">Вантажівки, агро, громадський транспорт, ЖКГ та інші напрями — окремі сценарії контролю й звіти Wialon.</p>
         <div className="industry-grid">
           {industries.map((item) => (
             <button className="industry-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}>
