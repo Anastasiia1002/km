@@ -216,13 +216,7 @@ header {
 }
 
 header.is-menu-open {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
   background: #fff;
-  touch-action: manipulation;
 }
 
 html.is-mobile-menu-open,
@@ -234,12 +228,7 @@ html.is-mobile-menu-open body {
 
 body.is-mobile-menu-open {
   width: 100%;
-  padding-top: var(--header-offset, 76px);
   touch-action: none;
-}
-
-.header-mobile {
-  touch-action: pan-y;
 }
 
 .header-inner {
@@ -347,6 +336,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  touch-action: pan-y;
   background: #fff;
   border-bottom: 0;
   box-shadow: none;
