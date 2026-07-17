@@ -333,7 +333,8 @@ function Header({ navigate }) {
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
             </a>
             <button className="btn btn-primary btn-header" type="button" onClick={() => { closeMenu(); scrollToForm(); }}>
-              Залишити заявку
+              <span className="btn-header-full">Залишити заявку</span>
+              <span className="btn-header-short">Заявка</span>
             </button>
             <button
               className="header-burger"
