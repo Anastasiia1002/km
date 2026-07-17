@@ -242,12 +242,17 @@ function Header({ navigate }) {
     const scrollY = window.scrollY;
     document.documentElement.classList.add("is-mobile-menu-open");
     document.body.classList.add("is-mobile-menu-open");
-    document.body.style.top = `-${scrollY}px`;
+
+    const preventTouchMove = (event) => {
+      if (event.target.closest?.(".header-mobile")) return;
+      event.preventDefault();
+    };
+    document.addEventListener("touchmove", preventTouchMove, { passive: false });
 
     return () => {
       document.documentElement.classList.remove("is-mobile-menu-open");
       document.body.classList.remove("is-mobile-menu-open");
-      document.body.style.top = "";
+      document.removeEventListener("touchmove", preventTouchMove);
       window.scrollTo(0, scrollY);
     };
   }, [menuOpen]);
