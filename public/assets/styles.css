@@ -308,7 +308,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 }
 
 .header-mobile {
-  display: none;
+  display: none !important;
   position: absolute;
   top: 100%;
   left: 0;
@@ -323,7 +323,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 }
 
 .header-mobile.is-open {
-  display: block;
+  display: block !important;
 }
 
 .header-mobile-backdrop {
