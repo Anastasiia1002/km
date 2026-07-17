@@ -250,7 +250,7 @@ function Header({ navigate }) {
 }
 
 function Logo({ navigate, variant = "default" }) {
-  const src = variant === "light" ? "/assets/logo-light.png" : "/assets/logo-full.png";
+  const src = variant === "light" ? "/assets/logo-on-dark.png" : "/assets/logo-full.png";
   return (
     <button className="logo logo-button" type="button" onClick={() => navigate("/")}>
       <img
