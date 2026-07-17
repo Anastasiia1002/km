@@ -287,42 +287,21 @@ header {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-}
-
-.logo-mark {
-  width: 42px;
-  height: 42px;
-  background: var(--gradient-blue);
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  box-shadow: 0 10px 24px rgba(27, 79, 216, 0.28);
-}
-
-.logo-mark svg {
-  width: 22px;
-  height: 22px;
-  fill: #fff;
-}
-
-.logo-text {
-  display: block;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
   color: var(--navy);
-  letter-spacing: -0.03em;
 }
 
-.logo-sub {
+.logo-img {
   display: block;
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
+  width: auto;
+  height: 40px;
+}
+
+.footer-brand .logo {
+  color: #fff;
+}
+
+.footer-brand .logo-img {
+  filter: brightness(0) invert(1);
 }
 
 .header-nav .nav-link {
