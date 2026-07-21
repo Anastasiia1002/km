@@ -978,7 +978,7 @@ function IndustryPage({ industry }) {
 }
 
 function BlogPage({ navigate }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>Статті</div><div className="tag">📚 Блог</div><h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1><p className="subtitle">Галузеві, локальні й проблемні матеріали для SEO та прогріву власників автопарків.</p></div></section><section className="section"><div className="container"><div className="articles-grid">{articles.map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>Статті</div><div className="tag">📚 Блог</div><h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1></div></section><section className="section"><div className="container"><div className="articles-grid">{articles.map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section><TrialSection /></>;
 }
 
 function ArticlePage({ article, navigate }) {
