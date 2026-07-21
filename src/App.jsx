@@ -966,7 +966,7 @@ function ContactCard() {
 }
 
 function BlogPreview({ navigate }) {
-  return <section className="section"><div className="container"><div className="section-head"><div><div className="tag">📚 Блог</div><h2 className="title">SEO-статті для запуску</h2></div><button className="btn btn-outline" type="button" onClick={() => navigate("/statti/")}>Всі статті →</button></div><div className="articles-grid">{articles.slice(0, 4).map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section>;
+  return <section className="section"><div className="container"><div className="section-head"><div><div className="tag">📚 Блог</div><h2 className="title">Блог</h2></div><button className="btn btn-outline" type="button" onClick={() => navigate("/statti/")}>Всі статті →</button></div><div className="articles-grid">{articles.slice(0, 4).map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section>;
 }
 
 function RegionPage({ region, navigate }) {
