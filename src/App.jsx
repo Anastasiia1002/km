@@ -805,7 +805,7 @@ function WhySection() {
           <div className="partner-logo">Wialon</div>
           <div>
             <b>Авторизований партнер Gurtam</b>
-            <span>Єдиний локальний партнер Wialon на Заході України з виїздом сьогодні</span>
+            <span>Авторизований партнер Wialon на Заході України з виїздом сьогодні</span>
           </div>
         </div>
       </div>
