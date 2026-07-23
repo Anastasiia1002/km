@@ -132,7 +132,7 @@ function resolvePage(path) {
     return {
       type: "region",
       data: region,
-      meta: { title: `${region.title} — КМ-Трейд Wialon`, description: region.description, type: "website", path },
+      meta: { title: `${region.title} — КМ Трейд Wialon`, description: region.description, type: "website", path },
     };
   }
 
@@ -141,7 +141,7 @@ function resolvePage(path) {
     return {
       type: "industry",
       data: industry,
-      meta: { title: `${industry.title} — КМ-Трейд`, description: industry.description, type: "website", path },
+      meta: { title: `${industry.title} — КМ Трейд`, description: industry.description, type: "website", path },
     };
   }
 
@@ -149,7 +149,7 @@ function resolvePage(path) {
     return {
       type: "blog",
       meta: {
-        title: "Статті про GPS-моніторинг транспорту — КМ-Трейд",
+        title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
         description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків Заходу України.",
         type: "website",
         path,
@@ -162,7 +162,7 @@ function resolvePage(path) {
     return {
       type: "article",
       data: article,
-      meta: { title: `${article.title} — КМ-Трейд`, description: article.description, type: "article", path },
+      meta: { title: `${article.title} — КМ Трейд`, description: article.description, type: "article", path },
     };
   }
 
@@ -173,10 +173,10 @@ function resolvePage(path) {
       type: "legal",
       data: { title, kind: isOferta ? "oferta" : "privacy" },
       meta: {
-        title: `${title} — КМ-Трейд`,
+        title: `${title} — КМ Трейд`,
         description: isOferta
-          ? "Договір публічної оферти на платне надання послуг GPS моніторингу КМ-Трейд."
-          : `${title} КМ-Трейд. Текст потребує юридичного погодження перед production-запуском.`,
+          ? "Договір публічної оферти на платне надання послуг GPS моніторингу КМ Трейд."
+          : `${title} КМ Трейд. Текст потребує юридичного погодження перед production-запуском.`,
         type: "website",
         path,
       },
@@ -186,7 +186,7 @@ function resolvePage(path) {
   return {
     type: "home",
     meta: {
-      title: "КМ-Трейд — GPS-моніторинг автопарку в 7 областях України",
+      title: "КМ Трейд — GPS-моніторинг автопарку в 7 областях України",
       description:
         "GPS-моніторинг транспорту Wialon у 7 областях: Чернівецька, Івано-Франківська, Тернопільська, Хмельницька, Львівська, Рівненська та Київська. Від 250 грн включаючи моб.зв'язок, тест 14 днів.",
       type: "website",
@@ -603,7 +603,7 @@ function Hero({ navigate }) {
             <div className="hero-badge"><span /> {regionCitiesLine}</div>
             <h1>GPS-моніторинг автопарку в 7 областях України — <em>встановлення сьогодні</em></h1>
             <p className="hero-sub">
-              КМ-Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по {regionOblastsLine} і допомагаємо економити пальне,
+              КМ Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по {regionOblastsLine} і допомагаємо економити пальне,
               контролювати маршрути та зменшувати втрати автопарку.
             </p>
             <div className="hero-chips">
@@ -768,9 +768,9 @@ function Calculator() {
             <Range label="Кількість авто" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
             <Range label="Витрата пального, л/100 км" value={values.fuel} min="6" max="60" onChange={(value) => update("fuel", value)} />
             <Range label="Пробіг, тис. км/місяць" value={values.km} min="1" max="30" onChange={(value) => update("km", value)} />
-            <div className="calc-result"><b>{money(savings)}</b><span>грн економії щомісяця</span><small>Підписка КМ-Трейд: {money(subscription)} грн/міс · ROI: {(savings / subscription).toFixed(1)}x</small></div>
+            <div className="calc-result"><b>{money(savings)}</b><span>грн економії щомісяця</span><small>Підписка КМ Трейд: {money(subscription)} грн/міс · ROI: {(savings / subscription).toFixed(1)}x</small></div>
             <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити {money(savings)} грн →</button>
-            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ-Трейд; калькулятор показує абонплату й орієнтовну економію.</p>
+            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію.</p>
           </div>
         </div>
       </div>
@@ -798,7 +798,7 @@ function WhySection() {
   return (
     <section className="section" id="why">
       <div className="container">
-        <div className="tag">✓ Чому КМ-Трейд</div>
+        <div className="tag">✓ Чому КМ Трейд</div>
         <h2 className="title">Авторизований партнер Wialon на Заході України та в Києві з виїздом сьогодні</h2>
         <p className="subtitle">Не чекайте тиждень на майстра з Києва або Черкас. Ми поруч.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
@@ -818,7 +818,7 @@ function Cases() {
   return (
     <section className="section" id="cases">
       <div className="container">
-        <div className="tag">📊 Кейси</div><h2 className="title">Реальні результати клієнтів</h2><p className="subtitle">Публікуємо тільки підтверджені цифри. Два додаткові кейси потребують даних від КМ-Трейд.</p>
+        <div className="tag">📊 Кейси</div><h2 className="title">Реальні результати клієнтів</h2><p className="subtitle">Публікуємо тільки підтверджені цифри. Два додаткові кейси потребують даних від КМ Трейд.</p>
         <div className="grid-3 case-grid">
           <article className="case-card"><span className="case-tag">Чернівці · 10 авто</span><h3>«Два Відра»: диспетчеризація і контроль автопарку</h3><div className="case-metrics"><b>−20%<span>пального</span></b><b>200 л<span>економія/міс</span></b><b>1 рік<span>окупність</span></b></div><p className="case-quote">Потрібно отримати проблему ДО підключення GPS і цитату власника або диспетчера.</p><a className="case-link" href="https://dvavidra.ua" target="_blank" rel="noopener noreferrer">dvavidra.ua →</a></article>
           <article className="case-card placeholder"><span className="case-tag">Івано-Франківська обл.</span><h3>Кейс 2 після отримання даних</h3><p>Потрібні: галузь, кількість авто, проблема, результат у цифрах, термін окупності і цитата клієнта.</p></article>
@@ -840,7 +840,7 @@ function Partners() {
         <div className="partners-head">
           <div className="tag">Партнери</div>
           <h2 className="title">Нам довіряють автопарки</h2>
-          <p className="subtitle">Компанії, які вже контролюють транспорт із КМ-Трейд. Натисніть, щоб відкрити їхній сайт.</p>
+          <p className="subtitle">Компанії, які вже контролюють транспорт із КМ Трейд. Натисніть, щоб відкрити їхній сайт.</p>
         </div>
         <ul className="partners-list">
           {partners.map((partner) => (
@@ -965,7 +965,7 @@ function LeadForm({ region = "" }) {
 }
 
 function TestimonialsNotice() {
-  return <section className="section"><div className="container"><div className="tag">💬 Відгуки</div><h2 className="title">Відгуки клієнтів</h2><div className="content-needed"><b>Потрібно отримати від КМ-Трейд</b><p>3 реальні відгуки: ім'я, посада, компанія, регіон і текст 2-3 речення. До отримання даних блок не імітує вигаданих клієнтів.</p></div></div></section>;
+  return <section className="section"><div className="container"><div className="tag">💬 Відгуки</div><h2 className="title">Відгуки клієнтів</h2><div className="content-needed"><b>Потрібно отримати від КМ Трейд</b><p>3 реальні відгуки: ім'я, посада, компанія, регіон і текст 2-3 речення. До отримання даних блок не імітує вигаданих клієнтів.</p></div></div></section>;
 }
 
 function About() {
@@ -1010,11 +1010,11 @@ function BlogPreview({ navigate }) {
 }
 
 function RegionPage({ region, navigate }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/#regions")}>Регіони</button><span>›</span>{region.city}</div><div className="tag">📍 {region.oblast}</div><h1 className="title title-lg">{region.hero}</h1><p className="subtitle">{region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Заявка на виїзд →</button><a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>GPS-моніторинг {region.inCity}: що входить</h2><p>КМ-Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.</p><h2>Локальні ключі для пошуку</h2><ul>{region.keys.map((key) => <li key={key}>{key}</li>)}</ul><h2>Чому локальний партнер важливий</h2><p>Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — підтримка 24/7 враховує специфіку маршруту і техніки.</p><CtaBox title={`Підключити автопарк ${region.inCity}`} /><h2>Рішення для регіону</h2><div className="related-articles">{industries.slice(0, 4).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b></button>)}</div></main><aside className="sidebar"><Sidebar region={region.city} /></aside></div></div></section><TrialSection region={region.city} /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/#regions")}>Регіони</button><span>›</span>{region.city}</div><div className="tag">📍 {region.oblast}</div><h1 className="title title-lg">{region.hero}</h1><p className="subtitle">{region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Заявка на виїзд →</button><a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>GPS-моніторинг {region.inCity}: що входить</h2><p>КМ Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.</p><h2>Локальні ключі для пошуку</h2><ul>{region.keys.map((key) => <li key={key}>{key}</li>)}</ul><h2>Чому локальний партнер важливий</h2><p>Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — підтримка 24/7 враховує специфіку маршруту і техніки.</p><CtaBox title={`Підключити автопарк ${region.inCity}`} /><h2>Рішення для регіону</h2><div className="related-articles">{industries.slice(0, 4).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b></button>)}</div></main><aside className="sidebar"><Sidebar region={region.city} /></aside></div></div></section><TrialSection region={region.city} /></>;
 }
 
 function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ-Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
 function BlogPage({ navigate }) {
@@ -1047,7 +1047,7 @@ function LegalPage({ title, kind, navigate }) {
             {kind === "oferta" ? (
               <OfertaContent />
             ) : (
-              <p>Ця сторінка зарезервована для погодженого юридичного тексту КМ-Трейд.</p>
+              <p>Ця сторінка зарезервована для погодженого юридичного тексту КМ Трейд.</p>
             )}
           </main>
         </div>
@@ -1066,7 +1066,7 @@ function CtaBox({ title = "Готові спробувати на своєму �
 }
 
 function Sidebar({ region = "Захід України" }) {
-  return <div className="sidebar-card"><h3>КМ-Трейд поруч</h3><div className="sidebar-stat"><span>Регіон</span><b>{region}</b></div><div className="sidebar-stat"><span>Абонплата</span><b>від 250 грн вкл. моб.зв'язок</b></div><div className="sidebar-stat"><span>Тест-драйв</span><b>14 днів</b></div><div className="sidebar-stat"><span>Сервіс</span><b>1 рік безкоштовно</b></div><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>;
+  return <div className="sidebar-card"><h3>КМ Трейд поруч</h3><div className="sidebar-stat"><span>Регіон</span><b>{region}</b></div><div className="sidebar-stat"><span>Абонплата</span><b>від 250 грн вкл. моб.зв'язок</b></div><div className="sidebar-stat"><span>Тест-драйв</span><b>14 днів</b></div><div className="sidebar-stat"><span>Сервіс</span><b>1 рік безкоштовно</b></div><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>;
 }
 
 function Footer({ navigate }) {
@@ -1081,7 +1081,7 @@ function Footer({ navigate }) {
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
           <div className="footer-divider" />
-          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ-Трейд. GPS-моніторинг транспорту на Заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
+          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на Заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
         </div>
       </footer>
       <div className="sticky-cta"><a href={`tel:${site.phonePrimary}`} className="btn btn-outline">📞 Дзвінок</a><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>

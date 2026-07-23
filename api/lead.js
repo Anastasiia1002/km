@@ -17,7 +17,7 @@ export default async function handler(request, response) {
   }
 
   const message = [
-    "Нова заявка з сайту КМ-Трейд",
+    "Нова заявка з сайту КМ Трейд",
     "",
     `Ім'я: ${payload.name || "-"}`,
     `Телефон: ${payload.phone || "-"}`,
