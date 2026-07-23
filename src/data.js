@@ -321,19 +321,19 @@ export const partners = [
   {
     name: "Pride Cars",
     url: "https://pridecars.com.ua",
-    note: "Оренда авто",
+    note: "Оренда авто по Західній Україні",
     logo: "/assets/partners/pride-cars.png",
   },
   {
     name: "Mpost",
     url: "https://mpost.com.ua/",
-    note: "Транспортна компанія",
+    note: "Доставка та перевезення в Європу",
     logo: "/assets/partners/mpost.png",
   },
   {
     name: "Два Відра",
     url: "https://dvavidra.ua",
-    note: "Доставка води",
+    note: "Доставка питної води в Чернівцях",
     logo: "/assets/partners/dva-vidra.svg",
   },
 ];

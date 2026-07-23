@@ -837,21 +837,32 @@ function Partners() {
   return (
     <section className="section partners-section" id="partners">
       <div className="container">
-        <div className="center">
-          <div className="tag">🤝 Партнери</div>
-          <h2 className="title">Компанії, з якими працюємо</h2>
-          <p className="subtitle">Клієнти КМ-Трейд, які довіряють GPS-моніторинг своїх автопарків.</p>
+        <div className="partners-head">
+          <div className="tag">Партнери</div>
+          <h2 className="title">Нам довіряють автопарки</h2>
+          <p className="subtitle">Компанії, які вже контролюють транспорт із КМ-Трейд. Натисніть, щоб відкрити їхній сайт.</p>
         </div>
         <ul className="partners-list">
           {partners.map((partner) => (
             <li key={partner.url}>
-              <a className="partners-item" href={partner.url} target="_blank" rel="noopener noreferrer">
-                <span className="partners-logo">
-                  <img src={withBase(partner.logo)} alt="" width="180" height="48" />
+              <a
+                className="partners-item"
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${partner.name} — відкрити сайт`}
+              >
+                <span className="partners-logo" aria-hidden="true">
+                  <img src={withBase(partner.logo)} alt="" width="180" height="48" loading="lazy" />
                 </span>
-                <b>{partner.name}</b>
-                <span>{partner.note}</span>
-                <small>{partner.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}</small>
+                <span className="partners-copy">
+                  <b>{partner.name}</b>
+                  <span>{partner.note}</span>
+                </span>
+                <span className="partners-cta">
+                  Відкрити сайт
+                  <span aria-hidden="true">→</span>
+                </span>
               </a>
             </li>
           ))}
