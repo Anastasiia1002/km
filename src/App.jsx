@@ -580,7 +580,6 @@ function HomePage({ navigate }) {
       <Calculator />
       <WhySection />
       <Cases />
-      <Stats />
       <Partners />
       <Industries navigate={navigate} />
       <Regions navigate={navigate} />
@@ -618,6 +617,12 @@ function Hero({ navigate }) {
             </div>
             <div className="hero-actions">
               <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів безкоштовно →</button>
+            </div>
+            <div className="hero-stats">
+              <div><b>350+</b><span>клієнтів</span></div>
+              <div><b>4&nbsp;000+</b><span>авто обслужено</span></div>
+              <div><b>10 років</b><span>на ринку</span></div>
+              <div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div>
             </div>
           </div>
           <Mockup />
@@ -819,10 +824,6 @@ function Cases() {
       </div>
     </section>
   );
-}
-
-function Stats() {
-  return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4&nbsp;000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount}&nbsp;областей</b><span>виїзд і сервіс</span></div></div></div></section>;
 }
 
 function Partners() {
