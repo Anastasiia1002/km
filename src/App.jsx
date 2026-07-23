@@ -936,7 +936,111 @@ function HowItWorks() {
 
 function Pricing() {
   const [cars, setCars] = useState(10);
-  return <section className="section" id="pricing"><div className="container"><div className="tag">💳 Тарифи</div><h2 className="title">3 пакети під будь-який бізнес</h2><p className="subtitle">Абонплата від 250 грн включаючи моб.зв'язок з роумінгом. Повний перелік функцій і вартість трекера потребують підтвердження від клієнта.</p><div className="pricing-grid">{prices.map(([name, price, note, features], index) => <article className={`pricing-card ${index === 0 ? "featured" : ""}`} key={name}><span>{name}</span><h3>{price}</h3><small>{note}</small><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul><button className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`} type="button" onClick={() => scrollToForm()}>Обрати пакет</button></article>)}</div><div className="mini-cost"><label>Кількість авто для місячного платежу<input type="number" min="1" value={cars} onChange={(event) => setCars(Number(event.target.value))} /></label><strong>{money(Math.max(1, cars) * 250)} грн/міс</strong></div></div></section>;
+  const count = Math.max(1, Math.min(999, Number(cars) || 1));
+  const total = count * 250;
+  const presets = [5, 10, 20, 50];
+
+  const setCount = (value) => {
+    const next = Math.max(1, Math.min(999, Number(value) || 1));
+    setCars(next);
+  };
+
+  return (
+    <section className="section" id="pricing">
+      <div className="container">
+        <div className="tag">💳 Тарифи</div>
+        <h2 className="title">3 пакети під будь-який бізнес</h2>
+        <p className="subtitle">
+          Абонплата від 250 грн включаючи моб.зв&apos;язок з роумінгом. Повний перелік функцій і вартість
+          трекера потребують підтвердження від клієнта.
+        </p>
+        <div className="pricing-grid">
+          {prices.map(([name, price, note, features], index) => (
+            <article className={`pricing-card ${index === 0 ? "featured" : ""}`} key={name}>
+              <span>{name}</span>
+              <h3>{price}</h3>
+              <small>{note}</small>
+              <ul>
+                {features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <button
+                className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`}
+                type="button"
+                onClick={() => scrollToForm()}
+              >
+                Обрати пакет
+              </button>
+            </article>
+          ))}
+        </div>
+
+        <div className="mini-cost" aria-live="polite">
+          <div className="mini-cost-copy">
+            <span className="mini-cost-kicker">Калькулятор</span>
+            <strong className="mini-cost-title">Скільки коштуватиме ваш парк?</strong>
+            <p className="mini-cost-hint">Оберіть кількість авто — покажемо орієнтовну абонплату на місяць.</p>
+          </div>
+
+          <div className="mini-cost-controls">
+            <span className="mini-cost-label" id="mini-cost-label">
+              Кількість авто
+            </span>
+            <div className="mini-cost-stepper" role="group" aria-labelledby="mini-cost-label">
+              <button
+                className="mini-cost-btn"
+                type="button"
+                aria-label="Менше авто"
+                disabled={count <= 1}
+                onClick={() => setCount(count - 1)}
+              >
+                −
+              </button>
+              <input
+                type="number"
+                min="1"
+                max="999"
+                inputMode="numeric"
+                value={count}
+                aria-labelledby="mini-cost-label"
+                onChange={(event) => setCount(event.target.value)}
+              />
+              <button
+                className="mini-cost-btn"
+                type="button"
+                aria-label="Більше авто"
+                onClick={() => setCount(count + 1)}
+              >
+                +
+              </button>
+            </div>
+            <div className="mini-cost-presets">
+              {presets.map((preset) => (
+                <button
+                  key={preset}
+                  className={`mini-cost-preset${count === preset ? " is-active" : ""}`}
+                  type="button"
+                  onClick={() => setCount(preset)}
+                >
+                  {preset} авто
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mini-cost-result">
+            <span className="mini-cost-result-label">Орієнтовно на місяць</span>
+            <strong className="mini-cost-result-value">{money(total)} грн/міс</strong>
+            <span className="mini-cost-result-note">від 250 грн/авто · з моб. зв&apos;язком</span>
+            <button className="btn btn-primary mini-cost-cta" type="button" onClick={() => scrollToForm()}>
+              Отримати точний розрахунок
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function TrialSection({ region = "" }) {
