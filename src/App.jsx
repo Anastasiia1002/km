@@ -986,9 +986,6 @@ function HowItWorks() {
         </div>
 
         <div className="how-board">
-          <div className="how-progress" aria-hidden="true">
-            <span />
-          </div>
           <ol className="steps-track">
             {steps.map((step, index) => (
               <li className="step-card" key={step.n} style={{ "--i": index }}>

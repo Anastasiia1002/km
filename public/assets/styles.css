@@ -2234,17 +2234,6 @@ tr:last-child td {
   }
 }
 
-@keyframes how-progress {
-  0% {
-    transform: scaleX(0.25);
-  }
-  50% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0.25);
-  }
-}
 
 .how-head {
   position: relative;
@@ -2282,26 +2271,7 @@ tr:last-child td {
   -webkit-backdrop-filter: blur(16px);
 }
 
-.how-progress {
-  position: absolute;
-  top: 54px;
-  left: 8%;
-  right: 8%;
-  height: 3px;
-  border-radius: 999px;
-  background: rgba(219, 220, 233, 0.12);
-  overflow: hidden;
-}
 
-.how-progress span {
-  display: block;
-  height: 100%;
-  width: 100%;
-  transform-origin: left center;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #6272BD, #DBDCE9, #6272BD);
-  animation: how-progress 5.5s ease-in-out infinite;
-}
 
 .steps-track {
   list-style: none;
@@ -2457,10 +2427,6 @@ tr:last-child td {
 @media (prefers-reduced-motion: reduce) {
   .how-atmosphere,
   .step-card,
-  .how-progress span {
-    animation: none !important;
-  }
-
   .step-panel {
     transition: none !important;
   }
@@ -3697,9 +3663,6 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
-  .how-progress {
-    display: none;
-  }
 
   .how-footer {
     flex-direction: column;
