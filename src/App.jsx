@@ -814,6 +814,7 @@ function WhySection() {
 function Cases() {
   return (
     <section className="section cases-section" id="cases">
+      <div className="cases-atmosphere" aria-hidden="true" />
       <div className="container">
         <div className="cases-head">
           <div className="tag">Кейси</div>
@@ -821,22 +822,28 @@ function Cases() {
           <p className="subtitle">Запит бізнесу, що змінилось після GPS і посилання на компанію.</p>
         </div>
         <div className="case-grid">
-          {cases.map((item) => (
-            <article className="case-card" key={item.name}>
+          {cases.map((item, index) => (
+            <article className="case-card" key={item.name} style={{ "--i": index }}>
+              <div className="case-card-shine" aria-hidden="true" />
               <div className="case-card-top">
                 <span className="case-logo" aria-hidden="true">
                   <img src={withBase(item.logo)} alt="" width="140" height="40" loading="lazy" />
                 </span>
+                <span className="case-index">0{index + 1}</span>
+              </div>
+              <div className="case-card-meta">
                 <span className="case-tag">{item.tag}</span>
+                <h3>{item.name}</h3>
               </div>
-              <h3>{item.name}</h3>
-              <div className="case-block">
-                <small>Запит</small>
-                <p>{item.request}</p>
-              </div>
-              <div className="case-block">
-                <small>Результат</small>
-                <p>{item.result}</p>
+              <div className="case-story">
+                <div className="case-block">
+                  <small>Запит</small>
+                  <p>{item.request}</p>
+                </div>
+                <div className="case-block case-block-result">
+                  <small>Результат</small>
+                  <p>{item.result}</p>
+                </div>
               </div>
               <div className="case-metrics">
                 {item.metrics.map(([value, label]) => (
