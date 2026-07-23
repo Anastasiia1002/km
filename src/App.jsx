@@ -999,7 +999,27 @@ function ContactCard() {
 }
 
 function BlogPreview({ navigate }) {
-  return <section className="section"><div className="container"><div className="section-head"><div><div className="tag">📚 Блог</div><h2 className="title">Блог</h2></div><button className="btn btn-outline" type="button" onClick={() => navigate("/statti/")}>Всі статті →</button></div><div className="articles-grid">{articles.slice(0, 4).map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section>;
+  return (
+    <section className="section blog-section" id="blog">
+      <div className="container">
+        <div className="section-head">
+          <div>
+            <div className="tag">Блог</div>
+            <h2 className="title">Корисні матеріали про GPS</h2>
+            <p className="subtitle blog-subtitle">Короткі статті про пальне, Wialon і контроль автопарку — без зайвого жаргону.</p>
+          </div>
+          <button className="btn btn-outline" type="button" onClick={() => navigate("/statti/")}>
+            Всі статті →
+          </button>
+        </div>
+        <div className="articles-grid">
+          {articles.slice(0, 4).map((article) => (
+            <ArticleCard key={article.slug} article={article} navigate={navigate} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function RegionPage({ region, navigate }) {
@@ -1051,7 +1071,25 @@ function LegalPage({ title, kind, navigate }) {
 }
 
 function ArticleCard({ article, navigate }) {
-  return <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}><div className="article-img"><span>{article.icon}</span></div><div className="article-body-card"><div className="article-meta"><span>{article.category}</span><small>{article.date}</small></div><h3>{article.title}</h3><p>{article.excerpt}</p></div></button>;
+  return (
+    <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}>
+      <div className="article-img" aria-hidden="true">
+        <span className="article-img-icon">{article.icon}</span>
+      </div>
+      <div className="article-body-card">
+        <div className="article-meta">
+          <span>{article.category}</span>
+          <small>{article.date}</small>
+        </div>
+        <h3>{article.title}</h3>
+        <p>{article.excerpt}</p>
+        <span className="article-card-cta">
+          Читати
+          <span aria-hidden="true">→</span>
+        </span>
+      </div>
+    </button>
+  );
 }
 
 function CtaBox({ title = "Готові спробувати на своєму автопарку?" }) {
