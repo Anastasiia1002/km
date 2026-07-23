@@ -931,35 +931,89 @@ function Regions({ navigate }) {
 
 function HowItWorks() {
   const steps = [
-    ["01", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."],
-    ["02", "Виїзд і аудит", `Безкоштовний виїзд по ${regionCount} областях.`],
-    ["03", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."],
-    ["04", "Техпідтримка", "Гарантія 1 рік і допомога зі звітами."],
+    {
+      n: "01",
+      title: "Заявка",
+      text: "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто.",
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 4h4l2 5-2.2 1.2a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        </svg>
+      ),
+    },
+    {
+      n: "02",
+      title: "Виїзд і аудит",
+      text: `Безкоштовний виїзд по ${regionCount} областях.`,
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        </svg>
+      ),
+    },
+    {
+      n: "03",
+      title: "Встановлення",
+      text: "Монтаж трекерів за 1 день, налаштування Wialon і навчання.",
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.1 2.1-1.9-1.9 2-2.1z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        </svg>
+      ),
+    },
+    {
+      n: "04",
+      title: "Техпідтримка",
+      text: "Гарантія 1 рік і допомога зі звітами.",
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-7a5 5 0 1 0-10 0v7H6a2 2 0 0 1-2-2v-5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="M12 19v2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ),
+    },
   ];
 
   return (
     <section className="section how-section" id="process">
       <div className="how-atmosphere" aria-hidden="true" />
       <div className="container">
-        <div className="center how-head">
+        <div className="how-head">
           <div className="tag">⚡ Процес</div>
           <h2 className="title">Як ми працюємо</h2>
+          <p className="subtitle">Чотири зрозумілі кроки від заявки до щоденної підтримки — без зайвої бюрократії.</p>
         </div>
-        <ol className="steps-track">
-          {steps.map(([n, title, text], index) => (
-            <li className="step-card" key={n} style={{ "--i": index }}>
-              <div className="step-rail" aria-hidden="true">
-                <span className="step-dot">{n}</span>
-                {index < steps.length - 1 ? <span className="step-line" /> : null}
-              </div>
-              <article className="step-panel">
-                <span className="step-index">Крок {n}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            </li>
-          ))}
-        </ol>
+
+        <div className="how-board">
+          <div className="how-progress" aria-hidden="true">
+            <span />
+          </div>
+          <ol className="steps-track">
+            {steps.map((step, index) => (
+              <li className="step-card" key={step.n} style={{ "--i": index }}>
+                <article className="step-panel">
+                  <span className="step-ghost" aria-hidden="true">
+                    {step.n}
+                  </span>
+                  <div className="step-top">
+                    <span className="step-icon">{step.icon}</span>
+                    <span className="step-index">Крок {step.n}</span>
+                  </div>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </article>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="how-footer">
+          <p>Готові пройти цей шлях на своєму автопарку?</p>
+          <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+            Залишити заявку
+          </button>
+        </div>
       </div>
     </section>
   );

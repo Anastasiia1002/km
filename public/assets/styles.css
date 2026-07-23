@@ -2196,36 +2196,37 @@ tr:last-child td {
   isolation: isolate;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 50% at 0% 20%, rgba(98, 114, 189, 0.14), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 100% 90%, rgba(219, 220, 233, 0.7), transparent 50%),
-    linear-gradient(180deg, #F5F5F9 0%, #fff 48%, #EBECF4 100%);
+    radial-gradient(ellipse 80% 55% at 12% 0%, rgba(98, 114, 189, 0.34), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 90% 100%, rgba(70, 76, 110, 0.5), transparent 52%),
+    linear-gradient(165deg, #07080d 0%, #141726 46%, #0a0b12 100%);
+  color: #fff;
 }
 
 .how-atmosphere {
   pointer-events: none;
   position: absolute;
-  inset: 12% 18% auto;
-  height: 42%;
-  background: radial-gradient(circle, rgba(98, 114, 189, 0.16), transparent 70%);
-  filter: blur(36px);
+  inset: 8% 12% auto;
+  height: 48%;
+  background: radial-gradient(circle, rgba(98, 114, 189, 0.28), transparent 70%);
+  filter: blur(42px);
   animation: how-pulse 8s ease-in-out infinite alternate;
 }
 
 @keyframes how-pulse {
   from {
-    opacity: 0.45;
+    opacity: 0.5;
     transform: scale(1);
   }
   to {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1.1);
   }
 }
 
 @keyframes step-rise {
   from {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -2233,38 +2234,88 @@ tr:last-child td {
   }
 }
 
-@keyframes step-flow {
+@keyframes how-progress {
   0% {
-    background-position: 0% 50%;
+    transform: scaleX(0.25);
+  }
+  50% {
+    transform: scaleX(1);
   }
   100% {
-    background-position: 200% 50%;
+    transform: scaleX(0.25);
   }
 }
 
 .how-head {
   position: relative;
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 680px;
+}
+
+.how-section .tag {
+  color: #DBDCE9;
+  background: rgba(98, 114, 189, 0.2);
+  border-color: rgba(219, 220, 233, 0.16);
+  box-shadow: none;
+}
+
+.how-section .title {
+  color: #fff;
+}
+
+.how-section .subtitle {
+  color: rgba(219, 220, 233, 0.78);
+  margin-bottom: 0;
+}
+
+.how-board {
+  position: relative;
+  margin-top: 44px;
+  padding: 28px 22px 22px;
+  border-radius: 32px;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(219, 220, 233, 0.14);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.how-progress {
+  position: absolute;
+  top: 54px;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(219, 220, 233, 0.12);
+  overflow: hidden;
+}
+
+.how-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6272BD, #DBDCE9, #6272BD);
+  animation: how-progress 5.5s ease-in-out infinite;
 }
 
 .steps-track {
-  --i: 0;
   list-style: none;
-  margin: 56px 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 16px;
   position: relative;
+  z-index: 1;
 }
 
 .step-card {
   --i: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -2272,84 +2323,79 @@ tr:last-child td {
   box-shadow: none;
   text-align: left;
   animation: step-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i) * 0.12s);
-}
-
-.step-rail {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  min-height: 56px;
-}
-
-.step-dot {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #464C6E 0%, #6272BD 100%);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  box-shadow:
-    0 14px 30px rgba(70, 76, 110, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.step-line {
-  flex: 1 1 auto;
-  height: 3px;
-  margin-left: -2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #6272BD, #DBDCE9, #6272BD, #464C6E);
-  background-size: 220% 100%;
-  animation: step-flow 4.5s linear infinite;
-  opacity: 0.9;
+  animation-delay: calc(var(--i) * 0.1s);
 }
 
 .step-panel {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-height: 100%;
-  padding: 22px 20px;
+  gap: 12px;
+  height: 100%;
+  min-height: 250px;
+  padding: 22px 20px 20px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(219, 220, 233, 0.95);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(219, 220, 233, 0.12);
   overflow: hidden;
   transition:
     transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.32s ease,
+    background 0.32s ease,
     box-shadow 0.32s ease;
 }
 
 .step-panel::before {
   content: "";
   position: absolute;
-  inset: 0 auto auto;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(90deg, #6272BD, #DBDCE9);
-  opacity: 0.9;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, #6272BD, transparent 80%);
 }
 
 .step-card:hover .step-panel {
-  transform: translateY(-8px);
-  border-color: rgba(98, 114, 189, 0.35);
-  box-shadow: 0 24px 48px rgba(98, 114, 189, 0.16);
+  transform: translateY(-6px);
+  border-color: rgba(98, 114, 189, 0.4);
+  background: rgba(98, 114, 189, 0.16);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
-.step-card:hover .step-dot {
-  transform: scale(1.06);
-  transition: transform 0.28s ease;
+.step-ghost {
+  position: absolute;
+  right: 10px;
+  bottom: -8px;
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(219, 220, 233, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+.step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.step-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(98, 114, 189, 0.4), rgba(70, 76, 110, 0.35));
+  border: 1px solid rgba(219, 220, 233, 0.16);
+  color: #DBDCE9;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.step-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .step-index {
@@ -2358,7 +2404,7 @@ tr:last-child td {
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: #9FA7D3;
 }
 
 .step-panel h3,
@@ -2368,7 +2414,7 @@ tr:last-child td {
   font-size: clamp(20px, 2vw, 24px);
   line-height: 1.2;
   letter-spacing: -0.015em;
-  color: var(--navy);
+  color: #fff;
 }
 
 .step-panel p,
@@ -2376,20 +2422,46 @@ tr:last-child td {
   margin: 0;
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.55;
-  color: var(--text-secondary);
+  color: rgba(235, 236, 244, 0.88);
+  position: relative;
+  z-index: 1;
+}
+
+.how-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 20px 22px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(219, 220, 233, 0.12);
+}
+
+.how-footer p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(245, 245, 249, 0.9);
+}
+
+.how-footer .btn {
+  flex: 0 0 auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .how-atmosphere,
   .step-card,
-  .step-line {
+  .how-progress span {
     animation: none !important;
   }
 
-  .step-panel,
-  .step-dot {
+  .step-panel {
     transition: none !important;
   }
 }
@@ -3625,8 +3697,18 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
-  .step-card:nth-child(even) .step-line {
+  .how-progress {
     display: none;
+  }
+
+  .how-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .how-footer .btn {
+    width: 100%;
   }
 
   .footer-grid {
@@ -3685,37 +3767,19 @@ button {
 
   .steps-track {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
 
-  .step-rail {
-    min-height: 48px;
+  .how-board {
+    padding: 16px;
   }
 
-  .step-line {
-    display: none;
+  .step-panel {
+    min-height: 0;
   }
 
-  .step-card {
-    display: grid;
-    grid-template-columns: 56px minmax(0, 1fr);
-    gap: 14px;
-    align-items: stretch;
-  }
-
-  .step-rail {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .step-card:not(:last-child) .step-rail::after {
-    content: "";
-    flex: 1 1 auto;
-    width: 3px;
-    margin-top: 8px;
-    min-height: 24px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, #6272BD, #DBDCE9);
+  .step-ghost {
+    font-size: 56px;
   }
 
   .hero-actions .btn {
