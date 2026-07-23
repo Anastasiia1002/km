@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, industries, painCards, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
+import { articles, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { normalizePath, withBase } from "./lib/routes.js";
 
@@ -581,6 +581,7 @@ function HomePage({ navigate }) {
       <WhySection />
       <Cases />
       <Stats />
+      <Partners />
       <Industries navigate={navigate} />
       <Regions navigate={navigate} />
       <HowItWorks />
@@ -819,7 +820,7 @@ function Cases() {
       <div className="container">
         <div className="tag">📊 Кейси</div><h2 className="title">Реальні результати клієнтів</h2><p className="subtitle">Публікуємо тільки підтверджені цифри. Два додаткові кейси потребують даних від КМ-Трейд.</p>
         <div className="grid-3 case-grid">
-          <article className="case-card"><span className="case-tag">Чернівці · 10 авто</span><h3>«Два відра»: диспетчеризація і контроль автопарку</h3><div className="case-metrics"><b>−20%<span>пального</span></b><b>200 л<span>економія/міс</span></b><b>1 рік<span>окупність</span></b></div><p className="case-quote">Потрібно отримати проблему ДО підключення GPS і цитату власника або диспетчера.</p></article>
+          <article className="case-card"><span className="case-tag">Чернівці · 10 авто</span><h3>«Два Відра»: диспетчеризація і контроль автопарку</h3><div className="case-metrics"><b>−20%<span>пального</span></b><b>200 л<span>економія/міс</span></b><b>1 рік<span>окупність</span></b></div><p className="case-quote">Потрібно отримати проблему ДО підключення GPS і цитату власника або диспетчера.</p><a className="case-link" href="https://dvavidra.ua" target="_blank" rel="noopener noreferrer">dvavidra.ua →</a></article>
           <article className="case-card placeholder"><span className="case-tag">Івано-Франківська обл.</span><h3>Кейс 2 після отримання даних</h3><p>Потрібні: галузь, кількість авто, проблема, результат у цифрах, термін окупності і цитата клієнта.</p></article>
           <article className="case-card placeholder"><span className="case-tag">Тернопільська або Хмельницька обл.</span><h3>Кейс 3 після отримання даних</h3><p>Бажано показати іншу галузь, щоб підтвердити локальну присутність у 7 областях.</p></article>
         </div>
@@ -830,6 +831,31 @@ function Cases() {
 
 function Stats() {
   return <section className="section stats-section"><div className="container"><div className="stats-grid"><div><b>350+</b><span>клієнтів</span></div><div><b>4&nbsp;000+</b><span>авто обслужено</span></div><div><b>10 років</b><span>на ринку</span></div><div><b>{regionCount}&nbsp;областей</b><span>виїзд і сервіс</span></div></div></div></section>;
+}
+
+function Partners() {
+  return (
+    <section className="section partners-section" id="partners">
+      <div className="container">
+        <div className="center">
+          <div className="tag">🤝 Партнери</div>
+          <h2 className="title">Компанії, з якими працюємо</h2>
+          <p className="subtitle">Клієнти КМ-Трейд, які довіряють GPS-моніторинг своїх автопарків.</p>
+        </div>
+        <ul className="partners-list">
+          {partners.map((partner) => (
+            <li key={partner.url}>
+              <a className="partners-item" href={partner.url} target="_blank" rel="noopener noreferrer">
+                <b>{partner.name}</b>
+                <span>{partner.note}</span>
+                <small>{partner.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}</small>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
 }
 
 function Industries({ navigate }) {
