@@ -887,11 +887,11 @@ function Industries({ navigate }) {
 }
 
 function Regions({ navigate }) {
-  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Виїжджаємо на Західну Україну та Київ</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
+  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Працюємо по Західній Україні та Києву</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
 }
 
 function HowItWorks() {
-  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по всіх ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Техпідтримка", "Гарантія 1 рік і допомога зі звітами."]];
+  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Техпідтримка", "Гарантія 1 рік і допомога зі звітами."]];
   return <section className="section how-section"><div className="container"><div className="center"><div className="tag">⚡ Процес</div><h2 className="title">Як ми працюємо</h2></div><div className="steps-grid">{steps.map(([n, title, text]) => <article className="step-card" key={n}><b>{n}</b><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>;
 }
 
