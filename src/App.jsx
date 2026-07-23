@@ -619,8 +619,8 @@ function Hero({ navigate }) {
               <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів безкоштовно →</button>
             </div>
             <div className="hero-stats">
-              <div><b>350+</b><span>клієнтів</span></div>
-              <div><b>4&nbsp;000+</b><span>авто обслужено</span></div>
+              <div><b>350+</b><span>клієнтів B2B</span></div>
+              <div><b>4&nbsp;000+</b><span>авто підключених</span></div>
               <div><b>10 років</b><span>на ринку</span></div>
               <div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div>
             </div>
