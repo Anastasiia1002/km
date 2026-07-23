@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
+import { articles, cases, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { normalizePath, withBase } from "./lib/routes.js";
 
@@ -813,13 +813,45 @@ function WhySection() {
 
 function Cases() {
   return (
-    <section className="section" id="cases">
+    <section className="section cases-section" id="cases">
       <div className="container">
-        <div className="tag">📊 Кейси</div><h2 className="title">Реальні результати клієнтів</h2><p className="subtitle">Публікуємо тільки підтверджені цифри. Два додаткові кейси потребують даних від КМ Трейд.</p>
-        <div className="grid-3 case-grid">
-          <article className="case-card"><span className="case-tag">Чернівці · 10 авто</span><h3>«Два Відра»: диспетчеризація і контроль автопарку</h3><div className="case-metrics"><b>−20%<span>пального</span></b><b>200 л<span>економія/міс</span></b><b>1 рік<span>окупність</span></b></div><p className="case-quote">Потрібно отримати проблему ДО підключення GPS і цитату власника або диспетчера.</p><a className="case-link" href="https://dvavidra.ua" target="_blank" rel="noopener noreferrer">dvavidra.ua →</a></article>
-          <article className="case-card placeholder"><span className="case-tag">Івано-Франківська обл.</span><h3>Кейс 2 після отримання даних</h3><p>Потрібні: галузь, кількість авто, проблема, результат у цифрах, термін окупності і цитата клієнта.</p></article>
-          <article className="case-card placeholder"><span className="case-tag">Тернопільська або Хмельницька обл.</span><h3>Кейс 3 після отримання даних</h3><p>Бажано показати іншу галузь, щоб підтвердити локальну присутність у 7 областях.</p></article>
+        <div className="cases-head">
+          <div className="tag">Кейси</div>
+          <h2 className="title">Реальні результати клієнтів</h2>
+          <p className="subtitle">Запит бізнесу, що змінилось після GPS і посилання на компанію.</p>
+        </div>
+        <div className="case-grid">
+          {cases.map((item) => (
+            <article className="case-card" key={item.name}>
+              <div className="case-card-top">
+                <span className="case-logo" aria-hidden="true">
+                  <img src={withBase(item.logo)} alt="" width="140" height="40" loading="lazy" />
+                </span>
+                <span className="case-tag">{item.tag}</span>
+              </div>
+              <h3>{item.name}</h3>
+              <div className="case-block">
+                <small>Запит</small>
+                <p>{item.request}</p>
+              </div>
+              <div className="case-block">
+                <small>Результат</small>
+                <p>{item.result}</p>
+              </div>
+              <div className="case-metrics">
+                {item.metrics.map(([value, label]) => (
+                  <b key={`${item.name}-${value}-${label}`}>
+                    {value}
+                    <span>{label}</span>
+                  </b>
+                ))}
+              </div>
+              <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer">
+                Відкрити сайт
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
         </div>
       </div>
     </section>
