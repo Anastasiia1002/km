@@ -28,7 +28,7 @@
     radial-gradient(circle at 85% 10%, rgba(255, 92, 26, 0.12), transparent 35%),
     linear-gradient(180deg, #F5F5F9 0%, #EBECF4 48%, #F5F5F9 100%);
   /* Brand blue #6272BD (violet undertone) as the visible blue stop */
-  --gradient-dark: linear-gradient(135deg, #464C6E 0%, #5563A8 48%, #6272BD 100%);
+  --gradient-dark: linear-gradient(135deg, #464C6E 0%, #545F95 48%, #6272BD 100%);
   --gradient-accent: linear-gradient(135deg, #ff5c1a 0%, #ff7a40 100%);
   --gradient-blue: linear-gradient(135deg, #464C6E 0%, #6272BD 100%);
   --glass: rgba(255, 255, 255, 0.72);
