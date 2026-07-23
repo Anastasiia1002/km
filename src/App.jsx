@@ -618,9 +618,7 @@ function Hero({ navigate }) {
             </div>
             <div className="hero-actions">
               <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів безкоштовно →</button>
-              <button className="btn btn-outline" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>Порахувати економію</button>
             </div>
-            <p className="hero-price">Від <strong>250 грн</strong> включаючи моб.зв'язок · Виїзд сьогодні або завтра</p>
           </div>
           <Mockup />
         </div>
