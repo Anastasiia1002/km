@@ -322,15 +322,18 @@ export const partners = [
     name: "Pride Cars",
     url: "https://pridecars.com.ua",
     note: "Оренда авто",
+    logo: "/assets/partners/pride-cars.png",
   },
   {
     name: "Mpost",
     url: "https://mpost.com.ua/",
     note: "Транспортна компанія",
+    logo: "/assets/partners/mpost.png",
   },
   {
     name: "Два Відра",
     url: "https://dvavidra.ua",
     note: "Доставка води",
+    logo: "/assets/partners/dva-vidra.svg",
   },
 ];

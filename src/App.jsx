@@ -846,6 +846,9 @@ function Partners() {
           {partners.map((partner) => (
             <li key={partner.url}>
               <a className="partners-item" href={partner.url} target="_blank" rel="noopener noreferrer">
+                <span className="partners-logo">
+                  <img src={withBase(partner.logo)} alt="" width="180" height="48" />
+                </span>
                 <b>{partner.name}</b>
                 <span>{partner.note}</span>
                 <small>{partner.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}</small>

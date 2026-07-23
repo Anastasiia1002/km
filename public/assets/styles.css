@@ -1711,6 +1711,23 @@ tr:last-child td {
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
+.partners-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 64px;
+  margin-bottom: 10px;
+}
+
+.partners-logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 44px;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .partners-item:hover {
   border-color: var(--accent);
   color: var(--blue);
