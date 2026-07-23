@@ -3658,6 +3658,14 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
+  .pain-summary strong {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
+  .usp-card {
+    padding: 24px 20px;
+  }
+
   .pricing-grid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -3748,8 +3756,6 @@ button {
     padding: 64px 0 76px;
   }
 
-  .pain-grid,
-  .usp-grid,
   .industry-grid,
   .grid-4,
   .region-grid,
@@ -3759,6 +3765,132 @@ button {
   .feature-grid,
   .hero-stats {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .pain-grid,
+  .usp-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .pain-head {
+    gap: 18px;
+  }
+
+  .pain-summary {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  .pain-summary strong {
+    font-size: clamp(26px, 9vw, 32px);
+    white-space: nowrap;
+  }
+
+  .pain-card {
+    padding: 20px 16px 16px;
+    border-radius: 20px;
+  }
+
+  .pain-card-top {
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-right: 28px;
+  }
+
+  .pain-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    font-size: 20px;
+  }
+
+  .pain-card h3 {
+    font-size: 17px;
+  }
+
+  .pain-card p {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .pain-cost {
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+
+  .pain-cta-panel {
+    margin-top: 20px;
+    padding: 18px 16px;
+    border-radius: 18px;
+    gap: 14px;
+  }
+
+  .pain-cta-panel b {
+    font-size: 18px;
+  }
+
+  .pain-cta-panel .btn {
+    min-height: 48px;
+  }
+
+  #why .title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .usp-grid {
+    margin-top: 28px;
+  }
+
+  .usp-card {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 6px;
+    padding: 16px;
+    border-radius: 18px;
+    align-items: start;
+  }
+
+  .usp-card span {
+    grid-row: 1 / span 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    background: linear-gradient(135deg, rgba(98, 114, 189, 0.12), rgba(0, 180, 166, 0.08));
+  }
+
+  .usp-card h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+
+  .usp-card p {
+    grid-column: 2;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .partner-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 28px;
+    padding: 16px;
+  }
+
+  .partner-logo {
+    min-width: 72px;
+    height: 72px;
+    font-size: 18px;
+    border-radius: 18px;
   }
 
   .pricing-grid {
