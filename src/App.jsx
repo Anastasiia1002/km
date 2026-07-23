@@ -621,12 +621,6 @@ function Hero({ navigate }) {
               <button className="btn btn-outline" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>Порахувати економію</button>
             </div>
             <p className="hero-price">Від <strong>250 грн</strong> включаючи моб.зв'язок · Виїзд сьогодні або завтра</p>
-            <div className="hero-stats">
-              <div><b>350+</b><span>Клієнтів</span></div>
-              <div><b>4&nbsp;000+</b><span>Авто обслужено</span></div>
-              <div><b>10 р.</b><span>Досвіду</span></div>
-              <div><b>{regionCount} обл.</b><span>Покриття</span></div>
-            </div>
           </div>
           <Mockup />
         </div>

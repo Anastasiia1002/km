@@ -823,39 +823,6 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   font-size: 15px;
 }
 
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 38px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(219, 220, 233, 0.9);
-}
-
-.hero-stats > div {
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(219, 220, 233, 0.85);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-}
-
-.hero-stats b {
-  display: block;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(22px, 1.6vw + 0.55rem, 30px);
-  color: var(--navy);
-  letter-spacing: -0.03em;
-  white-space: nowrap;
-}
-
-.hero-stats span {
-  display: block;
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-
 .hero-visual {
   position: relative;
 }
@@ -2862,8 +2829,7 @@ button {
   .region-grid,
   .steps-grid,
   .stats-grid,
-  .partners-list,
-  .hero-stats {
+  .partners-list {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -2914,8 +2880,7 @@ button {
   .partners-list,
   .footer-grid,
   .form-row,
-  .feature-grid,
-  .hero-stats {
+  .feature-grid {
     grid-template-columns: 1fr;
   }
 
