@@ -930,8 +930,39 @@ function Regions({ navigate }) {
 }
 
 function HowItWorks() {
-  const steps = [["1", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."], ["2", "Виїзд і аудит", `Безкоштовний виїзд по ${regionCount} областях.`], ["3", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."], ["4", "Техпідтримка", "Гарантія 1 рік і допомога зі звітами."]];
-  return <section className="section how-section"><div className="container"><div className="center"><div className="tag">⚡ Процес</div><h2 className="title">Як ми працюємо</h2></div><div className="steps-grid">{steps.map(([n, title, text]) => <article className="step-card" key={n}><b>{n}</b><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>;
+  const steps = [
+    ["01", "Заявка", "Передзвонюємо за 15 хвилин і уточнюємо регіон, тип транспорту та кількість авто."],
+    ["02", "Виїзд і аудит", `Безкоштовний виїзд по ${regionCount} областях.`],
+    ["03", "Встановлення", "Монтаж трекерів за 1 день, налаштування Wialon і навчання."],
+    ["04", "Техпідтримка", "Гарантія 1 рік і допомога зі звітами."],
+  ];
+
+  return (
+    <section className="section how-section" id="process">
+      <div className="how-atmosphere" aria-hidden="true" />
+      <div className="container">
+        <div className="center how-head">
+          <div className="tag">⚡ Процес</div>
+          <h2 className="title">Як ми працюємо</h2>
+        </div>
+        <ol className="steps-track">
+          {steps.map(([n, title, text], index) => (
+            <li className="step-card" key={n} style={{ "--i": index }}>
+              <div className="step-rail" aria-hidden="true">
+                <span className="step-dot">{n}</span>
+                {index < steps.length - 1 ? <span className="step-line" /> : null}
+              </div>
+              <article className="step-panel">
+                <span className="step-index">Крок {n}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
 }
 
 function Pricing() {
