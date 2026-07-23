@@ -848,8 +848,8 @@ function Cases() {
               <div className="case-metrics">
                 {item.metrics.map(([value, label]) => (
                   <b key={`${item.name}-${value}-${label}`}>
-                    {value}
-                    <span>{label}</span>
+                    <span className="case-metric-value">{value}</span>
+                    <span className="case-metric-label">{label}</span>
                   </b>
                 ))}
               </div>
