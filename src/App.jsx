@@ -1196,8 +1196,7 @@ function formatPhoneLabel(display) {
   return (
     <>
       <span className="phone-prefix">{prefix.trimEnd()}</span>
-      {" "}
-      <span className="phone-accent">58-43-85</span>
+      <span className="phone-accent">{"\u00A0"}58-43-85</span>
     </>
   );
 }
