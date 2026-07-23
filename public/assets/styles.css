@@ -2856,12 +2856,12 @@ button {
   .grid-4,
   .region-grid,
   .steps-grid,
-  .stats-grid,
   .partners-list,
   .footer-grid,
   .form-row,
-  .feature-grid {
-    grid-template-columns: 1fr;
+  .feature-grid,
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero-actions .btn {
