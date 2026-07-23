@@ -641,7 +641,7 @@ function Mockup() {
         <div className="mockup-header"><span className="mockup-title">Wialon Live Map</span><span className="mockup-status">Онлайн — 14 авто</span></div>
         <div className="mockup-map">
           <div className="map-grid" />
-          <svg className="route-svg" viewBox="0 0 300 200"><polyline points="60,160 90,120 130,100 170,80 210,90 250,60" fill="none" stroke="#2D6BE4" strokeWidth="2.5" strokeDasharray="6 3" /></svg>
+          <svg className="route-svg" viewBox="0 0 300 200"><polyline points="60,160 90,120 130,100 170,80 210,90 250,60" fill="none" stroke="#6272BD" strokeWidth="2.5" strokeDasharray="6 3" /></svg>
           <div className="map-car">🚛</div>
         </div>
         <div className="mockup-vehicles">
