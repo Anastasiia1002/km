@@ -607,7 +607,7 @@ function Hero({ navigate }) {
               контролювати маршрути та зменшувати втрати автопарку.
             </p>
             <div className="hero-chips">
-              <span>🛰 Wialon Local / Hosting</span>
+              <span>🛰 Wialon</span>
               <span>⚡ Виїзд сьогодні</span>
               <span>🧪 Тест 14 днів</span>
             </div>
