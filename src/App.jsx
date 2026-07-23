@@ -693,7 +693,7 @@ function PainSection() {
           </div>
           <div className="pain-summary">
             <span className="pain-summary-label">Типові втрати без GPS</span>
-            <strong>до 17 000+ грн</strong>
+            <strong>до 17 000 грн</strong>
             <span className="pain-summary-note">на 1 авто на рік</span>
           </div>
         </div>
