@@ -15,6 +15,7 @@ React.js сайт для КМ Трейд на основі прототипу I.
 - `sitemap.xml`, `robots.txt`, canonical/meta description.
 - Калькулятор економії, UTM capture, `dataLayer` події для GTM/GA4/Meta.
 - Honeypot-антиспам і serverless endpoint `/api/lead` для Telegram-заявок.
+- Плаваючий AI-консультант (FAB + чат-панель) з проксі `/api/chat` для підключення зовнішнього AI-агента.
 
 ## Команди
 
@@ -65,13 +66,58 @@ TELEGRAM_CHAT_ID=...
 
 Endpoint підготовлений у форматі Vercel Serverless Function.
 
+## AI-консультант (плаваюча кнопка)
+
+На всіх сторінках є FAB «Питання?» і чат-панель. UI готовий; відповіді йдуть через `/api/chat`.
+
+### Що має надати розробник / інтегратор агента
+
+1. **`AI_AGENT_API_URL`** — URL API агента (секрет на сервері, не в фронтенді).
+2. **`AI_AGENT_API_KEY`** — ключ авторизації (`Authorization: Bearer …`).
+3. **`AI_AGENT_MODE`** (опційно):
+   - `openai` (за замовчуванням) — OpenAI-compatible `chat/completions`;
+   - `webhook` — кастомний webhook: `{ messages, sessionId, page, system }`, очікується `{ reply }` / `{ message }` / `{ answer }`.
+4. **`AI_AGENT_MODEL`** (опційно) — назва моделі, напр. `gpt-4o-mini`.
+5. **`AI_AGENT_SYSTEM`** (опційно) — system prompt (база знань / тон агента).
+6. **База знань агента** — тарифи, умови тест-драйву, регіони, FAQ (на боці агента або в system prompt).
+7. **Hosting для `/api/*`** — зараз site на GitHub Pages; serverless `api/chat.js` і `api/lead.js` потребують Vercel (або аналог) з цими env vars.
+
+Публічний прапорець (опційно):
+
+```bash
+VITE_AI_ASSISTANT_ENABLED=true   # false — повністю сховати віджет
+```
+
+Тексти віджета (ім'я, привітання, підказки): `src/lib/aiConfig.js`.
+
+Компоненти:
+
+- `src/components/AiAssistant.jsx` — FAB + чат
+- `api/chat.js` — проксі до AI-агента
+- стилі — `.ai-*` у `public/assets/styles.css`
+
+### Приклад env для підключення
+
+```bash
+AI_AGENT_API_URL=https://api.openai.com/v1/chat/completions
+AI_AGENT_API_KEY=sk-...
+AI_AGENT_MODEL=gpt-4o-mini
+AI_AGENT_MODE=openai
+AI_AGENT_SYSTEM=Ти консультант КМ Трейд...
+```
+
+Без `AI_AGENT_API_URL` / `AI_AGENT_API_KEY` чат показує повідомлення, що агент ще не підключений (UI працює, відповідей від моделі немає).
+
 ## Структура
 
 - `src/App.jsx` — React-компоненти, маршрути, форми, калькулятор, події аналітики.
+- `src/components/AiAssistant.jsx` — плаваючий AI-чат.
+- `src/lib/aiConfig.js` — публічні тексти/налаштування AI-віджета.
 - `src/data.js` — регіони, галузі, статті, тарифи і контентні блоки.
 - `public/assets/styles.css` — стилі з прототипу, адаптовані під React.
 - `public/sitemap.xml` і `public/robots.txt` — SEO-файли для production.
 - `api/lead.js` — serverless endpoint для Telegram.
+- `api/chat.js` — serverless proxy для AI-агента.
 
 ## Що потрібно отримати від КМ Трейд перед запуском
 
