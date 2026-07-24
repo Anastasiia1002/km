@@ -800,7 +800,15 @@ function WhySection() {
         <p className="subtitle">Локальна команда поруч: швидкий виїзд, монтаж і підтримка без довгого очікування.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
-          <div className="partner-logo">Wialon</div>
+          <div className="partner-logo">
+            <img
+              src={withBase("/assets/partners/wialon-silver-partner.svg")}
+              alt="Wialon Silver Partner"
+              width="180"
+              height="68"
+              loading="lazy"
+            />
+          </div>
           <div>
             <b>Авторизований партнер Gurtam</b>
             <span>Авторизований партнер Wialon на Заході України з виїздом сьогодні</span>

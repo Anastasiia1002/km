@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-label="Wialon Silver Partner">
+  <defs>
+    <linearGradient id="badge" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#5EC8F0"/>
+      <stop offset="48%" stop-color="#4A78D8"/>
+      <stop offset="100%" stop-color="#5B4FC9"/>
+    </linearGradient>
+    <linearGradient id="curl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4F6FA"/>
+      <stop offset="55%" stop-color="#C8CDD8"/>
+      <stop offset="100%" stop-color="#8E95A5"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <!-- Main badge body with clipped top-right corner -->
+  <path
+    d="M12 10h248l48 48v42c0 6.6-5.4 12-12 12H12C5.4 112 0 106.6 0 100V22C0 15.4 5.4 10 12 10z"
+    fill="url(#badge)"
+    filter="url(#shadow)"
+  />
+
+  <!-- Thin inner border -->
+  <path
+    d="M14 14h242l42 42v42c0 4.4-3.6 8-8 8H14c-4.4 0-8-3.6-8-8V22c0-4.4 3.6-8 8-8z"
+    fill="none"
+    stroke="#fff"
+    stroke-opacity="0.55"
+    stroke-width="1.5"
+  />
+
+  <!-- Peeled corner flap -->
+  <path d="M260 10l48 48h-36c-6.6 0-12-5.4-12-12V10z" fill="url(#curl)"/>
+  <path d="M260 10l12 36c1.2 3.6 4.6 6 8.4 6H308L260 10z" fill="#A8AEBC" opacity="0.55"/>
+
+  <!-- Badge text -->
+  <text x="22" y="52" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="0.4">Wialon Silver</text>
+  <text x="22" y="88" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="0.4">Partner</text>
+</svg>

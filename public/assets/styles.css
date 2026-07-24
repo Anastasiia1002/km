@@ -1576,17 +1576,28 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 }
 
 .partner-logo {
-  min-width: 92px;
-  height: 92px;
-  border-radius: 22px;
-  display: grid;
-  place-items: center;
-  background: var(--gradient-blue);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  box-shadow: 0 14px 30px rgba(98, 114, 189, 0.24);
+  flex: 0 0 auto;
+  min-width: 0;
+  width: 180px;
+  height: auto;
+  min-height: 68px;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  box-shadow: none;
+}
+
+.partner-logo img {
+  display: block;
+  width: 180px;
+  height: auto;
+  max-width: 100%;
 }
 
 .partner-strip b {
@@ -3887,10 +3898,12 @@ button {
   }
 
   .partner-logo {
-    min-width: 72px;
-    height: 72px;
-    font-size: 18px;
-    border-radius: 18px;
+    width: 160px;
+    min-height: 60px;
+  }
+
+  .partner-logo img {
+    width: 160px;
   }
 
   .pricing-grid {
