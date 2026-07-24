@@ -574,7 +574,7 @@ function NavLink({ href, navigate, children, className = "", onNavigate }) {
 function HomePage({ navigate }) {
   return (
     <>
-      <Hero navigate={navigate} />
+      <Hero />
       <TrustBar />
       <PainSection />
       <Calculator />
@@ -593,14 +593,16 @@ function HomePage({ navigate }) {
   );
 }
 
-function Hero({ navigate }) {
+function Hero() {
   return (
     <section className="hero">
       <div className="container">
         <div className="hero-inner">
-          <div>
-            <div className="hero-badge"><span /> {regionCitiesLine}</div>
-            <h1>GPS-моніторинг автопарку в 7 областях України — <em>встановлення сьогодні</em></h1>
+          <div className="hero-badge"><span /> {regionCitiesLine}</div>
+          <h1 className="hero-title">
+            GPS-моніторинг автопарку в 7 областях України — <em>встановлення сьогодні</em>
+          </h1>
+          <div className="hero-copy">
             <p className="hero-sub">
               КМ Трейд — авторизований партнер Wialon / Gurtam з Чернівців. Виїжджаємо по {regionOblastsLine} і допомагаємо економити пальне,
               контролювати маршрути та зменшувати втрати автопарку.
@@ -610,17 +612,12 @@ function Hero({ navigate }) {
               <span>⚡ Виїзд сьогодні</span>
               <span>🧪 Тест 14 днів</span>
             </div>
-            <div className="region-badges">
-              {regions.map((region) => (
-                <button key={region.slug} type="button" onClick={() => navigate(`/${region.slug}/`)}>{region.city}</button>
-              ))}
-            </div>
             <div className="hero-actions">
               <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів безкоштовно →</button>
             </div>
             <div className="hero-stats">
               <div><b>350+</b><span>клієнтів B2B</span></div>
-              <div><b>4&nbsp;000+</b><span>авто підключених</span></div>
+              <div><b>4000+</b><span>підключених авто</span></div>
               <div><b>10 років</b><span>на ринку</span></div>
               <div><b>{regionCount} областей</b><span>виїзд і сервіс</span></div>
             </div>
@@ -684,7 +681,7 @@ function PainSection() {
       <div className="container">
         <div className="pain-head">
           <div className="pain-head-copy">
-            <div className="tag">⚠️ Болі клієнта</div>
+            <div className="tag">Ваші болі</div>
             <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
             <p className="subtitle">
               Кожна з цих проблем обходиться бізнесу в десятки тисяч гривень щороку.
