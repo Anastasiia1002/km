@@ -802,10 +802,10 @@ function WhySection() {
         <div className="partner-strip">
           <div className="partner-logo">
             <img
-              src={withBase("/assets/partners/wialon-silver-partner.svg")}
+              src={withBase("/assets/partners/wialon-silver-partner.png")}
               alt="Wialon Silver Partner"
-              width="180"
-              height="68"
+              width="200"
+              height="75"
               loading="lazy"
             />
           </div>
