@@ -1,0 +1,24 @@
+{
+  "name": "km-trade-gps-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "dev:root": "VITE_BASE=/ vite --host 0.0.0.0",
+    "build": "vite build",
+    "build:pages": "VITE_BASE=/km/ vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "node scripts/check-fuel-savings.js && node scripts/check-site.js",
+    "check:calc": "node scripts/check-fuel-savings.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "^8.0.16"
+  }
+}
