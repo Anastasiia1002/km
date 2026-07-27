@@ -2983,10 +2983,7 @@ tr:last-child td {
 }
 
 .certificates-section {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(98, 114, 189, 0.12), transparent 40%),
-    radial-gradient(circle at 88% 90%, rgba(219, 220, 233, 0.55), transparent 36%),
-    linear-gradient(180deg, #F5F5F9 0%, #fff 100%);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -3082,22 +3079,12 @@ tr:last-child td {
 }
 
 .certificates-fade {
-  position: absolute;
-  top: 0;
-  bottom: 18px;
-  width: 48px;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
-.certificates-fade-left {
-  left: 0;
-  background: linear-gradient(90deg, rgba(245, 245, 249, 0.95), transparent);
-}
-
+.certificates-fade-left,
 .certificates-fade-right {
-  right: 0;
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0.95), transparent);
+  display: none;
 }
 
 .certificate-card {
@@ -3136,10 +3123,8 @@ tr:last-child td {
   display: block;
   overflow: hidden;
   border-radius: 16px;
-  background:
-    linear-gradient(180deg, #F5F5F9 0%, #EBECF4 100%);
+  background: transparent;
   aspect-ratio: 3 / 4;
-  box-shadow: inset 0 0 0 1px rgba(219, 220, 233, 0.7);
 }
 
 .certificate-preview img {
@@ -4325,10 +4310,6 @@ button {
     grid-auto-columns: minmax(78%, 78%);
     gap: 14px;
     padding-bottom: 14px;
-  }
-
-  .certificates-fade {
-    width: 28px;
   }
 
   .certificate-copy b {

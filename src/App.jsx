@@ -1321,8 +1321,6 @@ function Certificates() {
         </div>
 
         <div className="certificates-carousel">
-          <div className="certificates-fade certificates-fade-left" aria-hidden="true" />
-          <div className="certificates-fade certificates-fade-right" aria-hidden="true" />
           <ul className="certificates-track" ref={trackRef} tabIndex={0} aria-label="Слайдер сертифікатів">
             {certificates.map((item, index) => (
               <li className={`certificate-slide${index === active ? " is-active" : ""}`} key={item.id}>
