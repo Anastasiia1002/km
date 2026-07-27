@@ -1229,41 +1229,140 @@ function About() {
 }
 
 function Certificates() {
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const syncCarousel = () => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const cards = [...track.querySelectorAll(".certificate-slide")];
+    if (!cards.length) return;
+
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let nearest = 0;
+    let nearestDist = Infinity;
+    cards.forEach((card, index) => {
+      const center = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(center - mid);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = index;
+      }
+    });
+
+    setActive(nearest);
+    setCanPrev(track.scrollLeft > 8);
+    setCanNext(track.scrollLeft < track.scrollWidth - track.clientWidth - 8);
+  };
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    syncCarousel();
+    track.addEventListener("scroll", syncCarousel, { passive: true });
+    window.addEventListener("resize", syncCarousel);
+    return () => {
+      track.removeEventListener("scroll", syncCarousel);
+      window.removeEventListener("resize", syncCarousel);
+    };
+  }, []);
+
+  const scrollByCard = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector(".certificate-slide");
+    const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  const goTo = (index) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelectorAll(".certificate-slide")[index];
+    if (!card) return;
+    track.scrollTo({ left: card.offsetLeft - 8, behavior: "smooth" });
+  };
+
   return (
     <section className="section certificates-section" id="certificates">
       <div className="container">
         <div className="certificates-head">
-          <div className="tag">Документи</div>
-          <h2 className="title">Сертифікати та авторизація</h2>
-          <p className="subtitle">
-            Підтвердження партнерства з Gurtam / Wialon і кваліфікації команди КМ Трейд. Натисніть, щоб відкрити документ.
-          </p>
+          <div>
+            <div className="tag">Документи</div>
+            <h2 className="title">Сертифікати та авторизація</h2>
+            <p className="subtitle">
+              Підтвердження партнерства з Gurtam / Wialon і кваліфікації команди. Гортайте слайдер або відкрийте документ.
+            </p>
+          </div>
+          <div className="certificates-controls" aria-label="Керування слайдером сертифікатів">
+            <button
+              className="certificates-nav"
+              type="button"
+              aria-label="Попередній сертифікат"
+              disabled={!canPrev}
+              onClick={() => scrollByCard(-1)}
+            >
+              ←
+            </button>
+            <button
+              className="certificates-nav"
+              type="button"
+              aria-label="Наступний сертифікат"
+              disabled={!canNext}
+              onClick={() => scrollByCard(1)}
+            >
+              →
+            </button>
+          </div>
         </div>
-        <ul className="certificates-grid">
-          {certificates.map((item) => (
-            <li key={item.id}>
-              <a
-                className="certificate-card"
-                href={withBase(item.file)}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${item.title} — відкрити документ`}
-              >
-                <span className="certificate-preview" aria-hidden="true">
-                  <img src={withBase(item.preview)} alt="" width="360" height="508" loading="lazy" />
-                </span>
-                <span className="certificate-copy">
-                  <b>{item.title}</b>
-                  <span>{item.meta}</span>
-                </span>
-                <span className="certificate-cta">
-                  Відкрити
-                  <span aria-hidden="true">→</span>
-                </span>
-              </a>
-            </li>
+
+        <div className="certificates-carousel">
+          <div className="certificates-fade certificates-fade-left" aria-hidden="true" />
+          <div className="certificates-fade certificates-fade-right" aria-hidden="true" />
+          <ul className="certificates-track" ref={trackRef} tabIndex={0} aria-label="Слайдер сертифікатів">
+            {certificates.map((item, index) => (
+              <li className={`certificate-slide${index === active ? " is-active" : ""}`} key={item.id}>
+                <a
+                  className="certificate-card"
+                  href={withBase(item.file)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${item.title} — відкрити документ`}
+                >
+                  <span className="certificate-preview" aria-hidden="true">
+                    <img src={withBase(item.preview)} alt="" width="360" height="508" loading="lazy" />
+                  </span>
+                  <span className="certificate-copy">
+                    <b>{item.title}</b>
+                    <span>{item.meta}</span>
+                  </span>
+                  <span className="certificate-cta">
+                    Відкрити документ
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="certificates-dots" role="tablist" aria-label="Позиція в слайдері">
+          {certificates.map((item, index) => (
+            <button
+              key={item.id}
+              className={`certificates-dot${index === active ? " is-active" : ""}`}
+              type="button"
+              role="tab"
+              aria-selected={index === active}
+              aria-label={`Сертифікат ${index + 1}: ${item.title}`}
+              onClick={() => goTo(index)}
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
