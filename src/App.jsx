@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, cases, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
+import { articles, cases, certificates, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
@@ -589,6 +589,7 @@ function HomePage({ navigate }) {
       <TrialSection />
       <TestimonialsNotice />
       <About />
+      <Certificates />
       <BlogPreview navigate={navigate} />
     </>
   );
@@ -1199,7 +1200,73 @@ function TestimonialsNotice() {
 }
 
 function About() {
-  return <section className="section local-section" id="about"><div className="container"><div className="local-inner"><div><div className="tag">📍 Про компанію</div><h2 className="title">10 років на ринку GPS-моніторингу</h2><p className="subtitle">Офіс у місті Чернівці, виїзд по {regionCount} областях, техпідтримка і сервіс обладнання протягом першого року.</p><div className="local-features"><div><b>🛰 Сертифікований партнер Gurtam</b><span>Потрібен сертифікат або номер сертифікату для публікації.</span></div><div><b>📷 Фото команди / офісу</b><span>Реальні фото підвищать довіру і замінять цей службовий блок.</span></div></div></div><ContactCard /></div></div></section>;
+  return (
+    <section className="section local-section" id="about">
+      <div className="container">
+        <div className="local-inner">
+          <div>
+            <div className="tag">📍 Про компанію</div>
+            <h2 className="title">10 років на ринку GPS-моніторингу</h2>
+            <p className="subtitle">
+              Офіс у місті Чернівці, виїзд по {regionCount} областях, техпідтримка і сервіс обладнання протягом першого року.
+            </p>
+            <div className="local-features">
+              <div>
+                <b>🛰 Сертифікований партнер Gurtam</b>
+                <span>Авторизований партнер Wialon: Silver-статус, авторизаційний лист і сертифікати команди.</span>
+              </div>
+              <div>
+                <b>📷 Фото команди / офісу</b>
+                <span>Реальні фото підвищать довіру і замінять цей службовий блок.</span>
+              </div>
+            </div>
+          </div>
+          <ContactCard />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Certificates() {
+  return (
+    <section className="section certificates-section" id="certificates">
+      <div className="container">
+        <div className="certificates-head">
+          <div className="tag">Документи</div>
+          <h2 className="title">Сертифікати та авторизація</h2>
+          <p className="subtitle">
+            Підтвердження партнерства з Gurtam / Wialon і кваліфікації команди КМ Трейд. Натисніть, щоб відкрити документ.
+          </p>
+        </div>
+        <ul className="certificates-grid">
+          {certificates.map((item) => (
+            <li key={item.id}>
+              <a
+                className="certificate-card"
+                href={withBase(item.file)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${item.title} — відкрити документ`}
+              >
+                <span className="certificate-preview" aria-hidden="true">
+                  <img src={withBase(item.preview)} alt="" width="360" height="508" loading="lazy" />
+                </span>
+                <span className="certificate-copy">
+                  <b>{item.title}</b>
+                  <span>{item.meta}</span>
+                </span>
+                <span className="certificate-cta">
+                  Відкрити
+                  <span aria-hidden="true">→</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
 }
 
 function formatPhoneLabel(display) {

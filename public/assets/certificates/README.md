@@ -1,10 +1,13 @@
 # Certificates
 
-Завантажте сюди PDF сертифікатів Wialon / Gurtam.
+Partner certificates and authorization documents shown on the site.
 
-- Сертифікат 1 Гаврилюк.pdf
-- Сертифікат 1 Клевчук NEW.pdf
-- Сертифікат 2 Волошина.pdf
-- Сертифікат 2 Демченко.pdf
-- Gurtam_авторизаційний_лист.pdf
-- Wialon_Silver24.pdf
+| File | Description |
+| --- | --- |
+| `gurtam-authorization-letter.pdf` | Авторизаційний лист Gurtam |
+| `wialon-silver-2024.pdf` | Wialon Silver Partner 2024 |
+| `wialon-level1-boychuk.jpg` | Wialon Level 1 — Бойчук |
+| `wialon-level1-gavryliuk.pdf` | Wialon Level 1 — Гаврилюк |
+| `wialon-level1-klevchuk.pdf` | Wialon Level 1 — Клевчук |
+| `wialon-level2-voloshyna.pdf` | Wialon Level 2 — Волошина |
+| `wialon-level2-demchenko.pdf` | Wialon Level 2 — Демченко |

@@ -381,3 +381,55 @@ export const cases = [
     logo: "/assets/partners/mpost.png",
   },
 ];
+
+export const certificates = [
+  {
+    id: "wialon-silver",
+    title: "Wialon Silver Partner",
+    meta: "Статус партнера · 2024",
+    file: "/assets/certificates/wialon-silver-2024.pdf",
+    preview: "/assets/certificates/wialon-silver-2024-preview.jpg",
+  },
+  {
+    id: "gurtam-auth",
+    title: "Авторизаційний лист Gurtam",
+    meta: "Підтвердження партнерства",
+    file: "/assets/certificates/gurtam-authorization-letter.pdf",
+    preview: "/assets/certificates/gurtam-authorization-letter-preview.jpg",
+  },
+  {
+    id: "level1-boychuk",
+    title: "Wialon Level 1 — Бойчук",
+    meta: "Сертифікат спеціаліста",
+    file: "/assets/certificates/wialon-level1-boychuk.jpg",
+    preview: "/assets/certificates/wialon-level1-boychuk-preview.jpg",
+  },
+  {
+    id: "level1-gavryliuk",
+    title: "Wialon Level 1 — Гаврилюк",
+    meta: "Сертифікат спеціаліста",
+    file: "/assets/certificates/wialon-level1-gavryliuk.pdf",
+    preview: "/assets/certificates/wialon-level1-gavryliuk-preview.jpg",
+  },
+  {
+    id: "level1-klevchuk",
+    title: "Wialon Level 1 — Клевчук",
+    meta: "Сертифікат спеціаліста",
+    file: "/assets/certificates/wialon-level1-klevchuk.pdf",
+    preview: "/assets/certificates/wialon-level1-klevchuk-preview.jpg",
+  },
+  {
+    id: "level2-voloshyna",
+    title: "Wialon Level 2 — Волошина",
+    meta: "Сертифікат спеціаліста",
+    file: "/assets/certificates/wialon-level2-voloshyna.pdf",
+    preview: "/assets/certificates/wialon-level2-voloshyna-preview.jpg",
+  },
+  {
+    id: "level2-demchenko",
+    title: "Wialon Level 2 — Демченко",
+    meta: "Сертифікат спеціаліста",
+    file: "/assets/certificates/wialon-level2-demchenko.pdf",
+    preview: "/assets/certificates/wialon-level2-demchenko-preview.jpg",
+  },
+];
