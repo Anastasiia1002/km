@@ -85,11 +85,13 @@ for (const snippet of ["<title>", 'name="description"', 'id="root"', 'type="modu
 }
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
-for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "calculator_used", "region_page_view"]) {
+for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "calculator_used", "region_page_view", "monthlyFuelSavings"]) {
   if (!appSource.includes(snippet)) {
     throw new Error(`src/App.jsx is missing ${snippet}`);
   }
 }
+
+await assertFile(path.join(root, "src", "lib"), "fuelSavings.js");
 
 const sitemap = await readFile(path.join(publicDir, "sitemap.xml"), "utf8");
 const urlCount = (sitemap.match(/<url>/g) || []).length;
