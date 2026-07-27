@@ -800,7 +800,7 @@ function WhySection() {
     <section className="section" id="why">
       <div className="container">
         <div className="tag">✓ Чому КМ Трейд</div>
-        <h2 className="title">Авторизований партнер Wialon на заході України та в Києві з виїздом сьогодні</h2>
+        <h2 className="title">Авторизований партнер Wialon в Україні з виїздом сьогодні</h2>
         <p className="subtitle">Локальна команда поруч: швидкий виїзд, монтаж і підтримка без довгого очікування.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
@@ -815,7 +815,7 @@ function WhySection() {
           </div>
           <div>
             <b>Авторизований партнер Gurtam</b>
-            <span>Авторизований партнер Wialon на заході України з виїздом сьогодні</span>
+            <span>Авторизований партнер Wialon в Україні з виїздом сьогодні</span>
           </div>
         </div>
       </div>
