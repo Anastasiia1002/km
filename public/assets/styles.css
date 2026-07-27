@@ -556,7 +556,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 .header-mobile-phones {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   width: 100%;
 }
 
@@ -565,7 +565,7 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 48px;
+  min-height: 44px;
   border-radius: 12px;
   background: rgba(98, 114, 189, 0.06);
   color: var(--navy);
@@ -3034,8 +3034,61 @@ tr:last-child td {
   letter-spacing: 0.01em;
 }
 
+.phone-stack {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: max-content;
+  max-width: 100%;
+}
+
+.phone-stack > a {
+  display: table-row;
+  color: inherit;
+  text-decoration: none;
+}
+
+.phone-label {
+  display: inline-grid;
+  grid-template-columns: 2.75ch 3.5ch auto;
+  column-gap: 0.35em;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  white-space: nowrap;
+}
+
+.phone-stack .phone-label {
+  display: contents;
+}
+
+.phone-stack .phone-cc,
+.phone-stack .phone-op,
+.phone-stack .phone-num {
+  display: table-cell;
+  padding: 0 0.35em 0 0;
+  line-height: 1.12;
+  vertical-align: baseline;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  white-space: nowrap;
+}
+
+.phone-stack .phone-num {
+  padding-right: 0;
+}
+
+.phone-stack > a + a .phone-cc,
+.phone-stack > a + a .phone-op,
+.phone-stack > a + a .phone-num {
+  padding-top: 2px;
+}
+
+.phone-cc,
+.phone-op,
 .phone-prefix,
-.phone-accent {
+.phone-accent,
+.phone-num {
   font-family: inherit;
   font-size: 1em;
   font-weight: inherit;
@@ -3043,6 +3096,8 @@ tr:last-child td {
   letter-spacing: inherit;
 }
 
+.phone-cc,
+.phone-op,
 .phone-prefix {
   opacity: 0.72;
 }
@@ -3051,9 +3106,20 @@ tr:last-child td {
   opacity: 1;
 }
 
+.contact-card .phone-stack {
+  gap: 0;
+}
+
+.contact-card .phone-stack > a {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
 .contact-card .phone-accent,
 .footer-phone .phone-accent,
-.header-phone .phone-accent {
+.header-phone .phone-accent,
+.header-mobile-phone .phone-accent {
   color: inherit;
 }
 
@@ -3468,10 +3534,18 @@ footer {
   gap: 8px;
 }
 
+.footer-phones .phone-stack {
+  gap: 0;
+}
+
 .footer-phone {
   font-family: var(--font-body);
   color: #fff;
   text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-phones .phone-stack .footer-phone {
   font-weight: 700;
 }
 

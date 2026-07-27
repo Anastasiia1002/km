@@ -1196,13 +1196,28 @@ function About() {
 }
 
 function formatPhoneLabel(display) {
-  if (!display.includes("58-43-85")) return display;
-  const [prefix] = display.split("58-43-85");
+  const match = String(display).match(/^(\+38)\s+(\d{3})\s+(\d{3}-\d{2}-\d{2})$/);
+  if (!match) return display;
+
+  const [, country, operator, local] = match;
+  const accent = "58-43-85";
+  const localHead = local.endsWith(accent) ? local.slice(0, -accent.length) : null;
+
   return (
-    <>
-      <span className="phone-prefix">{prefix.trimEnd()}</span>
-      <span className="phone-accent">{"\u00A0"}58-43-85</span>
-    </>
+    <span className="phone-label">
+      <span className="phone-cc">{country}</span>
+      <span className="phone-op">{operator}</span>
+      <span className="phone-num">
+        {localHead !== null ? (
+          <>
+            <span className="phone-prefix">{localHead}</span>
+            <span className="phone-accent">{accent}</span>
+          </>
+        ) : (
+          local
+        )}
+      </span>
+    </span>
   );
 }
 
@@ -1219,8 +1234,14 @@ function ContactCard() {
       >
         {site.address}
       </a>
-      <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>{formatPhoneLabel(site.phoneDisplay2)}</a>
-      <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>{formatPhoneLabel(site.phoneDisplay)}</a>
+      <div className="phone-stack">
+        <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
+          {formatPhoneLabel(site.phoneDisplay2)}
+        </a>
+        <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
+          {formatPhoneLabel(site.phoneDisplay)}
+        </a>
+      </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
     </div>
@@ -1335,7 +1356,7 @@ function Footer({ navigate }) {
       <footer id="contacts">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand"><Logo navigate={navigate} variant="light" /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <div className="footer-brand"><Logo navigate={navigate} variant="light" /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><div className="phone-stack"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a></div><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
