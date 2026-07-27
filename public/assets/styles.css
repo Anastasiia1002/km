@@ -3099,11 +3099,32 @@ tr:last-child td {
 .phone-cc,
 .phone-op,
 .phone-prefix {
-  opacity: 0.72;
+  opacity: 1;
 }
 
 .phone-accent {
   opacity: 1;
+}
+
+/* Light header: mild mute is fine */
+.header-phone .phone-cc,
+.header-phone .phone-op,
+.header-phone .phone-prefix,
+.header-mobile-phone .phone-cc,
+.header-mobile-phone .phone-op,
+.header-mobile-phone .phone-prefix {
+  opacity: 0.82;
+}
+
+/* Dark surfaces: prefix must stay fully readable */
+.contact-card .phone-cc,
+.contact-card .phone-op,
+.contact-card .phone-prefix,
+.footer-phone .phone-cc,
+.footer-phone .phone-op,
+.footer-phone .phone-prefix {
+  opacity: 1;
+  color: #fff;
 }
 
 .contact-card .phone-stack {
