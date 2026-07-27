@@ -1841,12 +1841,23 @@ tr:last-child td {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
+.case-logo--dva-vidra {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
 .case-logo img {
   display: block;
   width: auto;
   max-width: 118px;
   height: 28px;
   object-fit: contain;
+}
+
+.case-logo--dva-vidra img {
+  height: 40px;
+  max-width: 140px;
 }
 
 .case-index {
@@ -2119,6 +2130,18 @@ tr:last-child td {
   filter: grayscale(0.15);
   opacity: 0.92;
   transition: filter 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
+}
+
+.partners-logo--dva-vidra {
+  background: transparent;
+  padding: 8px;
+}
+
+.partners-logo--dva-vidra img {
+  filter: none;
+  opacity: 1;
+  height: 56px;
+  max-width: 100%;
 }
 
 .partners-item:hover .partners-logo img,

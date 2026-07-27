@@ -334,7 +334,8 @@ export const partners = [
     name: "Два Відра",
     url: "https://dvavidra.ua",
     note: "Доставка питної води в Чернівцях",
-    logo: "/assets/partners/dva-vidra.svg",
+    logo: "/assets/partners/dva-vidra.svg?v=brand-1",
+    brand: "dva-vidra",
   },
 ];
 
@@ -350,7 +351,8 @@ export const cases = [
       ["1 рік", "окупність"],
     ],
     url: "https://dvavidra.ua",
-    logo: "/assets/partners/dva-vidra.svg",
+    logo: "/assets/partners/dva-vidra.svg?v=brand-1",
+    brand: "dva-vidra",
   },
   {
     name: "Pride Cars",

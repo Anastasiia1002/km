@@ -831,7 +831,7 @@ function Cases() {
             <article className="case-card" key={item.name} style={{ "--i": index }}>
               <div className="case-card-shine" aria-hidden="true" />
               <div className="case-card-top">
-                <span className="case-logo" aria-hidden="true">
+                <span className={`case-logo${item.brand ? ` case-logo--${item.brand}` : ""}`} aria-hidden="true">
                   <img src={withBase(item.logo)} alt="" width="140" height="40" loading="lazy" />
                 </span>
                 <span className="case-index">0{index + 1}</span>
@@ -883,13 +883,13 @@ function Partners() {
           {partners.map((partner) => (
             <li key={partner.url}>
               <a
-                className="partners-item"
+                className={`partners-item${partner.brand ? ` partners-item--${partner.brand}` : ""}`}
                 href={partner.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${partner.name} — відкрити сайт`}
               >
-                <span className="partners-logo" aria-hidden="true">
+                <span className={`partners-logo${partner.brand ? ` partners-logo--${partner.brand}` : ""}`} aria-hidden="true">
                   <img src={withBase(partner.logo)} alt="" width="180" height="48" loading="lazy" />
                 </span>
                 <span className="partners-copy">
