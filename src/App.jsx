@@ -683,7 +683,7 @@ function PainSection() {
         <div className="pain-head">
           <div className="pain-head-copy">
             <div className="tag">Ваші болі</div>
-            <h2 className="title">Вам потрібен GPS-моніторинг, якщо водії...</h2>
+            <h2 className="title">Вам потрібен GPS-моніторинг, якщо знайомі такі ситуації</h2>
             <p className="subtitle">
               Кожна з цих проблем обходиться бізнесу в десятки тисяч гривень щороку.
               Wialon робить маршрут, пальне і стиль водіння прозорими.
