@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { articles, cases, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
+import { monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
@@ -726,9 +727,15 @@ function PainSection() {
 
 function Calculator() {
   const [values, setValues] = useState({ type: "truck", count: 5, fuel: 30, km: 5 });
-  const pricePerLiter = values.type === "car" ? 58 : 55;
-  const savings = Math.round((values.fuel / 100) * (values.km * 1000) * values.count * pricePerLiter * 0.2);
+  const kmPerMonth = values.km * 1000;
+  const { savings, ratePercent } = monthlyFuelSavings({
+    type: values.type,
+    count: values.count,
+    fuel: values.fuel,
+    kmPerMonth,
+  });
   const subscription = values.count * 250;
+  const roi = subscription > 0 ? (savings / subscription).toFixed(1) : "0.0";
 
   useEffect(() => {
     const hidden = document.getElementById("lead-savings");
@@ -748,7 +755,7 @@ function Calculator() {
             <div className="tag tag-dark">💰 Калькулятор</div>
             <h2 className="title calc-title">Порахуйте вашу економію</h2>
             <p className="calc-sub">Тип авто, кількість, витрата і пробіг дають орієнтир економії від контролю пального, маршрутів і дисципліни водіїв.</p>
-            <div className="calc-benefits"><span>⛽ Контроль пального: 15-25%</span><span>🛣 Оптимізація пробігу: до 10%</span><span>🔧 Менше зносу: до 20%</span></div>
+            <div className="calc-benefits"><span>⛽ Економія пального: 5–20%</span><span>📊 Модель за типом автопарку</span><span>🔧 Менше зносу: до 20%</span></div>
           </div>
           <div className="calc-box">
             <label>Тип транспорту
@@ -762,9 +769,9 @@ function Calculator() {
             <Range label="Кількість авто" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
             <Range label="Витрата пального, л/100 км" value={values.fuel} min="6" max="60" onChange={(value) => update("fuel", value)} />
             <Range label="Пробіг, тис. км/місяць" value={values.km} min="1" max="30" onChange={(value) => update("km", value)} />
-            <div className="calc-result"><b>{money(savings)}</b><span>грн економії щомісяця</span><small>Підписка КМ Трейд: {money(subscription)} грн/міс · ROI: {(savings / subscription).toFixed(1)}x</small></div>
+            <div className="calc-result"><b>{money(savings)}</b><span>грн економії щомісяця</span><small>Очікувана економія ~{ratePercent}% · Підписка КМ Трейд: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
             <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити {money(savings)} грн →</button>
-            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію.</p>
+            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за ймовірнісною моделлю.</p>
           </div>
         </div>
       </div>
