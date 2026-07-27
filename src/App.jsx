@@ -713,8 +713,8 @@ function PainSection() {
         </div>
         <div className="pain-cta-panel">
           <div>
-            <b>Впізнали своїх водіїв?</b>
-            <p>Порахуємо реальні збитки для вашого автопарку за 1 хвилину.</p>
+            <b>Впізнали знайомі ситуації?</b>
+            <p>Порахуємо орієнтовні втрати для вашого автопарку за 1 хвилину.</p>
           </div>
           <button className="btn btn-primary" type="button" onClick={() => document.getElementById("calc")?.scrollIntoView({ behavior: "smooth" })}>
             Порахувати збитки →
