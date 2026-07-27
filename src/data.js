@@ -6,9 +6,17 @@ export const site = {
   phoneDisplay2: "+38 095 058-43-85",
   email: "gps@km-trade.net",
   address: "м. Чернівці, вул. Фастівська 30в — головний офіс",
+  addressLocality: "Чернівці",
+  addressRegion: "Чернівецька область",
+  postalCode: "58000",
+  streetAddress: "вул. Фастівська 30в",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent("Чернівці, вул. Фастівська 30в"),
+  ogImage: "https://km-trade.net/assets/logo-full.png",
+  name: "КМ Трейд",
+  legalName: "КМ Трейд",
+  sameAs: ["https://anastasiia1002.github.io/km/"],
 };
 
 export const regions = [

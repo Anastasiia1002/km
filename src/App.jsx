@@ -15,14 +15,57 @@ function pushEvent(event, payload = {}) {
   window.dataLayer.push({ event, ...payload });
 }
 
-function setMeta({ title, description, type = "website", path = "/" }) {
+function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null }) {
   document.title = title;
   upsertMeta("description", description);
+  upsertMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
   upsertMeta("og:title", title, "property");
   upsertMeta("og:description", description, "property");
   upsertMeta("og:type", type, "property");
+  upsertMeta("og:site_name", site.name, "property");
+  upsertMeta("og:locale", "uk_UA", "property");
   upsertMeta("og:url", `${site.baseUrl}${path === "/" ? "/" : path}`, "property");
+  upsertMeta("og:image", image, "property");
+  upsertMeta("og:image:alt", title, "property");
+  upsertMeta("twitter:card", "summary_large_image");
+  upsertMeta("twitter:title", title);
+  upsertMeta("twitter:description", description);
+  upsertMeta("twitter:image", image);
   upsertLink("canonical", `${site.baseUrl}${path === "/" ? "/" : path}`);
+  upsertJsonLd("page-jsonld", jsonLd);
+}
+
+function upsertJsonLd(id, data) {
+  let tag = document.getElementById(id);
+  if (!data) {
+    tag?.remove();
+    return;
+  }
+  if (!tag) {
+    tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.id = id;
+    document.head.appendChild(tag);
+  }
+  tag.textContent = JSON.stringify(data);
+}
+
+function absoluteUrl(path = "/") {
+  if (!path || path === "/") return `${site.baseUrl}/`;
+  return `${site.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+function breadcrumbJsonLd(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
 }
 
 function upsertMeta(name, content, attr = "name") {
@@ -133,7 +176,27 @@ function resolvePage(path) {
     return {
       type: "region",
       data: region,
-      meta: { title: `${region.title} — КМ Трейд Wialon`, description: region.description, type: "website", path },
+      meta: {
+        title: `${region.title} — КМ Трейд Wialon`,
+        description: region.description,
+        type: "website",
+        path,
+        jsonLd: [
+          breadcrumbJsonLd([
+            { name: "Головна", path: "/" },
+            { name: region.city, path: `/${region.slug}/` },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: region.title,
+            description: region.description,
+            provider: { "@type": "LocalBusiness", name: site.name, url: site.baseUrl },
+            areaServed: region.oblast,
+            url: absoluteUrl(`/${region.slug}/`),
+          },
+        ],
+      },
     };
   }
 
@@ -142,7 +205,26 @@ function resolvePage(path) {
     return {
       type: "industry",
       data: industry,
-      meta: { title: `${industry.title} — КМ Трейд`, description: industry.description, type: "website", path },
+      meta: {
+        title: `${industry.title} — КМ Трейд`,
+        description: industry.description,
+        type: "website",
+        path,
+        jsonLd: [
+          breadcrumbJsonLd([
+            { name: "Головна", path: "/" },
+            { name: industry.name, path: `/${industry.slug}/` },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: industry.title,
+            description: industry.description,
+            provider: { "@type": "Organization", name: site.name, url: site.baseUrl },
+            url: absoluteUrl(`/${industry.slug}/`),
+          },
+        ],
+      },
     };
   }
 
@@ -151,9 +233,13 @@ function resolvePage(path) {
       type: "blog",
       meta: {
         title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
-        description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків заходу України.",
+        description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків в Україні.",
         type: "website",
         path,
+        jsonLd: breadcrumbJsonLd([
+          { name: "Головна", path: "/" },
+          { name: "Статті", path: "/statti/" },
+        ]),
       },
     };
   }
@@ -163,7 +249,34 @@ function resolvePage(path) {
     return {
       type: "article",
       data: article,
-      meta: { title: `${article.title} — КМ Трейд`, description: article.description, type: "article", path },
+      meta: {
+        title: `${article.title} — КМ Трейд`,
+        description: article.description,
+        type: "article",
+        path,
+        jsonLd: [
+          breadcrumbJsonLd([
+            { name: "Головна", path: "/" },
+            { name: "Статті", path: "/statti/" },
+            { name: article.title, path: `/statti/${article.slug}/` },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            description: article.description,
+            datePublished: article.date,
+            inLanguage: "uk-UA",
+            author: { "@type": "Organization", name: site.name },
+            publisher: {
+              "@type": "Organization",
+              name: site.name,
+              logo: { "@type": "ImageObject", url: site.ogImage },
+            },
+            mainEntityOfPage: absoluteUrl(`/statti/${article.slug}/`),
+          },
+        ],
+      },
     };
   }
 
@@ -180,6 +293,10 @@ function resolvePage(path) {
           : `${title} КМ Трейд. Текст потребує юридичного погодження перед production-запуском.`,
         type: "website",
         path,
+        jsonLd: breadcrumbJsonLd([
+          { name: "Головна", path: "/" },
+          { name: title, path },
+        ]),
       },
     };
   }
@@ -187,11 +304,12 @@ function resolvePage(path) {
   return {
     type: "home",
     meta: {
-      title: "КМ Трейд — GPS-моніторинг автопарку в 7 областях України",
+      title: "КМ Трейд — GPS-моніторинг автопарку в Україні | Wialon",
       description:
-        "GPS-моніторинг транспорту Wialon у 7 областях: Чернівецька, Івано-Франківська, Тернопільська, Хмельницька, Львівська, Рівненська та Київська. Від 250 грн включаючи моб.зв'язок, тест 14 днів.",
+        "Авторизований партнер Wialon / Gurtam. GPS-моніторинг транспорту у 7 областях України. Офіс у місті Чернівці. Від 250 грн з моб.зв'язком, тест 14 днів, виїзд на монтаж.",
       type: "website",
       path: "/",
+      jsonLd: null,
     },
   };
 }
@@ -1448,7 +1566,7 @@ function RegionPage({ region, navigate }) {
 }
 
 function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} в Україні</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
 function BlogPage({ navigate }) {

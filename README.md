@@ -1,58 +1,68 @@
 # КМ Трейд — GPS-моніторинг транспорту
 
-React.js сайт для КМ Трейд на основі прототипу I.DEAL.AGENCY і ТЗ v2.0. Проєкт зібраний на Vite + React.
+Сайт авторизованого партнера **Wialon / Gurtam** для GPS-моніторингу автопарків.
+Стек: **React 19 + Vite 8**, деплой на **GitHub Pages** з гілки `main`.
 
-## Що входить
+## Публічні адреси
 
-- Головна сторінка з 17 секціями: hero, trust bar, болі, калькулятор, УТП, кейси, галузі, регіони, тарифи, тест-драйв, контакти.
-- 4 регіональні SEO-сторінки:
-  - `/gps-monitoring-chernivtsi/`
-  - `/gps-monitoring-ivano-frankivsk/`
-  - `/gps-monitoring-ternopil/`
-  - `/gps-monitoring-khmelnytskyi/`
-- 8 галузевих SEO-сторінок.
-- 6 SEO-статей для запуску.
-- `sitemap.xml`, `robots.txt`, canonical/meta description.
-- Калькулятор економії, UTM capture, `dataLayer` події для GTM/GA4/Meta.
-- Honeypot-антиспам і serverless endpoint `/api/lead` для Telegram-заявок.
+| Середовище | URL |
+| --- | --- |
+| GitHub Pages | https://anastasiia1002.github.io/km/ |
+| Production (canonical) | https://km-trade.net/ |
+
+Canonical, `sitemap.xml` і `robots.txt` налаштовані на **km-trade.net**.
+
+## Що є на сайті
+
+- **Головна:** hero, trust bar, болі клієнта, калькулятор економії пального, УТП, кейси, партнери, галузі, регіони, як працюємо, тарифи, тест 14 днів, про компанію, сертифікати (карусель), блог-прев’ю, контакти.
+- **7 регіональних SEO-сторінок:** Чернівці, Івано-Франківськ, Тернопіль, Хмельницький, Львів, Рівне, Київ.
+- **8 галузевих SEO-сторінок:** вантажівки, агро, будтехніка, таксі, доставка, корпоративний парк, АЗС, міжнародні рейси.
+- **6 статей** у розділі `/statti/`.
+- **Юридичні сторінки:** оферта, конфіденційність.
+- **Документи:** Silver Partner, авторизаційний лист Gurtam, сертифікати команди (Level 1 / Level 2).
+- **SEO:** meta/OG/Twitter, canonical, JSON-LD (Organization, LocalBusiness, WebSite, Article, BreadcrumbList), `sitemap.xml`, `robots.txt`.
+- **Аналітика:** UTM capture, `dataLayer` події для GTM/GA4/Meta.
+- **Ліди:** форма з honeypot + serverless `/api/lead` (Telegram).
 
 ## Команди
 
 ```bash
 npm install
-npm run dev
-npm run build
-npm run check
+npm run dev          # http://localhost:5173/km/
+npm run build        # production у dist/ (BASE з env)
+npm run build:pages  # збірка під GitHub Pages (/km/)
 npm run preview
+npm run check        # fuel-savings + sitemap/build перевірки
 ```
 
-- `npm run dev` запускає React dev-server на Vite.
-- `npm run build` збирає production bundle у `dist/`.
-- `npm run preview` показує production build локально.
-- `npm run check` перевіряє build-output, sitemap і ключові React-компоненти.
-
-Локально відкривати після `npm run dev`:
+## Структура
 
 ```text
-http://localhost:5173/km/
+src/
+  App.jsx              # маршрути, секції, форми, SEO meta/JSON-LD
+  data.js              # контент: регіони, галузі, статті, сертифікати, контакти
+  lib/fuelSavings.js   # модель економії пального
+  lib/routes.js        # withBase / normalizePath
+  content/oferta.jsx   # текст оферти
+public/
+  sitemap.xml          # карта сайту (km-trade.net)
+  robots.txt
+  assets/
+    styles.css
+    partners/          # логотипи партнерів
+    certificates/      # PDF/JPG сертифікатів + preview
+    fonts/             # Xolonium, Akrobat
+api/lead.js            # Vercel serverless → Telegram
+.github/workflows/     # деплой GitHub Pages
 ```
 
-## GitHub Pages
+## Бренд
 
-Сайт автоматично деплоїться з гілки `main` через GitHub Actions.
-
-Публічна адреса:
-
-```text
-https://anastasiia1002.github.io/km/
-```
-
-Команди для production-збірки під GitHub Pages:
-
-```bash
-npm run build:pages
-npm run check
-```
+- Назва: **КМ Трейд** (без дефіса в назві бренду; домен `km-trade.net` без змін).
+- Кольори: `#000000`, `#464C6E`, `#6272BD`, `#DBDCE9`.
+- Шрифти: **Xolonium** (заголовки), **Akrobat** (текст/UI).
+- Позиціонування партнера: **авторизований партнер Wialon в Україні**.
+- Офіс: **у місті Чернівці**.
 
 ## Telegram-заявки
 
@@ -63,24 +73,24 @@ TELEGRAM_BOT_TOKEN=...
 TELEGRAM_CHAT_ID=...
 ```
 
-Endpoint підготовлений у форматі Vercel Serverless Function.
+Endpoint у форматі Vercel Serverless Function.
 
-## Структура
+## SEO-чекліст
 
-- `src/App.jsx` — React-компоненти, маршрути, форми, калькулятор, події аналітики.
-- `src/data.js` — регіони, галузі, статті, тарифи і контентні блоки.
-- `public/assets/styles.css` — стилі з прототипу, адаптовані під React.
-- `public/sitemap.xml` і `public/robots.txt` — SEO-файли для production.
-- `api/lead.js` — serverless endpoint для Telegram.
+- [x] Унікальні `<title>` і `description` на головній / регіонах / галузях / статтях
+- [x] Canonical URL на `km-trade.net`
+- [x] Open Graph + Twitter Card
+- [x] JSON-LD: Organization, LocalBusiness, WebSite, Article, BreadcrumbList
+- [x] `sitemap.xml` + `robots.txt`
+- [x] `lang="uk"`, семантичні `h1`/`h2`, внутрішні лінки футера
+- [ ] Підключити Search Console / Bing Webmaster на production-домені
+- [ ] Перевірити індексацію після DNS / custom domain на Pages
 
-## Що потрібно отримати від КМ Трейд перед запуском
+## Що ще бажано від КМ Трейд
 
-- Реальна ціна трекера на 1 авто.
-- Повний перелік функцій пакетів Стандарт / Комуналка / VIP.
-- Умови обладнання для тарифу Комуналка.
-- Дані для кейсів 2 і 3.
-- Цитата та проблема до GPS для кейсу «Два відра».
-- 3 реальні відгуки клієнтів.
-- Фото команди або офісу.
-- Скріни Wialon.
-- Регіональні телефони, якщо вони відрізняються від загальних.
+- 3 реальні відгуки клієнтів (ім’я, посада, компанія, регіон, 2–3 речення).
+- Фото команди / офісу.
+- Скріни Wialon для hero/кейсів.
+- Цитата до кейсу «Два Відра».
+- Юридичне погодження політики конфіденційності.
+- Регіональні телефони, якщо відрізняються від загальних.
