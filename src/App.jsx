@@ -150,7 +150,7 @@ function resolvePage(path) {
       type: "blog",
       meta: {
         title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
-        description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків Заходу України.",
+        description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків заходу України.",
         type: "website",
         path,
       },
@@ -793,7 +793,7 @@ function WhySection() {
     <section className="section" id="why">
       <div className="container">
         <div className="tag">✓ Чому КМ Трейд</div>
-        <h2 className="title">Авторизований партнер Wialon на Заході України та в Києві з виїздом сьогодні</h2>
+        <h2 className="title">Авторизований партнер Wialon на заході України та в Києві з виїздом сьогодні</h2>
         <p className="subtitle">Локальна команда поруч: швидкий виїзд, монтаж і підтримка без довгого очікування.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
@@ -808,7 +808,7 @@ function WhySection() {
           </div>
           <div>
             <b>Авторизований партнер Gurtam</b>
-            <span>Авторизований партнер Wialon на Заході України з виїздом сьогодні</span>
+            <span>Авторизований партнер Wialon на заході України з виїздом сьогодні</span>
           </div>
         </div>
       </div>
@@ -931,7 +931,7 @@ function Industries({ navigate }) {
 }
 
 function Regions({ navigate }) {
-  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Працюємо в Західній Україні та Києві</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
+  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Працюємо в західній Україні та Києві</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
 }
 
 function HowItWorks() {
@@ -1277,7 +1277,7 @@ function RegionPage({ region, navigate }) {
 }
 
 function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на Заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} на заході України</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
 }
 
 function BlogPage({ navigate }) {
@@ -1346,7 +1346,7 @@ function CtaBox({ title = "Готові спробувати на своєму �
   return <div className="article-cta-box"><h3>{title}</h3><p>14 днів тест-драйву на 1 авто. Виїжджаємо по {regionCount} областях України.</p><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати безкоштовно →</button></div>;
 }
 
-function Sidebar({ region = "Захід України" }) {
+function Sidebar({ region = "захід України" }) {
   return <div className="sidebar-card"><h3>КМ Трейд поруч</h3><div className="sidebar-stat"><span>Регіон</span><b>{region}</b></div><div className="sidebar-stat"><span>Абонплата</span><b>від 250 грн вкл. моб.зв'язок</b></div><div className="sidebar-stat"><span>Тест-драйв</span><b>14 днів</b></div><div className="sidebar-stat"><span>Сервіс</span><b>1 рік безкоштовно</b></div><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>;
 }
 
@@ -1362,7 +1362,7 @@ function Footer({ navigate }) {
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
           <div className="footer-divider" />
-          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на Заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
+          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
         </div>
       </footer>
       <div className="sticky-cta"><a href={`tel:${site.phonePrimary}`} className="btn btn-outline">📞 Дзвінок</a><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>
