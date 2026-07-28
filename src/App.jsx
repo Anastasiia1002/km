@@ -720,7 +720,7 @@ function Hero() {
         <div className="hero-inner">
           <div className="hero-badge"><span /> {regionCitiesLine}</div>
           <h1 className="hero-title">
-            GPS-моніторинг автопарку в 7 областях України — <em>встановлення сьогодні</em>
+            GPS-моніторинг автопарку в 7 областях України — <em><span className="hero-accent-a">встановлення</span> <span className="hero-accent-b">сьогодні</span></em>
           </h1>
           <div className="hero-copy">
             <p className="hero-sub">

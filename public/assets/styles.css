@@ -837,10 +837,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 
 .hero h1 em {
   font-style: normal;
-  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 55%, var(--teal) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+}
+
+.hero h1 em .hero-accent-a {
+  color: var(--navy-mid); /* #464C6E */
+}
+
+.hero h1 em .hero-accent-b {
+  color: var(--blue); /* #6272BD */
 }
 
 .hero-copy {
