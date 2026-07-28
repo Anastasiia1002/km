@@ -1351,14 +1351,24 @@ function LeadForm({ region = "" }) {
     pushEvent("form_submit", { region: payload.region, cars: payload.cars, form_name: "trial" });
     pushEvent("Lead", { region: payload.region, cars: payload.cars, form_name: "trial" });
     try {
-      console.log("[lead] request body", leadBody);
+      const requestBody = JSON.stringify(leadBody);
+      console.log("[lead] запит", {
+        url: LEAD_API_URL,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: leadBody,
+        bodyRaw: requestBody,
+      });
       await fetch(LEAD_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": "true",
         },
-        body: JSON.stringify(leadBody),
+        body: requestBody,
       });
     } catch (error) {
       console.warn("Lead endpoint unavailable", error);
