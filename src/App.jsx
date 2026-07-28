@@ -1312,6 +1312,23 @@ function isValidUaPhone(value) {
   return false;
 }
 
+const LEAD_API_URL = "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead";
+
+const CARS_TO_NUMBER = {
+  "1-3 авто": 2,
+  "4-10 авто": 7,
+  "11-30 авто": 20,
+  "31-50 авто": 40,
+  "50+ авто": 50,
+};
+
+function carsToNumber(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (CARS_TO_NUMBER[value] != null) return CARS_TO_NUMBER[value];
+  const parsed = Number.parseInt(String(value || "").replace(/\D/g, ""), 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });
   const [phoneError, setPhoneError] = useState("");
@@ -1340,10 +1357,23 @@ function LeadForm({ region = "" }) {
       savings: document.getElementById("lead-savings")?.value || "",
     };
     utmKeys.forEach((key) => { payload[key] = localStorage.getItem(`km_${key}`) || ""; });
+    const leadBody = {
+      name: state.name.trim(),
+      phone: state.phone.trim(),
+      cars: carsToNumber(state.cars),
+      region: state.region,
+    };
     pushEvent("form_submit", { region: payload.region, cars: payload.cars, form_name: "trial" });
     pushEvent("Lead", { region: payload.region, cars: payload.cars, form_name: "trial" });
     try {
-      await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      await fetch(LEAD_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: JSON.stringify(leadBody),
+      });
     } catch (error) {
       console.warn("Lead endpoint unavailable", error);
     }
