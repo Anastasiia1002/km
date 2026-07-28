@@ -1366,6 +1366,7 @@ function LeadForm({ region = "" }) {
     pushEvent("form_submit", { region: payload.region, cars: payload.cars, form_name: "trial" });
     pushEvent("Lead", { region: payload.region, cars: payload.cars, form_name: "trial" });
     try {
+      console.log("[lead] request body", leadBody);
       await fetch(LEAD_API_URL, {
         method: "POST",
         headers: {
