@@ -2908,6 +2908,17 @@ tr:last-child td {
   box-shadow: 0 0 0 4px rgba(98, 114, 189, 0.1);
 }
 
+.form-field.is-invalid input {
+  border-color: #c45c4a;
+  box-shadow: 0 0 0 4px rgba(196, 92, 74, 0.12);
+}
+
+.form-error {
+  margin: 8px 0 0;
+  font: 500 13px/1.35 var(--font-body);
+  color: #c45c4a;
+}
+
 .form-submit {
   width: 100%;
   padding: 16px;

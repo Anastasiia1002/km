@@ -1260,8 +1260,16 @@ function TrialSection({ region = "" }) {
   return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо трекер на 1 авто без оплати. Ви побачите маршрути, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Техпідтримка</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
 }
 
+function isValidUaPhone(value) {
+  const digits = String(value || "").replace(/\D/g, "");
+  if (/^0\d{9}$/.test(digits)) return true;
+  if (/^380\d{9}$/.test(digits)) return true;
+  return false;
+}
+
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });
+  const [phoneError, setPhoneError] = useState("");
   const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
   useEffect(() => {
@@ -1275,6 +1283,12 @@ function LeadForm({ region = "" }) {
   const submit = async (event) => {
     event.preventDefault();
     if (state.company_site) return;
+    if (!isValidUaPhone(state.phone)) {
+      setPhoneError("Вкажіть номер у форматі +38 0XX XXX XX XX");
+      document.getElementById("lead-phone")?.focus();
+      return;
+    }
+    setPhoneError("");
     const payload = {
       ...state,
       page: window.location.pathname,
@@ -1292,16 +1306,41 @@ function LeadForm({ region = "" }) {
     setState({ name: "", phone: "", cars: "", region, company_site: "" });
   };
 
-  const update = (field, value) => setState((current) => ({ ...current, [field]: value }));
+  const update = (field, value) => {
+    setState((current) => ({ ...current, [field]: value }));
+    if (field === "phone" && (isValidUaPhone(value) || !value)) {
+      setPhoneError("");
+    }
+  };
 
   return (
-    <form className="trial-form lead-form" id="lead-form" data-form-name="trial" onSubmit={submit}>
+    <form className="trial-form lead-form" id="lead-form" data-form-name="trial" onSubmit={submit} noValidate>
       <input type="text" name="company_site" className="hp" tabIndex="-1" autoComplete="off" aria-hidden="true" value={state.company_site} onChange={(e) => update("company_site", e.target.value)} />
       <input type="hidden" id="lead-savings" name="savings" />
       <h3>Залишити заявку</h3>
       <div className="form-row">
         <div className="form-field"><label htmlFor="lead-name">Ім'я</label><input id="lead-name" type="text" placeholder="Іван Коваленко" value={state.name} onChange={(e) => update("name", e.target.value)} required /></div>
-        <div className="form-field"><label htmlFor="lead-phone">Телефон</label><input id="lead-phone" type="tel" placeholder="+38 096 ..." value={state.phone} onChange={(e) => update("phone", e.target.value)} required /></div>
+        <div className={`form-field${phoneError ? " is-invalid" : ""}`}>
+          <label htmlFor="lead-phone">Телефон</label>
+          <input
+            id="lead-phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+38 096 ..."
+            value={state.phone}
+            onChange={(e) => update("phone", e.target.value)}
+            onBlur={() => {
+              if (state.phone && !isValidUaPhone(state.phone)) {
+                setPhoneError("Вкажіть номер у форматі +38 0XX XXX XX XX");
+              }
+            }}
+            aria-invalid={phoneError ? "true" : "false"}
+            aria-describedby={phoneError ? "lead-phone-error" : undefined}
+            required
+          />
+          {phoneError ? <p className="form-error" id="lead-phone-error" role="alert">{phoneError}</p> : null}
+        </div>
       </div>
       <div className="form-row">
         <div className="form-field"><label htmlFor="lead-cars">Кількість авто</label><select id="lead-cars" value={state.cars} onChange={(e) => update("cars", e.target.value)} required><option value="">Оберіть</option><option>1-3 авто</option><option>4-10 авто</option><option>11-30 авто</option><option>31-50 авто</option><option>50+ авто</option></select></div>
