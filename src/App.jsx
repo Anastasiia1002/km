@@ -819,7 +819,7 @@ function Mockup() {
 function TrustBar() {
   const items = [
     ["📍", `${regionCount} областей покриття`],
-    ["🛰", "Партнер Gurtam (Wialon)"],
+    ["🛰", "Партнер Wialon / Gurtam"],
     ["⚡", "Встановлення за 1 день"],
     ["🔧", "Техпідтримка"],
     ["✅", "10 років досвіду"],
@@ -964,7 +964,7 @@ function WhySection() {
     <section className="section" id="why">
       <div className="container">
         <div className="tag">✓ Чому КМ Трейд</div>
-        <h2 className="title">Авторизований партнер Wialon в Україні з виїздом сьогодні</h2>
+        <h2 className="title">Авторизований партнер Wialon / Gurtam в Україні з виїздом сьогодні</h2>
         <p className="subtitle">Локальна команда поруч: швидкий виїзд, монтаж і підтримка без довгого очікування.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
@@ -978,8 +978,8 @@ function WhySection() {
             />
           </div>
           <div>
-            <b>Авторизований партнер Gurtam</b>
-            <span>Авторизований партнер Wialon в Україні з виїздом сьогодні</span>
+            <b>Авторизований партнер Wialon / Gurtam</b>
+            <span>Авторизований партнер Wialon / Gurtam в Україні з виїздом сьогодні</span>
           </div>
         </div>
       </div>
@@ -1414,8 +1414,8 @@ function About() {
             </p>
             <div className="local-features">
               <div>
-                <b>🛰 Сертифікований партнер Gurtam</b>
-                <span>Авторизований партнер Wialon: Silver-статус, авторизаційний лист і сертифікати команди.</span>
+                <b>🛰 Авторизований партнер Wialon / Gurtam</b>
+                <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
               </div>
               <div>
                 <b>📷 Фото команди / офісу</b>
@@ -1497,7 +1497,7 @@ function Certificates() {
             <div className="tag">Документи</div>
             <h2 className="title">Сертифікати та авторизація</h2>
             <p className="subtitle">
-              Підтвердження партнерства з Gurtam / Wialon і кваліфікації команди. Гортайте слайдер або відкрийте документ.
+              Підтвердження партнерства з Wialon / Gurtam і кваліфікації команди. Гортайте слайдер або відкрийте документ.
             </p>
           </div>
           <div className="certificates-controls" aria-label="Керування слайдером сертифікатів">
