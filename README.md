@@ -66,14 +66,19 @@ api/lead.js            # Vercel serverless → Telegram
 
 ## Telegram-заявки
 
-Для `/api/lead` потрібні змінні середовища:
+Форма тимчасово б’є в тунель розробника:
 
-```bash
-TELEGRAM_BOT_TOKEN=...
-TELEGRAM_CHAT_ID=...
+`POST https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead`
+
+Тіло:
+
+```json
+{ "name": "...", "phone": "...", "cars": 7, "region": "Чернівці" }
 ```
 
-Endpoint у форматі Vercel Serverless Function.
+`cars` — **число** (селект на сайті мапиться: 1–3→2, 4–10→7, 11–30→20, 31–50→40, 50+→50).
+
+Локальний fallback лишається в `api/lead.js` (Vercel), коли тунель приберуть.
 
 ## SEO-чекліст
 
