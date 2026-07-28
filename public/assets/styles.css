@@ -837,7 +837,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 
 .hero h1 em {
   font-style: normal;
-  color: var(--blue);
+}
+
+.hero h1 em .hero-accent-a {
+  color: var(--navy-mid); /* #464C6E */
+}
+
+.hero h1 em .hero-accent-b {
+  color: var(--blue); /* #6272BD */
 }
 
 .hero-copy {
