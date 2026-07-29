@@ -1642,6 +1642,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   letter-spacing: -0.03em;
 }
 
+.calc-result-prefix {
+  display: inline;
+  margin-top: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
 .calc-result span,
 .calc-result small {
   display: block;
