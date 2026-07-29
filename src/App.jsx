@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { articles, cases, certificates, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
-import { monthlyFuelSavings } from "./lib/fuelSavings.js";
+import { VEHICLE_TYPES, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 
 const routes = {
@@ -890,14 +890,8 @@ function PainSection() {
 }
 
 function Calculator() {
-  const [values, setValues] = useState({ type: "truck", count: 5, fuel: 30, km: 5 });
-  const kmPerMonth = values.km * 1000;
-  const { savings, ratePercent } = monthlyFuelSavings({
-    type: values.type,
-    count: values.count,
-    fuel: values.fuel,
-    kmPerMonth,
-  });
+  const [values, setValues] = useState({ type: "truck", count: 3, hoursPerDay: 8, daysPerMonth: 15 });
+  const { savings, ratePercent, costPerHour } = monthlyFuelSavings(values);
   const subscription = values.count * 250;
   const roi = subscription > 0 ? (savings / subscription).toFixed(1) : "0.0";
 
@@ -918,24 +912,23 @@ function Calculator() {
           <div>
             <div className="tag tag-dark">💰 Калькулятор</div>
             <h2 className="title calc-title">Порахуйте вашу економію</h2>
-            <p className="calc-sub">Тип авто, кількість, витрата і пробіг дають орієнтир економії від контролю пального, маршрутів і дисципліни водіїв.</p>
-            <div className="calc-benefits"><span>⛽ Економія пального: 5–20%</span><span>📊 Модель за типом автопарку</span><span>🔧 Менше зносу: до 20%</span></div>
+            <p className="calc-sub">Тип транспорту, кількість, години роботи на добу і дні на місяць дають орієнтир економії від GPS-контролю пального, маршрутів і дисципліни водіїв.</p>
+            <div className="calc-benefits"><span>⛽ Економія за типом техніки: 12.5–24%</span><span>⏱ Розрахунок від мотогодини</span><span>📊 Контроль зливів, простоїв і маршрутів</span></div>
           </div>
           <div className="calc-box">
             <label>Тип транспорту
               <select value={values.type} onChange={(e) => update("type", e.target.value)}>
-                <option value="truck">Вантажівка / фура</option>
-                <option value="car">Легковий автомобіль</option>
-                <option value="tractor">Трактор / спецтехніка</option>
-                <option value="minibus">Мікроавтобус / маршрутка</option>
+                {VEHICLE_TYPES.map((item) => (
+                  <option value={item.id} key={item.id}>{item.label}</option>
+                ))}
               </select>
             </label>
-            <Range label="Кількість авто" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
-            <Range label="Витрата пального, л/100 км" value={values.fuel} min="6" max="60" onChange={(value) => update("fuel", value)} />
-            <Range label="Пробіг, тис. км/місяць" value={values.km} min="1" max="30" onChange={(value) => update("km", value)} />
-            <div className="calc-result"><b>{money(savings)}</b><span>грн економії щомісяця</span><small>Очікувана економія ~{ratePercent}% · Підписка КМ Трейд: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
+            <Range label="К-ть транспорту" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
+            <Range label="К-ть годин роботи на добу" value={values.hoursPerDay} min="4" max="24" onChange={(value) => update("hoursPerDay", value)} />
+            <Range label="К-ть днів роботи на місяць" value={values.daysPerMonth} min="15" max="30" onChange={(value) => update("daysPerMonth", value)} />
+            <div className="calc-result"><b>{money(savings)}</b><span>грн економії в місяць до</span><small>Собівартість м/год {money(costPerHour)} грн · Економія {ratePercent}% · Підписка: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
             <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити {money(savings)} грн →</button>
-            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за ймовірнісною моделлю.</p>
+            <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за собівартістю мотогодини.</p>
           </div>
         </div>
       </div>
