@@ -91,7 +91,7 @@
     linear-gradient(180deg, #F5F5F9 0%, #EBECF4 48%, #F5F5F9 100%);
   /* Brand blue #6272BD (violet undertone) as the visible blue stop */
   --gradient-dark: linear-gradient(135deg, #464C6E 0%, #545F95 48%, #6272BD 100%);
-  --gradient-accent: linear-gradient(135deg, #464C6E 0%, #6272BD 100%);
+  --gradient-accent: linear-gradient(135deg, #6272BD 0%, #7B89C9 100%);
   --gradient-blue: linear-gradient(135deg, #464C6E 0%, #6272BD 100%);
   --glass: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.55);
@@ -1568,6 +1568,14 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 .calc-cta {
   width: 100%;
   margin-top: 22px;
+  background: linear-gradient(135deg, #6272BD 0%, #8090D0 100%);
+  border: 1px solid rgba(219, 220, 233, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.calc-cta:hover {
+  background: linear-gradient(135deg, #6E7EC6 0%, #8E9CD8 100%);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
 }
 
 .info-note {
