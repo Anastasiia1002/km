@@ -1834,7 +1834,7 @@ tr:last-child td {
   margin: 36px 0 0;
   padding: 8px 4px 18px;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 18px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -1860,16 +1860,17 @@ tr:last-child td {
   width: clamp(300px, 34%, 380px);
   min-width: 300px;
   max-width: 380px;
-  display: block;
+  display: flex;
+  align-self: stretch;
   height: auto;
-  align-self: flex-start;
+  min-height: 0;
 }
 
 .case-slide .case-card {
   width: 100%;
-  height: auto;
-  min-height: 0;
-  max-height: none;
+  height: 100%;
+  min-height: 100%;
+  flex: 1 1 auto;
 }
 
 .case-grid {
@@ -2032,6 +2033,8 @@ tr:last-child td {
   display: grid;
   gap: 10px;
   position: relative;
+  flex: 1 1 auto;
+  align-content: start;
 }
 
 .case-block {
@@ -2140,7 +2143,7 @@ tr:last-child td {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 2px;
+  margin-top: auto;
 }
 
 .case-metrics + .case-link,
@@ -2206,7 +2209,7 @@ tr:last-child td {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: auto;
   padding-top: 0;
   color: #fff;
   font-family: var(--font-body);
@@ -4515,7 +4518,7 @@ button {
     margin-top: 28px;
     padding: 4px 2px 14px;
     scroll-padding-inline: 2px;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
   .cases-head {
@@ -4539,14 +4542,14 @@ button {
     width: min(320px, 82vw);
     min-width: 260px;
     max-width: 320px;
-    align-self: flex-start;
+    align-self: stretch;
     height: auto;
     min-height: 0;
   }
 
   .case-slide .case-card {
-    height: auto;
-    min-height: 0;
+    height: 100%;
+    min-height: 100%;
   }
 
   .case-card {
@@ -4556,7 +4559,7 @@ button {
   }
 
   .case-metrics {
-    margin-top: 2px;
+    margin-top: auto;
     gap: 6px;
   }
 

@@ -943,7 +943,7 @@ function WhySection() {
 
 function CaseCard({ item, index }) {
   const [expanded, setExpanded] = useState(false);
-  const needsExpand = String(item.result || "").length > 160;
+  const needsExpand = String(item.result || "").length > 110;
   const initials = item.name
     .split(/\s+/)
     .filter(Boolean)
