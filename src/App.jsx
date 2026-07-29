@@ -323,49 +323,6 @@ function renderPage(page, navigate) {
   return <HomePage navigate={navigate} />;
 }
 
-function ThemeSwitcher({ compact = false }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof document === "undefined") return "orange";
-    return document.documentElement.getAttribute("data-theme") === "brandbook" ? "brandbook" : "orange";
-  });
-
-  useEffect(() => {
-    if (theme === "brandbook") {
-      document.documentElement.setAttribute("data-theme", "brandbook");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
-    try {
-      localStorage.setItem("km_theme", theme);
-    } catch {
-      /* ignore */
-    }
-  }, [theme]);
-
-  return (
-    <div className={`theme-switch${compact ? " theme-switch-compact" : ""}`} role="group" aria-label="Тема оформлення">
-      <button
-        type="button"
-        className={theme === "orange" ? "is-active" : undefined}
-        aria-pressed={theme === "orange"}
-        onClick={() => setTheme("orange")}
-      >
-        <span className="theme-dot theme-dot-orange" aria-hidden="true" />
-        <span className="theme-switch-label">Акцент</span>
-      </button>
-      <button
-        type="button"
-        className={theme === "brandbook" ? "is-active" : undefined}
-        aria-pressed={theme === "brandbook"}
-        onClick={() => setTheme("brandbook")}
-      >
-        <span className="theme-dot theme-dot-brand" aria-hidden="true" />
-        <span className="theme-switch-label">Брендбук</span>
-      </button>
-    </div>
-  );
-}
-
 function Header({ navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
@@ -510,7 +467,6 @@ function Header({ navigate }) {
             </Dropdown>
           </nav>
           <div className="header-cta">
-            <ThemeSwitcher />
             <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
               <span className="header-phone-icon" aria-hidden="true">📞</span>
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
@@ -660,7 +616,6 @@ function Header({ navigate }) {
                     Контакти
                   </NavLink>
                   <div className="header-mobile-actions">
-                    <ThemeSwitcher />
                     <div className="header-mobile-phones">
                       <a className="header-mobile-phone" href={`tel:${site.phoneSecondary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
                         {formatPhoneLabel(site.phoneDisplay2)}

@@ -41,13 +41,12 @@
     <script>
       (function () {
         try {
-          if (localStorage.getItem("km_theme") === "brandbook") {
-            document.documentElement.setAttribute("data-theme", "brandbook");
-          }
+          localStorage.removeItem("km_theme");
+          document.documentElement.removeAttribute("data-theme");
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="/assets/styles.css?v=calc-result-white-1" />
+    <link rel="stylesheet" href="/assets/styles.css?v=brandbook-only-1" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
