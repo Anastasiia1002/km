@@ -4617,6 +4617,7 @@ button {
     margin-top: 28px;
     padding: 4px 2px 14px;
     scroll-padding-inline: 2px;
+    align-items: start;
   }
 
   .cases-head {
@@ -4635,14 +4636,29 @@ button {
     border-radius: 12px;
   }
 
+  .case-slide {
+    height: auto;
+    align-self: start;
+  }
+
   .case-slide .case-card {
+    height: auto;
     min-height: 0;
   }
 
   .case-card {
-    gap: 14px;
-    padding: 22px 18px 18px;
-    border-radius: 24px;
+    gap: 12px;
+    padding: 18px 16px 16px;
+    border-radius: 22px;
+  }
+
+  .case-story {
+    flex: 0 0 auto;
+  }
+
+  .case-metrics {
+    margin-top: 0;
+    gap: 6px;
   }
 
   .case-logo {
@@ -4665,8 +4681,12 @@ button {
     font-size: clamp(20px, 5.4vw, 24px);
   }
 
+  .case-card-meta {
+    gap: 8px;
+  }
+
   .case-block {
-    padding: 12px 14px;
+    padding: 10px 12px;
     border-radius: 14px;
   }
 
@@ -4676,16 +4696,16 @@ button {
   }
 
   .case-block-result p.is-clamped {
-    -webkit-line-clamp: 4;
-    min-height: calc(1.55em * 4);
+    -webkit-line-clamp: 3;
+    min-height: 0;
   }
 
-  .case-metrics {
-    gap: 6px;
+  .case-expand {
+    margin-top: 8px;
   }
 
   .case-metrics b {
-    min-height: 64px;
+    min-height: 0;
     padding: 10px 6px;
     border-radius: 14px;
   }
@@ -4786,9 +4806,9 @@ button {
   }
 
   .case-card {
-    gap: 12px;
-    padding: 18px 16px 16px;
-    border-radius: 22px;
+    gap: 10px;
+    padding: 16px 14px 14px;
+    border-radius: 20px;
   }
 
   .case-card-top {
@@ -4796,7 +4816,7 @@ button {
   }
 
   .case-logo {
-    min-height: 40px;
+    min-height: 36px;
     padding: 6px 10px;
   }
 
@@ -4806,7 +4826,7 @@ button {
   }
 
   .case-logo--dva-vidra img {
-    height: 30px;
+    height: 28px;
     max-width: 110px;
   }
 
@@ -4824,27 +4844,27 @@ button {
   }
 
   .case-story {
-    gap: 10px;
+    gap: 8px;
   }
 
   .case-block {
-    padding: 12px;
+    padding: 10px;
   }
 
   .case-block small {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-size: 11px;
   }
 
   .case-block p,
   .case-card p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
   }
 
   .case-block-result p.is-clamped {
-    -webkit-line-clamp: 5;
-    min-height: calc(1.5em * 5);
+    -webkit-line-clamp: 3;
+    min-height: 0;
   }
 
   .case-metrics {
@@ -4853,9 +4873,9 @@ button {
   }
 
   .case-metrics b {
-    min-height: 58px;
+    min-height: 0;
     padding: 8px 4px;
-    gap: 3px;
+    gap: 2px;
     border-radius: 12px;
   }
 
@@ -4871,6 +4891,7 @@ button {
 
   .case-link {
     font-size: 13px;
+    padding-top: 0;
   }
 
   .cases-nav {
