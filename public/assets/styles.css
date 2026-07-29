@@ -4713,10 +4713,10 @@ button {
   }
 
   .case-slide {
-    flex: 0 0 min(300px, 88vw);
-    width: min(300px, 88vw);
-    min-width: 240px;
-    max-width: 300px;
+    flex: 0 0 min(320px, 88vw);
+    width: min(320px, 88vw);
+    min-width: 260px;
+    max-width: 320px;
   }
 
   .cases-section .subtitle {
