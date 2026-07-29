@@ -23,7 +23,7 @@ assert.equal(VEHICLE_BY_ID.agro.savingsPercent, 22);
 
 assert.equal(HOURS_PER_DAY_MIN, 4);
 assert.equal(HOURS_PER_DAY_MAX, 24);
-assert.equal(DAYS_PER_MONTH_MIN, 15);
+assert.equal(DAYS_PER_MONTH_MIN, 1);
 assert.equal(DAYS_PER_MONTH_MAX, 30);
 
 // Приклад з таблиці: вантажівки, 3 од., 8 год/добу, 15 днів → 141264

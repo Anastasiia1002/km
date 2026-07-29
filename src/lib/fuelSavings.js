@@ -41,7 +41,7 @@ export const VEHICLE_BY_ID = Object.fromEntries(VEHICLE_TYPES.map((item) => [ite
 
 export const HOURS_PER_DAY_MIN = 4;
 export const HOURS_PER_DAY_MAX = 24;
-export const DAYS_PER_MONTH_MIN = 15;
+export const DAYS_PER_MONTH_MIN = 1;
 export const DAYS_PER_MONTH_MAX = 30;
 
 export function getVehicleType(type) {

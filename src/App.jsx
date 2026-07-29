@@ -925,7 +925,7 @@ function Calculator() {
             </label>
             <Range label="К-ть транспорту" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
             <Range label="К-ть годин роботи на добу" value={values.hoursPerDay} min="4" max="24" onChange={(value) => update("hoursPerDay", value)} />
-            <Range label="К-ть днів роботи на місяць" value={values.daysPerMonth} min="15" max="30" onChange={(value) => update("daysPerMonth", value)} />
+            <Range label="К-ть днів роботи на місяць" value={values.daysPerMonth} min="1" max="30" onChange={(value) => update("daysPerMonth", value)} />
             <div className="calc-result"><b>{money(savings)}</b><span>грн економії в місяць до</span><small>Собівартість м/год {money(costPerHour)} грн · Економія {ratePercent}% · Підписка: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
             <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити {money(savings)} грн →</button>
             <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за собівартістю мотогодини.</p>
