@@ -1103,7 +1103,9 @@ function Cases() {
     const track = trackRef.current;
     if (!track) return;
     const card = track.querySelector(".case-slide");
-    const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.85;
+    const styles = window.getComputedStyle(track);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || "18") || 18;
+    const step = card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.85;
     track.scrollBy({ left: direction * step, behavior: "smooth" });
   };
 
@@ -1112,7 +1114,8 @@ function Cases() {
     if (!track) return;
     const card = track.querySelectorAll(".case-slide")[index];
     if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - 8, behavior: "smooth" });
+    const pad = Number.parseFloat(window.getComputedStyle(track).paddingInlineStart || "0") || 0;
+    track.scrollTo({ left: Math.max(0, card.offsetLeft - pad), behavior: "smooth" });
   };
 
   return (
