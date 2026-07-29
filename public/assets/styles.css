@@ -4612,7 +4612,7 @@ button {
   }
 
   .cases-track {
-    grid-auto-columns: minmax(72%, 82%);
+    grid-auto-columns: minmax(280px, 360px);
     gap: 14px;
     margin-top: 28px;
     padding: 4px 2px 14px;
@@ -4637,6 +4637,9 @@ button {
   }
 
   .case-slide {
+    width: 100%;
+    min-width: 280px;
+    max-width: 360px;
     height: auto;
     align-self: start;
   }
@@ -4796,9 +4799,14 @@ button {
 
 @media (max-width: 640px) {
   .cases-track {
-    grid-auto-columns: minmax(88%, 92%);
+    grid-auto-columns: minmax(260px, 320px);
     gap: 12px;
     margin-top: 22px;
+  }
+
+  .case-slide {
+    min-width: 260px;
+    max-width: 320px;
   }
 
   .cases-section .subtitle {
