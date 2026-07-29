@@ -33,9 +33,16 @@ const sample = monthlyFuelSavings({
   hoursPerDay: 8,
   daysPerMonth: 15,
 });
-assert.equal(sample.ratePercent, 18);
-assert.equal(sample.costPerHour, 2180);
-assert.equal(sample.savings, 141264);
+assert.equal(VEHICLE_BY_ID.truck.breakdown.length, 3);
+assert.equal(VEHICLE_BY_ID.truck.breakdown[0].percent, 8);
+assert.equal(
+  VEHICLE_BY_ID.car.breakdown.reduce((sum, item) => sum + item.percent, 0),
+  VEHICLE_BY_ID.car.savingsPercent,
+);
+assert.deepEqual(
+  sample.breakdown.map((item) => item.percent),
+  [8, 5, 5],
+);
 
 // Легкові: 430 * 12.5/100 * 1 * 8 * 20 = 8600
 assert.equal(

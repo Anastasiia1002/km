@@ -10,30 +10,55 @@ export const VEHICLE_TYPES = [
     label: "Легкові авто",
     costPerHour: 430,
     savingsPercent: 12.5,
+    breakdown: [
+      { percent: 7, label: "ліквідація нецільового пробігу" },
+      { percent: 3.5, label: "Eco-Driving (швидкість/стиль)" },
+      { percent: 2, label: "точність обліку та ТО" },
+    ],
   },
   {
     id: "van",
     label: "Буси (малотоннажні)",
     costPerHour: 640,
     savingsPercent: 15,
+    breakdown: [
+      { percent: 6, label: "запобігання зливам/недоливам" },
+      { percent: 5, label: "оптимізація маршрутів доставки" },
+      { percent: 4, label: "ліквідація холостого ходу" },
+    ],
   },
   {
     id: "truck",
     label: "Вантажівки (тягачі / TIR)",
     costPerHour: 2180,
     savingsPercent: 18,
+    breakdown: [
+      { percent: 8, label: "ДУТ (контроль зливів та «обратки»)" },
+      { percent: 5, label: "виключення фіктивних чеків" },
+      { percent: 5, label: "Eco-Driving на трасі" },
+    ],
   },
   {
     id: "construction",
     label: "Будівельна техніка",
     costPerHour: 1615,
     savingsPercent: 24,
+    breakdown: [
+      { percent: 10, label: "облік мотогодин під навантаженням" },
+      { percent: 8, label: "виявлення зливів спецтехніки" },
+      { percent: 6, label: "припинення робіт «на сторону»" },
+    ],
   },
   {
     id: "agro",
     label: "Сільгосптехніка",
     costPerHour: 3030,
     savingsPercent: 22,
+    breakdown: [
+      { percent: 9, label: "контроль площі та перекриттів" },
+      { percent: 7, label: "ДРП та проточні лічильники" },
+      { percent: 6, label: "виключення зливів при заправці" },
+    ],
   },
 ];
 
@@ -46,6 +71,10 @@ export const DAYS_PER_MONTH_MAX = 30;
 
 export function getVehicleType(type) {
   return VEHICLE_BY_ID[type] ?? VEHICLE_BY_ID.truck;
+}
+
+export function formatPercent(value) {
+  return Number.isInteger(value) ? String(value) : String(value).replace(".", ",");
 }
 
 /**
@@ -63,6 +92,7 @@ export function monthlyFuelSavings({ type, count, hoursPerDay, daysPerMonth }) {
   return {
     costPerHour: vehicle.costPerHour,
     ratePercent: vehicle.savingsPercent,
+    breakdown: vehicle.breakdown,
     monthlyCost,
     savings: Math.round(savings),
   };
