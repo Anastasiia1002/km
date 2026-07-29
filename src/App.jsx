@@ -1828,8 +1828,62 @@ function RegionPage({ region, navigate }) {
   return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/#regions")}>Регіони</button><span>›</span>{region.city}</div><div className="tag">📍 {region.oblast}</div><h1 className="title title-lg">{region.hero}</h1><p className="subtitle">{region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Заявка на виїзд →</button><a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>GPS-моніторинг {region.inCity}: що входить</h2><p>КМ Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.</p><h2>Локальні ключі для пошуку</h2><ul>{region.keys.map((key) => <li key={key}>{key}</li>)}</ul><h2>Чому локальний партнер важливий</h2><p>Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — техпідтримка враховує специфіку маршруту і техніки.</p><CtaBox title={`Підключити автопарк ${region.inCity}`} /><h2>Рішення для регіону</h2><div className="related-articles">{industries.slice(0, 4).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}><span>{item.icon}</span><b>{item.name}</b></button>)}</div></main><aside className="sidebar"><Sidebar region={region.city} /></aside></div></div></section><TrialSection region={region.city} /></>;
 }
 
-function IndustryPage({ industry }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>{industry.name}</div><div className="tag">{industry.icon} {industry.name}</div><h1 className="title title-lg">{industry.title} в Україні</h1><p className="subtitle">{industry.intro}</p><div className="hero-actions"><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів →</button><button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>Порахувати економію</button></div></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><h2>Функції для напряму «{industry.name}»</h2><div className="feature-grid">{industry.features.map((feature) => <div className="feature-item" key={feature}><span>{industry.icon}</span><div><h3>{feature}</h3><p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p></div></div>)}</div><h2>Як це впроваджує КМ Трейд</h2><p>Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.</p><h2>Покриття</h2><p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p><CtaBox title={`${industry.title} — тест 14 днів`} /></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+function IndustryPage({ industry, navigate }) {
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <span>›</span>
+            {industry.name}
+          </div>
+          <div className="tag">{industry.icon} {industry.name}</div>
+          <h1 className="title title-lg">{industry.title} в Україні</h1>
+          <p className="subtitle">{industry.intro}</p>
+          <div className="hero-actions">
+            <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+              Спробувати 14 днів →
+            </button>
+            <button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>
+              Порахувати економію
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="page-inner">
+            <main className="article-body">
+              <h2>Функції для напряму «{industry.name}»</h2>
+              <div className="feature-grid">
+                {industry.features.map((feature) => (
+                  <div className="feature-item" key={feature}>
+                    <span>{industry.icon}</span>
+                    <div>
+                      <h3>{feature}</h3>
+                      <p>Налаштовуємо Wialon, звіти, сповіщення і контроль під конкретну техніку та процеси вашого бізнесу.</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <h2>Як це впроваджує КМ Трейд</h2>
+              <p>
+                Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.
+              </p>
+              <h2>Покриття</h2>
+              <p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p>
+              <CtaBox title={`${industry.title} — тест 14 днів`} />
+            </main>
+            <aside className="sidebar">
+              <Sidebar />
+            </aside>
+          </div>
+        </div>
+      </section>
+      <TrialSection />
+    </>
+  );
 }
 
 function BlogPage({ navigate }) {
