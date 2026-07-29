@@ -2128,6 +2128,8 @@ tr:last-child td {
   display: grid;
   gap: 12px;
   position: relative;
+  flex: 1;
+  align-content: start;
 }
 
 .case-block {
@@ -2239,7 +2241,12 @@ tr:last-child td {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 2px;
+  margin-top: auto;
+}
+
+.case-metrics + .case-link,
+.case-metrics + .case-link-muted {
+  margin-top: 0;
 }
 
 .case-metrics b {
@@ -4678,8 +4685,8 @@ button {
 }
 
 @media (max-width: 640px) {
-  .case-grid {
-    grid-template-columns: 1fr;
+  .cases-track {
+    grid-auto-columns: minmax(86%, 92%);
   }
 
   .container {
