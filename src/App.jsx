@@ -1022,43 +1022,64 @@ function Cases() {
           <p className="subtitle">Запит бізнесу, що змінилось після GPS і посилання на компанію.</p>
         </div>
         <div className="case-grid">
-          {cases.map((item, index) => (
-            <article className="case-card" key={item.name} style={{ "--i": index }}>
-              <div className="case-card-shine" aria-hidden="true" />
-              <div className="case-card-top">
-                <span className={`case-logo${item.brand ? ` case-logo--${item.brand}` : ""}`} aria-hidden="true">
-                  <img src={withBase(item.logo)} alt="" width="140" height="40" loading="lazy" />
-                </span>
-                <span className="case-index">0{index + 1}</span>
-              </div>
-              <div className="case-card-meta">
-                <span className="case-tag">{item.tag}</span>
-                <h3>{item.name}</h3>
-              </div>
-              <div className="case-story">
-                <div className="case-block">
-                  <small>Запит</small>
-                  <p>{item.request}</p>
+          {cases.map((item, index) => {
+            const initials = item.name
+              .split(/\s+/)
+              .filter(Boolean)
+              .slice(0, 2)
+              .map((part) => part[0])
+              .join("")
+              .toUpperCase();
+            return (
+              <article className="case-card" key={item.name} style={{ "--i": index }}>
+                <div className="case-card-shine" aria-hidden="true" />
+                <div className="case-card-top">
+                  <span className={`case-logo${item.brand ? ` case-logo--${item.brand}` : ""}${item.logo ? "" : " case-logo--fallback"}`} aria-hidden="true">
+                    {item.logo ? (
+                      <img src={withBase(item.logo)} alt="" width="140" height="40" loading="lazy" />
+                    ) : (
+                      <span className="case-logo-fallback">{initials}</span>
+                    )}
+                  </span>
+                  <span className="case-index">0{index + 1}</span>
                 </div>
-                <div className="case-block case-block-result">
-                  <small>Результат</small>
-                  <p>{item.result}</p>
+                <div className="case-card-meta">
+                  <span className="case-tag">{item.tag}</span>
+                  <h3>{item.name}</h3>
                 </div>
-              </div>
-              <div className="case-metrics">
-                {item.metrics.map(([value, label]) => (
-                  <b key={`${item.name}-${value}-${label}`}>
-                    <span className="case-metric-value">{value}</span>
-                    <span className="case-metric-label">{label}</span>
-                  </b>
-                ))}
-              </div>
-              <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer">
-                Відкрити сайт
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-          ))}
+                <div className="case-story">
+                  {item.request ? (
+                    <div className="case-block">
+                      <small>Запит</small>
+                      <p>{item.request}</p>
+                    </div>
+                  ) : null}
+                  <div className="case-block case-block-result">
+                    <small>Результат</small>
+                    <p>{item.result}</p>
+                  </div>
+                </div>
+                {item.metrics?.length ? (
+                  <div className="case-metrics">
+                    {item.metrics.map(([value, label]) => (
+                      <b key={`${item.name}-${value}-${label}`}>
+                        <span className="case-metric-value">{value}</span>
+                        <span className="case-metric-label">{label}</span>
+                      </b>
+                    ))}
+                  </div>
+                ) : null}
+                {item.url ? (
+                  <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer">
+                    Відкрити сайт
+                    <span aria-hidden="true">→</span>
+                  </a>
+                ) : (
+                  <span className="case-link case-link-muted">Без публічної назви компанії</span>
+                )}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

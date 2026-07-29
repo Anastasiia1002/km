@@ -2036,6 +2036,20 @@ tr:last-child td {
   object-fit: contain;
 }
 
+.case-logo--fallback {
+  min-width: 52px;
+  background: linear-gradient(135deg, #464C6E 0%, #6272BD 100%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+.case-logo-fallback {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
 .case-logo--dva-vidra img {
   height: 40px;
   max-width: 140px;
@@ -2124,9 +2138,16 @@ tr:last-child td {
   letter-spacing: 0.01em;
   color: #F5F5F9;
   margin: 0;
-  overflow-wrap: normal;
+  overflow-wrap: anywhere;
   word-break: normal;
   hyphens: none;
+  white-space: pre-line;
+}
+
+.case-link-muted {
+  opacity: 0.72;
+  cursor: default;
+  pointer-events: none;
 }
 
 .case-metrics {
