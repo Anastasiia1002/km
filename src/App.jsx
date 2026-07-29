@@ -931,7 +931,32 @@ function Calculator() {
             <Range label="К-ть транспорту" value={values.count} min="1" max="80" onChange={(value) => update("count", value)} />
             <Range label="К-ть годин роботи на добу" value={values.hoursPerDay} min="1" max="24" onChange={(value) => update("hoursPerDay", value)} />
             <Range label="К-ть днів роботи на місяць" value={values.daysPerMonth} min="1" max="30" onChange={(value) => update("daysPerMonth", value)} />
-            <div className="calc-result"><b><span className="calc-result-prefix">до </span>{money(savings)}</b><span>грн в місяць економії*</span><small>Собівартість м/год {money(costPerHour)} грн · Економія {formatPercent(ratePercent)}% · Підписка: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
+            <div className="calc-result">
+              <p className="calc-result-kicker">Орієнтовна економія</p>
+              <p className="calc-result-amount">
+                <span className="calc-result-prefix">до</span>
+                <strong>{money(savings)}</strong>
+              </p>
+              <p className="calc-result-unit">грн в місяць*</p>
+              <div className="calc-result-metrics">
+                <div className="calc-metric">
+                  <span>Собівартість м/год</span>
+                  <b>{money(costPerHour)} грн</b>
+                </div>
+                <div className="calc-metric">
+                  <span>Економія</span>
+                  <b>{formatPercent(ratePercent)}%</b>
+                </div>
+                <div className="calc-metric">
+                  <span>Підписка</span>
+                  <b>{money(subscription)} грн/міс</b>
+                </div>
+                <div className="calc-metric">
+                  <span>ROI</span>
+                  <b>{roi}x</b>
+                </div>
+              </div>
+            </div>
             <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити до {money(savings)} грн →</button>
             <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за собівартістю мотогодини.</p>
             <p className="info-note">*Це орієнтовна оцінка потенційної економії. Фактичний результат залежить від режиму роботи автопарку, дисципліни водіїв і впроваджених налаштувань контролю.</p>

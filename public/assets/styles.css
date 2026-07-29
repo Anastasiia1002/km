@@ -1629,32 +1629,86 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-light-rgb), 0.08));
   border: 1px solid rgba(var(--accent-rgb), 0.28);
   border-radius: 20px;
-  padding: 28px;
+  padding: 28px 22px;
   margin-top: 26px;
 }
 
-.calc-result b {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 52px;
-  line-height: 1;
+.calc-result-kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.calc-result-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 0;
   color: var(--accent-light);
-  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .calc-result-prefix {
-  display: inline;
-  margin-top: 0;
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.calc-result span,
-.calc-result small {
+.calc-result-amount strong {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 8vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.calc-result-unit {
+  margin: 10px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.calc-result-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 22px;
+  text-align: left;
+}
+
+.calc-metric {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.calc-metric span {
   display: block;
-  color: rgba(255, 255, 255, 0.72);
-  margin-top: 8px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.calc-metric b {
+  display: block;
+  margin-top: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #fff;
 }
 
 .calc-cta {
