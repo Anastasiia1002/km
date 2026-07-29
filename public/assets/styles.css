@@ -1843,8 +1843,7 @@ tr:last-child td {
   scroll-padding-inline: 4px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  align-items: stretch;
-  --cases-card-min-height: 0px;
+  align-items: start;
 }
 
 .cases-track::-webkit-scrollbar {
@@ -1861,15 +1860,14 @@ tr:last-child td {
   scroll-snap-align: start;
   min-width: 0;
   display: flex;
-  align-self: stretch;
-  min-height: var(--cases-card-min-height);
+  align-self: start;
+  height: auto;
 }
 
 .case-slide .case-card {
   width: 100%;
-  flex: 1 1 auto;
-  height: 100%;
-  min-height: var(--cases-card-min-height);
+  height: auto;
+  min-height: 0;
 }
 
 .case-grid {
@@ -2032,8 +2030,6 @@ tr:last-child td {
   display: grid;
   gap: 12px;
   position: relative;
-  flex: 1;
-  align-content: start;
 }
 
 .case-block {
@@ -2082,10 +2078,10 @@ tr:last-child td {
 .case-block-result p.is-clamped {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   overflow: hidden;
   white-space: normal;
-  min-height: calc(1.55em * 5);
+  min-height: 0;
 }
 
 .case-expand {
@@ -2141,7 +2137,7 @@ tr:last-child td {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-top: auto;
+  margin-top: 2px;
 }
 
 .case-metrics + .case-link,
@@ -2207,8 +2203,8 @@ tr:last-child td {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: auto;
-  padding-top: 4px;
+  margin-top: 4px;
+  padding-top: 0;
   color: #fff;
   font-family: var(--font-body);
   font-size: 14px;
@@ -4517,7 +4513,7 @@ button {
     margin-top: 28px;
     padding: 4px 2px 14px;
     scroll-padding-inline: 2px;
-    align-items: stretch;
+    align-items: start;
   }
 
   .cases-head {
@@ -4540,13 +4536,14 @@ button {
     width: 100%;
     min-width: 280px;
     max-width: 360px;
-    align-self: stretch;
-    min-height: var(--cases-card-min-height);
+    align-self: start;
+    height: auto;
+    min-height: 0;
   }
 
   .case-slide .case-card {
-    height: 100%;
-    min-height: var(--cases-card-min-height);
+    height: auto;
+    min-height: 0;
   }
 
   .case-card {
@@ -4555,13 +4552,8 @@ button {
     border-radius: 22px;
   }
 
-  .case-story {
-    flex: 1 1 auto;
-    align-content: start;
-  }
-
   .case-metrics {
-    margin-top: auto;
+    margin-top: 2px;
     gap: 6px;
   }
 
