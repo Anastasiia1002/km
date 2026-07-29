@@ -941,7 +941,7 @@ function WhySection() {
   );
 }
 
-function CaseCard({ item, index, onExpandChange }) {
+function CaseCard({ item, index }) {
   const [expanded, setExpanded] = useState(false);
   const needsExpand = String(item.result || "").length > 160;
   const initials = item.name
@@ -951,11 +951,6 @@ function CaseCard({ item, index, onExpandChange }) {
     .map((part) => part[0])
     .join("")
     .toUpperCase();
-
-  const toggleExpanded = () => {
-    setExpanded((value) => !value);
-    onExpandChange?.();
-  };
 
   return (
     <article className={`case-card${expanded ? " is-expanded" : ""}`} style={{ "--i": index }}>
@@ -989,7 +984,7 @@ function CaseCard({ item, index, onExpandChange }) {
               className="case-expand"
               type="button"
               aria-expanded={expanded}
-              onClick={toggleExpanded}
+              onClick={() => setExpanded((value) => !value)}
             >
               {expanded ? "Згорнути" : "Читати повністю"}
             </button>
@@ -1024,44 +1019,6 @@ function Cases() {
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
 
-  const equalizeCardHeights = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const slides = [...track.querySelectorAll(".case-slide")];
-    const cards = [...track.querySelectorAll(".case-card")];
-    if (!cards.length) return;
-
-    track.style.setProperty("--cases-card-min-height", "0px");
-    slides.forEach((slide) => {
-      slide.style.minHeight = "0px";
-      slide.style.height = "auto";
-    });
-    cards.forEach((card) => {
-      card.style.minHeight = "0px";
-      card.style.height = "auto";
-    });
-
-    const maxHeight = Math.ceil(Math.max(0, ...cards.map((card) => card.scrollHeight)));
-    if (!Number.isFinite(maxHeight) || maxHeight <= 0) return;
-
-    const value = `${maxHeight}px`;
-    track.style.setProperty("--cases-card-min-height", value);
-    slides.forEach((slide) => {
-      slide.style.minHeight = value;
-      slide.style.height = "";
-    });
-    cards.forEach((card) => {
-      card.style.minHeight = value;
-      card.style.height = "";
-    });
-  };
-
-  const scheduleEqualize = () => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => equalizeCardHeights());
-    });
-  };
-
   const syncCarousel = () => {
     const track = trackRef.current;
     if (!track) return;
@@ -1088,35 +1045,12 @@ function Cases() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return undefined;
-
-    const onResize = () => {
-      scheduleEqualize();
-      syncCarousel();
-    };
-
-    scheduleEqualize();
     syncCarousel();
     track.addEventListener("scroll", syncCarousel, { passive: true });
-    window.addEventListener("resize", onResize);
-    window.visualViewport?.addEventListener("resize", onResize);
-
-    const images = [...track.querySelectorAll("img")];
-    images.forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener("load", scheduleEqualize, { once: true });
-        img.addEventListener("error", scheduleEqualize, { once: true });
-      }
-    });
-
-    const fontsReady = document.fonts?.ready;
-    if (fontsReady?.then) {
-      fontsReady.then(() => scheduleEqualize()).catch(() => {});
-    }
-
+    window.addEventListener("resize", syncCarousel);
     return () => {
       track.removeEventListener("scroll", syncCarousel);
-      window.removeEventListener("resize", onResize);
-      window.visualViewport?.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", syncCarousel);
     };
   }, []);
 
@@ -1158,7 +1092,7 @@ function Cases() {
         <ul className="cases-track" ref={trackRef} tabIndex={0} aria-label="Слайдер кейсів">
           {cases.map((item, index) => (
             <li className="case-slide" key={item.name}>
-              <CaseCard item={item} index={index} onExpandChange={scheduleEqualize} />
+              <CaseCard item={item} index={index} />
             </li>
           ))}
         </ul>
