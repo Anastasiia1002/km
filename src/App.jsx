@@ -1887,11 +1887,93 @@ function IndustryPage({ industry, navigate }) {
 }
 
 function BlogPage({ navigate }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span>Статті</div><div className="tag">📚 Блог</div><h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1></div></section><section className="section"><div className="container"><div className="articles-grid">{articles.map((article) => <ArticleCard key={article.slug} article={article} navigate={navigate} />)}</div></div></section><TrialSection /></>;
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <span>›</span>
+            Статті
+          </div>
+          <div className="tag">📚 Блог</div>
+          <h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1>
+          <p className="subtitle">Практичні матеріали про контроль пального, Wialon, окупність GPS і роботу автопарку.</p>
+        </div>
+      </section>
+      <section className="section blog-listing">
+        <div className="container">
+          <div className="articles-grid">
+            {articles.map((article) => (
+              <ArticleCard key={article.slug} article={article} navigate={navigate} />
+            ))}
+          </div>
+        </div>
+      </section>
+      <TrialSection />
+    </>
+  );
 }
 
 function ArticlePage({ article, navigate }) {
-  return <><section className="page-hero"><div className="container"><div className="breadcrumb"><button type="button" onClick={() => navigate("/")}>Головна</button><span>›</span><button type="button" onClick={() => navigate("/statti/")}>Статті</button><span>›</span>{article.category}</div><div className="article-meta"><span>{article.category}</span><small>{article.date} · 5 хв читання</small></div><h1 className="title title-lg">{article.title}</h1></div></section><section className="section"><div className="container"><div className="page-inner"><main className="article-body"><p className="lead">{article.excerpt}</p><h2>Що важливо знати</h2><p>{article.description}</p><h2>Як допомагає Wialon</h2><ul><li>Показує транспорт онлайн і зберігає історію маршрутів.</li><li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li><li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li></ul><CtaBox title="Хочете перевірити це на своєму автопарку?" /><h2>Читайте також</h2><div className="related-articles">{articles.filter((item) => item.slug !== article.slug).slice(0, 3).map((item) => <button className="related-card" type="button" key={item.slug} onClick={() => navigate(`/statti/${item.slug}/`)}><span>{item.icon}</span><b>{item.title}</b></button>)}</div></main><aside className="sidebar"><Sidebar /></aside></div></div></section><TrialSection /></>;
+  const related = articles.filter((item) => item.slug !== article.slug).slice(0, 3);
+
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <span>›</span>
+            <button type="button" onClick={() => navigate("/statti/")}>Статті</button>
+            <span>›</span>
+            {article.category}
+          </div>
+          <div className="article-meta article-meta-hero">
+            <span>{article.category}</span>
+            <small>{article.date} · 5 хв читання</small>
+          </div>
+          <h1 className="title title-lg">{article.title}</h1>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="page-inner">
+            <main className="article-body">
+              <p className="lead">{article.excerpt}</p>
+              <h2>Що важливо знати</h2>
+              <p>{article.description}</p>
+              <h2>Як допомагає Wialon</h2>
+              <ul>
+                <li>Показує транспорт онлайн і зберігає історію маршрутів.</li>
+                <li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li>
+                <li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li>
+              </ul>
+              <CtaBox title="Хочете перевірити це на своєму автопарку?" />
+              <h2>Читайте також</h2>
+              <div className="related-articles">
+                {related.map((item) => (
+                  <button
+                    className="related-card"
+                    type="button"
+                    key={item.slug}
+                    onClick={() => navigate(`/statti/${item.slug}/`)}
+                  >
+                    <span>{item.icon}</span>
+                    <b>{item.title}</b>
+                  </button>
+                ))}
+              </div>
+            </main>
+            <aside className="sidebar">
+              <Sidebar />
+            </aside>
+          </div>
+        </div>
+      </section>
+      <TrialSection />
+    </>
+  );
 }
 
 function LegalPage({ title, kind, navigate }) {
