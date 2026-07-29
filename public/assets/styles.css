@@ -3161,6 +3161,7 @@ tr:last-child td {
   line-height: 1.55;
   color: var(--navy);
   letter-spacing: 0.01em;
+  white-space: pre-line;
 }
 
 .testimonial-author {
