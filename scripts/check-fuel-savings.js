@@ -21,7 +21,7 @@ assert.equal(VEHICLE_BY_ID.construction.savingsPercent, 24);
 assert.equal(VEHICLE_BY_ID.agro.costPerHour, 3030);
 assert.equal(VEHICLE_BY_ID.agro.savingsPercent, 22);
 
-assert.equal(HOURS_PER_DAY_MIN, 4);
+assert.equal(HOURS_PER_DAY_MIN, 1);
 assert.equal(HOURS_PER_DAY_MAX, 24);
 assert.equal(DAYS_PER_MONTH_MIN, 1);
 assert.equal(DAYS_PER_MONTH_MAX, 30);
