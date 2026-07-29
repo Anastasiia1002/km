@@ -3860,6 +3860,10 @@ tr:last-child td {
   border-bottom: 1px solid rgba(219, 220, 233, 0.9);
 }
 
+.page-hero .hero-actions {
+  margin-top: 28px;
+}
+
 .legal-body {
   max-width: 860px;
 }
@@ -4498,6 +4502,67 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .page-hero {
+    padding: 56px 0 40px;
+  }
+
+  .page-hero .title-lg {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .page-hero .subtitle {
+    font-size: 16px;
+    margin-top: 14px;
+  }
+
+  .page-hero .hero-actions {
+    margin-top: 22px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-hero .hero-actions .btn {
+    width: 100%;
+  }
+
+  .page-inner {
+    gap: 28px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .feature-item {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .article-body h2 {
+    font-size: clamp(22px, 6vw, 28px);
+    margin: 28px 0 12px;
+  }
+
+  .article-cta-box {
+    padding: 24px 18px;
+    border-radius: 20px;
+    margin: 28px 0;
+  }
+
+  .article-cta-box h3 {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .article-cta-box .btn {
+    width: 100%;
+  }
+
+  .sidebar-card {
+    padding: 22px 18px;
+  }
+
   .hero-inner {
     grid-template-areas:
       "badge"
@@ -4840,9 +4905,53 @@ button {
   .partners-list,
   .footer-grid,
   .form-row,
-  .feature-grid,
   .hero-stats {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero {
+    padding: 48px 0 32px;
+  }
+
+  .page-hero .title-lg {
+    font-size: clamp(26px, 9vw, 34px);
+    letter-spacing: -0.025em;
+  }
+
+  .page-hero .subtitle {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .feature-item {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .feature-item > span {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .article-body p,
+  .article-body li {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .article-cta-box {
+    padding: 20px 16px;
   }
 
   .pain-grid,
