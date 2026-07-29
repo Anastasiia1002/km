@@ -1812,16 +1812,34 @@ tr:last-child td {
 }
 
 .cases-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
   border-radius: 14px;
   border: 1px solid rgba(219, 220, 233, 0.22);
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 18px;
   font-weight: 700;
+  line-height: 1;
   cursor: pointer;
+  flex: 0 0 48px;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.cases-nav .slider-nav-icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+  line-height: 1;
+  font-family: var(--font-body);
 }
 
 .cases-nav:hover:not(:disabled),
@@ -3233,16 +3251,34 @@ tr:last-child td {
 }
 
 .testimonials-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   border-radius: 12px;
   border: 1px solid rgba(219, 220, 233, 0.95);
   background: #fff;
   color: var(--navy);
   font-size: 18px;
   font-weight: 700;
+  line-height: 1;
   cursor: pointer;
+  flex: 0 0 44px;
   transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.testimonials-nav .slider-nav-icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+  line-height: 1;
+  font-family: var(--font-body);
 }
 
 .testimonials-nav:hover,
@@ -3479,22 +3515,40 @@ tr:last-child td {
 }
 
 .certificates-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
   border-radius: 14px;
   border: 1px solid rgba(219, 220, 233, 0.95);
   background: rgba(255, 255, 255, 0.92);
   color: var(--navy);
   font-size: 18px;
   font-weight: 700;
+  line-height: 1;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  flex: 0 0 48px;
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
     background-color 0.2s ease,
     color 0.2s ease,
     opacity 0.2s ease;
+}
+
+.certificates-nav .slider-nav-icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+  line-height: 1;
+  font-family: var(--font-body);
 }
 
 .certificates-nav:hover:not(:disabled),
@@ -4677,6 +4731,9 @@ button {
   .cases-nav {
     width: 44px;
     height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    flex-basis: 44px;
     border-radius: 12px;
   }
 
@@ -4950,6 +5007,17 @@ button {
   .cases-nav {
     width: 42px;
     height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    flex-basis: 42px;
+  }
+
+  .certificates-nav {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    flex-basis: 44px;
   }
 
   .container {
