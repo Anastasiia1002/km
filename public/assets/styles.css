@@ -1832,9 +1832,8 @@ tr:last-child td {
   list-style: none;
   margin: 36px 0 0;
   padding: 8px 4px 18px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 34%);
+  display: flex;
+  align-items: flex-start;
   gap: 18px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -1842,7 +1841,6 @@ tr:last-child td {
   scroll-padding-inline: 4px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  align-items: start;
 }
 
 .cases-track::-webkit-scrollbar {
@@ -1857,16 +1855,20 @@ tr:last-child td {
 
 .case-slide {
   scroll-snap-align: start;
-  min-width: 0;
-  display: flex;
-  align-self: start;
+  flex: 0 0 clamp(300px, 34%, 380px);
+  width: clamp(300px, 34%, 380px);
+  min-width: 300px;
+  max-width: 380px;
+  display: block;
   height: auto;
+  align-self: flex-start;
 }
 
 .case-slide .case-card {
   width: 100%;
   height: auto;
   min-height: 0;
+  max-height: none;
 }
 
 .case-grid {
@@ -1878,9 +1880,9 @@ tr:last-child td {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 26px 24px 24px;
-  border-radius: 28px;
+  gap: 12px;
+  padding: 20px 18px 18px;
+  border-radius: 24px;
   border: 1px solid rgba(219, 220, 233, 0.14);
   background:
     linear-gradient(165deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.035) 100%);
@@ -1945,9 +1947,9 @@ tr:last-child td {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
-  padding: 10px 14px;
-  border-radius: 16px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
@@ -2027,14 +2029,14 @@ tr:last-child td {
 
 .case-story {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   position: relative;
 }
 
 .case-block {
   position: relative;
-  padding: 14px 16px;
-  border-radius: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(219, 220, 233, 0.12);
 }
@@ -2062,9 +2064,9 @@ tr:last-child td {
 .case-block p,
 .case-card p {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.55;
+  line-height: 1.45;
   letter-spacing: 0.01em;
   color: #F5F5F9;
   margin: 0;
@@ -2077,20 +2079,21 @@ tr:last-child td {
 .case-block-result p.is-clamped {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   white-space: normal;
   min-height: 0;
+  max-height: calc(1.45em * 3);
 }
 
 .case-expand {
-  margin-top: 12px;
+  margin-top: 8px;
   padding: 0;
   border: 0;
   background: transparent;
   color: #DBDCE9;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2149,11 +2152,11 @@ tr:last-child td {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   min-width: 0;
-  min-height: 72px;
-  padding: 12px 8px;
-  border-radius: 16px;
+  min-height: 0;
+  padding: 10px 6px;
+  border-radius: 14px;
   background: linear-gradient(180deg, rgba(98, 114, 189, 0.28), rgba(70, 76, 110, 0.2));
   border: 1px solid rgba(219, 220, 233, 0.14);
   font-weight: 800;
@@ -4507,12 +4510,11 @@ button {
   }
 
   .cases-track {
-    grid-auto-columns: minmax(280px, 360px);
     gap: 14px;
     margin-top: 28px;
     padding: 4px 2px 14px;
     scroll-padding-inline: 2px;
-    align-items: start;
+    align-items: flex-start;
   }
 
   .cases-head {
@@ -4532,10 +4534,11 @@ button {
   }
 
   .case-slide {
-    width: 100%;
-    min-width: 280px;
-    max-width: 360px;
-    align-self: start;
+    flex: 0 0 min(320px, 82vw);
+    width: min(320px, 82vw);
+    min-width: 260px;
+    max-width: 320px;
+    align-self: flex-start;
     height: auto;
     min-height: 0;
   }
@@ -4546,9 +4549,9 @@ button {
   }
 
   .case-card {
-    gap: 12px;
-    padding: 18px 16px 16px;
-    border-radius: 22px;
+    gap: 10px;
+    padding: 16px 14px 14px;
+    border-radius: 20px;
   }
 
   .case-metrics {
@@ -4557,9 +4560,9 @@ button {
   }
 
   .case-logo {
-    min-height: 44px;
-    padding: 8px 12px;
-    border-radius: 14px;
+    min-height: 40px;
+    padding: 6px 10px;
+    border-radius: 12px;
   }
 
   .case-logo img {
@@ -4568,12 +4571,12 @@ button {
   }
 
   .case-logo--dva-vidra img {
-    height: 34px;
+    height: 32px;
     max-width: 120px;
   }
 
   .case-card h3 {
-    font-size: clamp(20px, 5.4vw, 24px);
+    font-size: clamp(18px, 5.4vw, 22px);
   }
 
   .case-card-meta {
@@ -4582,16 +4585,18 @@ button {
 
   .case-block {
     padding: 10px 12px;
-    border-radius: 14px;
+    border-radius: 12px;
   }
 
   .case-block p,
   .case-card p {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.4;
   }
 
   .case-block-result p.is-clamped {
     -webkit-line-clamp: 3;
+    max-height: calc(1.4em * 3);
     min-height: 0;
   }
 
@@ -4691,14 +4696,15 @@ button {
 
 @media (max-width: 640px) {
   .cases-track {
-    grid-auto-columns: minmax(260px, 320px);
     gap: 12px;
     margin-top: 22px;
   }
 
   .case-slide {
-    min-width: 260px;
-    max-width: 320px;
+    flex: 0 0 min(300px, 88vw);
+    width: min(300px, 88vw);
+    min-width: 240px;
+    max-width: 300px;
   }
 
   .cases-section .subtitle {
@@ -4707,8 +4713,8 @@ button {
 
   .case-card {
     gap: 10px;
-    padding: 16px 14px 14px;
-    border-radius: 20px;
+    padding: 14px 12px 12px;
+    border-radius: 18px;
   }
 
   .case-card-top {
