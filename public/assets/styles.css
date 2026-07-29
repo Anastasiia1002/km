@@ -1668,6 +1668,10 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   line-height: 1.6;
 }
 
+.info-note + .info-note {
+  margin-top: 8px;
+}
+
 .info-note.center {
   text-align: center;
   margin-top: 24px;
