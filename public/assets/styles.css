@@ -1626,8 +1626,8 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
 
 .calc-result {
   text-align: center;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-light-rgb), 0.08));
-  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  background: linear-gradient(145deg, rgba(7, 8, 13, 0.55), rgba(var(--accent-rgb), 0.22));
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 20px;
   padding: 28px;
   margin-top: 26px;
@@ -1642,8 +1642,9 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   font-family: var(--font-display);
   font-size: 52px;
   line-height: 1;
-  color: var(--accent-light);
+  color: #fff;
   letter-spacing: -0.03em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .calc-result-prefix {
@@ -1654,14 +1655,21 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.72);
+  color: #fff;
   text-transform: none;
+  opacity: 0.92;
 }
 
-.calc-result > span,
+.calc-result > span {
+  display: block;
+  color: #fff;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
 .calc-result > small {
   display: block;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.78);
   margin-top: 8px;
 }
 
