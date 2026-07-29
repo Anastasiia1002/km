@@ -4074,11 +4074,19 @@ tr:last-child td {
   margin-top: 18px;
 }
 
+.article-meta-hero {
+  margin-bottom: 16px;
+}
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   margin-top: 36px;
+}
+
+.blog-listing .articles-grid {
+  margin-top: 0;
 }
 
 .blog-section {
@@ -4563,6 +4571,68 @@ button {
     padding: 22px 18px;
   }
 
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 0;
+  }
+
+  .blog-listing {
+    padding-top: 40px;
+  }
+
+  .article-card {
+    border-radius: 18px;
+  }
+
+  .article-img {
+    height: 132px;
+  }
+
+  .article-img-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    font-size: 24px;
+  }
+
+  .article-body-card {
+    padding: 18px 16px 16px;
+  }
+
+  .article-card h3 {
+    font-size: 17px;
+  }
+
+  .article-card p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  .article-meta-hero {
+    margin-bottom: 14px;
+  }
+
+  .article-body .lead {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .related-articles {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .related-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .related-card b {
+    font-size: 14px;
+  }
+
   .hero-inner {
     grid-template-areas:
       "badge"
@@ -4952,6 +5022,55 @@ button {
 
   .article-cta-box {
     padding: 20px 16px;
+  }
+
+  .article-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .article-meta-hero {
+    margin-bottom: 12px;
+  }
+
+  .article-body .lead {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .article-img {
+    height: 120px;
+  }
+
+  .article-body-card {
+    padding: 16px 14px 14px;
+  }
+
+  .article-card h3 {
+    font-size: 16px;
+    -webkit-line-clamp: 3;
+  }
+
+  .article-card p {
+    font-size: 13px;
+    -webkit-line-clamp: 3;
+  }
+
+  .related-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .related-card span {
+    flex: 0 0 auto;
+    font-size: 22px;
+  }
+
+  .related-card b {
+    font-size: 13px;
+    line-height: 1.4;
   }
 
   .pain-grid,
