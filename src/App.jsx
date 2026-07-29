@@ -1413,105 +1413,93 @@ function LeadForm({ region = "" }) {
 }
 
 function Testimonials() {
-  const trackRef = useRef(null);
   const [active, setActive] = useState(0);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  const total = testimonials.length;
+  const item = testimonials[active] || testimonials[0];
 
-  const syncCarousel = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cards = [...track.querySelectorAll(".testimonial-slide")];
-    if (!cards.length) return;
-
-    const mid = track.scrollLeft + track.clientWidth / 2;
-    let nearest = 0;
-    let nearestDist = Infinity;
-    cards.forEach((card, index) => {
-      const center = card.offsetLeft + card.offsetWidth / 2;
-      const dist = Math.abs(center - mid);
-      if (dist < nearestDist) {
-        nearestDist = dist;
-        nearest = index;
-      }
-    });
-
-    setActive(nearest);
-    setCanPrev(track.scrollLeft > 8);
-    setCanNext(track.scrollLeft < track.scrollWidth - track.clientWidth - 8);
+  const goTo = (index) => {
+    const next = ((index % total) + total) % total;
+    setActive(next);
   };
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return undefined;
-    syncCarousel();
-    track.addEventListener("scroll", syncCarousel, { passive: true });
-    window.addEventListener("resize", syncCarousel);
-    return () => {
-      track.removeEventListener("scroll", syncCarousel);
-      window.removeEventListener("resize", syncCarousel);
+    const onKeyDown = (event) => {
+      const section = document.getElementById("testimonials");
+      if (!section) return;
+      const focusedInside = section.contains(document.activeElement);
+      const inView = section.getBoundingClientRect().top < window.innerHeight && section.getBoundingClientRect().bottom > 0;
+      if (!focusedInside && !inView) return;
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goTo(active + 1);
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goTo(active - 1);
+      }
     };
-  }, []);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [active, total]);
 
-  const scrollByCard = (direction) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelector(".testimonial-slide");
-    const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.85;
-    track.scrollBy({ left: direction * step, behavior: "smooth" });
-  };
+  if (!item) return null;
 
-  const goTo = (index) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.querySelectorAll(".testimonial-slide")[index];
-    if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - 8, behavior: "smooth" });
-  };
+  const initials = item.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+
+  const roleLine = [item.role, item.company].filter(Boolean).join(", ");
 
   return (
     <section className="section testimonials-section" id="testimonials">
       <div className="container">
-        <div className="testimonials-head">
-          <div>
-            <div className="tag">💬 Відгуки</div>
-            <h2 className="title">Відгуки клієнтів</h2>
-            <p className="subtitle">Реальні відгуки керівників і спеціалістів, які працюють з КМ Трейд.</p>
-          </div>
-          <div className="testimonials-controls" aria-label="Керування слайдером відгуків">
-            <button className="testimonials-nav" type="button" aria-label="Попередній відгук" disabled={!canPrev} onClick={() => scrollByCard(-1)}>←</button>
-            <button className="testimonials-nav" type="button" aria-label="Наступний відгук" disabled={!canNext} onClick={() => scrollByCard(1)}>→</button>
-          </div>
+        <div className="testimonials-intro">
+          <div className="tag">💬 Відгуки</div>
+          <h2 className="title">Що кажуть клієнти</h2>
+          <p className="subtitle">Цитати від керівників і спеціалістів, які реально працюють з КМ Трейд.</p>
         </div>
 
-        <ul className="testimonials-track" ref={trackRef} tabIndex={0} aria-label="Слайдер відгуків">
-          {testimonials.map((item) => {
-            const meta = [item.role, item.company, item.region].filter(Boolean).join(" · ");
-            return (
-              <li className="testimonial-slide" key={`${item.name}-${item.company}`}>
-                <blockquote className="testimonial-quote">
-                  <p>{item.text}</p>
-                  <footer>
-                    <cite>{item.name}</cite>
-                    {meta ? <span>{meta}</span> : null}
-                  </footer>
-                </blockquote>
-              </li>
-            );
-          })}
-        </ul>
+        <figure className="testimonial-feature" aria-live="polite">
+          <div className="testimonial-feature-top">
+            <span className="testimonial-mark" aria-hidden="true">„</span>
+            <div className="testimonials-controls" aria-label="Керування відгуками">
+              <button className="testimonials-nav" type="button" aria-label="Попередній відгук" onClick={() => goTo(active - 1)}>←</button>
+              <span className="testimonials-count">{active + 1} / {total}</span>
+              <button className="testimonials-nav" type="button" aria-label="Наступний відгук" onClick={() => goTo(active + 1)}>→</button>
+            </div>
+          </div>
 
-        <div className="testimonials-dots" role="tablist" aria-label="Відгуки">
-          {testimonials.map((item, index) => (
+          <blockquote className="testimonial-quote">
+            <p>{item.text}</p>
+          </blockquote>
+
+          <figcaption className="testimonial-author">
+            <span className="testimonial-avatar" aria-hidden="true">{initials}</span>
+            <span className="testimonial-author-text">
+              <cite>{item.name}</cite>
+              {roleLine ? <span className="testimonial-role">{roleLine}</span> : null}
+              {item.region ? <span className="testimonial-region">{item.region}</span> : null}
+            </span>
+          </figcaption>
+        </figure>
+
+        <div className="testimonials-people" role="tablist" aria-label="Автори відгуків">
+          {testimonials.map((person, index) => (
             <button
-              key={`${item.name}-dot`}
+              key={`${person.name}-${person.company}`}
               type="button"
               role="tab"
               aria-selected={active === index}
-              aria-label={`Відгук ${index + 1}: ${item.name}`}
-              className={active === index ? "is-active" : undefined}
+              className={`testimonial-person${active === index ? " is-active" : ""}`}
               onClick={() => goTo(index)}
-            />
+            >
+              <span className="testimonial-person-name">{person.name}</span>
+              <span className="testimonial-person-meta">{person.company || person.region}</span>
+            </button>
           ))}
         </div>
       </div>
