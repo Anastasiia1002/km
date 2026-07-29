@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { AiAssistant } from "./components/AiAssistant.jsx";
 import { articles, cases, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { normalizePath, withBase } from "./lib/routes.js";
@@ -114,7 +113,6 @@ function App() {
       <Header navigate={navigate} />
       <main>{renderPage(page, navigate)}</main>
       <Footer navigate={navigate} />
-      <AiAssistant />
       <div
         className={`notification${toastVisible ? " show" : ""}`}
         id="notification"
