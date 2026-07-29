@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, cases, certificates, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site } from "./data.js";
+import { articles, cases, certificates, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
@@ -750,7 +750,7 @@ function HomePage({ navigate }) {
       <HowItWorks />
       <Pricing />
       <TrialSection />
-      <TestimonialsNotice />
+      <Testimonials />
       <About />
       <Certificates />
       <BlogPreview navigate={navigate} />
@@ -1412,8 +1412,111 @@ function LeadForm({ region = "" }) {
   );
 }
 
-function TestimonialsNotice() {
-  return <section className="section"><div className="container"><div className="tag">💬 Відгуки</div><h2 className="title">Відгуки клієнтів</h2><div className="content-needed"><b>Потрібно отримати від КМ Трейд</b><p>3 реальні відгуки: ім'я, посада, компанія, регіон і текст 2-3 речення. До отримання даних блок не імітує вигаданих клієнтів.</p></div></div></section>;
+function Testimonials() {
+  const trackRef = useRef(null);
+  const [active, setActive] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const syncCarousel = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = [...track.querySelectorAll(".testimonial-slide")];
+    if (!cards.length) return;
+
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let nearest = 0;
+    let nearestDist = Infinity;
+    cards.forEach((card, index) => {
+      const center = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(center - mid);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = index;
+      }
+    });
+
+    setActive(nearest);
+    setCanPrev(track.scrollLeft > 8);
+    setCanNext(track.scrollLeft < track.scrollWidth - track.clientWidth - 8);
+  };
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+    syncCarousel();
+    track.addEventListener("scroll", syncCarousel, { passive: true });
+    window.addEventListener("resize", syncCarousel);
+    return () => {
+      track.removeEventListener("scroll", syncCarousel);
+      window.removeEventListener("resize", syncCarousel);
+    };
+  }, []);
+
+  const scrollByCard = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector(".testimonial-slide");
+    const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.85;
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  const goTo = (index) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelectorAll(".testimonial-slide")[index];
+    if (!card) return;
+    track.scrollTo({ left: card.offsetLeft - 8, behavior: "smooth" });
+  };
+
+  return (
+    <section className="section testimonials-section" id="testimonials">
+      <div className="container">
+        <div className="testimonials-head">
+          <div>
+            <div className="tag">💬 Відгуки</div>
+            <h2 className="title">Відгуки клієнтів</h2>
+            <p className="subtitle">Реальні відгуки керівників і спеціалістів, які працюють з КМ Трейд.</p>
+          </div>
+          <div className="testimonials-controls" aria-label="Керування слайдером відгуків">
+            <button className="testimonials-nav" type="button" aria-label="Попередній відгук" disabled={!canPrev} onClick={() => scrollByCard(-1)}>←</button>
+            <button className="testimonials-nav" type="button" aria-label="Наступний відгук" disabled={!canNext} onClick={() => scrollByCard(1)}>→</button>
+          </div>
+        </div>
+
+        <ul className="testimonials-track" ref={trackRef} tabIndex={0} aria-label="Слайдер відгуків">
+          {testimonials.map((item) => {
+            const meta = [item.role, item.company, item.region].filter(Boolean).join(" · ");
+            return (
+              <li className="testimonial-slide" key={`${item.name}-${item.company}`}>
+                <blockquote className="testimonial-quote">
+                  <p>{item.text}</p>
+                  <footer>
+                    <cite>{item.name}</cite>
+                    {meta ? <span>{meta}</span> : null}
+                  </footer>
+                </blockquote>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="testimonials-dots" role="tablist" aria-label="Відгуки">
+          {testimonials.map((item, index) => (
+            <button
+              key={`${item.name}-dot`}
+              type="button"
+              role="tab"
+              aria-selected={active === index}
+              aria-label={`Відгук ${index + 1}: ${item.name}`}
+              className={active === index ? "is-active" : undefined}
+              onClick={() => goTo(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function About() {
