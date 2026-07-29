@@ -1944,6 +1944,7 @@ tr:last-child td {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   align-items: stretch;
+  --cases-card-min-height: 0px;
 }
 
 .cases-track::-webkit-scrollbar {
@@ -1961,13 +1962,14 @@ tr:last-child td {
   min-width: 0;
   display: flex;
   align-self: stretch;
+  min-height: var(--cases-card-min-height);
 }
 
 .case-slide .case-card {
   width: 100%;
+  flex: 1 1 auto;
   height: 100%;
-  min-height: 100%;
-  flex: 1;
+  min-height: var(--cases-card-min-height);
 }
 
 .case-grid {
@@ -2204,10 +2206,6 @@ tr:last-child td {
 .case-expand:focus-visible {
   color: #fff;
   outline: none;
-}
-
-.case-card.is-expanded {
-  min-height: 0;
 }
 
 .cases-dots {
@@ -4643,12 +4641,12 @@ button {
     min-width: 280px;
     max-width: 360px;
     align-self: stretch;
-    height: auto;
+    min-height: var(--cases-card-min-height);
   }
 
   .case-slide .case-card {
     height: 100%;
-    min-height: 100%;
+    min-height: var(--cases-card-min-height);
   }
 
   .case-card {

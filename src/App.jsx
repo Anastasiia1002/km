@@ -999,9 +999,7 @@ function CaseCard({ item, index, onExpandChange }) {
 
   const toggleExpanded = () => {
     setExpanded((value) => !value);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => onExpandChange?.());
-    });
+    onExpandChange?.();
   };
 
   return (
@@ -1074,18 +1072,38 @@ function Cases() {
   const equalizeCardHeights = () => {
     const track = trackRef.current;
     if (!track) return;
+    const slides = [...track.querySelectorAll(".case-slide")];
     const cards = [...track.querySelectorAll(".case-card")];
     if (!cards.length) return;
 
+    track.style.setProperty("--cases-card-min-height", "0px");
+    slides.forEach((slide) => {
+      slide.style.minHeight = "0px";
+      slide.style.height = "auto";
+    });
     cards.forEach((card) => {
-      card.style.minHeight = "";
+      card.style.minHeight = "0px";
+      card.style.height = "auto";
     });
 
-    const maxHeight = Math.ceil(Math.max(...cards.map((card) => card.getBoundingClientRect().height)));
+    const maxHeight = Math.ceil(Math.max(0, ...cards.map((card) => card.scrollHeight)));
     if (!Number.isFinite(maxHeight) || maxHeight <= 0) return;
 
+    const value = `${maxHeight}px`;
+    track.style.setProperty("--cases-card-min-height", value);
+    slides.forEach((slide) => {
+      slide.style.minHeight = value;
+      slide.style.height = "";
+    });
     cards.forEach((card) => {
-      card.style.minHeight = `${maxHeight}px`;
+      card.style.minHeight = value;
+      card.style.height = "";
+    });
+  };
+
+  const scheduleEqualize = () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => equalizeCardHeights());
     });
   };
 
@@ -1117,23 +1135,33 @@ function Cases() {
     if (!track) return undefined;
 
     const onResize = () => {
-      equalizeCardHeights();
+      scheduleEqualize();
       syncCarousel();
     };
 
-    equalizeCardHeights();
+    scheduleEqualize();
     syncCarousel();
     track.addEventListener("scroll", syncCarousel, { passive: true });
     window.addEventListener("resize", onResize);
+    window.visualViewport?.addEventListener("resize", onResize);
+
+    const images = [...track.querySelectorAll("img")];
+    images.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", scheduleEqualize, { once: true });
+        img.addEventListener("error", scheduleEqualize, { once: true });
+      }
+    });
 
     const fontsReady = document.fonts?.ready;
     if (fontsReady?.then) {
-      fontsReady.then(() => equalizeCardHeights()).catch(() => {});
+      fontsReady.then(() => scheduleEqualize()).catch(() => {});
     }
 
     return () => {
       track.removeEventListener("scroll", syncCarousel);
       window.removeEventListener("resize", onResize);
+      window.visualViewport?.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -1175,7 +1203,7 @@ function Cases() {
         <ul className="cases-track" ref={trackRef} tabIndex={0} aria-label="Слайдер кейсів">
           {cases.map((item, index) => (
             <li className="case-slide" key={item.name}>
-              <CaseCard item={item} index={index} onExpandChange={equalizeCardHeights} />
+              <CaseCard item={item} index={index} onExpandChange={scheduleEqualize} />
             </li>
           ))}
         </ul>
