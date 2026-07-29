@@ -1864,10 +1864,10 @@ tr:last-child td {
 
 .case-slide {
   scroll-snap-align: start;
-  flex: 0 0 clamp(300px, 34%, 380px);
-  width: clamp(300px, 34%, 380px);
+  flex: 0 0 min(34%, 360px);
+  width: min(34%, 360px);
   min-width: 300px;
-  max-width: 380px;
+  max-width: 360px;
   display: flex;
   align-self: stretch;
   height: auto;
@@ -4546,10 +4546,10 @@ button {
   }
 
   .case-slide {
-    flex: 0 0 min(320px, 82vw);
-    width: min(320px, 82vw);
-    min-width: 260px;
-    max-width: 320px;
+    flex: 0 0 min(360px, 82vw);
+    width: min(360px, 82vw);
+    min-width: 280px;
+    max-width: 360px;
     align-self: stretch;
     height: auto;
     min-height: 0;
