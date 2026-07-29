@@ -1084,8 +1084,12 @@ function Cases() {
             <p className="subtitle">Запит бізнесу, що змінилось після GPS і посилання на компанію.</p>
           </div>
           <div className="cases-controls" aria-label="Керування слайдером кейсів">
-            <button className="cases-nav" type="button" aria-label="Попередній кейс" disabled={!canPrev} onClick={() => scrollByCard(-1)}>←</button>
-            <button className="cases-nav" type="button" aria-label="Наступний кейс" disabled={!canNext} onClick={() => scrollByCard(1)}>→</button>
+            <button className="cases-nav" type="button" aria-label="Попередній кейс" disabled={!canPrev} onClick={() => scrollByCard(-1)}>
+              <span className="slider-nav-icon" aria-hidden="true">←</span>
+            </button>
+            <button className="cases-nav" type="button" aria-label="Наступний кейс" disabled={!canNext} onClick={() => scrollByCard(1)}>
+              <span className="slider-nav-icon" aria-hidden="true">→</span>
+            </button>
           </div>
         </div>
 
@@ -1541,9 +1545,13 @@ function Testimonials() {
           <div className="testimonial-feature-top">
             <span className="testimonial-mark" aria-hidden="true">„</span>
             <div className="testimonials-controls" aria-label="Керування відгуками">
-              <button className="testimonials-nav" type="button" aria-label="Попередній відгук" onClick={() => goTo(active - 1)}>←</button>
+              <button className="testimonials-nav" type="button" aria-label="Попередній відгук" onClick={() => goTo(active - 1)}>
+                <span className="slider-nav-icon" aria-hidden="true">←</span>
+              </button>
               <span className="testimonials-count">{active + 1} / {total}</span>
-              <button className="testimonials-nav" type="button" aria-label="Наступний відгук" onClick={() => goTo(active + 1)}>→</button>
+              <button className="testimonials-nav" type="button" aria-label="Наступний відгук" onClick={() => goTo(active + 1)}>
+                <span className="slider-nav-icon" aria-hidden="true">→</span>
+              </button>
             </div>
           </div>
 
@@ -1687,7 +1695,7 @@ function Certificates() {
               disabled={!canPrev}
               onClick={() => scrollByCard(-1)}
             >
-              ←
+              <span className="slider-nav-icon" aria-hidden="true">←</span>
             </button>
             <button
               className="certificates-nav"
@@ -1696,7 +1704,7 @@ function Certificates() {
               disabled={!canNext}
               onClick={() => scrollByCard(1)}
             >
-              →
+              <span className="slider-nav-icon" aria-hidden="true">→</span>
             </button>
           </div>
         </div>
