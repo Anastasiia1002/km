@@ -1488,19 +1488,22 @@ function Testimonials() {
         </figure>
 
         <div className="testimonials-people" role="tablist" aria-label="Автори відгуків">
-          {testimonials.map((person, index) => (
-            <button
-              key={`${person.name}-${person.company}`}
-              type="button"
-              role="tab"
-              aria-selected={active === index}
-              className={`testimonial-person${active === index ? " is-active" : ""}`}
-              onClick={() => goTo(index)}
-            >
-              <span className="testimonial-person-name">{person.name}</span>
-              <span className="testimonial-person-meta">{person.company || person.region}</span>
-            </button>
-          ))}
+          {testimonials.map((person, index) => {
+            const personMeta = [person.role, person.company].filter(Boolean).join(", ") || person.region;
+            return (
+              <button
+                key={`${person.name}-${person.company || person.role}`}
+                type="button"
+                role="tab"
+                aria-selected={active === index}
+                className={`testimonial-person${active === index ? " is-active" : ""}`}
+                onClick={() => goTo(index)}
+              >
+                <span className="testimonial-person-name">{person.name}</span>
+                {personMeta ? <span className="testimonial-person-meta">{personMeta}</span> : null}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

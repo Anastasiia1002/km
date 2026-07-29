@@ -3264,6 +3264,10 @@ tr:last-child td {
   font-size: 14px;
   font-weight: 800;
   color: var(--navy);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .testimonial-person-meta {
@@ -3271,10 +3275,10 @@ tr:last-child td {
   font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 190px;
 }
 
 @media (max-width: 720px) {
