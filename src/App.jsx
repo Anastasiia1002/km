@@ -382,6 +382,12 @@ function Header({ navigate }) {
 
   const closeMenu = (afterClose) => {
     if (typeof afterClose === "function") {
+      // Menu already closed: setMenuOpen(false) won't re-run the effect,
+      // so execute the callback immediately instead of waiting forever.
+      if (!menuOpen) {
+        afterClose();
+        return;
+      }
       afterCloseRef.current = afterClose;
     }
     setMenuOpen(false);
