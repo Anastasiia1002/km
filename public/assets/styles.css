@@ -3019,6 +3019,11 @@ tr:last-child td {
   margin-top: 10px;
 }
 
+#trial,
+.trial-section {
+  scroll-margin-top: calc(var(--header-offset, 76px) + 16px);
+}
+
 .trial-section {
   background: linear-gradient(135deg, #464C6E 0%, #1A1D2E 55%, #000000 100%);
   padding: 104px 0;

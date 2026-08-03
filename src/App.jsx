@@ -394,14 +394,18 @@ function Header({ navigate }) {
   };
 
   const goToLeadForm = () => {
-    closeMenu(() => {
-      const target = document.getElementById("trial") || document.getElementById("lead-form");
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-      navigate("/#trial");
-    });
+    // Never gate the CTA on the mobile-menu close effect — on desktop the menu
+    // stays closed and a queued callback would never run.
+    if (menuOpen) setMenuOpen(false);
+    const target = document.getElementById("trial") || document.getElementById("lead-form");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => {
+        document.getElementById("lead-name")?.focus({ preventScroll: true });
+      }, 450);
+      return;
+    }
+    navigate("/#trial");
   };
 
   const toggleSection = (section) => {
@@ -2138,7 +2142,11 @@ function FooterColumn({ title, items, navigate }) {
 
 function scrollToForm() {
   const target = document.getElementById("trial") || document.getElementById("lead-form");
-  target?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!target) return;
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.setTimeout(() => {
+    document.getElementById("lead-name")?.focus({ preventScroll: true });
+  }, 450);
 }
 
 function money(value) {
