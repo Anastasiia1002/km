@@ -481,10 +481,17 @@ function Header({ navigate }) {
               <span className="header-phone-icon" aria-hidden="true">📞</span>
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
             </a>
-            <button className="btn btn-primary btn-header" type="button" onClick={goToLeadForm}>
+            <a
+              className="btn btn-primary btn-header"
+              href={withBase("/#trial")}
+              onClick={(event) => {
+                event.preventDefault();
+                goToLeadForm();
+              }}
+            >
               <span className="btn-header-full">Залишити заявку</span>
               <span className="btn-header-short">Заявка</span>
-            </button>
+            </a>
             <button
               className="header-burger"
               type="button"
