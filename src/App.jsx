@@ -1643,16 +1643,6 @@ function About() {
         </div>
         <div className="local-inner">
           <div className="about-main">
-            <div className="about-partner">
-              <span className="about-partner-icon" aria-hidden="true">
-                <AboutIconPartner />
-              </span>
-              <div className="about-partner-copy">
-                <b>Авторизований партнер Wialon / Gurtam</b>
-                <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
-              </div>
-            </div>
-
             <div className="about-channels">
               <div className="about-channel">
                 <div className="about-channel-head">
@@ -1759,7 +1749,18 @@ function About() {
               </div>
             </div>
           </div>
-          <ContactCard />
+          <div className="about-aside">
+            <ContactCard />
+            <div className="about-partner">
+              <span className="about-partner-icon" aria-hidden="true">
+                <AboutIconPartner />
+              </span>
+              <div className="about-partner-copy">
+                <b>Авторизований партнер Wialon / Gurtam</b>
+                <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
