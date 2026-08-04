@@ -2320,10 +2320,13 @@ function Footer({ navigate }) {
                   {site.email}
                 </a>
                 <div className="footer-support">
-                  <div className="footer-support-label">Техпідтримка та сервіс</div>
+                  <div className="footer-support-label" id="footer-support-label">
+                    Техпідтримка та сервіс
+                  </div>
                   <PhoneLink
                     className="footer-phone footer-support-phone"
                     phone={site.phoneSupport}
+                    aria-labelledby="footer-support-label"
                     onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
                   >
                     {formatPhoneLabel(site.phoneDisplaySupport)}
@@ -2333,6 +2336,7 @@ function Footer({ navigate }) {
                     href={site.clientPortalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Відкрити Online-кабінет клієнта"
                     onClick={() => pushEvent("Contact", { type: "client_portal", source: "footer" })}
                   >
                     Online-кабінет
