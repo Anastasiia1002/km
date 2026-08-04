@@ -3483,54 +3483,6 @@ tr:last-child td {
   min-width: 0;
 }
 
-.about-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 0;
-}
-
-.about-partner {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px 16px;
-  align-items: start;
-  padding: 4px 0 4px 16px;
-  border-left: 3px solid var(--blue);
-}
-
-.about-partner-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  color: #fff;
-  background: var(--gradient-accent);
-  box-shadow: 0 10px 22px rgba(var(--accent-rgb), 0.22);
-}
-
-.about-partner-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-
-.about-partner-copy b {
-  font-family: var(--font-display);
-  font-size: 17px;
-  line-height: 1.25;
-  color: var(--navy);
-}
-
-.about-partner-copy span {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
-
 .about-channels {
   display: flex;
   flex-direction: column;

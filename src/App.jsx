@@ -1749,18 +1749,7 @@ function About() {
               </div>
             </div>
           </div>
-          <div className="about-aside">
-            <ContactCard />
-            <div className="about-partner">
-              <span className="about-partner-icon" aria-hidden="true">
-                <AboutIconPartner />
-              </span>
-              <div className="about-partner-copy">
-                <b>Авторизований партнер Wialon / Gurtam</b>
-                <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
-              </div>
-            </div>
-          </div>
+          <ContactCard />
         </div>
       </div>
     </section>
@@ -1902,15 +1891,6 @@ function Certificates() {
         </div>
       </div>
     </section>
-  );
-}
-
-function AboutIconPartner() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path d="M12 3.5 4.8 7v5.2c0 4.4 3 8.4 7.2 9.8 4.2-1.4 7.2-5.4 7.2-9.8V7L12 3.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-      <path d="m8.8 12.1 2.1 2.1 4.3-4.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
 
