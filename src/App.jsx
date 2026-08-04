@@ -1623,49 +1623,81 @@ function About() {
         </div>
         <div className="local-inner">
           <div className="about-main">
-            <div className="local-features">
-              <div>
-                <b>🛰 Авторизований партнер Wialon / Gurtam</b>
+            <div className="about-partner">
+              <span className="about-partner-icon" aria-hidden="true">
+                <AboutIconPartner />
+              </span>
+              <div className="about-partner-copy">
+                <b>Авторизований партнер Wialon / Gurtam</b>
                 <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
               </div>
             </div>
 
-            <div className="about-dept">
-              <h3 className="about-dept-title">📞 Відділ продажу</h3>
-              <div className="about-dept-phones">
-                <div className="about-dept-phone-row">
-                  <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
-                    {formatPhoneLabel(site.phoneDisplay2)}
-                  </a>
-                  <span className="about-dept-messengers">Telegram, Viber, WhatsApp</span>
+            <div className="about-channels">
+              <div className="about-channel">
+                <div className="about-channel-head">
+                  <span className="about-channel-icon" aria-hidden="true">
+                    <AboutIconPhone />
+                  </span>
+                  <h3 className="about-channel-title">Відділ продажу</h3>
                 </div>
-                <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
-                  {formatPhoneLabel(site.phoneDisplay)}
-                </a>
+                <div className="about-channel-body">
+                  <a
+                    className="about-phone-line"
+                    href={`tel:${site.phoneSecondary}`}
+                    onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}
+                  >
+                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay2)}</span>
+                    <span className="about-messenger-chips" aria-label="Доступно в месенджерах">
+                      <span>Telegram</span>
+                      <span>Viber</span>
+                      <span>WhatsApp</span>
+                    </span>
+                  </a>
+                  <a
+                    className="about-phone-line"
+                    href={`tel:${site.phonePrimary}`}
+                    onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
+                  >
+                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="about-channel">
+                <div className="about-channel-head">
+                  <span className="about-channel-icon" aria-hidden="true">
+                    <AboutIconSupport />
+                  </span>
+                  <h3 className="about-channel-title">Техпідтримка та сервіс</h3>
+                </div>
+                <div className="about-channel-body">
+                  <a
+                    className="about-phone-line"
+                    href={`tel:${site.phoneSupport}`}
+                    onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
+                  >
+                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplaySupport)}</span>
+                  </a>
+                  <a
+                    className="about-portal-link"
+                    href={site.clientPortalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => pushEvent("Contact", { type: "client_portal" })}
+                  >
+                    Online-кабінет
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div className="about-dept">
-              <h3 className="about-dept-title">🛠 Техпідтримка та сервіс</h3>
-              <a className="about-dept-phone" href={`tel:${site.phoneSupport}`} onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}>
-                {formatPhoneLabel(site.phoneDisplaySupport)}
-              </a>
-              <a
-                className="about-dept-portal"
-                href={site.clientPortalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => pushEvent("Contact", { type: "client_portal" })}
-              >
-                Online-кабінет →
-              </a>
-            </div>
-
             <div className="about-online">
-              <h3 className="about-dept-title">Ми в інтернеті</h3>
+              <h3 className="about-channel-title">Ми в інтернеті</h3>
               <div className="about-social-list" role="list">
                 <a
-                  className="about-social-link about-social-link--instagram"
+                  className="about-social-link"
                   href={site.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1676,7 +1708,7 @@ function About() {
                   <SocialIconInstagram />
                 </a>
                 <a
-                  className="about-social-link about-social-link--facebook"
+                  className="about-social-link"
                   href={site.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1687,7 +1719,7 @@ function About() {
                   <SocialIconFacebook />
                 </a>
                 <a
-                  className="about-social-link about-social-link--telegram"
+                  className="about-social-link"
                   href={site.social.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1842,6 +1874,37 @@ function Certificates() {
         </div>
       </div>
     </section>
+  );
+}
+
+function AboutIconPartner() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+      <path d="M12 3.5 4.8 7v5.2c0 4.4 3 8.4 7.2 9.8 4.2-1.4 7.2-5.4 7.2-9.8V7L12 3.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      <path d="m8.8 12.1 2.1 2.1 4.3-4.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function AboutIconPhone() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+      <path
+        d="M8.2 4.8c.4-.4 1-.5 1.5-.3l2.1.8c.5.2.8.7.7 1.2l-.4 2a1.2 1.2 0 0 1-.7.9l-1 .4a10.4 10.4 0 0 0 4.8 4.8l.4-1c.2-.4.6-.7.9-.7l2-.4c.5-.1 1 .2 1.2.7l.8 2.1c.2.5.1 1.1-.3 1.5l-1.1 1.1c-.4.4-1 .6-1.6.5C11.2 18 6 12.8 5.2 6.5c-.1-.6.1-1.2.5-1.6l1.1-1.1Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function AboutIconSupport() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+      <path d="M12 3.8a6.2 6.2 0 0 0-6.2 6.2v1.4H7a1.4 1.4 0 0 1 1.4 1.4V16A1.4 1.4 0 0 1 7 17.4H5.8A1.8 1.8 0 0 1 4 15.6v-5.6A8 8 0 0 1 12 2a8 8 0 0 1 8 8v5.6a1.8 1.8 0 0 1-1.8 1.8H17A1.4 1.4 0 0 1 15.6 16v-3.2A1.4 1.4 0 0 1 17 11.4h1.2V10A6.2 6.2 0 0 0 12 3.8Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M10.2 19.2c.4 1.1 1.3 1.8 2.5 1.8s2.1-.7 2.5-1.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
   );
 }
 
