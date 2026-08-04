@@ -2,8 +2,10 @@ export const site = {
   baseUrl: "https://km-trade.net",
   phonePrimary: "+380961584385",
   phoneSecondary: "+380950584385",
+  phoneSupport: "+380503747476",
   phoneDisplay: "+38 096 158-43-85",
   phoneDisplay2: "+38 095 058-43-85",
+  phoneDisplaySupport: "+38 050 374-74-76",
   email: "gps@km-trade.net",
   address: "м. Чернівці, вул. Фастівська 30в — головний офіс",
   addressLocality: "Чернівці",
@@ -16,7 +18,17 @@ export const site = {
   ogImage: "https://km-trade.net/assets/logo-full.png",
   name: "КМ Трейд",
   legalName: "КМ Трейд",
-  sameAs: ["https://anastasiia1002.github.io/km/"],
+  clientPortalUrl: "https://km-trade.net/client-nexus-portal/",
+  social: {
+    instagram: "https://www.instagram.com/km_trade__monitoring",
+    facebook: "https://www.facebook.com/gps.kmtrade",
+    telegram: "https://t.me/KM_trade1",
+  },
+  sameAs: [
+    "https://www.instagram.com/km_trade__monitoring",
+    "https://www.facebook.com/gps.kmtrade",
+    "https://t.me/KM_trade1",
+  ],
 };
 
 export const regions = [

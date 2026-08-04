@@ -3492,6 +3492,84 @@ tr:last-child td {
   line-height: 1.55;
 }
 
+.about-online {
+  margin-top: 28px;
+}
+
+.about-online-title {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 28px);
+  color: var(--navy);
+}
+
+.about-social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-mid);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.about-social-link:hover {
+  color: var(--blue);
+}
+
+.about-social-link span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+}
+
+.contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  padding-top: 4px;
+}
+
+.contact-block-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.contact-note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.contact-card a.contact-portal {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-card a.contact-portal:hover {
+  color: rgba(255, 255, 255, 0.88);
+}
+
 .certificates-section {
   background: transparent;
   overflow: hidden;

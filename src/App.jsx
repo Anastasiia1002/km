@@ -1627,6 +1627,41 @@ function About() {
                 <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
               </div>
             </div>
+            <div className="about-online">
+              <h3 className="about-online-title">Ми в інтернеті</h3>
+              <div className="about-social-list">
+                <a
+                  className="about-social-link"
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => pushEvent("Contact", { type: "instagram" })}
+                >
+                  <span aria-hidden="true">📲</span>
+                  Instagram
+                </a>
+                <a
+                  className="about-social-link"
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => pushEvent("Contact", { type: "facebook" })}
+                >
+                  <span aria-hidden="true">📲</span>
+                  Facebook
+                </a>
+                <a
+                  className="about-social-link"
+                  href={site.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => pushEvent("Contact", { type: "telegram" })}
+                >
+                  <span aria-hidden="true">📲</span>
+                  Telegram канал
+                </a>
+              </div>
+            </div>
           </div>
           <ContactCard />
         </div>
@@ -1812,14 +1847,36 @@ function ContactCard() {
       >
         {site.address}
       </a>
-      <div className="phone-stack">
-        <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
-          {formatPhoneLabel(site.phoneDisplay2)}
+
+      <div className="contact-block">
+        <div className="contact-block-label">📞 Відділ продажу</div>
+        <div className="phone-stack">
+          <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
+            {formatPhoneLabel(site.phoneDisplay2)}
+          </a>
+          <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
+            {formatPhoneLabel(site.phoneDisplay)}
+          </a>
+        </div>
+        <p className="contact-note">{site.phoneDisplay2} — Telegram, Viber, WhatsApp</p>
+      </div>
+
+      <div className="contact-block">
+        <div className="contact-block-label">🛠 Техпідтримка та сервіс</div>
+        <a href={`tel:${site.phoneSupport}`} onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}>
+          {formatPhoneLabel(site.phoneDisplaySupport)}
         </a>
-        <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
-          {formatPhoneLabel(site.phoneDisplay)}
+        <a
+          className="contact-portal"
+          href={site.clientPortalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => pushEvent("Contact", { type: "client_portal" })}
+        >
+          Online-кабінет →
         </a>
       </div>
+
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
     </div>
