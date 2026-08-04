@@ -4556,7 +4556,7 @@ footer {
 
 .footer-desc {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.75;
 }
 
@@ -4596,14 +4596,14 @@ footer {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .footer-col-title {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.72);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 20px;
@@ -4620,7 +4620,7 @@ footer {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.78);
   text-decoration: none;
   text-align: left;
   padding: 0;
@@ -4649,7 +4649,7 @@ footer {
 .footer-bottom-links a,
 .footer-bottom-links button {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.34);
+  color: rgba(255, 255, 255, 0.62);
   text-decoration: none;
 }
 
