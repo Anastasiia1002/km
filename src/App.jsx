@@ -1633,14 +1633,16 @@ function About() {
             <div className="about-dept">
               <h3 className="about-dept-title">📞 Відділ продажу</h3>
               <div className="about-dept-phones">
-                <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
-                  {formatPhoneLabel(site.phoneDisplay2)}
-                </a>
+                <div className="about-dept-phone-row">
+                  <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
+                    {formatPhoneLabel(site.phoneDisplay2)}
+                  </a>
+                  <span className="about-dept-messengers">Telegram, Viber, WhatsApp</span>
+                </div>
                 <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
                   {formatPhoneLabel(site.phoneDisplay)}
                 </a>
               </div>
-              <p className="about-dept-note">Telegram, Viber, WhatsApp — {site.phoneDisplay2}</p>
             </div>
 
             <div className="about-dept">
@@ -1908,6 +1910,14 @@ function ContactCard() {
       >
         {site.address}
       </a>
+      <div className="phone-stack">
+        <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
+          {formatPhoneLabel(site.phoneDisplay2)}
+        </a>
+        <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
+          {formatPhoneLabel(site.phoneDisplay)}
+        </a>
+      </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
     </div>

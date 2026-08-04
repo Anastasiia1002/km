@@ -3544,16 +3544,24 @@ tr:last-child td {
   letter-spacing: 0.01em;
 }
 
+.about-dept-phone-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+
+.about-dept-messengers {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-secondary);
+}
+
 .about-dept-phones a:hover,
 .about-dept-phone:hover {
   color: var(--blue);
-}
-
-.about-dept-note {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--text-secondary);
 }
 
 .about-dept-portal {
