@@ -3715,6 +3715,7 @@ tr:last-child td {
   .about-portal-link:hover,
   .about-social-link:hover {
     transform: none;
+    filter: none;
   }
 }
 
