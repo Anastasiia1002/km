@@ -1977,13 +1977,14 @@ function formatPhoneLabel(display) {
   const [, country, operator, local] = match;
   const accent = "58-43-85";
   const localHead = local.endsWith(accent) ? local.slice(0, -accent.length) : null;
+  const isAccented = localHead !== null;
 
   return (
-    <span className="phone-label">
+    <span className={`phone-label${isAccented ? "" : " phone-label--plain"}`}>
       <span className="phone-cc">{country}</span>
       <span className="phone-op">{operator}</span>
       <span className="phone-num">
-        {localHead !== null ? (
+        {isAccented ? (
           <>
             <span className="phone-prefix">{localHead}</span>
             <span className="phone-accent">{accent}</span>

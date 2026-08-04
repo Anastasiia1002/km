@@ -4108,6 +4108,15 @@ tr:last-child td {
   letter-spacing: 0.01em;
 }
 
+/* Numbers without the shared 58-43-85 ending stay visually uniform */
+.phone-label--plain .phone-cc,
+.phone-label--plain .phone-op,
+.phone-label--plain .phone-num {
+  font-weight: inherit;
+  opacity: 1;
+  color: inherit;
+}
+
 /* Light header: mild mute is fine */
 .header-phone .phone-cc,
 .header-phone .phone-op,
@@ -4131,6 +4140,14 @@ tr:last-child td {
   color: var(--navy-mid);
 }
 
+.about-phone-num .phone-label--plain .phone-cc,
+.about-phone-num .phone-label--plain .phone-op,
+.about-phone-num .phone-label--plain .phone-num {
+  font-weight: inherit;
+  opacity: 1;
+  color: inherit;
+}
+
 .about-phone-num .phone-accent {
   font-weight: 900;
   opacity: 1;
@@ -4151,6 +4168,17 @@ tr:last-child td {
   opacity: 0.62;
   color: rgba(255, 255, 255, 0.78);
   font-weight: 500;
+}
+
+.contact-card .phone-label--plain .phone-cc,
+.contact-card .phone-label--plain .phone-op,
+.contact-card .phone-label--plain .phone-num,
+.footer-phone .phone-label--plain .phone-cc,
+.footer-phone .phone-label--plain .phone-op,
+.footer-phone .phone-label--plain .phone-num {
+  opacity: 1;
+  color: #fff;
+  font-weight: inherit;
 }
 
 .contact-card .phone-stack {
