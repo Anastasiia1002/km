@@ -2320,11 +2320,21 @@ function Footer({ navigate }) {
                 <div className="footer-support">
                   <div className="footer-support-label">Техпідтримка та сервіс</div>
                   <a
-                    className="footer-phone"
+                    className="footer-phone footer-support-phone"
                     href={`tel:${site.phoneSupport}`}
                     onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
                   >
                     {formatPhoneLabel(site.phoneDisplaySupport)}
+                  </a>
+                  <a
+                    className="footer-portal-link"
+                    href={site.clientPortalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => pushEvent("Contact", { type: "client_portal", source: "footer" })}
+                  >
+                    Online-кабінет
+                    <span aria-hidden="true">→</span>
                   </a>
                 </div>
               </div>
