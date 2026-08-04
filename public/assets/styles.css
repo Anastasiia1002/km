@@ -3497,10 +3497,17 @@ tr:last-child td {
 }
 
 .about-online-title {
-  margin: 0 0 14px;
+  margin: 0;
   font-family: var(--font-display);
   font-size: clamp(22px, 2.4vw, 28px);
   color: var(--navy);
+}
+
+.about-online-sub {
+  margin: 8px 0 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .about-social-list {
@@ -3510,28 +3517,79 @@ tr:last-child td {
 }
 
 .about-social-link {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 10px;
-  width: fit-content;
-  max-width: 100%;
+  gap: 12px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid rgba(219, 220, 233, 0.95);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
   font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy-mid);
+  color: var(--navy);
   text-decoration: none;
-  transition: color 0.18s ease;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .about-social-link:hover {
-  color: var(--blue);
+  border-color: rgba(98, 114, 189, 0.35);
+  box-shadow: 0 10px 24px rgba(98, 114, 189, 0.12);
+  transform: translateY(-1px);
 }
 
-.about-social-link span {
+.about-social-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.5em;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.about-social-link--instagram .about-social-icon {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 48%, #8134af 100%);
+}
+
+.about-social-link--facebook .about-social-icon {
+  background: #1877f2;
+}
+
+.about-social-link--telegram .about-social-icon {
+  background: #2aabee;
+}
+
+.about-social-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.about-social-name {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.about-social-hint {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.about-social-arrow {
+  color: var(--blue);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .contact-block {
