@@ -1928,9 +1928,9 @@ function AboutIconSocial() {
 function SocialIconInstagram() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" stroke="currentColor" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="2" />
-      <circle cx="17.35" cy="6.65" r="1.25" fill="currentColor" />
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2" stroke="currentColor" strokeWidth="2.1" />
+      <circle cx="12" cy="12" r="4.15" stroke="currentColor" strokeWidth="2.1" />
+      <circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" />
     </svg>
   );
 }
@@ -1938,7 +1938,8 @@ function SocialIconInstagram() {
 function SocialIconFacebook() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-      <path d="M14.2 8.4V7c0-.85.45-1.3 1.35-1.3H17V3.2h-2.35C12.2 3.2 10.7 4.85 10.7 7.35v1.05H8.7v2.85h2V20.8h3.5v-9.55h2.45l.4-2.85h-2.85Z" />
+      {/* Official Meta "f": slightly right-shifted, stem to the bottom edge */}
+      <path d="M14.35 24V13.05h3.55l.53-4.12h-4.08V6.55c0-1.19.33-2 2.04-2H18.5V.28C18.02.22 16.74 0 15.25 0 12.12 0 10 1.9 10 5.4v3.53H6.5v4.12H10V24h4.35Z" />
     </svg>
   );
 }
