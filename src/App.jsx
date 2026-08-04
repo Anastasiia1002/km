@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { articles, cases, certificates, industries, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
+import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 
@@ -2072,19 +2073,12 @@ function LegalPage({ title, kind, navigate }) {
             {title}
           </div>
           <h1 className="title title-lg">{title}</h1>
-          {kind !== "oferta" && (
-            <p className="subtitle">Шаблонний текст потребує юридичного погодження перед публікацією.</p>
-          )}
         </div>
       </section>
       <section className="section">
         <div className="container">
           <main className="article-body legal-body">
-            {kind === "oferta" ? (
-              <OfertaContent />
-            ) : (
-              <p>Ця сторінка зарезервована для погодженого юридичного тексту КМ Трейд.</p>
-            )}
+            {kind === "oferta" ? <OfertaContent /> : <PrivacyContent />}
           </main>
         </div>
       </section>
