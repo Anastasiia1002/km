@@ -32,9 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build site
-        run: npm run build
-        env:
-          VITE_BASE: /km/
+        run: npm run build:pages
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

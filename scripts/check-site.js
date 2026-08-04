@@ -9,6 +9,7 @@ const distDir = path.join(root, "dist");
 const requiredPublicFiles = [
   "sitemap.xml",
   "robots.txt",
+  ".htaccess",
   "assets/styles.css",
 ];
 
@@ -64,6 +65,12 @@ for (const file of requiredPublicFiles) {
 
 await assertFile(distDir, "index.html");
 await assertFile(distDir, "404.html");
+await assertFile(distDir, ".htaccess");
+
+const htaccess = await readFile(path.join(distDir, ".htaccess"), "utf8");
+if (!htaccess.includes("RewriteRule ^ index.html")) {
+  throw new Error("dist/.htaccess is missing SPA fallback rewrite");
+}
 
 const distFiles = await collectFiles(distDir);
 const jsBundles = distFiles.filter((file) => file.endsWith(".js"));
