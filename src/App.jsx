@@ -1694,7 +1694,7 @@ function About() {
             </div>
 
             <div className="about-online">
-              <h3 className="about-channel-title">Ми в інтернеті</h3>
+              <h3 className="about-channel-title">Соцмережі</h3>
               <div className="about-social-list" role="list">
                 <a
                   className="about-social-link"
