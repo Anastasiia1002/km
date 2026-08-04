@@ -1713,7 +1713,7 @@ function About() {
               <div className="about-channel-body">
                 <div className="about-social-list" role="list">
                   <a
-                    className="about-social-link"
+                    className="about-social-link about-social-link--instagram"
                     href={site.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -1724,7 +1724,7 @@ function About() {
                     <SocialIconInstagram />
                   </a>
                   <a
-                    className="about-social-link"
+                    className="about-social-link about-social-link--facebook"
                     href={site.social.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -1735,7 +1735,7 @@ function About() {
                     <SocialIconFacebook />
                   </a>
                   <a
-                    className="about-social-link"
+                    className="about-social-link about-social-link--telegram"
                     href={site.social.telegram}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -1928,9 +1928,9 @@ function AboutIconSocial() {
 function SocialIconInstagram() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+      <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.35" cy="6.65" r="1.25" fill="currentColor" />
     </svg>
   );
 }
@@ -1938,7 +1938,7 @@ function SocialIconInstagram() {
 function SocialIconFacebook() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-      <path d="M14.5 8.5V7.2c0-.7.5-1.2 1.2-1.2H17V3.5h-2.1C12.5 3.5 11 5 11 7.4v1.1H9v2.6h2V20.5h3.5v-9.4h2.3l.4-2.6h-2.7Z" />
+      <path d="M14.2 8.4V7c0-.85.45-1.3 1.35-1.3H17V3.2h-2.35C12.2 3.2 10.7 4.85 10.7 7.35v1.05H8.7v2.85h2V20.8h3.5v-9.55h2.45l.4-2.85h-2.85Z" />
     </svg>
   );
 }
@@ -1946,7 +1946,7 @@ function SocialIconFacebook() {
 function SocialIconTelegram() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-      <path d="M20.6 4.3 3.9 10.7c-1.1.4-1.1 1.1-.2 1.4l4.3 1.3 1.6 5c.2.6.1.8.8.8.5 0 .7-.2 1-.5l2.3-2.3 4.5 3.3c.8.5 1.4.2 1.6-.8L21.8 5.5c.3-1.1-.4-1.6-1.2-1.2Zm-3 3.3-7.9 7.1-.3 3.1-1.4-4.5 9.6-5.7Z" />
+      <path d="M21.45 4.55 3.7 11.4c-1.2.47-1.18 1.12-.22 1.4l4.55 1.42 1.72 5.28c.22.67.11.93.75.93.39 0 .56-.18.78-.4l2.45-2.38 5.08 3.75c.93.52 1.6.25 1.83-.86L22.9 5.85c.3-1.2-.45-1.75-1.45-1.3Zm-2.85 3.05-8.55 7.7-.35 3.35-1.5-4.85 10.4-6.2Z" />
     </svg>
   );
 }
