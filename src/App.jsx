@@ -1960,19 +1960,13 @@ function formatPhoneLabel(display) {
   const localHead = local.endsWith(accent) ? local.slice(0, -accent.length) : null;
   const isAccented = localHead !== null;
 
+  // Accented sales numbers: "+38 0961 58-43-85" (space after the 1, not after operator).
   return (
     <span className={`phone-label${isAccented ? "" : " phone-label--plain"}`}>
       <span className="phone-cc">{country}</span>
-      <span className="phone-op">{operator}</span>
+      <span className="phone-op">{isAccented ? `${operator}${localHead}` : operator}</span>
       <span className="phone-num">
-        {isAccented ? (
-          <>
-            <span className="phone-prefix">{localHead}</span>
-            <span className="phone-accent">{accent}</span>
-          </>
-        ) : (
-          local
-        )}
+        {isAccented ? <span className="phone-accent">{accent}</span> : local}
       </span>
     </span>
   );
