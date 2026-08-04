@@ -4005,7 +4005,7 @@ tr:last-child td {
 
 .phone-label {
   display: inline-grid;
-  grid-template-columns: 2.75ch 4.5ch auto;
+  grid-template-columns: 2.75ch max-content auto;
   column-gap: 0.35em;
   align-items: baseline;
   font-variant-numeric: tabular-nums;
