@@ -1614,17 +1614,87 @@ function About() {
   return (
     <section className="section local-section" id="about">
       <div className="container">
+        <div className="about-head">
+          <div className="tag">📍 Про компанію</div>
+          <h2 className="title about-title">10 років на ринку GPS-моніторингу</h2>
+          <p className="subtitle about-subtitle">
+            Офіс у місті Чернівці, виїзд по {regionCount} областях, техпідтримка і сервіс обладнання протягом першого року.
+          </p>
+        </div>
         <div className="local-inner">
-          <div>
-            <div className="tag">📍 Про компанію</div>
-            <h2 className="title">10 років на ринку GPS-моніторингу</h2>
-            <p className="subtitle">
-              Офіс у місті Чернівці, виїзд по {regionCount} областях, техпідтримка і сервіс обладнання протягом першого року.
-            </p>
+          <div className="about-main">
             <div className="local-features">
               <div>
                 <b>🛰 Авторизований партнер Wialon / Gurtam</b>
                 <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
+              </div>
+            </div>
+
+            <div className="about-dept">
+              <h3 className="about-dept-title">📞 Відділ продажу</h3>
+              <div className="about-dept-phones">
+                <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
+                  {formatPhoneLabel(site.phoneDisplay2)}
+                </a>
+                <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
+                  {formatPhoneLabel(site.phoneDisplay)}
+                </a>
+              </div>
+              <p className="about-dept-note">Telegram, Viber, WhatsApp — {site.phoneDisplay2}</p>
+            </div>
+
+            <div className="about-dept">
+              <h3 className="about-dept-title">🛠 Техпідтримка та сервіс</h3>
+              <a className="about-dept-phone" href={`tel:${site.phoneSupport}`} onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}>
+                {formatPhoneLabel(site.phoneDisplaySupport)}
+              </a>
+              <a
+                className="about-dept-portal"
+                href={site.clientPortalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => pushEvent("Contact", { type: "client_portal" })}
+              >
+                Online-кабінет →
+              </a>
+            </div>
+
+            <div className="about-online">
+              <h3 className="about-dept-title">Ми в інтернеті</h3>
+              <div className="about-social-list" role="list">
+                <a
+                  className="about-social-link about-social-link--instagram"
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "instagram" })}
+                >
+                  <SocialIconInstagram />
+                </a>
+                <a
+                  className="about-social-link about-social-link--facebook"
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "facebook" })}
+                >
+                  <SocialIconFacebook />
+                </a>
+                <a
+                  className="about-social-link about-social-link--telegram"
+                  href={site.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "telegram" })}
+                >
+                  <SocialIconTelegram />
+                </a>
               </div>
             </div>
           </div>
@@ -1773,6 +1843,32 @@ function Certificates() {
   );
 }
 
+function SocialIconInstagram() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function SocialIconFacebook() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M14.5 8.5V7.2c0-.7.5-1.2 1.2-1.2H17V3.5h-2.1C12.5 3.5 11 5 11 7.4v1.1H9v2.6h2V20.5h3.5v-9.4h2.3l.4-2.6h-2.7Z" />
+    </svg>
+  );
+}
+
+function SocialIconTelegram() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M20.6 4.3 3.9 10.7c-1.1.4-1.1 1.1-.2 1.4l4.3 1.3 1.6 5c.2.6.1.8.8.8.5 0 .7-.2 1-.5l2.3-2.3 4.5 3.3c.8.5 1.4.2 1.6-.8L21.8 5.5c.3-1.1-.4-1.6-1.2-1.2Zm-3 3.3-7.9 7.1-.3 3.1-1.4-4.5 9.6-5.7Z" />
+    </svg>
+  );
+}
+
 function formatPhoneLabel(display) {
   const match = String(display).match(/^(\+38)\s+(\d{3})\s+(\d{3}-\d{2}-\d{2})$/);
   if (!match) return display;
@@ -1812,21 +1908,6 @@ function ContactCard() {
       >
         {site.address}
       </a>
-      <div className="contact-block">
-        <div className="contact-block-label">🛠 Техпідтримка та сервіс</div>
-        <a href={`tel:${site.phoneSupport}`} onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}>
-          {formatPhoneLabel(site.phoneDisplaySupport)}
-        </a>
-        <a
-          className="contact-portal"
-          href={site.clientPortalUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => pushEvent("Contact", { type: "client_portal" })}
-        >
-          Online-кабінет →
-        </a>
-      </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
     </div>
