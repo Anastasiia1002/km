@@ -1627,6 +1627,18 @@ function About() {
                 <span>Silver-статус Wialon, авторизаційний лист і сертифікати команди.</span>
               </div>
             </div>
+            <div className="about-sales">
+              <h3 className="about-online-title">📞 Відділ продажу</h3>
+              <div className="about-sales-phones">
+                <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
+                  {formatPhoneLabel(site.phoneDisplay2)}
+                </a>
+                <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
+                  {formatPhoneLabel(site.phoneDisplay)}
+                </a>
+              </div>
+              <p className="about-sales-note">Telegram, Viber, WhatsApp — {site.phoneDisplay2}</p>
+            </div>
             <div className="about-online">
               <h3 className="about-online-title">Ми в інтернеті</h3>
               <p className="about-online-sub">Підписуйтесь на новини та пишіть у месенджери</p>
@@ -1895,20 +1907,6 @@ function ContactCard() {
       >
         {site.address}
       </a>
-
-      <div className="contact-block">
-        <div className="contact-block-label">📞 Відділ продажу</div>
-        <div className="phone-stack">
-          <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}>
-            {formatPhoneLabel(site.phoneDisplay2)}
-          </a>
-          <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}>
-            {formatPhoneLabel(site.phoneDisplay)}
-          </a>
-        </div>
-        <p className="contact-note">{site.phoneDisplay2} — Telegram, Viber, WhatsApp</p>
-      </div>
-
       <div className="contact-block">
         <div className="contact-block-label">🛠 Техпідтримка та сервіс</div>
         <a href={`tel:${site.phoneSupport}`} onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}>
@@ -1924,7 +1922,6 @@ function ContactCard() {
           Online-кабінет →
         </a>
       </div>
-
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
     </div>

@@ -3492,6 +3492,39 @@ tr:last-child td {
   line-height: 1.55;
 }
 
+.about-sales {
+  margin-top: 28px;
+}
+
+.about-sales-phones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.about-sales-phones a {
+  display: inline-flex;
+  width: fit-content;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.about-sales-phones a:hover {
+  color: var(--blue);
+}
+
+.about-sales-note {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
 .about-online {
   margin-top: 28px;
 }
