@@ -3678,7 +3678,7 @@ tr:last-child td {
 }
 
 .about-social-link--telegram {
-  background: #0088cc;
+  background: linear-gradient(180deg, #38b0e3 0%, #1d93d2 100%);
 }
 
 .about-social-link:hover {
@@ -3696,7 +3696,7 @@ tr:last-child td {
 }
 
 .about-social-link--telegram:hover {
-  box-shadow: 0 12px 26px rgba(0, 136, 204, 0.35);
+  box-shadow: 0 12px 26px rgba(29, 147, 210, 0.4);
 }
 
 .about-social-link:focus-visible {
