@@ -4092,10 +4092,12 @@ tr:last-child td {
 .phone-op,
 .phone-prefix {
   opacity: 1;
+  font-weight: 600;
 }
 
 .phone-accent {
   opacity: 1;
+  font-weight: 900;
 }
 
 /* Light header: mild mute is fine */
