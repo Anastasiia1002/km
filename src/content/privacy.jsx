@@ -1,3 +1,5 @@
+import { canPlacePhoneCall, telHref } from "../lib/phone.js";
+
 export function PrivacyContent() {
   return (
     <>
@@ -147,9 +149,23 @@ export function PrivacyContent() {
         </li>
         <li>
           Телефон:{" "}
-          <a href="tel:+380961584385">+38 096 158-43-85</a>
+          <a
+            href={telHref("+380961584385")}
+            onClick={(event) => {
+              if (!canPlacePhoneCall()) event.preventDefault();
+            }}
+          >
+            +38 096 158-43-85
+          </a>
           {", "}
-          <a href="tel:+380950584385">+38 095 058-43-85</a>
+          <a
+            href={telHref("+380950584385")}
+            onClick={(event) => {
+              if (!canPlacePhoneCall()) event.preventDefault();
+            }}
+          >
+            +38 095 058-43-85
+          </a>
         </li>
         <li>
           Сайт:{" "}

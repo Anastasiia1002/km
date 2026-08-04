@@ -5,11 +5,31 @@ import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
+import { canPlacePhoneCall, telHref } from "./lib/phone.js";
 
 const routes = {
   home: "/",
   blog: "/statti/",
 };
+
+function PhoneLink({ phone, className, children, onClick, ...rest }) {
+  return (
+    <a
+      className={className}
+      href={telHref(phone)}
+      onClick={(event) => {
+        // Avoid macOS / desktop FaceTime prompts — calls only on real phones.
+        if (!canPlacePhoneCall()) {
+          event.preventDefault();
+        }
+        onClick?.(event);
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
 
 function pushEvent(event, payload = {}) {
   window.dataLayer = window.dataLayer || [];
@@ -478,10 +498,10 @@ function Header({ navigate }) {
             </Dropdown>
           </nav>
           <div className="header-cta">
-            <a className="header-phone js-call" href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
+            <PhoneLink className="header-phone js-call" phone={site.phonePrimary} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
               <span className="header-phone-icon" aria-hidden="true">📞</span>
               <span className="header-phone-text">{formatPhoneLabel(site.phoneDisplay)}</span>
-            </a>
+            </PhoneLink>
             <a
               className="btn btn-primary btn-header"
               href={withBase("/#trial")}
@@ -635,12 +655,12 @@ function Header({ navigate }) {
                   </NavLink>
                   <div className="header-mobile-actions">
                     <div className="header-mobile-phones">
-                      <a className="header-mobile-phone" href={`tel:${site.phoneSecondary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
+                      <PhoneLink className="header-mobile-phone" phone={site.phoneSecondary} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
                         {formatPhoneLabel(site.phoneDisplay2)}
-                      </a>
-                      <a className="header-mobile-phone" href={`tel:${site.phonePrimary}`} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
+                      </PhoneLink>
+                      <PhoneLink className="header-mobile-phone" phone={site.phonePrimary} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
                         {formatPhoneLabel(site.phoneDisplay)}
-                      </a>
+                      </PhoneLink>
                     </div>
                     <button className="btn btn-primary" type="button" onClick={goToLeadForm}>
                       Залишити заявку
@@ -1642,9 +1662,9 @@ function About() {
                   <h3 className="about-channel-title">Відділ продажу</h3>
                 </div>
                 <div className="about-channel-body">
-                  <a
+                  <PhoneLink
                     className="about-phone-line"
-                    href={`tel:${site.phoneSecondary}`}
+                    phone={site.phoneSecondary}
                     onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}
                   >
                     <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay2)}</span>
@@ -1653,14 +1673,14 @@ function About() {
                       <span>Viber</span>
                       <span>WhatsApp</span>
                     </span>
-                  </a>
-                  <a
+                  </PhoneLink>
+                  <PhoneLink
                     className="about-phone-line"
-                    href={`tel:${site.phonePrimary}`}
+                    phone={site.phonePrimary}
                     onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
                   >
                     <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
-                  </a>
+                  </PhoneLink>
                 </div>
               </div>
 
@@ -1672,13 +1692,13 @@ function About() {
                   <h3 className="about-channel-title">Техпідтримка та сервіс</h3>
                 </div>
                 <div className="about-channel-body">
-                  <a
+                  <PhoneLink
                     className="about-phone-line"
-                    href={`tel:${site.phoneSupport}`}
+                    phone={site.phoneSupport}
                     onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
                   >
                     <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplaySupport)}</span>
-                  </a>
+                  </PhoneLink>
                   <a
                     className="about-portal-link"
                     href={site.clientPortalUrl}
@@ -1990,12 +2010,12 @@ function ContactCard() {
         {site.address}
       </a>
       <div className="phone-stack">
-        <a href={`tel:${site.phoneSecondary}`} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
+        <PhoneLink phone={site.phoneSecondary} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
           {formatPhoneLabel(site.phoneDisplay2)}
-        </a>
-        <a href={`tel:${site.phonePrimary}`} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
+        </PhoneLink>
+        <PhoneLink phone={site.phonePrimary} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
           {formatPhoneLabel(site.phoneDisplay)}
-        </a>
+        </PhoneLink>
       </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
@@ -2048,7 +2068,7 @@ function RegionPage({ region, navigate }) {
             <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
               Заявка на виїзд →
             </button>
-            <a className="btn btn-outline" href={`tel:${site.phonePrimary}`}>Подзвонити</a>
+            <PhoneLink className="btn btn-outline" phone={site.phonePrimary}>Подзвонити</PhoneLink>
           </div>
         </div>
       </section>
@@ -2307,25 +2327,25 @@ function Footer({ navigate }) {
               </p>
               <div className="footer-phones">
                 <div className="phone-stack">
-                  <a className="footer-phone" href={`tel:${site.phoneSecondary}`}>
+                  <PhoneLink className="footer-phone" phone={site.phoneSecondary}>
                     {formatPhoneLabel(site.phoneDisplay2)}
-                  </a>
-                  <a className="footer-phone" href={`tel:${site.phonePrimary}`}>
+                  </PhoneLink>
+                  <PhoneLink className="footer-phone" phone={site.phonePrimary}>
                     {formatPhoneLabel(site.phoneDisplay)}
-                  </a>
+                  </PhoneLink>
                 </div>
                 <a className="footer-phone" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>
                 <div className="footer-support">
                   <div className="footer-support-label">Техпідтримка та сервіс</div>
-                  <a
+                  <PhoneLink
                     className="footer-phone footer-support-phone"
-                    href={`tel:${site.phoneSupport}`}
+                    phone={site.phoneSupport}
                     onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
                   >
                     {formatPhoneLabel(site.phoneDisplaySupport)}
-                  </a>
+                  </PhoneLink>
                   <a
                     className="footer-portal-link"
                     href={site.clientPortalUrl}
@@ -2347,7 +2367,7 @@ function Footer({ navigate }) {
           <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
         </div>
       </footer>
-      <div className="sticky-cta"><a href={`tel:${site.phonePrimary}`} className="btn btn-outline">📞 Дзвінок</a><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>
+      <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>
     </>
   );
 }
