@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "dev:root": "VITE_BASE=/ vite --host 0.0.0.0",
+    "dev": "VITE_BASE=/ vite --host 0.0.0.0",
+    "dev:pages": "VITE_BASE=/km/ vite --host 0.0.0.0",
     "build": "vite build",
+    "build:root": "VITE_BASE=/ vite build",
     "build:pages": "VITE_BASE=/km/ vite build",
     "preview": "vite preview --host 0.0.0.0",
     "check": "node scripts/check-fuel-savings.js && node scripts/check-site.js",
