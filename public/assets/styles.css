@@ -3163,6 +3163,11 @@ tr:last-child td {
   padding: 16px;
 }
 
+.form-submit:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
 .form-note {
   font-size: 12px;
   color: var(--text-secondary);

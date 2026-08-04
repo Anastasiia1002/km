@@ -53,6 +53,9 @@ public/
     certificates/      # PDF/JPG сертифікатів + preview
     fonts/             # Xolonium, Akrobat
 api/lead.js            # Vercel serverless → Telegram
+server/processLead.js  # спільна логіка заявки (валідація + Telegram)
+vercel.json            # налаштування функції /api/lead
+.env.example           # VITE_LEAD_API_URL + TELEGRAM_*
 .github/workflows/     # деплой GitHub Pages
 ```
 
@@ -64,21 +67,50 @@ api/lead.js            # Vercel serverless → Telegram
 - Позиціонування партнера: **авторизований партнер Wialon / Gurtam в Україні**.
 - Офіс: **у місті Чернівці**.
 
-## Telegram-заявки
+## Telegram-заявки (`POST /api/lead`)
 
-Форма тимчасово б’є в тунель розробника:
+Форма «Залишити заявку» надсилає `POST` на `/api/lead` (локально через Vite middleware; у проді — Vercel serverless).
 
-`POST https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead`
-
-Тіло:
+### Тіло запиту
 
 ```json
-{ "name": "...", "phone": "...", "cars": "4-10 авто", "region": "Чернівці" }
+{
+  "name": "Іван Коваленко",
+  "phone": "+38 096 158-43-85",
+  "cars": "4-10 авто",
+  "region": "Чернівці",
+  "savings": "12 400 грн/міс",
+  "page": "/km/",
+  "utm_source": "",
+  "utm_medium": "",
+  "utm_campaign": "",
+  "utm_content": "",
+  "utm_term": ""
+}
 ```
 
-`cars` — **текст** з селекта (`1-3 авто`, `4-10 авто`, …).
+`cars` — **текст** з селекта (`1-3 авто`, `4-10 авто`, …).  
+Поле `company_site` — honeypot (ботів тихо ігноруємо).
 
-Локальний fallback лишається в `api/lead.js` (Vercel), коли тунель приберуть.
+### Відповіді
+
+| Status | Значення |
+| --- | --- |
+| `200` | Заявку відправлено в Telegram |
+| `202` | Honeypot / Telegram ще не налаштований (ок для клієнта) |
+| `400` | Невалідні ім’я або телефон |
+| `405` | Не `POST` |
+| `502` | Telegram API не прийняв повідомлення |
+
+### Налаштування
+
+1. Задеплойте API на **Vercel** (файл `api/lead.js` + `vercel.json`).
+2. У Vercel env додайте:
+   - `TELEGRAM_BOT_TOKEN`
+   - `TELEGRAM_CHAT_ID`
+3. У GitHub Actions secrets додайте `VITE_LEAD_API_URL` = `https://<your-vercel>.vercel.app/api/lead`  
+   (сайт на GitHub Pages не може хостити serverless, тому фронт б’є на абсолютний URL).
+4. Локально: скопіюйте `.env.example` → `.env`, заповніть Telegram-токени; `npm run dev` піднімає `/api/lead` сам.
 
 ## SEO-чекліст
 

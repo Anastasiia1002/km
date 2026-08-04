@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/lead.js": {
+      "maxDuration": 10,
+      "memory": 128
+    }
+  }
+}

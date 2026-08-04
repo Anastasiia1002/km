@@ -1428,11 +1428,12 @@ function isValidUaPhone(value) {
   return false;
 }
 
-const LEAD_API_URL = "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead";
+const LEAD_API_URL = (import.meta.env.VITE_LEAD_API_URL || "/api/lead").replace(/\/$/, "") || "/api/lead";
 
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });
   const [phoneError, setPhoneError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
   useEffect(() => {
@@ -1452,31 +1453,34 @@ function LeadForm({ region = "" }) {
       return;
     }
     setPhoneError("");
-    const payload = {
-      ...state,
-      page: window.location.pathname,
-      savings: document.getElementById("lead-savings")?.value || "",
-    };
-    utmKeys.forEach((key) => { payload[key] = localStorage.getItem(`km_${key}`) || ""; });
     const leadBody = {
       name: state.name.trim(),
       phone: state.phone.trim(),
       cars: state.cars,
       region: state.region,
+      company_site: state.company_site,
+      page: window.location.pathname,
+      savings: document.getElementById("lead-savings")?.value || "",
     };
-    pushEvent("form_submit", { region: payload.region, cars: payload.cars, form_name: "trial" });
-    pushEvent("Lead", { region: payload.region, cars: payload.cars, form_name: "trial" });
+    utmKeys.forEach((key) => {
+      leadBody[key] = localStorage.getItem(`km_${key}`) || "";
+    });
+    pushEvent("form_submit", { region: leadBody.region, cars: leadBody.cars, form_name: "trial" });
+    pushEvent("Lead", { region: leadBody.region, cars: leadBody.cars, form_name: "trial" });
+    setSubmitting(true);
     try {
-      await fetch(LEAD_API_URL, {
+      const response = await fetch(LEAD_API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(leadBody),
       });
+      if (!response.ok) {
+        console.warn("Lead endpoint rejected request", response.status);
+      }
     } catch (error) {
       console.warn("Lead endpoint unavailable", error);
+    } finally {
+      setSubmitting(false);
     }
     window.dispatchEvent(new Event("km:lead-success"));
     setState({ name: "", phone: "", cars: "", region, company_site: "" });
@@ -1522,7 +1526,9 @@ function LeadForm({ region = "" }) {
         <div className="form-field"><label htmlFor="lead-cars">Кількість авто</label><select id="lead-cars" value={state.cars} onChange={(e) => update("cars", e.target.value)} required><option value="">Оберіть</option><option>1-3 авто</option><option>4-10 авто</option><option>11-30 авто</option><option>31-50 авто</option><option>50+ авто</option></select></div>
         <div className="form-field"><label htmlFor="lead-region">Регіон</label><select id="lead-region" value={state.region} onChange={(e) => update("region", e.target.value)} required><option value="">Оберіть регіон</option>{regions.map((item) => <option key={item.city}>{item.city}</option>)}<option>Інше місто</option></select></div>
       </div>
-      <button className="btn btn-primary form-submit" type="submit">Отримати безкоштовний тест-драйв →</button>
+      <button className="btn btn-primary form-submit" type="submit" disabled={submitting}>
+        {submitting ? "Надсилаємо…" : "Отримати безкоштовний тест-драйв →"}
+      </button>
       <p className="form-note">Передзвонимо за 15 хвилин · Дані заявки передаються менеджеру в Telegram</p>
     </form>
   );
