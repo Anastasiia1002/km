@@ -3663,6 +3663,11 @@ tr:last-child td {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-top: 4px;
+}
+
+.about-online .about-channel-body {
+  padding-top: 0;
 }
 
 .about-social-list {
@@ -4574,6 +4579,24 @@ footer {
 
 .footer-phones .phone-stack .footer-phone {
   font-weight: 700;
+}
+
+.footer-support {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-support-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .footer-col-title {

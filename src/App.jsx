@@ -1694,41 +1694,48 @@ function About() {
             </div>
 
             <div className="about-online">
-              <h3 className="about-channel-title">Соцмережі</h3>
-              <div className="about-social-list" role="list">
-                <a
-                  className="about-social-link"
-                  href={site.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
-                  role="listitem"
-                  onClick={() => pushEvent("Contact", { type: "instagram" })}
-                >
-                  <SocialIconInstagram />
-                </a>
-                <a
-                  className="about-social-link"
-                  href={site.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
-                  role="listitem"
-                  onClick={() => pushEvent("Contact", { type: "facebook" })}
-                >
-                  <SocialIconFacebook />
-                </a>
-                <a
-                  className="about-social-link"
-                  href={site.social.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
-                  role="listitem"
-                  onClick={() => pushEvent("Contact", { type: "telegram" })}
-                >
-                  <SocialIconTelegram />
-                </a>
+              <div className="about-channel-head">
+                <span className="about-channel-icon" aria-hidden="true">
+                  <AboutIconSocial />
+                </span>
+                <h3 className="about-channel-title">Соцмережі</h3>
+              </div>
+              <div className="about-channel-body">
+                <div className="about-social-list" role="list">
+                  <a
+                    className="about-social-link"
+                    href={site.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "instagram" })}
+                  >
+                    <SocialIconInstagram />
+                  </a>
+                  <a
+                    className="about-social-link"
+                    href={site.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "facebook" })}
+                  >
+                    <SocialIconFacebook />
+                  </a>
+                  <a
+                    className="about-social-link"
+                    href={site.social.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "telegram" })}
+                  >
+                    <SocialIconTelegram />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -1904,6 +1911,15 @@ function AboutIconSupport() {
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
       <path d="M12 3.8a6.2 6.2 0 0 0-6.2 6.2v1.4H7a1.4 1.4 0 0 1 1.4 1.4V16A1.4 1.4 0 0 1 7 17.4H5.8A1.8 1.8 0 0 1 4 15.6v-5.6A8 8 0 0 1 12 2a8 8 0 0 1 8 8v5.6a1.8 1.8 0 0 1-1.8 1.8H17A1.4 1.4 0 0 1 15.6 16v-3.2A1.4 1.4 0 0 1 17 11.4h1.2V10A6.2 6.2 0 0 0 12 3.8Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
       <path d="M10.2 19.2c.4 1.1 1.3 1.8 2.5 1.8s2.1-.7 2.5-1.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function AboutIconSocial() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M4.2 12h15.6M12 3.8c2.4 2.6 3.6 5.3 3.6 8.2s-1.2 5.6-3.6 8.2M12 3.8C9.6 6.4 8.4 9.1 8.4 12s1.2 5.6 3.6 8.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   );
 }
@@ -2284,7 +2300,35 @@ function Footer({ navigate }) {
       <footer id="contacts">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand"><Logo navigate={navigate} variant="light" /><p className="footer-desc">GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.</p><div className="footer-phones"><div className="phone-stack"><a className="footer-phone" href={`tel:${site.phoneSecondary}`}>{formatPhoneLabel(site.phoneDisplay2)}</a><a className="footer-phone" href={`tel:${site.phonePrimary}`}>{formatPhoneLabel(site.phoneDisplay)}</a></div><a className="footer-phone" href={`mailto:${site.email}`}>{site.email}</a></div></div>
+            <div className="footer-brand">
+              <Logo navigate={navigate} variant="light" />
+              <p className="footer-desc">
+                GPS-моніторинг транспорту на платформі Wialon Local / Wialon Hosting. Виїзд і сервіс по {regionCount} областях України.
+              </p>
+              <div className="footer-phones">
+                <div className="phone-stack">
+                  <a className="footer-phone" href={`tel:${site.phoneSecondary}`}>
+                    {formatPhoneLabel(site.phoneDisplay2)}
+                  </a>
+                  <a className="footer-phone" href={`tel:${site.phonePrimary}`}>
+                    {formatPhoneLabel(site.phoneDisplay)}
+                  </a>
+                </div>
+                <a className="footer-phone" href={`mailto:${site.email}`}>
+                  {site.email}
+                </a>
+                <div className="footer-support">
+                  <div className="footer-support-label">Техпідтримка та сервіс</div>
+                  <a
+                    className="footer-phone"
+                    href={`tel:${site.phoneSupport}`}
+                    onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support" })}
+                  >
+                    {formatPhoneLabel(site.phoneDisplaySupport)}
+                  </a>
+                </div>
+              </div>
+            </div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={articles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
