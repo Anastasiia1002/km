@@ -1648,51 +1648,33 @@ function About() {
                   href={site.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
                   role="listitem"
                   onClick={() => pushEvent("Contact", { type: "instagram" })}
                 >
-                  <span className="about-social-icon" aria-hidden="true">
-                    <SocialIconInstagram />
-                  </span>
-                  <span className="about-social-copy">
-                    <span className="about-social-name">Instagram</span>
-                    <span className="about-social-hint">@km_trade__monitoring</span>
-                  </span>
-                  <span className="about-social-arrow" aria-hidden="true">→</span>
+                  <SocialIconInstagram />
                 </a>
                 <a
                   className="about-social-link about-social-link--facebook"
                   href={site.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
                   role="listitem"
                   onClick={() => pushEvent("Contact", { type: "facebook" })}
                 >
-                  <span className="about-social-icon" aria-hidden="true">
-                    <SocialIconFacebook />
-                  </span>
-                  <span className="about-social-copy">
-                    <span className="about-social-name">Facebook</span>
-                    <span className="about-social-hint">gps.kmtrade</span>
-                  </span>
-                  <span className="about-social-arrow" aria-hidden="true">→</span>
+                  <SocialIconFacebook />
                 </a>
                 <a
                   className="about-social-link about-social-link--telegram"
                   href={site.social.telegram}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
                   role="listitem"
                   onClick={() => pushEvent("Contact", { type: "telegram" })}
                 >
-                  <span className="about-social-icon" aria-hidden="true">
-                    <SocialIconTelegram />
-                  </span>
-                  <span className="about-social-copy">
-                    <span className="about-social-name">Telegram</span>
-                    <span className="about-social-hint">канал @KM_trade1</span>
-                  </span>
-                  <span className="about-social-arrow" aria-hidden="true">→</span>
+                  <SocialIconTelegram />
                 </a>
               </div>
             </div>

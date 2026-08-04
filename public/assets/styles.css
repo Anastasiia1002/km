@@ -3545,84 +3545,52 @@ tr:last-child td {
 
 .about-social-list {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
 }
 
 .about-social-link {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  min-height: 64px;
-  padding: 10px 14px 10px 10px;
-  border: 1px solid rgba(219, 220, 233, 0.95);
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-  font-family: var(--font-body);
-  color: var(--navy);
-  text-decoration: none;
-  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.about-social-link:hover {
-  border-color: rgba(98, 114, 189, 0.35);
-  box-shadow: 0 10px 24px rgba(98, 114, 189, 0.12);
-  transform: translateY(-1px);
-}
-
-.about-social-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 16px;
   color: #fff;
-  flex-shrink: 0;
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
-.about-social-link--instagram .about-social-icon {
-  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 48%, #8134af 100%);
+.about-social-link svg {
+  width: 26px;
+  height: 26px;
+  display: block;
 }
 
-.about-social-link--facebook .about-social-icon {
+.about-social-link:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  filter: brightness(1.05);
+}
+
+.about-social-link:focus-visible {
+  outline: 3px solid rgba(98, 114, 189, 0.45);
+  outline-offset: 3px;
+}
+
+.about-social-link--instagram {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 100%);
+}
+
+.about-social-link--facebook {
   background: #1877f2;
 }
 
-.about-social-link--telegram .about-social-icon {
+.about-social-link--telegram {
   background: #2aabee;
-}
-
-.about-social-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.about-social-name {
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.about-social-hint {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.about-social-arrow {
-  color: var(--blue);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1;
 }
 
 .contact-block {
