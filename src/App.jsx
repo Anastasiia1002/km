@@ -1945,7 +1945,7 @@ function SocialIconFacebook() {
 
 function SocialIconTelegram() {
   return (
-    <svg viewBox="0 0 240 240" width="22" height="22" aria-hidden="true">
+    <svg viewBox="48 66 132 116" width="22" height="22" aria-hidden="true">
       {/* Official Telegram paper plane mark */}
       <path
         d="M81.229 128.772 95.466 168.178s1.78 3.687 3.686 3.687 30.255-29.492 30.255-29.492l31.525-60.89-79.703 37.289Z"
