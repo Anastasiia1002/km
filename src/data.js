@@ -19,16 +19,7 @@ export const site = {
   name: "КМ Трейд",
   legalName: "КМ Трейд",
   clientPortalUrl: "https://km-trade.net/client-nexus-portal/",
-  social: {
-    instagram: "https://www.instagram.com/km_trade__monitoring",
-    facebook: "https://www.facebook.com/gps.kmtrade",
-    telegram: "https://t.me/KM_trade1",
-  },
-  sameAs: [
-    "https://www.instagram.com/km_trade__monitoring",
-    "https://www.facebook.com/gps.kmtrade",
-    "https://t.me/KM_trade1",
-  ],
+  sameAs: ["https://anastasiia1002.github.io/km/"],
 };
 
 export const regions = [
