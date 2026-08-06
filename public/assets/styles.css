@@ -1820,34 +1820,44 @@ tr:last-child td {
   min-width: 48px;
   min-height: 48px;
   padding: 0;
-  border-radius: 14px;
-  border: 1px solid rgba(219, 220, 233, 0.22);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  border-radius: 12px;
+  border: 0;
+  background: #464C6E;
+  color: #F4F5FA;
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
   flex: 0 0 48px;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cases-nav--next {
+  background: #6272BD;
 }
 
 .cases-nav .slider-nav-icon {
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
-  font-size: 18px;
-  line-height: 1;
-  font-family: var(--font-body);
+  width: 22px;
+  height: 22px;
+  line-height: 0;
+  color: inherit;
+}
+
+.cases-nav .brand-chevron-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 
 .cases-nav:hover:not(:disabled),
 .cases-nav:focus-visible:not(:disabled) {
-  border-color: rgba(98, 114, 189, 0.55);
-  background: rgba(98, 114, 189, 0.22);
   transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
   outline: none;
+  filter: brightness(1.06);
 }
 
 .cases-nav:disabled {
@@ -3269,16 +3279,22 @@ tr:last-child td {
   min-width: 44px;
   min-height: 44px;
   padding: 0;
-  border-radius: 12px;
-  border: 1px solid rgba(219, 220, 233, 0.95);
-  background: #fff;
-  color: var(--navy);
+  border-radius: 10px;
+  border: 0;
+  background: #464C6E;
+  color: #F4F5FA;
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
   flex: 0 0 44px;
-  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 8px 18px rgba(70, 76, 110, 0.28);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.testimonials-nav--next {
+  background: #6272BD;
+  box-shadow: 0 8px 18px rgba(98, 114, 189, 0.3);
 }
 
 .testimonials-nav .slider-nav-icon {
@@ -3286,16 +3302,20 @@ tr:last-child td {
   place-items: center;
   width: 20px;
   height: 20px;
-  font-size: 18px;
-  line-height: 1;
-  font-family: var(--font-body);
+  line-height: 0;
+  color: inherit;
+}
+
+.testimonials-nav .brand-chevron-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .testimonials-nav:hover,
 .testimonials-nav:focus-visible {
-  border-color: rgba(98, 114, 189, 0.45);
-  color: var(--blue);
   transform: translateY(-1px);
+  filter: brightness(1.06);
   outline: none;
 }
 
@@ -3761,40 +3781,48 @@ tr:last-child td {
   min-width: 48px;
   min-height: 48px;
   padding: 0;
-  border-radius: 14px;
-  border: 1px solid rgba(219, 220, 233, 0.95);
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--navy);
+  border-radius: 12px;
+  border: 0;
+  background: #464C6E;
+  color: #F4F5FA;
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 22px rgba(70, 76, 110, 0.28);
   flex: 0 0 48px;
   transition:
     transform 0.2s ease,
-    border-color 0.2s ease,
     background-color 0.2s ease,
-    color 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.certificates-nav--next {
+  background: #6272BD;
+  box-shadow: 0 10px 22px rgba(98, 114, 189, 0.3);
 }
 
 .certificates-nav .slider-nav-icon {
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
-  font-size: 18px;
-  line-height: 1;
-  font-family: var(--font-body);
+  width: 22px;
+  height: 22px;
+  line-height: 0;
+  color: inherit;
+}
+
+.certificates-nav .brand-chevron-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 
 .certificates-nav:hover:not(:disabled),
 .certificates-nav:focus-visible:not(:disabled) {
-  border-color: rgba(98, 114, 189, 0.4);
-  background: #fff;
-  color: var(--blue);
   transform: translateY(-1px);
+  filter: brightness(1.06);
   outline: none;
 }
 

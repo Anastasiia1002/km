@@ -1122,11 +1122,11 @@ function Cases() {
             <p className="subtitle">Запит бізнесу, що змінилось після GPS і посилання на компанію.</p>
           </div>
           <div className="cases-controls" aria-label="Керування слайдером кейсів">
-            <button className="cases-nav" type="button" aria-label="Попередній кейс" disabled={!canPrev} onClick={() => scrollByCard(-1)}>
-              <span className="slider-nav-icon" aria-hidden="true">←</span>
+            <button className="cases-nav cases-nav--prev" type="button" aria-label="Попередній кейс" disabled={!canPrev} onClick={() => scrollByCard(-1)}>
+              <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="left" /></span>
             </button>
-            <button className="cases-nav" type="button" aria-label="Наступний кейс" disabled={!canNext} onClick={() => scrollByCard(1)}>
-              <span className="slider-nav-icon" aria-hidden="true">→</span>
+            <button className="cases-nav cases-nav--next" type="button" aria-label="Наступний кейс" disabled={!canNext} onClick={() => scrollByCard(1)}>
+              <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="right" /></span>
             </button>
           </div>
         </div>
@@ -1589,12 +1589,12 @@ function Testimonials() {
           <div className="testimonial-feature-top">
             <span className="testimonial-mark" aria-hidden="true">„</span>
             <div className="testimonials-controls" aria-label="Керування відгуками">
-              <button className="testimonials-nav" type="button" aria-label="Попередній відгук" onClick={() => goTo(active - 1)}>
-                <span className="slider-nav-icon" aria-hidden="true">←</span>
+              <button className="testimonials-nav testimonials-nav--prev" type="button" aria-label="Попередній відгук" onClick={() => goTo(active - 1)}>
+                <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="left" /></span>
               </button>
               <span className="testimonials-count">{active + 1} / {total}</span>
-              <button className="testimonials-nav" type="button" aria-label="Наступний відгук" onClick={() => goTo(active + 1)}>
-                <span className="slider-nav-icon" aria-hidden="true">→</span>
+              <button className="testimonials-nav testimonials-nav--next" type="button" aria-label="Наступний відгук" onClick={() => goTo(active + 1)}>
+                <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="right" /></span>
               </button>
             </div>
           </div>
@@ -1834,22 +1834,22 @@ function Certificates() {
           </div>
           <div className="certificates-controls" aria-label="Керування слайдером сертифікатів">
             <button
-              className="certificates-nav"
+              className="certificates-nav certificates-nav--prev"
               type="button"
               aria-label="Попередній сертифікат"
               disabled={!canPrev}
               onClick={() => scrollByCard(-1)}
             >
-              <span className="slider-nav-icon" aria-hidden="true">←</span>
+              <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="left" /></span>
             </button>
             <button
-              className="certificates-nav"
+              className="certificates-nav certificates-nav--next"
               type="button"
               aria-label="Наступний сертифікат"
               disabled={!canNext}
               onClick={() => scrollByCard(1)}
             >
-              <span className="slider-nav-icon" aria-hidden="true">→</span>
+              <span className="slider-nav-icon" aria-hidden="true"><BrandChevronIcon direction="right" /></span>
             </button>
           </div>
         </div>
@@ -1966,6 +1966,36 @@ function SocialIconTelegram() {
         d="M81.486 130.178 52.2 120.636s-3.5-1.42-2.373-4.64c.232-.664.7-1.229 2.1-2.2 6.489-4.523 120.106-45.36 120.106-45.36s3.208-1.081 5.1-.362a2.766 2.766 0 0 1 1.885 2.055 9.357 9.357 0 0 1 .254 2.585c-.009.752-.1 1.449-.169 2.542-.692 11.165-21.4 94.493-21.4 94.493s-1.239 4.876-5.678 5.043a8.13 8.13 0 0 1-5.825-2.149c-8.711-7.493-38.819-27.727-45.472-32.177a1.27 1.27 0 0 1-.546-.9c-.093-.469.417-1.05.417-1.05s52.426-46.6 53.821-51.492c.108-.379-.3-.566-.848-.4-3.482 1.281-63.844 39.4-70.506 43.607a3.21 3.21 0 0 1-1.58 1.147Z"
         fill="#fff"
       />
+    </svg>
+  );
+}
+
+/** Brandbook chevron tile used for slider controls (K/M mark language). */
+function BrandChevronIcon({ direction = "left" }) {
+  const isLeft = direction === "left";
+  const isRight = direction === "right";
+  const rotate = isRight ? "180" : isLeft ? "0" : "270";
+
+  return (
+    <svg className="brand-chevron-icon" viewBox="0 0 30 30" width="22" height="22" aria-hidden="true">
+      <g transform={`rotate(${rotate} 15 15)`}>
+        <path
+          d="M21.6 8.1 11.2 14.7a1.55 1.55 0 0 0 0 2.6L21.6 23.9"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.4"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+        />
+        <path
+          d="M11.2 16 21.6 22.6"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.4"
+          strokeLinecap="butt"
+          opacity="0.55"
+        />
+      </g>
     </svg>
   );
 }
