@@ -1,39 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="КМ Трейд">
-  <g transform="translate(1 11)">
-    <!-- K tile -->
-    <rect width="30" height="30" rx="6" fill="#464C6E"/>
-    <path
-      d="M22.2 8.2 11.4 15.1a1.7 1.7 0 0 0 0 2.8l10.8 6.9"
-      fill="none"
-      stroke="#F2F3F8"
-      stroke-width="5.8"
-      stroke-linecap="butt"
-      stroke-linejoin="miter"
-    />
-    <path
-      d="M11.4 16.5 22.2 23.4"
-      fill="none"
-      stroke="#C5CADF"
-      stroke-width="5.8"
-      stroke-linecap="butt"
-    />
-
-    <!-- M tile -->
-    <rect x="32.5" width="30" height="30" rx="6" fill="#6272BD"/>
-    <path
-      d="M40.3 10.8 47.5 20.2 54.7 10.8"
-      fill="none"
-      stroke="#F2F3F8"
-      stroke-width="5.8"
-      stroke-linecap="butt"
-      stroke-linejoin="miter"
-    />
-    <path
-      d="M47.5 20.2 54.7 10.8"
-      fill="none"
-      stroke="#A8B1D9"
-      stroke-width="5.8"
-      stroke-linecap="butt"
-    />
-  </g>
+  <!-- Single brand tile: dark square + left chevron -->
+  <rect width="64" height="64" rx="12" fill="#464C6E"/>
+  <path
+    d="M42.4 16.2 22.4 28.55a3.2 3.2 0 0 0 0 5.5L42.4 46.4"
+    fill="none"
+    stroke="#F4F5FA"
+    stroke-width="11"
+    stroke-linecap="butt"
+    stroke-linejoin="miter"
+  />
+  <path
+    d="M22.4 31.3 42.4 43.65"
+    fill="none"
+    stroke="#C7CCE2"
+    stroke-width="11"
+    stroke-linecap="butt"
+    opacity="0.7"
+  />
 </svg>
