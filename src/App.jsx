@@ -6,7 +6,7 @@ import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 import { canPlacePhoneCall, telHref } from "./lib/phone.js";
-import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
+import { SupportCabinetForm } from "./SupportCabinet.jsx";
 
 const routes = {
   home: "/",
@@ -37,10 +37,10 @@ function pushEvent(event, payload = {}) {
   window.dataLayer.push({ event, ...payload });
 }
 
-function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null }) {
+function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null, robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" }) {
   document.title = title;
   upsertMeta("description", description);
-  upsertMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  upsertMeta("robots", robots);
   upsertMeta("og:title", title, "property");
   upsertMeta("og:description", description, "property");
   upsertMeta("og:type", type, "property");
@@ -113,7 +113,6 @@ function upsertLink(rel, href) {
 function App() {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
   const [toastVisible, setToastVisible] = useState(false);
-  const [cabinetOpen, setCabinetOpen] = useState(false);
 
   useEffect(() => {
     const onPopState = () => setPath(normalizePath(window.location.pathname));
@@ -137,12 +136,6 @@ function App() {
     const onLeadSuccess = () => setToastVisible(true);
     window.addEventListener("km:lead-success", onLeadSuccess);
     return () => window.removeEventListener("km:lead-success", onLeadSuccess);
-  }, []);
-
-  useEffect(() => {
-    const onOpenCabinet = () => setCabinetOpen(true);
-    window.addEventListener("km:open-cabinet", onOpenCabinet);
-    return () => window.removeEventListener("km:open-cabinet", onOpenCabinet);
   }, []);
 
   const navigate = (href) => {
@@ -186,7 +179,6 @@ function App() {
       <Header navigate={navigate} />
       <main>{renderPage(page, navigate)}</main>
       <Footer navigate={navigate} />
-      <SupportCabinetModal open={cabinetOpen} onClose={() => setCabinetOpen(false)} />
       <div
         className={`notification${toastVisible ? " show" : ""}`}
         id="notification"
@@ -310,6 +302,24 @@ function resolvePage(path) {
     };
   }
 
+  if (path === "/online-kabinet/") {
+    return {
+      type: "cabinet",
+      meta: {
+        title: "Online-кабінет техпідтримки — КМ Трейд",
+        description:
+          "Заявка в техпідтримку КМ Трейд: опишіть проблему з GPS-обладнанням, додайте файли або зателефонуйте +38 050 374-74-76.",
+        type: "website",
+        path,
+        robots: "noindex, follow",
+        jsonLd: breadcrumbJsonLd([
+          { name: "Головна", path: "/" },
+          { name: "Online-кабінет", path: "/online-kabinet/" },
+        ]),
+      },
+    };
+  }
+
   if (path === "/oferta/" || path === "/konfidentsiynist/") {
     const isOferta = path === "/oferta/";
     const title = isOferta ? "Оферта" : "Політика конфіденційності";
@@ -350,6 +360,7 @@ function renderPage(page, navigate) {
   if (page.type === "blog") return <BlogPage navigate={navigate} />;
   if (page.type === "article") return <ArticlePage article={page.data} navigate={navigate} />;
   if (page.type === "legal") return <LegalPage title={page.data.title} kind={page.data.kind} navigate={navigate} />;
+  if (page.type === "cabinet") return <CabinetPage navigate={navigate} />;
   return <HomePage navigate={navigate} />;
 }
 
@@ -753,7 +764,7 @@ function HomePage({ navigate }) {
       <Pricing />
       <TrialSection />
       <Testimonials />
-      <About />
+      <About navigate={navigate} />
       <Certificates />
       <BlogPreview navigate={navigate} />
     </>
@@ -1647,7 +1658,7 @@ function Testimonials() {
   );
 }
 
-function About() {
+function About({ navigate }) {
   return (
     <section className="section local-section" id="about">
       <div className="container">
@@ -1711,7 +1722,7 @@ function About() {
                     className="about-portal-link"
                     onClick={() => {
                       pushEvent("Contact", { type: "client_portal" });
-                      openSupportCabinet();
+                      navigate("/online-kabinet/");
                     }}
                   >
                     Online-кабінет
@@ -2321,6 +2332,55 @@ function LegalPage({ title, kind, navigate }) {
   );
 }
 
+function CabinetPage({ navigate }) {
+  return (
+    <>
+      <section className="page-hero cabinet-page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <button type="button" onClick={() => navigate("/")}>
+              Головна
+            </button>
+            <span>›</span>
+            Online-кабінет
+          </div>
+          <div className="tag">Техпідтримка</div>
+          <h1 className="title title-lg">Online-кабінет</h1>
+          <p className="subtitle cabinet-page-lead">
+            Шановний клієнт! Заповніть форму або зателефонуйте за номером{" "}
+            <a className="cabinet-page-phone" href={`tel:${site.phoneSupport}`}>
+              {site.phoneDisplaySupport}
+            </a>{" "}
+            для реєстрації звернення щодо GPS-обладнання чи сервісу.
+          </p>
+        </div>
+      </section>
+      <section className="section cabinet-page-section">
+        <div className="container cabinet-page-layout">
+          <SupportCabinetForm />
+          <aside className="cabinet-page-aside" aria-label="Контакти техпідтримки">
+            <div className="cabinet-aside-card">
+              <h2>Як ми допомагаємо</h2>
+              <ul>
+                <li>Приймаємо заявки з описом і файлами</li>
+                <li>Передзвонюємо в робочий час</li>
+                <li>Виїзд і віддалена діагностика за потреби</li>
+              </ul>
+              <PhoneLink
+                className="btn btn-outline cabinet-aside-call"
+                phone={site.phoneSupport}
+                onClick={() => pushEvent("Contact", { phone: site.phoneSupport, dept: "support", source: "cabinet_page" })}
+              >
+                {formatPhoneLabel(site.phoneDisplaySupport)}
+              </PhoneLink>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  );
+}
+
 function ArticleCard({ article, navigate }) {
   return (
     <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}>
@@ -2392,7 +2452,7 @@ function Footer({ navigate }) {
                     aria-label="Відкрити Online-кабінет клієнта"
                     onClick={() => {
                       pushEvent("Contact", { type: "client_portal", source: "footer" });
-                      openSupportCabinet();
+                      navigate("/online-kabinet/");
                     }}
                   >
                     Online-кабінет

@@ -1,5 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { site } from "./data.js";
 
 const MAX_FILE_SIZE = 1048576;
@@ -39,7 +38,6 @@ async function readJsonSafe(response) {
       return null;
     }
   }
-  // SPA catch-all returns HTML — treat as portal down
   if (text.trimStart().startsWith("<!doctype") || text.trimStart().startsWith("<html")) {
     return null;
   }
@@ -50,8 +48,7 @@ async function readJsonSafe(response) {
   }
 }
 
-export function SupportCabinetModal({ open, onClose }) {
-  const titleId = useId();
+export function SupportCabinetForm() {
   const firstFieldRef = useRef(null);
   const fileInputRef = useRef(null);
   const [form, setForm] = useState(emptyForm);
@@ -60,44 +57,15 @@ export function SupportCabinetModal({ open, onClose }) {
   const [fileHelp, setFileHelp] = useState("Оберіть файли для завантаження");
   const [submitting, setSubmitting] = useState(false);
   const [csrfToken, setCsrfToken] = useState("");
-  const [portalReady, setPortalReady] = useState(null); // null | true | false
+  const [portalReady, setPortalReady] = useState(null);
   const [status, setStatus] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
-    if (!open) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const timer = window.setTimeout(() => firstFieldRef.current?.focus(), 40);
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") onClose?.();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.clearTimeout(timer);
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, onClose]);
-
-  useEffect(() => {
-    if (!open) return undefined;
-
-    setForm(emptyForm);
-    setFiles([]);
-    setErrors({});
-    setFileHelp("Оберіть файли для завантаження");
-    setSubmitting(false);
-    setStatus(null);
-    setStatusMessage("");
-    setRequestId(null);
-    setCsrfToken("");
-    setPortalReady(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    firstFieldRef.current?.focus({ preventScroll: true });
 
     let cancelled = false;
-
     (async () => {
       try {
         const health = await fetch(HEALTH_URL, {
@@ -135,9 +103,7 @@ export function SupportCabinetModal({ open, onClose }) {
     return () => {
       cancelled = true;
     };
-  }, [open]);
-
-  if (!open) return null;
+  }, []);
 
   const update = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -204,10 +170,26 @@ export function SupportCabinetModal({ open, onClose }) {
     return Object.keys(next).length === 0;
   };
 
+  const resetForm = () => {
+    setForm(emptyForm);
+    setFiles([]);
+    setFileHelp("Оберіть файли для завантаження");
+    setErrors({});
+    setStatus(null);
+    setStatusMessage("");
+    setRequestId(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   const submit = async (event) => {
     event.preventDefault();
     if (form.company_site) return;
-    if (!validate()) return;
+    if (!validate()) {
+      const firstInvalid = event.currentTarget.querySelector(".error-field, [aria-invalid='true']");
+      firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstInvalid?.focus?.();
+      return;
+    }
     if (!portalReady || !csrfToken) {
       setStatus("error");
       setStatusMessage(
@@ -268,6 +250,7 @@ export function SupportCabinetModal({ open, onClose }) {
       setFileHelp("Оберіть файли для завантаження");
       if (fileInputRef.current) fileInputRef.current.value = "";
       pushEvent("generate_lead", { form_name: "support_cabinet" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.warn("Support cabinet submit failed", error);
       setStatus("error");
@@ -280,197 +263,180 @@ export function SupportCabinetModal({ open, onClose }) {
   const messageLength = form.message.length;
   const messageWarn = messageLength > MAX_MESSAGE_LENGTH * 0.9;
 
-  return createPortal(
-    <div className="cabinet-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose?.()}>
-      <div className="cabinet-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId}>
-        <button className="cabinet-close" type="button" aria-label="Закрити Online-кабінет" onClick={onClose}>
-          <span aria-hidden="true">×</span>
-        </button>
-
-        <div className="cabinet-head">
-          <p className="cabinet-kicker">Техпідтримка КМ Трейд</p>
-          <h2 id={titleId} className="cabinet-title">
-            Online-кабінет
-          </h2>
-          <p className="cabinet-sub">
-            Шановний клієнт! Заповніть форму або зателефонуйте за номером{" "}
-            <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>.
+  if (status === "success") {
+    return (
+      <div className="cabinet-page-card cabinet-success" role="status" aria-live="polite">
+        <div className="cabinet-success-icon" aria-hidden="true">
+          ✓
+        </div>
+        <h2>Дякуємо!</h2>
+        <p>{statusMessage}</p>
+        {requestId ? (
+          <p>
+            <strong>Номер заявки: #{requestId}</strong>
           </p>
+        ) : null}
+        <div className="cabinet-success-actions">
+          <button className="btn btn-primary" type="button" onClick={resetForm}>
+            Надіслати ще одну
+          </button>
+          <a className="btn btn-outline" href={`tel:${site.phoneSupport}`}>
+            Зателефонувати
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="cabinet-page-card">
+      {portalReady === false ? (
+        <div className="cabinet-form-error" role="alert">
+          Серверна частина `/client-nexus-portal/` ще не підключена (nginx віддає головний сайт замість PHP).
+          Форму можна заповнити, але відправка запрацює після налаштування сервера. Тел. техпідтримки:{" "}
+          <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>.
+        </div>
+      ) : null}
+
+      <form className="cabinet-form lead-form" id="supportForm" onSubmit={submit} noValidate>
+        <input
+          type="text"
+          name="company_site"
+          className="hp"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={form.company_site}
+          onChange={(event) => update("company_site", event.target.value)}
+        />
+
+        <div className="form-row">
+          <div className={`form-field${errors.company ? " is-invalid" : ""}`}>
+            <label htmlFor="cabinet-company">Компанія *</label>
+            <input
+              ref={firstFieldRef}
+              id="cabinet-company"
+              name="company"
+              type="text"
+              placeholder="KM-Trade"
+              maxLength={255}
+              value={form.company}
+              onChange={(event) => update("company", event.target.value)}
+              aria-invalid={errors.company ? "true" : "false"}
+              className={errors.company ? "error-field" : undefined}
+              required
+            />
+            {errors.company ? <p className="form-error" role="alert">{errors.company}</p> : null}
+          </div>
+
+          <div className={`form-field${errors.name ? " is-invalid" : ""}`}>
+            <label htmlFor="cabinet-name">ПІБ контактної особи *</label>
+            <input
+              id="cabinet-name"
+              name="name"
+              type="text"
+              placeholder="Шевченко Тарас"
+              maxLength={255}
+              value={form.name}
+              onChange={(event) => update("name", event.target.value)}
+              aria-invalid={errors.name ? "true" : "false"}
+              className={errors.name ? "error-field" : undefined}
+              required
+            />
+            {errors.name ? <p className="form-error" role="alert">{errors.name}</p> : null}
+          </div>
         </div>
 
-        {portalReady === false ? (
-          <div className="cabinet-form-error" role="alert">
-            URL <code>/client-nexus-portal/</code> зараз недоступний: nginx віддає головний сайт замість PHP.
-            Потрібно викласти папку порталу на сервер і додати nginx location (див.{" "}
-            <code>client-nexus-portal/nginx.snippet.conf</code>). Тим часом телефонуйте{" "}
-            <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>.
+        <div className={`form-field${errors.phone ? " is-invalid" : ""}`}>
+          <label htmlFor="cabinet-phone">Телефон *</label>
+          <input
+            id="cabinet-phone"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+380..."
+            maxLength={20}
+            value={form.phone}
+            onChange={(event) => update("phone", event.target.value)}
+            aria-invalid={errors.phone ? "true" : "false"}
+            className={errors.phone ? "error-field" : undefined}
+            required
+          />
+          {errors.phone ? <p className="form-error" role="alert">{errors.phone}</p> : null}
+        </div>
+
+        <div className={`form-field${errors.message ? " is-invalid" : ""}`}>
+          <label htmlFor="cabinet-message">Коментар *</label>
+          <textarea
+            id="cabinet-message"
+            name="message"
+            rows={6}
+            maxLength={MAX_MESSAGE_LENGTH}
+            placeholder="Опишіть деталі ситуації..."
+            value={form.message}
+            onChange={(event) => update("message", event.target.value)}
+            aria-invalid={errors.message ? "true" : "false"}
+            className={errors.message ? "error-field" : undefined}
+            required
+          />
+          <div className={`cabinet-char-count${messageWarn ? " warning" : ""}`}>
+            <span id="message-count">{messageLength}</span> / {MAX_MESSAGE_LENGTH}
           </div>
+          {errors.message ? <p className="form-error" role="alert">{errors.message}</p> : null}
+        </div>
+
+        <div className={`form-field cabinet-files${errors.files ? " is-invalid" : ""}`}>
+          <label htmlFor="fileInput">Прикріпити файли (до {MAX_FILES_COUNT} шт, макс 1МБ кожен)</label>
+          <input
+            ref={fileInputRef}
+            id="fileInput"
+            name="files[]"
+            type="file"
+            accept=".jpg,.png,.jpeg,.pdf,.doc,.docx"
+            multiple
+            onChange={onFilesChange}
+          />
+          <p className="cabinet-file-help" id="file-help">
+            {fileHelp}
+          </p>
+          <div className="cabinet-file-list" id="fileList">
+            {files.length > 0 ? (
+              <ul>
+                {files.map((file) => (
+                  <li key={`${file.name}-${file.size}-${file.lastModified}`}>
+                    <span className="file-icon" aria-hidden="true">
+                      {getFileIcon(file.name)}
+                    </span>
+                    <span className="file-name">{file.name}</span>
+                    <span className="file-size">({(file.size / 1024).toFixed(1)} KB)</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          {errors.files ? <p className="form-error" role="alert">{errors.files}</p> : null}
+        </div>
+
+        {status === "error" ? (
+          <p className="cabinet-form-error" role="alert">
+            {statusMessage}
+          </p>
         ) : null}
 
-        {status === "success" ? (
-          <div className="cabinet-success" role="status" aria-live="polite">
-            <div className="cabinet-success-icon" aria-hidden="true">
-              ✓
-            </div>
-            <h3>Дякуємо!</h3>
-            <p>{statusMessage}</p>
-            {requestId ? <p><strong>Номер заявки: #{requestId}</strong></p> : null}
-            <div className="cabinet-success-actions">
-              <button className="btn btn-primary" type="button" onClick={onClose}>
-                Закрити
-              </button>
-              <button
-                className="btn btn-outline"
-                type="button"
-                onClick={() => {
-                  setStatus(null);
-                  setStatusMessage("");
-                  setRequestId(null);
-                }}
-              >
-                Надіслати ще одну
-              </button>
-            </div>
-          </div>
-        ) : (
-          <form className="cabinet-form" id="supportForm" onSubmit={submit} noValidate>
-            <input
-              type="text"
-              name="company_site"
-              className="hp"
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-              value={form.company_site}
-              onChange={(event) => update("company_site", event.target.value)}
-            />
-
-            <div className={`form-field${errors.company ? " is-invalid" : ""}`}>
-              <label htmlFor="cabinet-company">Компанія *</label>
-              <input
-                ref={firstFieldRef}
-                id="cabinet-company"
-                name="company"
-                type="text"
-                placeholder="KM-Trade"
-                maxLength={255}
-                value={form.company}
-                onChange={(event) => update("company", event.target.value)}
-                aria-invalid={errors.company ? "true" : "false"}
-                className={errors.company ? "error-field" : undefined}
-                required
-              />
-              {errors.company ? <p className="form-error" role="alert">{errors.company}</p> : null}
-            </div>
-
-            <div className={`form-field${errors.name ? " is-invalid" : ""}`}>
-              <label htmlFor="cabinet-name">ПІБ контактної особи *</label>
-              <input
-                id="cabinet-name"
-                name="name"
-                type="text"
-                placeholder="Шевченко Тарас"
-                maxLength={255}
-                value={form.name}
-                onChange={(event) => update("name", event.target.value)}
-                aria-invalid={errors.name ? "true" : "false"}
-                className={errors.name ? "error-field" : undefined}
-                required
-              />
-              {errors.name ? <p className="form-error" role="alert">{errors.name}</p> : null}
-            </div>
-
-            <div className={`form-field${errors.phone ? " is-invalid" : ""}`}>
-              <label htmlFor="cabinet-phone">Телефон *</label>
-              <input
-                id="cabinet-phone"
-                name="phone"
-                type="tel"
-                placeholder="+380..."
-                maxLength={20}
-                value={form.phone}
-                onChange={(event) => update("phone", event.target.value)}
-                aria-invalid={errors.phone ? "true" : "false"}
-                className={errors.phone ? "error-field" : undefined}
-                required
-              />
-              {errors.phone ? <p className="form-error" role="alert">{errors.phone}</p> : null}
-            </div>
-
-            <div className={`form-field${errors.message ? " is-invalid" : ""}`}>
-              <label htmlFor="cabinet-message">Коментар *</label>
-              <textarea
-                id="cabinet-message"
-                name="message"
-                rows={6}
-                maxLength={MAX_MESSAGE_LENGTH}
-                placeholder="Опишіть деталі ситуації..."
-                value={form.message}
-                onChange={(event) => update("message", event.target.value)}
-                aria-invalid={errors.message ? "true" : "false"}
-                className={errors.message ? "error-field" : undefined}
-                required
-              />
-              <div className={`cabinet-char-count${messageWarn ? " warning" : ""}`}>
-                <span id="message-count">{messageLength}</span> / {MAX_MESSAGE_LENGTH}
-              </div>
-              {errors.message ? <p className="form-error" role="alert">{errors.message}</p> : null}
-            </div>
-
-            <div className={`form-field cabinet-files${errors.files ? " is-invalid" : ""}`}>
-              <label htmlFor="fileInput">Прикріпити файли (до {MAX_FILES_COUNT} шт, макс 1МБ кожен)</label>
-              <input
-                ref={fileInputRef}
-                id="fileInput"
-                name="files[]"
-                type="file"
-                accept=".jpg,.png,.jpeg,.pdf,.doc,.docx"
-                multiple
-                onChange={onFilesChange}
-              />
-              <p className="cabinet-file-help" id="file-help">
-                {fileHelp}
-              </p>
-              <div className="cabinet-file-list" id="fileList">
-                {files.length > 0 ? (
-                  <ul>
-                    {files.map((file) => (
-                      <li key={`${file.name}-${file.size}-${file.lastModified}`}>
-                        <span className="file-icon" aria-hidden="true">
-                          {getFileIcon(file.name)}
-                        </span>
-                        <span className="file-name">{file.name}</span>
-                        <span className="file-size">({(file.size / 1024).toFixed(1)} KB)</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-              {errors.files ? <p className="form-error" role="alert">{errors.files}</p> : null}
-            </div>
-
-            {status === "error" ? (
-              <p className="cabinet-form-error" role="alert">
-                {statusMessage}
-              </p>
-            ) : null}
-
-            <button className="btn btn-primary form-submit" id="submitBtn" type="submit" disabled={submitting || portalReady === null}>
-              <span className="btn-text" style={{ display: submitting ? "none" : "inline" }}>
-                {portalReady === null ? "Підключення…" : "Відправити"}
-              </span>
-              <span className="btn-loader" style={{ display: submitting ? "inline" : "none" }}>
-                Відправка…
-              </span>
-            </button>
-          </form>
-        )}
-      </div>
-    </div>,
-    document.body,
+        <button className="btn btn-primary form-submit" id="submitBtn" type="submit" disabled={submitting || portalReady === null}>
+          <span className="btn-text" style={{ display: submitting ? "none" : "inline" }}>
+            {portalReady === null ? "Підключення…" : "Відправити заявку →"}
+          </span>
+          <span className="btn-loader" style={{ display: submitting ? "inline" : "none" }}>
+            Відправка…
+          </span>
+        </button>
+        <p className="form-note">
+          Ліміт: до 5 заявок на годину · Тел. техпідтримки:{" "}
+          <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>
+        </p>
+      </form>
+    </div>
   );
-}
-
-export function openSupportCabinet() {
-  window.dispatchEvent(new Event("km:open-cabinet"));
 }

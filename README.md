@@ -23,7 +23,7 @@ Canonical, `sitemap.xml` і `robots.txt` налаштовані на **km-trade.
 - **SEO:** meta/OG/Twitter, canonical, JSON-LD (Organization, LocalBusiness, WebSite, Article, BreadcrumbList), `sitemap.xml`, `robots.txt`.
 - **Аналітика:** UTM capture, `dataLayer` події для GTM/GA4/Meta.
 - **Ліди:** форма з honeypot + `POST https://km-trade.net/api/lead` (Telegram).
-- **Online-кабінет:** оригінальна PHP-форма (`public/client-nexus-portal/`) у модалці (iframe). Клік у «Про компанію» / футері відкриває форму. API BAF: `get_list.php`, `update_status.php`.
+- **Online-кабінет:** окрема сторінка `/online-kabinet/` з формою техпідтримки (стилі сайту). Бекенд PHP: `public/client-nexus-portal/`.
 
 ## Команди
 
