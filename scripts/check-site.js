@@ -94,6 +94,8 @@ for (const snippet of ["function HomePage", "function RegionPage", "function Ind
 await assertFile(path.join(root, "src"), "SupportCabinet.jsx");
 await assertFile(path.join(publicDir, "client-nexus-portal"), "index.php");
 await assertFile(path.join(publicDir, "client-nexus-portal"), "functions.php");
+await assertFile(path.join(publicDir, "client-nexus-portal"), "health.php");
+await assertFile(path.join(publicDir, "client-nexus-portal"), "csrf.php");
 await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "get_list.php");
 await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "update_status.php");
 await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "auth.php");

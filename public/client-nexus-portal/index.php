@@ -6,6 +6,47 @@ require_once 'functions.php';
 // Забороняємо індексацію сторінки на рівні HTTP-заголовка
 header('X-Robots-Tag: noindex, nofollow', true);
 
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowedOrigins = [
+    'https://km-trade.net',
+    'https://www.km-trade.net',
+    'https://anastasiia1002.github.io',
+    'http://localhost:4173',
+    'http://localhost:5173',
+    'http://127.0.0.1:4173',
+    'http://127.0.0.1:5173',
+];
+$corsOrigin = ($origin && in_array($origin, $allowedOrigins, true)) ? $origin : '';
+if ($corsOrigin) {
+    header('Access-Control-Allow-Origin: ' . $corsOrigin);
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With');
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+    header('Vary: Origin');
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
+function portal_wants_json(): bool
+{
+    $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+    $xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] ?? '';
+    return stripos($accept, 'application/json') !== false
+        || strcasecmp($xhr, 'XMLHttpRequest') === 0;
+}
+
+function portal_json_response(array $payload, int $status = 200): void
+{
+    http_response_code($status);
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store');
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
+}
+
 // Запускаємо сесію для CSRF токену
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -27,11 +68,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrf_token = $_POST['csrf_token'] ?? '';
     if (!validateCsrfToken($csrf_token)) {
         $error_msg = "Помилка безпеки. Будь ласка, оновіть сторінку та спробуйте ще раз.";
+        if (portal_wants_json()) {
+            portal_json_response(['success' => false, 'error' => $error_msg], 403);
+        }
     } else {
         // Rate limiting
         $client_ip = getClientIp();
         if (!checkRateLimit($pdo, $client_ip)) {
             $error_msg = "Перевищено ліміт заявок. Будь ласка, спробуйте пізніше.";
+            if (portal_wants_json()) {
+                portal_json_response(['success' => false, 'error' => $error_msg], 429);
+            }
         } else {
             // Отримання та очищення даних
             $company = trim($_POST['company'] ?? '');
@@ -52,6 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (!empty($field_errors)) {
                 $error_msg = "Будь ласка, виправте помилки у формі.";
+                if (portal_wants_json()) {
+                    portal_json_response([
+                        'success' => false,
+                        'error' => $error_msg,
+                        'fields' => $field_errors,
+                    ], 400);
+                }
             } else {
                 // Обробка файлів
                 $upload_dir = 'uploads/';
@@ -64,6 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!empty($upload_result['errors'])) {
                     $error_msg = implode(' ', $upload_result['errors']);
                     cleanupUploadedFiles($uploaded_files);
+                    if (portal_wants_json()) {
+                        portal_json_response(['success' => false, 'error' => $error_msg], 400);
+                    }
                 } else {
                     // Запис у БД
                     try {
@@ -99,6 +156,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Логування успішної заявки
                         logAction('NEW_REQUEST', "Request ID: $request_id, Phone: $phone");
 
+                        if (portal_wants_json()) {
+                            portal_json_response([
+                                'success' => true,
+                                'message' => 'Ваша заявка успішно надіслана.',
+                                'id' => (int) $request_id,
+                            ]);
+                        }
+
                     } catch (Exception $e) {
                         // Видаляємо завантажені файли при помилці збереження
                         cleanupUploadedFiles($uploaded_files);
@@ -107,6 +172,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Логування помилки (для розробників)
                         error_log("Database error in support form: " . $e->getMessage());
                         logAction('ERROR', "Database error: " . $e->getMessage());
+                        if (portal_wants_json()) {
+                            portal_json_response(['success' => false, 'error' => $error_msg], 500);
+                        }
                     }
                 }
             }
