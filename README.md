@@ -55,7 +55,7 @@ public/
 api/lead.js            # Vercel serverless → Telegram
 server/processLead.js  # спільна логіка заявки (валідація + Telegram)
 vercel.json            # налаштування функції /api/lead
-.env.example           # VITE_LEAD_API_URL + TELEGRAM_*
+.env.example           # лише фронт: VITE_BASE, VITE_LEAD_API_URL
 .github/workflows/     # деплой GitHub Pages
 ```
 
@@ -106,13 +106,10 @@ vercel.json            # налаштування функції /api/lead
 ### Налаштування
 
 1. На проді API доступний як **`https://km-trade.net/api/lead`** (`api/lead.js` / той самий handler на хості).
-2. У env хоста додайте:
-   - `TELEGRAM_BOT_TOKEN`
-   - `TELEGRAM_CHAT_ID`
+2. **`TELEGRAM_BOT_TOKEN` і `TELEGRAM_CHAT_ID` — лише на сервері API** (не у фронт / не в Vite). Без них заявка приймається, але в Telegram не йде.
 3. У GitHub Actions secrets (для Pages) додайте  
    `VITE_LEAD_API_URL` = `https://km-trade.net/api/lead`.
-4. Локально: скопіюйте `.env.example` → `.env`; для локального API можна поставити  
-   `VITE_LEAD_API_URL=/api/lead` — тоді `npm run dev` обслужить ендпоінт сам.
+4. Локально: скопіюйте `.env.example` → `.env` (лише `VITE_*`). Для локального `/api/lead` токени Telegram можна передати в shell env процесу `npm run dev`, не в клієнтський бандл.
 
 ## SEO-чекліст
 
