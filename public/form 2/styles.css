@@ -1,0 +1,268 @@
+/* style.css */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #464c6e; /* Колір фону сторінки */
+  color: #333;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 60vh;
+  background-color: #464c6e;
+}
+
+.form-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745; /* Зелений колір, як на багатьох сайтах */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.submit-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* File upload styling */
+.file-upload-area {
+  border: 2px dashed #ddd;
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.file-list {
+  margin-top: 10px;
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+}
+
+.file-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.file-list li {
+  padding: 8px;
+  margin: 5px 0;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-icon {
+  font-size: 18px;
+}
+
+.file-name {
+  flex: 1;
+  word-break: break-word;
+}
+
+.file-size {
+  color: #6c757d;
+  font-size: 12px;
+}
+
+.file-help-text {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Alerts */
+.alert {
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.alert.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+.alert.success {
+  text-align: center;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #155724;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Помилки полів */
+.error-field {
+  border-color: #dc3545 !important;
+  background-color: #fff5f5;
+}
+
+.field-error {
+  display: block;
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Підрахунок символів */
+.char-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.char-counter.warning {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.char-counter.warning #message-count {
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* Покращення доступності */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.error-field:focus {
+  outline-color: #dc3545;
+}
+
+/* Індикатор завантаження */
+.btn-loader {
+  display: inline-block;
+}
+
+/* Покращення контрастності для доступності */
+.alert.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert strong {
+  font-weight: 700;
+}
+
+.info-banner {
+  background-color: #e8f0fe;
+  border: 1px solid #cbd5f5;
+  border-radius: 4px;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #464c6e;
+  text-align: center;
+}
+
+.info-banner a {
+  color: #464c6e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.info-banner a:hover,
+.info-banner a:focus {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+}
