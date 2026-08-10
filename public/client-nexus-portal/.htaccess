@@ -1,14 +1,13 @@
-# Deny direct access to local secrets and helpers
-<FilesMatch "^(config\.local\.php|lib\.php|config\.example\.php)$">
+# Protect secrets and logs; allow PHP portal to run next to the SPA
+<FilesMatch "^(config\.local\.php|config\.local\.php\.example)$">
   Require all denied
 </FilesMatch>
 
-# Keep uploads from executing scripts
+Options -Indexes
+DirectoryIndex index.php
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^uploads/.*\.(?i:php|phtml|phar|cgi|pl)$ - [F,L]
+  RewriteRule ^logs/ - [F,L]
 </IfModule>
-
-Options -Indexes
-
-DirectoryIndex process.php

@@ -8,7 +8,7 @@
 - Як POST параметр: `token=ВАШ_ТОКЕН`
 - В JSON body: `{"token": "ВАШ_ТОКЕН", ...}`
 
-**Ваш API токен:** `a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2`
+**Ваш API токен:** `YOUR_API_TOKEN`
 
 ⚠️ **ВАЖЛИВО:** Зберігайте токен в безпеці та не публікуйте його в публічних репозиторіях!
 
@@ -30,7 +30,7 @@ https://km-trade.net/client-nexus-portal/api/get_list.php
 
 | Параметр    | Тип     | Обов'язковий | Опис                                         | Приклад                                  |
 | ----------- | ------- | ------------ | -------------------------------------------- | ---------------------------------------- |
-| `token`     | string  | ✅ Так       | API токен                                    | `a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2` |
+| `token`     | string  | ✅ Так       | API токен                                    | `YOUR_API_TOKEN` |
 | `status`    | string  | ❌ Ні        | Фільтр по статусу: `new`, `processed`, `all` | `new` (за замовчуванням)                 |
 | `page`      | integer | ❌ Ні        | Номер сторінки (починається з 1)             | `1` (за замовчуванням)                   |
 | `limit`     | integer | ❌ Ні        | Кількість записів на сторінці (макс 100)     | `50` (за замовчуванням)                  |
@@ -42,7 +42,7 @@ https://km-trade.net/client-nexus-portal/api/get_list.php
 #### cURL (GET)
 
 ```bash
-curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new&page=1&limit=50"
+curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new&page=1&limit=50"
 ```
 
 #### cURL (POST з JSON)
@@ -51,7 +51,7 @@ curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3
 curl -X POST "https://km-trade.net/client-nexus-portal/api/get_list.php" \
   -H "Content-Type: application/json" \
   -d '{
-    "token": "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+    "token": "YOUR_API_TOKEN",
     "status": "new",
     "page": 1,
     "limit": 50
@@ -62,7 +62,7 @@ curl -X POST "https://km-trade.net/client-nexus-portal/api/get_list.php" \
 
 ```javascript
 const response = await fetch(
-  "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new&page=1&limit=50",
+  "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new&page=1&limit=50",
 );
 const data = await response.json();
 console.log(data);
@@ -71,7 +71,7 @@ console.log(data);
 #### PHP
 
 ```php
-$url = 'https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new&page=1&limit=50';
+$url = 'https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new&page=1&limit=50';
 $response = file_get_contents($url);
 $data = json_decode($response, true);
 print_r($data);
@@ -142,7 +142,7 @@ https://km-trade.net/client-nexus-portal/api/update_status.php
 
 | Параметр | Тип     | Обов'язковий | Опис                        | Приклад                                  |
 | -------- | ------- | ------------ | --------------------------- | ---------------------------------------- |
-| `token`  | string  | ✅ Так       | API токен                   | `a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2` |
+| `token`  | string  | ✅ Так       | API токен                   | `YOUR_API_TOKEN` |
 | `id`     | integer | ✅ Так       | ID заявки (позитивне число) | `1`                                      |
 | `status` | string  | ✅ Так       | Статус (завжди `processed`) | `processed`                              |
 
@@ -152,7 +152,7 @@ https://km-trade.net/client-nexus-portal/api/update_status.php
 
 ```bash
 curl -X POST "https://km-trade.net/client-nexus-portal/api/update_status.php" \
-  -d "token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2" \
+  -d "token=YOUR_API_TOKEN" \
   -d "id=1" \
   -d "status=processed"
 ```
@@ -163,7 +163,7 @@ curl -X POST "https://km-trade.net/client-nexus-portal/api/update_status.php" \
 curl -X POST "https://km-trade.net/client-nexus-portal/api/update_status.php" \
   -H "Content-Type: application/json" \
   -d '{
-    "token": "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+    "token": "YOUR_API_TOKEN",
     "id": 1,
     "status": "processed"
   }'
@@ -180,7 +180,7 @@ const response = await fetch(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      token: "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+      token: "YOUR_API_TOKEN",
       id: 1,
       status: "processed",
     }),
@@ -195,7 +195,7 @@ console.log(data);
 ```php
 $url = 'https://km-trade.net/client-nexus-portal/api/update_status.php';
 $data = [
-    'token' => 'a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2',
+    'token' => 'YOUR_API_TOKEN',
     'id' => 1,
     'status' => 'processed'
 ];
@@ -254,26 +254,26 @@ print_r($result);
 ### Сценарій 1: Отримати всі нові заявки
 
 ```bash
-curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new"
+curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new"
 ```
 
 ### Сценарій 2: Отримати заявки з пагінацією
 
 ```bash
-curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new&page=2&limit=10"
+curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new&page=2&limit=10"
 ```
 
 ### Сценарій 3: Отримати заявки за період
 
 ```bash
-curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=all&date_from=2025-01-01&date_to=2025-01-31"
+curl "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=all&date_from=2025-01-01&date_to=2025-01-31"
 ```
 
 ### Сценарій 4: Позначити заявку як оброблену
 
 ```bash
 curl -X POST "https://km-trade.net/client-nexus-portal/api/update_status.php" \
-  -d "token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2" \
+  -d "token=YOUR_API_TOKEN" \
   -d "id=1" \
   -d "status=processed"
 ```
@@ -284,7 +284,7 @@ curl -X POST "https://km-trade.net/client-nexus-portal/api/update_status.php" \
 // 1. Отримати нові заявки
 const getRequests = async () => {
   const response = await fetch(
-    "https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new",
+    "https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new",
   );
   const data = await response.json();
   return data.data; // масив заявок
@@ -300,7 +300,7 @@ const processRequest = async (requestId) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+        token: "YOUR_API_TOKEN",
         id: requestId,
         status: "processed",
       }),
@@ -339,7 +339,7 @@ for (const request of requests) {
 
 ## 📌 Швидка довідка
 
-**API токен:** `a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2`
+**API токен:** `YOUR_API_TOKEN`
 
 **Base URL:** `https://km-trade.net/client-nexus-portal/api/`
 

@@ -1,0 +1,15 @@
+<?php
+// config.local.php.example — скопіюйте як config.local.php на сервері
+
+declare(strict_types=1);
+
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'admin_support_requests');
+define('DB_USER', 'admin_requests');
+define('DB_PASS', 'CHANGE_ME');
+
+// Секретний токен для програміста BAF (API)
+define('API_SECRET_KEY', 'CHANGE_ME');
+
+// Базовий URL сайту (для формування посилань на файли в API)
+define('BASE_URL', 'https://km-trade.net/client-nexus-portal/');

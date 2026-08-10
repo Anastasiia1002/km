@@ -1,60 +1,32 @@
 <?php
-// config.php — підключає локальні секрети з config.local.php
+// config.php — loads secrets from config.local.php (not committed)
 
 declare(strict_types=1);
 
-$defaults = [
-    'db_host' => getenv('KM_SUPPORT_DB_HOST') ?: 'localhost',
-    'db_name' => getenv('KM_SUPPORT_DB_NAME') ?: 'admin_support_requests',
-    'db_user' => getenv('KM_SUPPORT_DB_USER') ?: 'admin_requests',
-    'db_pass' => getenv('KM_SUPPORT_DB_PASS') ?: '',
-    'api_secret_key' => getenv('KM_SUPPORT_API_KEY') ?: '',
-    'base_url' => getenv('KM_SUPPORT_BASE_URL') ?: 'https://km-trade.net/client-nexus-portal/',
-    'rate_limit_per_hour' => 5,
-    'max_file_size' => 1048576,
-    'max_files' => 5,
-    'max_message_length' => 5000,
-];
-
 $localFile = __DIR__ . '/config.local.php';
-$local = [];
-if (is_readable($localFile)) {
-    $loaded = require $localFile;
-    if (is_array($loaded)) {
-        $local = $loaded;
-    }
+if (!is_readable($localFile)) {
+    http_response_code(500);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "Online-кабінет не налаштований.\n";
+    echo "Скопіюйте config.local.php.example → config.local.php і вкажіть дані БД.\n";
+    exit;
 }
 
-$config = array_merge($defaults, $local);
+require_once $localFile;
 
-if ($config['db_pass'] === '' || $config['api_secret_key'] === '') {
+if (!defined('DB_HOST') || !defined('DB_NAME') || !defined('DB_USER') || !defined('DB_PASS') || !defined('API_SECRET_KEY') || !defined('BASE_URL')) {
     http_response_code(500);
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode([
-        'success' => false,
-        'error' => 'Support portal is not configured. Copy config.example.php to config.local.php on the server.',
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
+    die('Incomplete config.local.php');
 }
 
 try {
     $pdo = new PDO(
-        'mysql:host=' . $config['db_host'] . ';dbname=' . $config['db_name'] . ';charset=utf8mb4',
-        $config['db_user'],
-        $config['db_pass'],
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
+        'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
+        DB_USER,
+        DB_PASS
     );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     http_response_code(500);
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode([
-        'success' => false,
-        'error' => 'Помилка підключення до БД. Зверніться до адміністратора.',
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
+    die('Помилка підключення до БД. Зверніться до адміністратора.');
 }
-
-return [$config, $pdo];

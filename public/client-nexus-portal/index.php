@@ -116,6 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Генерація CSRF токену для форми
 $csrf_token = generateCsrfToken();
+
+$embed = isset($_GET['embed']) && $_GET['embed'] === '1';
 ?>
 <!DOCTYPE html>
 <html lang="uk">
@@ -123,21 +125,25 @@ $csrf_token = generateCsrfToken();
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Технічна підтримка | KM-Trade</title>
-    <link rel="icon" href="./assets/images/favicons/cropped-favicon-32x32.png" sizes="32x32"/>
-    <link rel="icon" href="./assets/images/favicons/cropped-favicon-192x192.png" sizes="192x192"/>
-    <link rel="apple-touch-icon" href="./assets/images/favicons/cropped-favicon-180x180.png"/>
-    <meta name="msapplication-TileImage" content="./assets/images/favicons/cropped-favicon-270x270.png"/>
-    <link rel="stylesheet" href="./styles.css?version=25">
+    <title>Технічна підтримка | КМ Трейд</title>
+    <link rel="icon" href="/icon.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="stylesheet" href="./styles.css?v=km-brand-1">
 </head>
-<body>
+<body class="<?= $embed ? 'is-embed' : '' ?>">
 
-<header style="background: #464c6e; padding: 40px; text-align: center;">
-    <img src="./assets/images/logo.svg" alt="KM-Trade Logo"/>
+<?php if (!$embed): ?>
+<header class="portal-header">
+    <a class="portal-brand" href="https://km-trade.net/" aria-label="КМ Трейд — на головну">
+        <img src="/assets/logo-on-dark.png" alt="КМ Трейд" width="180" height="48" />
+    </a>
 </header>
+<?php endif; ?>
 
 <div class="main-wrapper">
     <div class="form-container">
+        <p class="portal-kicker">Техпідтримка КМ Трейд</p>
         <h1>Заявка на технічну підтримку</h1>
 
         <?php if ($message_sent): ?>
@@ -145,9 +151,9 @@ $csrf_token = generateCsrfToken();
                 <h3>Дякуємо!</h3>
                 <p>Ваша заявка успішно надіслана.</p>
                 <?php if ($request_id): ?>
-                    <p><strong>Номер заявки: #<?= htmlspecialchars($request_id) ?></strong></p>
+                    <p><strong>Номер заявки: #<?= htmlspecialchars((string) $request_id) ?></strong></p>
                 <?php endif; ?>
-                <a href="index.php" class="btn">Надіслати ще одну</a>
+                <a href="index.php<?= $embed ? '?embed=1' : '' ?>" class="btn">Надіслати ще одну</a>
             </div>
         <?php else: ?>
 
@@ -162,7 +168,7 @@ $csrf_token = generateCsrfToken();
                 для реєстрації вашого звернення.
             </div>
 
-            <form action="" method="POST" enctype="multipart/form-data" id="supportForm" novalidate>
+            <form action="<?= $embed ? 'index.php?embed=1' : '' ?>" method="POST" enctype="multipart/form-data" id="supportForm" novalidate>
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 
                 <div class="form-group">
@@ -239,6 +245,7 @@ $csrf_token = generateCsrfToken();
                             aria-describedby="message-counter"
                         <?= isset($field_errors['message']) ? 'class="error-field"' : '' ?>
                     ><?= $form_data['message'] ?></textarea>
+                    <div class="char-counter" id="message-counter"><span id="message-count">0</span> / <?= MAX_MESSAGE_LENGTH ?></div>
                     <?php if (isset($field_errors['message'])): ?>
                         <span class="field-error" role="alert"
                               aria-live="polite"><?= htmlspecialchars($field_errors['message']) ?></span>
@@ -261,16 +268,18 @@ $csrf_token = generateCsrfToken();
 
                 <button type="submit" class="submit-btn" id="submitBtn">
                     <span class="btn-text">Відправити</span>
-                    <span class="btn-loader" style="display: none;">⏳ Відправка...</span>
+                    <span class="btn-loader" style="display: none;">Відправка…</span>
                 </button>
             </form>
         <?php endif; ?>
     </div>
 </div>
 
-<footer style="background: #464c6e; color: #fff; padding: 20px; text-align: center; margin-top: 40px;">
-    <p>&copy; <?php echo date('Y'); ?> KM-Trade Всі права захищено.</p>
+<?php if (!$embed): ?>
+<footer class="portal-footer">
+    <p>&copy; <?php echo date('Y'); ?> КМ Трейд. Усі права захищено.</p>
 </footer>
+<?php endif; ?>
 
 <script src="script.js"></script>
 </body>

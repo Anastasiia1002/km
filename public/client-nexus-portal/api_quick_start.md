@@ -5,7 +5,7 @@
 ### 1. API Токен
 
 ```
-a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2
+YOUR_API_TOKEN
 ```
 
 ### 2. Base URL
@@ -19,7 +19,7 @@ https://km-trade.net/client-nexus-portal/api/
 #### Отримати список нових заявок:
 
 ```
-GET https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new
+GET https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new
 ```
 
 #### Оновити статус заявки:
@@ -27,7 +27,7 @@ GET https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1
 ```
 POST https://km-trade.net/client-nexus-portal/api/update_status.php
 Body: {
-  "token": "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+  "token": "YOUR_API_TOKEN",
   "id": 1,
   "status": "processed"
 }
@@ -46,7 +46,7 @@ import requests
 response = requests.get(
     'https://km-trade.net/client-nexus-portal/api/get_list.php',
     params={
-        'token': 'a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2',
+        'token': 'YOUR_API_TOKEN',
         'status': 'new'
     }
 )
@@ -56,7 +56,7 @@ requests_data = response.json()
 response = requests.post(
     'https://km-trade.net/client-nexus-portal/api/update_status.php',
     json={
-        'token': 'a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2',
+        'token': 'YOUR_API_TOKEN',
         'id': 1,
         'status': 'processed'
     }
@@ -75,7 +75,7 @@ const getRequests = async () => {
     "https://km-trade.net/client-nexus-portal/api/get_list.php",
     {
       params: {
-        token: "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+        token: "YOUR_API_TOKEN",
         status: "new",
       },
     },
@@ -88,7 +88,7 @@ const updateStatus = async (id) => {
   const response = await axios.post(
     "https://km-trade.net/client-nexus-portal/api/update_status.php",
     {
-      token: "a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2",
+      token: "YOUR_API_TOKEN",
       id: id,
       status: "processed",
     },
@@ -102,14 +102,14 @@ const updateStatus = async (id) => {
 ```php
 <?php
 // Отримати нові заявки
-$url = 'https://km-trade.net/client-nexus-portal/api/get_list.php?token=a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2&status=new';
+$url = 'https://km-trade.net/client-nexus-portal/api/get_list.php?token=YOUR_API_TOKEN&status=new';
 $response = file_get_contents($url);
 $data = json_decode($response, true);
 
 // Оновити статус
 $url = 'https://km-trade.net/client-nexus-portal/api/update_status.php';
 $data = [
-    'token' => 'a9f4b2c8d3e1_77x_kMt_TrAdE_55_z90_LpQ2',
+    'token' => 'YOUR_API_TOKEN',
     'id' => 1,
     'status' => 'processed'
 ];

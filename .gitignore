@@ -7,3 +7,4 @@ dist/
 .env.*
 !.env.example
 public/client-nexus-portal/config.local.php
+public/form 2/config.php
