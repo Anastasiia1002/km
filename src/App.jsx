@@ -1428,7 +1428,9 @@ function isValidUaPhone(value) {
   return false;
 }
 
-const LEAD_API_URL = (import.meta.env.VITE_LEAD_API_URL || "/api/lead").replace(/\/$/, "") || "/api/lead";
+const LEAD_API_URL =
+  (import.meta.env.VITE_LEAD_API_URL || "https://km-trade.net/api/lead").replace(/\/$/, "") ||
+  "https://km-trade.net/api/lead";
 
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });

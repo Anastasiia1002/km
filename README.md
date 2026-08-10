@@ -22,7 +22,7 @@ Canonical, `sitemap.xml` і `robots.txt` налаштовані на **km-trade.
 - **Документи:** Silver Partner, авторизаційний лист Gurtam, сертифікати команди (Level 1 / Level 2).
 - **SEO:** meta/OG/Twitter, canonical, JSON-LD (Organization, LocalBusiness, WebSite, Article, BreadcrumbList), `sitemap.xml`, `robots.txt`.
 - **Аналітика:** UTM capture, `dataLayer` події для GTM/GA4/Meta.
-- **Ліди:** форма з honeypot + serverless `/api/lead` (Telegram).
+- **Ліди:** форма з honeypot + `POST https://km-trade.net/api/lead` (Telegram).
 
 ## Команди
 
@@ -67,9 +67,10 @@ vercel.json            # налаштування функції /api/lead
 - Позиціонування партнера: **авторизований партнер Wialon / Gurtam в Україні**.
 - Офіс: **у місті Чернівці**.
 
-## Telegram-заявки (`POST /api/lead`)
+## Telegram-заявки (`POST https://km-trade.net/api/lead`)
 
-Форма «Залишити заявку» надсилає `POST` на `/api/lead` (локально через Vite middleware; у проді — Vercel serverless).
+Форма «Залишити заявку» надсилає `POST` на `https://km-trade.net/api/lead`
+(можна перевизначити через `VITE_LEAD_API_URL`; локально — Vite middleware на `/api/lead`).
 
 ### Тіло запиту
 
@@ -104,13 +105,14 @@ vercel.json            # налаштування функції /api/lead
 
 ### Налаштування
 
-1. Задеплойте API на **Vercel** (файл `api/lead.js` + `vercel.json`).
-2. У Vercel env додайте:
+1. На проді API доступний як **`https://km-trade.net/api/lead`** (`api/lead.js` / той самий handler на хості).
+2. У env хоста додайте:
    - `TELEGRAM_BOT_TOKEN`
    - `TELEGRAM_CHAT_ID`
-3. У GitHub Actions secrets додайте `VITE_LEAD_API_URL` = `https://<your-vercel>.vercel.app/api/lead`  
-   (сайт на GitHub Pages не може хостити serverless, тому фронт б’є на абсолютний URL).
-4. Локально: скопіюйте `.env.example` → `.env`, заповніть Telegram-токени; `npm run dev` піднімає `/api/lead` сам.
+3. У GitHub Actions secrets (для Pages) додайте  
+   `VITE_LEAD_API_URL` = `https://km-trade.net/api/lead`.
+4. Локально: скопіюйте `.env.example` → `.env`; для локального API можна поставити  
+   `VITE_LEAD_API_URL=/api/lead` — тоді `npm run dev` обслужить ендпоінт сам.
 
 ## SEO-чекліст
 
