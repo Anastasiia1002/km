@@ -24,6 +24,10 @@ $allowedOrigins = [
     'https://km-trade.net',
     'https://www.km-trade.net',
     'https://anastasiia1002.github.io',
+    'http://localhost:4173',
+    'http://localhost:5173',
+    'http://127.0.0.1:4173',
+    'http://127.0.0.1:5173',
 ];
 if ($origin && in_array($origin, $allowedOrigins, true)) {
     header('Access-Control-Allow-Origin: ' . $origin);
