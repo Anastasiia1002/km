@@ -1,0 +1,16 @@
+# SPA routing for React site while preserving PHP folders (myVESTA / Apache).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite real files/dirs (including client-nexus-portal/)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Never send client-nexus-portal into the SPA
+  RewriteRule ^client-nexus-portal(?:/|$) - [L]
+
+  # React Router fallback
+  RewriteRule ^ index.html [L]
+</IfModule>

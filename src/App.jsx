@@ -6,6 +6,7 @@ import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 import { canPlacePhoneCall, telHref } from "./lib/phone.js";
+import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 
 const routes = {
   home: "/",
@@ -112,6 +113,7 @@ function upsertLink(rel, href) {
 function App() {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
   const [toastVisible, setToastVisible] = useState(false);
+  const [cabinetOpen, setCabinetOpen] = useState(false);
 
   useEffect(() => {
     const onPopState = () => setPath(normalizePath(window.location.pathname));
@@ -135,6 +137,12 @@ function App() {
     const onLeadSuccess = () => setToastVisible(true);
     window.addEventListener("km:lead-success", onLeadSuccess);
     return () => window.removeEventListener("km:lead-success", onLeadSuccess);
+  }, []);
+
+  useEffect(() => {
+    const onOpenCabinet = () => setCabinetOpen(true);
+    window.addEventListener("km:open-cabinet", onOpenCabinet);
+    return () => window.removeEventListener("km:open-cabinet", onOpenCabinet);
   }, []);
 
   const navigate = (href) => {
@@ -178,6 +186,7 @@ function App() {
       <Header navigate={navigate} />
       <main>{renderPage(page, navigate)}</main>
       <Footer navigate={navigate} />
+      <SupportCabinetModal open={cabinetOpen} onClose={() => setCabinetOpen(false)} />
       <div
         className={`notification${toastVisible ? " show" : ""}`}
         id="notification"
@@ -1697,16 +1706,17 @@ function About() {
                   >
                     <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplaySupport)}</span>
                   </PhoneLink>
-                  <a
+                  <button
+                    type="button"
                     className="about-portal-link"
-                    href={site.clientPortalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => pushEvent("Contact", { type: "client_portal" })}
+                    onClick={() => {
+                      pushEvent("Contact", { type: "client_portal" });
+                      openSupportCabinet();
+                    }}
                   >
                     Online-кабінет
                     <span aria-hidden="true">→</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -2376,17 +2386,18 @@ function Footer({ navigate }) {
                   >
                     {formatPhoneLabel(site.phoneDisplaySupport)}
                   </PhoneLink>
-                  <a
+                  <button
+                    type="button"
                     className="footer-portal-link"
-                    href={site.clientPortalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     aria-label="Відкрити Online-кабінет клієнта"
-                    onClick={() => pushEvent("Contact", { type: "client_portal", source: "footer" })}
+                    onClick={() => {
+                      pushEvent("Contact", { type: "client_portal", source: "footer" });
+                      openSupportCabinet();
+                    }}
                   >
                     Online-кабінет
                     <span aria-hidden="true">→</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

@@ -85,10 +85,24 @@ for (const snippet of ["<title>", 'name="description"', 'id="root"', 'type="modu
 }
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
-for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "calculator_used", "region_page_view", "monthlyFuelSavings"]) {
+for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "SupportCabinetModal", "calculator_used", "region_page_view", "monthlyFuelSavings"]) {
   if (!appSource.includes(snippet)) {
     throw new Error(`src/App.jsx is missing ${snippet}`);
   }
+}
+
+await assertFile(path.join(root, "src"), "SupportCabinet.jsx");
+await assertFile(path.join(publicDir, "client-nexus-portal"), "process.php");
+await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "get_list.php");
+await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "update_status.php");
+await assertFile(publicDir, ".htaccess");
+
+const publishedSecret = path.join(distDir, "client-nexus-portal", "config.local.php");
+try {
+  await access(publishedSecret);
+  throw new Error("dist/client-nexus-portal/config.local.php must not be published");
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
 }
 
 await assertFile(path.join(root, "src", "lib"), "fuelSavings.js");

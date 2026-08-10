@@ -1,0 +1,14 @@
+# Deny direct access to local secrets and helpers
+<FilesMatch "^(config\.local\.php|lib\.php|config\.example\.php)$">
+  Require all denied
+</FilesMatch>
+
+# Keep uploads from executing scripts
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^uploads/.*\.(?i:php|phtml|phar|cgi|pl)$ - [F,L]
+</IfModule>
+
+Options -Indexes
+
+DirectoryIndex process.php

@@ -1,4 +1,6 @@
 import react from "@vitejs/plugin-react";
+import { existsSync, rmSync } from "node:fs";
+import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
 import { applyCors, processLead } from "./server/processLead.js";
 
@@ -72,9 +74,21 @@ function leadApiPlugin() {
   };
 }
 
+function stripPortalSecretsPlugin() {
+  return {
+    name: "km-strip-portal-secrets",
+    closeBundle() {
+      const secretPath = path.resolve("dist/client-nexus-portal/config.local.php");
+      if (existsSync(secretPath)) {
+        rmSync(secretPath);
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: process.env.VITE_BASE || "/km/",
-  plugins: [react(), leadApiPlugin()],
+  plugins: [react(), leadApiPlugin(), stripPortalSecretsPlugin()],
   build: {
     outDir: "dist",
     sourcemap: false,

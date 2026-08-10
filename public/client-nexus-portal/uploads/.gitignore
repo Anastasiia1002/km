@@ -1,0 +1,3 @@
+# Keep uploaded support attachments out of git
+*
+!.gitignore
