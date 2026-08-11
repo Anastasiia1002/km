@@ -211,7 +211,7 @@ export function SupportCabinetModal({ open, onClose }) {
     if (!portalReady || !csrfToken) {
       setStatus("error");
       setStatusMessage(
-        `Online-кабінет на сервері ще не підключений. Зателефонуйте: ${site.phoneDisplay}`,
+        `Online-кабінет на сервері ще не підключений. Зателефонуйте в техпідтримку: ${site.phoneDisplaySupport}`,
       );
       return;
     }
@@ -246,7 +246,7 @@ export function SupportCabinetModal({ open, onClose }) {
         setPortalReady(false);
         setStatus("error");
         setStatusMessage(
-          `Портал недоступний (сервер віддає сайт замість PHP). Зателефонуйте: ${site.phoneDisplay}`,
+          `Портал недоступний (сервер віддає сайт замість PHP). Зателефонуйте: ${site.phoneDisplaySupport}`,
         );
         return;
       }
@@ -271,7 +271,7 @@ export function SupportCabinetModal({ open, onClose }) {
     } catch (error) {
       console.warn("Support cabinet submit failed", error);
       setStatus("error");
-      setStatusMessage(`Немає зв'язку з сервером. Тел.: ${site.phoneDisplay}`);
+      setStatusMessage(`Немає зв'язку з сервером. Тел. техпідтримки: ${site.phoneDisplaySupport}`);
     } finally {
       setSubmitting(false);
     }
@@ -294,7 +294,7 @@ export function SupportCabinetModal({ open, onClose }) {
           </h2>
           <p className="cabinet-sub">
             Шановний клієнт! Заповніть форму або зателефонуйте за номером{" "}
-            <a href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a>.
+            <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>.
           </p>
         </div>
 
@@ -303,7 +303,7 @@ export function SupportCabinetModal({ open, onClose }) {
             URL <code>/client-nexus-portal/</code> зараз недоступний: nginx віддає головний сайт замість PHP.
             Потрібно викласти папку порталу на сервер і додати nginx location (див.{" "}
             <code>client-nexus-portal/nginx.snippet.conf</code>). Тим часом телефонуйте{" "}
-            <a href={`tel:${site.phonePrimary}`}>{site.phoneDisplay}</a>.
+            <a href={`tel:${site.phoneSupport}`}>{site.phoneDisplaySupport}</a>.
           </div>
         ) : null}
 
