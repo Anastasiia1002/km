@@ -4849,7 +4849,7 @@ footer {
   position: fixed;
   top: 72px;
   right: 24px;
-  z-index: 9999;
+  z-index: 13000;
   max-width: min(360px, calc(100vw - 32px));
   background: linear-gradient(135deg, var(--teal) 0%, var(--navy-mid) 100%);
   color: #fff;
@@ -6019,6 +6019,10 @@ button {
   background: rgba(196, 92, 74, 0.1);
   color: #a94436;
   font: 600 14px/1.45 var(--font-body);
+}
+
+.cabinet-form-error--top {
+  margin-top: 0;
 }
 
 .cabinet-form-error code {

@@ -67,7 +67,6 @@ export function SupportCabinetModal({ open, onClose }) {
   const [portalReady, setPortalReady] = useState(null); // null | true | false
   const [status, setStatus] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
-  const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -95,7 +94,6 @@ export function SupportCabinetModal({ open, onClose }) {
     setSubmitting(false);
     setStatus(null);
     setStatusMessage("");
-    setRequestId(null);
     setCsrfToken("");
     setPortalReady(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -280,14 +278,14 @@ export function SupportCabinetModal({ open, onClose }) {
         return;
       }
 
-      setStatus("success");
-      setStatusMessage(payload.message || "Ваша заявка успішно надіслана.");
-      setRequestId(payload.id || null);
-      setForm(emptyForm);
-      setFiles([]);
-      setFileHelp("Оберіть файли для завантаження");
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      const message = payload.message || "Ваша заявка успішно надіслана.";
+      window.dispatchEvent(
+        new CustomEvent("km:cabinet-success", {
+          detail: { message, requestId: payload.id || null },
+        }),
+      );
       pushEvent("generate_lead", { form_name: "support_cabinet" });
+      onClose?.();
     } catch (error) {
       console.warn("Support cabinet submit failed", error);
       setStatus("error");
@@ -327,33 +325,13 @@ export function SupportCabinetModal({ open, onClose }) {
           </div>
         ) : null}
 
-        {status === "success" ? (
-          <div className="cabinet-success" role="status" aria-live="polite">
-            <div className="cabinet-success-icon" aria-hidden="true">
-              ✓
-            </div>
-            <h3>Дякуємо!</h3>
-            <p>{statusMessage}</p>
-            {requestId ? <p><strong>Номер заявки: #{requestId}</strong></p> : null}
-            <div className="cabinet-success-actions">
-              <button className="btn btn-primary" type="button" onClick={onClose}>
-                Закрити
-              </button>
-              <button
-                className="btn btn-outline"
-                type="button"
-                onClick={() => {
-                  setStatus(null);
-                  setStatusMessage("");
-                  setRequestId(null);
-                }}
-              >
-                Надіслати ще одну
-              </button>
-            </div>
-          </div>
-        ) : (
-          <form className="cabinet-form" id="cabinet-support-form" onSubmit={submit} noValidate>
+        {status === "error" ? (
+          <p className="cabinet-form-error cabinet-form-error--top" role="alert">
+            {statusMessage}
+          </p>
+        ) : null}
+
+        <form className="cabinet-form" id="cabinet-support-form" onSubmit={submit} noValidate>
             <div className={`form-field${errors.company ? " is-invalid" : ""}`}>
               <label htmlFor="cabinet-company">Компанія *</label>
               <input
@@ -470,12 +448,6 @@ export function SupportCabinetModal({ open, onClose }) {
               {errors.files ? <p className="form-error" role="alert">{errors.files}</p> : null}
             </div>
 
-            {status === "error" ? (
-              <p className="cabinet-form-error" role="alert">
-                {statusMessage}
-              </p>
-            ) : null}
-
             <button className="btn btn-primary form-submit" id="cabinet-submit-btn" type="submit" disabled={submitting || portalReady !== true}>
               <span className="btn-text" style={{ display: submitting ? "none" : "inline" }}>
                 {portalReady === null ? "Підключення…" : "Відправити"}
@@ -485,7 +457,6 @@ export function SupportCabinetModal({ open, onClose }) {
               </span>
             </button>
           </form>
-        )}
       </div>
     </div>,
     document.body,

@@ -113,6 +113,7 @@ function upsertLink(rel, href) {
 function App() {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
   const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("✓ Заявку отримано! Передзвонимо за 15 хвилин");
   const [cabinetOpen, setCabinetOpen] = useState(false);
 
   useEffect(() => {
@@ -134,9 +135,24 @@ function App() {
   }, [toastVisible]);
 
   useEffect(() => {
-    const onLeadSuccess = () => setToastVisible(true);
+    const onLeadSuccess = () => {
+      setToastMessage("✓ Заявку отримано! Передзвонимо за 15 хвилин");
+      setToastVisible(true);
+    };
     window.addEventListener("km:lead-success", onLeadSuccess);
     return () => window.removeEventListener("km:lead-success", onLeadSuccess);
+  }, []);
+
+  useEffect(() => {
+    const onCabinetSuccess = (event) => {
+      const { message, requestId } = event.detail || {};
+      const base = message || "Ваша заявка успішно надіслана.";
+      setToastMessage(requestId ? `✓ ${base} Номер заявки: #${requestId}` : `✓ ${base}`);
+      setCabinetOpen(false);
+      setToastVisible(true);
+    };
+    window.addEventListener("km:cabinet-success", onCabinetSuccess);
+    return () => window.removeEventListener("km:cabinet-success", onCabinetSuccess);
   }, []);
 
   useEffect(() => {
@@ -194,7 +210,7 @@ function App() {
         aria-live="polite"
         aria-hidden={!toastVisible}
       >
-        ✓ Заявку отримано! Передзвонимо за 15 хвилин
+        {toastMessage}
       </div>
     </>
   );
