@@ -83,6 +83,16 @@ function checkRateLimit($pdo, $ip) {
     }
 }
 
+// Валідація українського телефону
+function normalizeUaPhoneDigits($phone) {
+    return preg_replace('/\D+/', '', (string) $phone);
+}
+
+function isValidUaPhone($phone) {
+    $digits = normalizeUaPhoneDigits($phone);
+    return (bool) preg_match('/^0\d{9}$/', $digits) || (bool) preg_match('/^380\d{9}$/', $digits);
+}
+
 // Валідація полів форми
 function validateFormFields($company, $name, $phone, $message) {
     $errors = [];
@@ -97,8 +107,8 @@ function validateFormFields($company, $name, $phone, $message) {
 
     if (empty($phone) || mb_strlen($phone) > MAX_PHONE_LENGTH) {
         $errors['phone'] = "Поле 'Телефон' обов'язкове та не може перевищувати " . MAX_PHONE_LENGTH . " символів.";
-    } elseif (!preg_match('/^[\+]?[0-9\s\-\(\)]{10,20}$/', $phone)) {
-        $errors['phone'] = "Невірний формат телефону.";
+    } elseif (!isValidUaPhone($phone)) {
+        $errors['phone'] = "Невірний формат. Вкажіть український номер: +380..., 380... або 0...";
     }
 
     if (empty($message) || mb_strlen($message) > MAX_MESSAGE_LENGTH) {

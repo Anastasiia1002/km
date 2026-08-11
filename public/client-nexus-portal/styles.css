@@ -356,6 +356,14 @@ textarea:focus {
   font-weight: 600;
 }
 
+.field-hint {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
 .char-counter {
   text-align: right;
   font-size: 12px;

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { site } from "./data.js";
+import { getUaPhoneError, UA_PHONE_HINT } from "./lib/uaPhone.js";
 
 const MAX_FILE_SIZE = 1048576;
 const MAX_FILES_COUNT = 5;
@@ -25,19 +26,6 @@ function getFileIcon(filename) {
 
 const emptyForm = { company: "", name: "", phone: "", message: "" };
 
-function normalizePhone(phone) {
-  return String(phone || "").trim();
-}
-
-function isValidPhone(phone) {
-  const value = normalizePhone(phone);
-  if (!value) return false;
-  if (/^\+380\d{9}$/.test(value)) return true;
-  if (/^380\d{9}$/.test(value)) return true;
-  if (/^0\d{9}$/.test(value)) return true;
-  return /^[\+]?[0-9\s\-\(\)]{10,20}$/.test(value);
-}
-
 function scrollToFirstCabinetError() {
   const target =
     document.querySelector("#cabinet-support-form .form-error") ||
@@ -46,6 +34,7 @@ function scrollToFirstCabinetError() {
 }
 
 async function readJsonSafe(response) {
+  const contentType = response.headers.get("content-type") || "";
   const text = await response.text();
   if (contentType.includes("application/json")) {
     try {
@@ -205,12 +194,23 @@ export function SupportCabinetModal({ open, onClose }) {
     });
   };
 
+  const validatePhoneField = (phone) => {
+    const phoneError = getUaPhoneError(phone);
+    setErrors((current) => {
+      const next = { ...current };
+      if (phoneError) next.phone = phoneError;
+      else delete next.phone;
+      return next;
+    });
+    return !phoneError;
+  };
+
   const validate = () => {
     const next = {};
     if (!form.company.trim()) next.company = "Це поле обов'язкове для заповнення";
     if (!form.name.trim()) next.name = "Це поле обов'язкове для заповнення";
-    if (!form.phone.trim()) next.phone = "Це поле обов'язкове для заповнення";
-    else if (!isValidPhone(form.phone)) next.phone = "Невірний формат телефону";
+    const phoneError = getUaPhoneError(form.phone);
+    if (phoneError) next.phone = phoneError;
     if (!form.message.trim()) next.message = "Це поле обов'язкове для заповнення";
     else if (form.message.length > MAX_MESSAGE_LENGTH) {
       next.message = `Максимальна довжина повідомлення: ${MAX_MESSAGE_LENGTH} символів`;
@@ -395,15 +395,27 @@ export function SupportCabinetModal({ open, onClose }) {
                 id="cabinet-phone"
                 name="phone"
                 type="tel"
-                placeholder="+380..."
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="+380 XX XXX XX XX"
                 maxLength={20}
                 value={form.phone}
                 onChange={(event) => update("phone", event.target.value)}
+                onBlur={(event) => validatePhoneField(event.target.value)}
                 aria-invalid={errors.phone ? "true" : "false"}
+                aria-describedby={errors.phone ? "cabinet-phone-error" : "cabinet-phone-hint"}
                 className={errors.phone ? "error-field" : undefined}
                 required
               />
-              {errors.phone ? <p className="form-error" role="alert">{errors.phone}</p> : null}
+              {errors.phone ? (
+                <p className="form-error" id="cabinet-phone-error" role="alert">
+                  {errors.phone}
+                </p>
+              ) : (
+                <p className="cabinet-field-hint" id="cabinet-phone-hint">
+                  {UA_PHONE_HINT}
+                </p>
+              )}
             </div>
 
             <div className={`form-field${errors.message ? " is-invalid" : ""}`}>

@@ -125,9 +125,12 @@ document.addEventListener("DOMContentLoaded", function () {
           isValid = false;
         }
 
-        if (field.id === "phone" && field.value && !isValidPhone(field.value)) {
-          showFieldError(field, "Невірний формат телефону");
-          isValid = false;
+        if (field.id === "phone" && field.value.trim()) {
+          const phoneError = getPhoneError(field.value);
+          if (phoneError) {
+            showFieldError(field, phoneError);
+            isValid = false;
+          }
         }
 
         if (field.id === "message" && field.value.length > MAX_MESSAGE_LENGTH) {
@@ -179,10 +182,23 @@ document.addEventListener("DOMContentLoaded", function () {
     field.parentElement.appendChild(errorSpan);
   }
 
-  // Валідація телефону
+  // Валідація телефону (український номер)
+  function normalizeUaPhoneDigits(phone) {
+    return String(phone || "").replace(/\D/g, "");
+  }
+
   function isValidPhone(phone) {
-    const re = /^[\+]?[0-9\s\-\(\)]{10,20}$/;
-    return re.test(phone);
+    const digits = normalizeUaPhoneDigits(phone);
+    return /^0\d{9}$/.test(digits) || /^380\d{9}$/.test(digits);
+  }
+
+  function getPhoneError(phone) {
+    const trimmed = String(phone || "").trim();
+    if (!trimmed) return "Це поле обов'язкове для заповнення";
+    if (!isValidPhone(trimmed)) {
+      return "Невірний формат. Вкажіть український номер: +380..., 380... або 0...";
+    }
+    return "";
   }
 
   // Функція для видалення помилок поля
@@ -229,9 +245,12 @@ document.addEventListener("DOMContentLoaded", function () {
           let isValid = true;
           let errorMsg = "";
 
-          if (fieldId === "phone" && !isValidPhone(this.value)) {
-            isValid = false;
-            errorMsg = "Невірний формат телефону";
+          if (fieldId === "phone") {
+            const phoneError = getPhoneError(this.value);
+            if (phoneError) {
+              isValid = false;
+              errorMsg = phoneError;
+            }
           } else if (
             fieldId === "message" &&
             this.value.length > MAX_MESSAGE_LENGTH

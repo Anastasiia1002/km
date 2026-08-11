@@ -249,15 +249,18 @@ $homeUrl = portal_site_asset_url('');
                             id="phone"
                             value="<?= $form_data['phone'] ?>"
                             required
-                            placeholder="+380..."
+                            placeholder="+380 XX XXX XX XX"
                             maxlength="<?= MAX_PHONE_LENGTH ?>"
                             aria-required="true"
+                            aria-describedby="phone-hint"
                             aria-invalid="<?= isset($field_errors['phone']) ? 'true' : 'false' ?>"
                             <?= isset($field_errors['phone']) ? 'class="error-field"' : '' ?>
                     >
                     <?php if (isset($field_errors['phone'])): ?>
                         <span class="field-error" role="alert"
                               aria-live="polite"><?= htmlspecialchars($field_errors['phone']) ?></span>
+                    <?php else: ?>
+                        <span class="field-hint" id="phone-hint">Формат: +380 XX XXX XX XX, 380XXXXXXXXX або 0XXXXXXXXX</span>
                     <?php endif; ?>
                 </div>
 
