@@ -1,6 +1,6 @@
 @font-face {
   font-family: Xolonium;
-  src: url("../assets/fonts/Xolonium-Regular.woff2") format("woff2");
+  src: url("/assets/fonts/Xolonium-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: Xolonium;
-  src: url("../assets/fonts/Xolonium-Bold.woff2") format("woff2");
+  src: url("/assets/fonts/Xolonium-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: Akrobat;
-  src: url("../assets/fonts/Akrobat-Regular.woff2") format("woff2");
+  src: url("/assets/fonts/Akrobat-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: Akrobat;
-  src: url("../assets/fonts/Akrobat-SemiBold.woff2") format("woff2");
+  src: url("/assets/fonts/Akrobat-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -32,7 +32,7 @@
 
 @font-face {
   font-family: Akrobat;
-  src: url("../assets/fonts/Akrobat-Bold.woff2") format("woff2");
+  src: url("/assets/fonts/Akrobat-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -40,7 +40,7 @@
 
 @font-face {
   font-family: Akrobat;
-  src: url("../assets/fonts/Akrobat-ExtraBold.woff2") format("woff2");
+  src: url("/assets/fonts/Akrobat-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -93,6 +93,13 @@ body.is-embed {
   display: block;
   width: min(200px, 56vw);
   height: auto;
+}
+
+.portal-brand-text {
+  display: inline-block;
+  font: 800 28px/1 var(--font-display);
+  letter-spacing: 0.04em;
+  color: var(--white);
 }
 
 .portal-footer {

@@ -28,11 +28,21 @@ function getAllowedExtensions() {
     return ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'];
 }
 
-// Генерація CSRF токену
-function generateCsrfToken() {
+function portal_ensure_session(): void
+{
+    if (function_exists('portal_start_session')) {
+        portal_start_session();
+        return;
+    }
+
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+}
+
+// Генерація CSRF токену
+function generateCsrfToken() {
+    portal_ensure_session();
     if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
@@ -41,9 +51,7 @@ function generateCsrfToken() {
 
 // Перевірка CSRF токену
 function validateCsrfToken($token) {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    portal_ensure_session();
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 

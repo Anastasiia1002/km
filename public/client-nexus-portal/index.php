@@ -1,56 +1,13 @@
 <?php
 // index.php
-require_once 'config.php';
-require_once 'functions.php';
+require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/functions.php';
 
 // Забороняємо індексацію сторінки на рівні HTTP-заголовка
 header('X-Robots-Tag: noindex, nofollow', true);
-
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$allowedOrigins = [
-    'https://km-trade.net',
-    'https://www.km-trade.net',
-    'https://anastasiia1002.github.io',
-    'http://localhost:4173',
-    'http://localhost:5173',
-    'http://127.0.0.1:4173',
-    'http://127.0.0.1:5173',
-];
-$corsOrigin = ($origin && in_array($origin, $allowedOrigins, true)) ? $origin : '';
-if ($corsOrigin) {
-    header('Access-Control-Allow-Origin: ' . $corsOrigin);
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With');
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-    header('Vary: Origin');
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
-
-function portal_wants_json(): bool
-{
-    $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
-    $xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] ?? '';
-    return stripos($accept, 'application/json') !== false
-        || strcasecmp($xhr, 'XMLHttpRequest') === 0;
-}
-
-function portal_json_response(array $payload, int $status = 200): void
-{
-    http_response_code($status);
-    header('Content-Type: application/json; charset=utf-8');
-    header('Cache-Control: no-store');
-    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    exit;
-}
-
-// Запускаємо сесію для CSRF токену
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+portal_handle_preflight(['GET', 'POST', 'OPTIONS']);
+portal_start_session();
 
 $message_sent = false;
 $error_msg = '';
@@ -186,6 +143,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $csrf_token = generateCsrfToken();
 
 $embed = isset($_GET['embed']) && $_GET['embed'] === '1';
+$portalBase = portal_base_path();
+$formAction = $embed ? $portalBase . 'index.php?embed=1' : $portalBase . 'index.php';
+$stylesHref = portal_asset_url('styles.css') . '?v=km-brand-2';
+$scriptSrc = portal_asset_url('script.js');
+$logoUrl = portal_site_asset_url('assets/logo-on-dark.png');
+$homeUrl = portal_site_asset_url('');
 ?>
 <!DOCTYPE html>
 <html lang="uk">
@@ -194,17 +157,16 @@ $embed = isset($_GET['embed']) && $_GET['embed'] === '1';
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Технічна підтримка | КМ Трейд</title>
-    <link rel="icon" href="/icon.png" type="image/png" sizes="192x192" />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-    <link rel="stylesheet" href="./styles.css?v=km-brand-1">
+    <link rel="icon" href="<?= htmlspecialchars(portal_site_asset_url('favicon.svg')) ?>" type="image/svg+xml" />
+    <link rel="stylesheet" href="<?= htmlspecialchars($stylesHref) ?>">
 </head>
 <body class="<?= $embed ? 'is-embed' : '' ?>">
 
 <?php if (!$embed): ?>
 <header class="portal-header">
-    <a class="portal-brand" href="https://km-trade.net/" aria-label="КМ Трейд — на головну">
-        <img src="/assets/logo-on-dark.png" alt="КМ Трейд" width="180" height="48" />
+    <a class="portal-brand" href="<?= htmlspecialchars($homeUrl) ?>" aria-label="КМ Трейд — на головну">
+        <img src="<?= htmlspecialchars($logoUrl) ?>" alt="КМ Трейд" width="180" height="48" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />
+        <span class="portal-brand-text" hidden>КМ Трейд</span>
     </a>
 </header>
 <?php endif; ?>
@@ -221,7 +183,7 @@ $embed = isset($_GET['embed']) && $_GET['embed'] === '1';
                 <?php if ($request_id): ?>
                     <p><strong>Номер заявки: #<?= htmlspecialchars((string) $request_id) ?></strong></p>
                 <?php endif; ?>
-                <a href="index.php<?= $embed ? '?embed=1' : '' ?>" class="btn">Надіслати ще одну</a>
+                <a href="<?= htmlspecialchars($portalBase) ?>index.php<?= $embed ? '?embed=1' : '' ?>" class="btn">Надіслати ще одну</a>
             </div>
         <?php else: ?>
 
@@ -236,7 +198,7 @@ $embed = isset($_GET['embed']) && $_GET['embed'] === '1';
                 для реєстрації вашого звернення.
             </div>
 
-            <form action="<?= $embed ? 'index.php?embed=1' : '' ?>" method="POST" enctype="multipart/form-data" id="supportForm" novalidate>
+            <form action="<?= htmlspecialchars($formAction) ?>" method="POST" enctype="multipart/form-data" id="supportForm" novalidate>
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 
                 <div class="form-group">
@@ -349,6 +311,6 @@ $embed = isset($_GET['embed']) && $_GET['embed'] === '1';
 </footer>
 <?php endif; ?>
 
-<script src="script.js"></script>
+<script src="<?= htmlspecialchars($scriptSrc) ?>"></script>
 </body>
 </html>

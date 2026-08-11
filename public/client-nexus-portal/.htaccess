@@ -6,6 +6,13 @@
 Options -Indexes
 DirectoryIndex index.php
 
+# Pretty URL: /client-nexus-portal/ → index.php
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /client-nexus-portal/
+  RewriteRule ^$ index.php [L]
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^uploads/.*\.(?i:php|phtml|phar|cgi|pl)$ - [F,L]
