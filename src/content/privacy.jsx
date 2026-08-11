@@ -150,21 +150,21 @@ export function PrivacyContent() {
         <li>
           Телефон:{" "}
           <a
-            href={telHref("+380961584385")}
-            onClick={(event) => {
-              if (!canPlacePhoneCall()) event.preventDefault();
-            }}
-          >
-            +38 096 158-43-85
-          </a>
-          {", "}
-          <a
             href={telHref("+380950584385")}
             onClick={(event) => {
               if (!canPlacePhoneCall()) event.preventDefault();
             }}
           >
             +38 095 058-43-85
+          </a>
+          {", "}
+          <a
+            href={telHref("+380961584385")}
+            onClick={(event) => {
+              if (!canPlacePhoneCall()) event.preventDefault();
+            }}
+          >
+            +38 096 158-43-85
           </a>
         </li>
         <li>

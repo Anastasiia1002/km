@@ -664,11 +664,11 @@ function Header({ navigate }) {
                   </NavLink>
                   <div className="header-mobile-actions">
                     <div className="header-mobile-phones">
-                      <PhoneLink className="header-mobile-phone" phone={site.phoneSecondary} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
-                        {formatPhoneLabel(site.phoneDisplay2)}
-                      </PhoneLink>
                       <PhoneLink className="header-mobile-phone" phone={site.phonePrimary} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phonePrimary }); }}>
                         {formatPhoneLabel(site.phoneDisplay)}
+                      </PhoneLink>
+                      <PhoneLink className="header-mobile-phone" phone={site.phoneSecondary} onClick={() => { closeMenu(); pushEvent("Contact", { phone: site.phoneSecondary }); }}>
+                        {formatPhoneLabel(site.phoneDisplay2)}
                       </PhoneLink>
                     </div>
                     <button className="btn btn-primary" type="button" onClick={goToLeadForm}>
@@ -1518,7 +1518,7 @@ function LeadForm({ region = "" }) {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            placeholder="+38 096 ..."
+            placeholder="+38 095 ..."
             value={state.phone}
             onChange={(e) => update("phone", e.target.value)}
             onBlur={() => {
@@ -1671,10 +1671,10 @@ function About() {
                 <div className="about-channel-body">
                   <PhoneLink
                     className="about-phone-line"
-                    phone={site.phoneSecondary}
-                    onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}
+                    phone={site.phonePrimary}
+                    onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
                   >
-                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay2)}</span>
+                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
                     <span className="about-messenger-chips" aria-label="Доступно в месенджерах">
                       <span>Telegram</span>
                       <span>Viber</span>
@@ -1683,10 +1683,10 @@ function About() {
                   </PhoneLink>
                   <PhoneLink
                     className="about-phone-line"
-                    phone={site.phonePrimary}
-                    onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
+                    phone={site.phoneSecondary}
+                    onClick={() => pushEvent("Contact", { phone: site.phoneSecondary, dept: "sales" })}
                   >
-                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
+                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay2)}</span>
                   </PhoneLink>
                 </div>
               </div>
@@ -2047,11 +2047,11 @@ function ContactCard() {
         {site.address}
       </a>
       <div className="phone-stack">
-        <PhoneLink phone={site.phoneSecondary} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
-          {formatPhoneLabel(site.phoneDisplay2)}
-        </PhoneLink>
         <PhoneLink phone={site.phonePrimary} onClick={() => pushEvent("Contact", { phone: site.phonePrimary })}>
           {formatPhoneLabel(site.phoneDisplay)}
+        </PhoneLink>
+        <PhoneLink phone={site.phoneSecondary} onClick={() => pushEvent("Contact", { phone: site.phoneSecondary })}>
+          {formatPhoneLabel(site.phoneDisplay2)}
         </PhoneLink>
       </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -2364,11 +2364,11 @@ function Footer({ navigate }) {
               </p>
               <div className="footer-phones">
                 <div className="phone-stack">
-                  <PhoneLink className="footer-phone" phone={site.phoneSecondary}>
-                    {formatPhoneLabel(site.phoneDisplay2)}
-                  </PhoneLink>
                   <PhoneLink className="footer-phone" phone={site.phonePrimary}>
                     {formatPhoneLabel(site.phoneDisplay)}
+                  </PhoneLink>
+                  <PhoneLink className="footer-phone" phone={site.phoneSecondary}>
+                    {formatPhoneLabel(site.phoneDisplay2)}
                   </PhoneLink>
                 </div>
                 <a className="footer-phone" href={`mailto:${site.email}`}>
