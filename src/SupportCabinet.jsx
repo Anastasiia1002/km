@@ -17,20 +17,35 @@ function pushEvent(event, payload = {}) {
   window.dataLayer.push({ event, ...payload });
 }
 
-function isValidPhone(phone) {
-  return /^[\+]?[0-9\s\-\(\)]{10,20}$/.test(String(phone || "").trim());
-}
-
 function getFileIcon(filename) {
   const ext = filename.split(".").pop()?.toLowerCase() || "";
   const icons = { jpg: "🖼", jpeg: "🖼", png: "🖼", pdf: "📄", doc: "📝", docx: "📝" };
   return icons[ext] || "📎";
 }
 
-const emptyForm = { company: "", name: "", phone: "", message: "", company_site: "" };
+const emptyForm = { company: "", name: "", phone: "", message: "" };
+
+function normalizePhone(phone) {
+  return String(phone || "").trim();
+}
+
+function isValidPhone(phone) {
+  const value = normalizePhone(phone);
+  if (!value) return false;
+  if (/^\+380\d{9}$/.test(value)) return true;
+  if (/^380\d{9}$/.test(value)) return true;
+  if (/^0\d{9}$/.test(value)) return true;
+  return /^[\+]?[0-9\s\-\(\)]{10,20}$/.test(value);
+}
+
+function scrollToFirstCabinetError() {
+  const target =
+    document.querySelector("#cabinet-support-form .form-error") ||
+    document.querySelector("#cabinet-support-form .is-invalid input, #cabinet-support-form .is-invalid textarea");
+  target?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 async function readJsonSafe(response) {
-  const contentType = response.headers.get("content-type") || "";
   const text = await response.text();
   if (contentType.includes("application/json")) {
     try {
@@ -206,13 +221,18 @@ export function SupportCabinetModal({ open, onClose }) {
 
   const submit = async (event) => {
     event.preventDefault();
-    if (form.company_site) return;
-    if (!validate()) return;
+    if (!validate()) {
+      setStatus("error");
+      setStatusMessage("Перевірте виділені поля форми.");
+      scrollToFirstCabinetError();
+      return;
+    }
     if (!portalReady || !csrfToken) {
       setStatus("error");
       setStatusMessage(
         `Online-кабінет на сервері ще не підключений. Зателефонуйте в техпідтримку: ${site.phoneDisplaySupport}`,
       );
+      scrollToFirstCabinetError();
       return;
     }
 
@@ -333,18 +353,7 @@ export function SupportCabinetModal({ open, onClose }) {
             </div>
           </div>
         ) : (
-          <form className="cabinet-form" id="supportForm" onSubmit={submit} noValidate>
-            <input
-              type="text"
-              name="company_site"
-              className="hp"
-              tabIndex={-1}
-              autoComplete="off"
-              aria-hidden="true"
-              value={form.company_site}
-              onChange={(event) => update("company_site", event.target.value)}
-            />
-
+          <form className="cabinet-form" id="cabinet-support-form" onSubmit={submit} noValidate>
             <div className={`form-field${errors.company ? " is-invalid" : ""}`}>
               <label htmlFor="cabinet-company">Компанія *</label>
               <input
@@ -455,7 +464,7 @@ export function SupportCabinetModal({ open, onClose }) {
               </p>
             ) : null}
 
-            <button className="btn btn-primary form-submit" id="submitBtn" type="submit" disabled={submitting || portalReady === null}>
+            <button className="btn btn-primary form-submit" id="cabinet-submit-btn" type="submit" disabled={submitting || portalReady !== true}>
               <span className="btn-text" style={{ display: submitting ? "none" : "inline" }}>
                 {portalReady === null ? "Підключення…" : "Відправити"}
               </span>
