@@ -1,4 +1,4 @@
-export const BASE = import.meta.env.BASE_URL;
+export const BASE = import.meta.env?.BASE_URL || "/";
 
 export function stripBase(pathname) {
   if (BASE !== "/" && pathname.startsWith(BASE)) {

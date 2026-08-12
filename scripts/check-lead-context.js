@@ -1,40 +1,29 @@
 import assert from "node:assert/strict";
 import {
-  LEAD_CONTEXTS,
+  LEAD_BLOCKS,
+  formatLeadContext,
   isLeadContext,
+  leadContext,
   pricingContext,
   resolveLeadContext,
+  resolvePageLabel,
 } from "../src/lib/leadContext.js";
 import { normalizeLead, sanitizeLead } from "../server/processLead.js";
 
-const expectedFixed = [
-  "Хедер",
-  "Мобільне меню",
-  "Банер головної",
-  "Калькулятор економії",
-  "Як ми працюємо",
-  "Калькулятор тарифів",
-  "Контакти",
-  "Банер сторінки регіону",
-  "Банер сторінки рішення",
-  "Блок заявки на сторінці регіону",
-  "Блок заявки на сторінці рішення",
-  "Блок заявки в статті",
-  "Сайдбар",
-  "Нижня кнопка",
-  "Форма тест-драйву",
-];
+assert.equal(resolvePageLabel("/"), "Головна");
+assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
+assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці");
+assert.equal(resolvePageLabel("/statti/kontrol-palnoho/"), "Пальне");
+assert.equal(resolvePageLabel("/oferta/"), "Оферта");
 
-assert.deepEqual(Object.values(LEAD_CONTEXTS).sort(), [...expectedFixed].sort());
+assert.equal(formatLeadContext("Доставка", "Банер"), "Доставка / Банер");
+assert.equal(leadContext(LEAD_BLOCKS.HEADER, "Головна"), "Головна / Хедер");
+assert.equal(pricingContext("Стандарт", "Головна"), "Головна / Тарифи · Стандарт");
+assert.equal(pricingContext("VIP", "Доставка"), "Доставка / Тарифи · VIP");
 
-for (const value of expectedFixed) {
-  assert.equal(isLeadContext(value), true);
-}
-
-assert.equal(pricingContext("Стандарт"), "Тарифи · Стандарт");
-assert.equal(pricingContext("Комуналка"), "Тарифи · Комуналка");
-assert.equal(pricingContext("VIP"), "Тарифи · VIP");
-assert.equal(isLeadContext("Тарифи · Стандарт"), true);
+assert.equal(isLeadContext("Доставка / Блок заявки"), true);
+assert.equal(isLeadContext("Головна / Тарифи · Комуналка"), true);
+assert.equal(isLeadContext("Банер"), false);
 assert.equal(isLeadContext("unknown"), false);
 
 const lead = normalizeLead({
@@ -43,19 +32,17 @@ const lead = normalizeLead({
   cars: "4-10 авто",
   region: "Чернівці",
   page: "/gps-dlya-dostavky/",
-  context: LEAD_CONTEXTS.INDUSTRY_HERO,
+  context: leadContext(LEAD_BLOCKS.BANNER, "Доставка"),
 });
 
-assert.equal(lead.context, "Банер сторінки рішення");
-assert.equal(sanitizeLead(lead).context, "Банер сторінки рішення");
+assert.equal(lead.context, "Доставка / Банер");
+assert.equal(sanitizeLead(lead).context, "Доставка / Банер");
 
-const tariffLead = normalizeLead({
-  name: "Іван",
-  phone: "0950584385",
-  context: pricingContext("Стандарт"),
-});
-assert.equal(tariffLead.context, "Тарифи · Стандарт");
+assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
-assert.equal(resolveLeadContext(), LEAD_CONTEXTS.TRIAL_FORM);
+const blocks = Object.values(LEAD_BLOCKS);
+assert.ok(blocks.includes("Банер"));
+assert.ok(blocks.includes("Блок заявки"));
+assert.ok(!blocks.includes("hero"));
 
 console.log("lead-context checks passed");

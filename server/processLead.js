@@ -35,7 +35,7 @@ export function normalizeLead(payload = {}) {
     region: String(payload.region || "").trim().slice(0, 80),
     savings: String(payload.savings || "").trim().slice(0, 80),
     page: String(payload.page || "").trim().slice(0, 200),
-    context: String(payload.context || "").trim().slice(0, 80),
+    context: String(payload.context || "").trim().slice(0, 120),
     company_site: String(payload.company_site || "").trim(),
     utm_source: String(payload.utm_source || "").trim().slice(0, 120),
     utm_medium: String(payload.utm_medium || "").trim().slice(0, 120),
