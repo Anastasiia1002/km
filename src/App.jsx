@@ -6,7 +6,7 @@ import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 import { canPlacePhoneCall, telHref } from "./lib/phone.js";
-import { LEAD_CONTEXTS, clearLeadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
+import { LEAD_CONTEXTS, clearLeadContext, pricingContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 
 const routes = {
@@ -1369,7 +1369,7 @@ function Pricing() {
               <button
                 className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`}
                 type="button"
-                onClick={() => scrollToForm(LEAD_CONTEXTS.PRICING)}
+                onClick={() => scrollToForm(pricingContext(name))}
               >
                 Обрати пакет
               </button>

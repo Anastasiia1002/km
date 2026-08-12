@@ -1,31 +1,40 @@
 import assert from "node:assert/strict";
-import { LEAD_CONTEXTS, isLeadContext, resolveLeadContext } from "../src/lib/leadContext.js";
+import {
+  LEAD_CONTEXTS,
+  isLeadContext,
+  pricingContext,
+  resolveLeadContext,
+} from "../src/lib/leadContext.js";
 import { normalizeLead, sanitizeLead } from "../server/processLead.js";
 
-const expected = [
-  "header",
-  "header_mobile",
-  "hero",
-  "calculator",
-  "how_it_works",
-  "pricing",
-  "pricing_calculator",
-  "contacts",
-  "region_hero",
-  "industry_hero",
-  "region_cta",
-  "industry_cta",
-  "article_cta",
-  "sidebar",
-  "sticky_cta",
-  "trial_form",
+const expectedFixed = [
+  "Хедер",
+  "Мобільне меню",
+  "Банер головної",
+  "Калькулятор економії",
+  "Як ми працюємо",
+  "Калькулятор тарифів",
+  "Контакти",
+  "Банер сторінки регіону",
+  "Банер сторінки рішення",
+  "Блок заявки на сторінці регіону",
+  "Блок заявки на сторінці рішення",
+  "Блок заявки в статті",
+  "Сайдбар",
+  "Нижня кнопка",
+  "Форма тест-драйву",
 ];
 
-assert.deepEqual(Object.values(LEAD_CONTEXTS).sort(), [...expected].sort());
+assert.deepEqual(Object.values(LEAD_CONTEXTS).sort(), [...expectedFixed].sort());
 
-for (const value of expected) {
+for (const value of expectedFixed) {
   assert.equal(isLeadContext(value), true);
 }
+
+assert.equal(pricingContext("Стандарт"), "Тарифи · Стандарт");
+assert.equal(pricingContext("Комуналка"), "Тарифи · Комуналка");
+assert.equal(pricingContext("VIP"), "Тарифи · VIP");
+assert.equal(isLeadContext("Тарифи · Стандарт"), true);
 assert.equal(isLeadContext("unknown"), false);
 
 const lead = normalizeLead({
@@ -37,8 +46,16 @@ const lead = normalizeLead({
   context: LEAD_CONTEXTS.INDUSTRY_HERO,
 });
 
-assert.equal(lead.context, "industry_hero");
-assert.equal(sanitizeLead(lead).context, "industry_hero");
+assert.equal(lead.context, "Банер сторінки рішення");
+assert.equal(sanitizeLead(lead).context, "Банер сторінки рішення");
+
+const tariffLead = normalizeLead({
+  name: "Іван",
+  phone: "0950584385",
+  context: pricingContext("Стандарт"),
+});
+assert.equal(tariffLead.context, "Тарифи · Стандарт");
+
 assert.equal(resolveLeadContext(), LEAD_CONTEXTS.TRIAL_FORM);
 
 console.log("lead-context checks passed");
