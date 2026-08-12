@@ -6,6 +6,7 @@ import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
 import { canPlacePhoneCall, telHref } from "./lib/phone.js";
+import { LEAD_CONTEXTS, clearLeadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 
 const routes = {
@@ -439,9 +440,10 @@ function Header({ navigate }) {
     setMenuOpen(false);
   };
 
-  const goToLeadForm = () => {
+  const goToLeadForm = (context = LEAD_CONTEXTS.HEADER) => {
     // Never gate the CTA on the mobile-menu close effect — on desktop the menu
     // stays closed and a queued callback would never run.
+    setLeadContext(context);
     if (menuOpen) setMenuOpen(false);
     const target = document.getElementById("trial") || document.getElementById("lead-form");
     if (target) {
@@ -532,7 +534,7 @@ function Header({ navigate }) {
               href={withBase("/#trial")}
               onClick={(event) => {
                 event.preventDefault();
-                goToLeadForm();
+                goToLeadForm(LEAD_CONTEXTS.HEADER);
               }}
             >
               <span className="btn-header-full">Залишити заявку</span>
@@ -687,7 +689,7 @@ function Header({ navigate }) {
                         {formatPhoneLabel(site.phoneDisplay2)}
                       </PhoneLink>
                     </div>
-                    <button className="btn btn-primary" type="button" onClick={goToLeadForm}>
+                    <button className="btn btn-primary" type="button" onClick={() => goToLeadForm(LEAD_CONTEXTS.HEADER_MOBILE)}>
                       Залишити заявку
                     </button>
                   </div>
@@ -796,7 +798,7 @@ function Hero() {
               <span>🧪 Тест 14 днів</span>
             </div>
             <div className="hero-actions">
-              <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати 14 днів безкоштовно →</button>
+              <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.HERO)}>Спробувати 14 днів безкоштовно →</button>
             </div>
             <div className="hero-stats">
               <div><b>350+</b><span>клієнтів B2B</span></div>
@@ -950,7 +952,7 @@ function Calculator() {
             <Range label="К-ть годин роботи на добу" value={values.hoursPerDay} min="1" max="24" onChange={(value) => update("hoursPerDay", value)} />
             <Range label="К-ть днів роботи на місяць" value={values.daysPerMonth} min="1" max="30" onChange={(value) => update("daysPerMonth", value)} />
             <div className="calc-result"><b><span className="calc-result-prefix">до</span> {money(savings)}</b><span>грн в місяць економії*</span><small>Собівартість м/год {money(costPerHour)} грн · Економія {formatPercent(ratePercent)}% · Підписка: {money(subscription)} грн/міс · ROI: {roi}x</small></div>
-            <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm()}>Хочу заощадити до {money(savings)} грн →</button>
+            <button className="btn btn-primary calc-cta" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.CALCULATOR)}>Хочу заощадити до {money(savings)} грн →</button>
             <p className="info-note">Вартість трекера на 1 авто потребує уточнення від КМ Трейд; калькулятор показує абонплату й орієнтовну економію за собівартістю мотогодини.</p>
             <p className="info-note">*Це орієнтовна оцінка потенційної економії. Фактичний результат залежить від режиму роботи автопарку, дисципліни водіїв і впроваджених налаштувань контролю.</p>
           </div>
@@ -1324,7 +1326,7 @@ function HowItWorks() {
 
         <div className="how-footer">
           <p>Готові пройти цей шлях на своєму автопарку?</p>
-          <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+          <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.HOW_IT_WORKS)}>
             Залишити заявку
           </button>
         </div>
@@ -1367,7 +1369,7 @@ function Pricing() {
               <button
                 className={`btn ${index === 0 ? "btn-primary" : "btn-outline"}`}
                 type="button"
-                onClick={() => scrollToForm()}
+                onClick={() => scrollToForm(LEAD_CONTEXTS.PRICING)}
               >
                 Обрати пакет
               </button>
@@ -1432,7 +1434,7 @@ function Pricing() {
             <span className="mini-cost-result-label">Орієнтовно на місяць</span>
             <strong className="mini-cost-result-value">{money(total)} грн/міс</strong>
             <span className="mini-cost-result-note">від 250 грн/авто · з моб. зв&apos;язком</span>
-            <button className="btn btn-primary mini-cost-cta" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary mini-cost-cta" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.PRICING_CALCULATOR)}>
               Отримати точний розрахунок
             </button>
           </div>
@@ -1480,6 +1482,7 @@ function LeadForm({ region = "" }) {
       return;
     }
     setPhoneError("");
+    const context = resolveLeadContext();
     const leadBody = {
       name: state.name.trim(),
       phone: state.phone.trim(),
@@ -1487,13 +1490,14 @@ function LeadForm({ region = "" }) {
       region: state.region,
       company_site: state.company_site,
       page: window.location.pathname,
+      context,
       savings: document.getElementById("lead-savings")?.value || "",
     };
     utmKeys.forEach((key) => {
       leadBody[key] = localStorage.getItem(`km_${key}`) || "";
     });
-    pushEvent("form_submit", { region: leadBody.region, cars: leadBody.cars, form_name: "trial" });
-    pushEvent("Lead", { region: leadBody.region, cars: leadBody.cars, form_name: "trial" });
+    pushEvent("form_submit", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
+    pushEvent("Lead", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
     setSubmitting(true);
     try {
       const response = await fetch(LEAD_API_URL, {
@@ -1509,6 +1513,7 @@ function LeadForm({ region = "" }) {
     } finally {
       setSubmitting(false);
     }
+    clearLeadContext();
     window.dispatchEvent(new Event("km:lead-success"));
     setState({ name: "", phone: "", cars: "", region, company_site: "" });
   };
@@ -2071,7 +2076,7 @@ function ContactCard() {
         </PhoneLink>
       </div>
       <a href={`mailto:${site.email}`}>{site.email}</a>
-      <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку →</button>
+      <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.CONTACTS)}>Залишити заявку →</button>
     </div>
   );
 }
@@ -2118,7 +2123,7 @@ function RegionPage({ region, navigate }) {
             {region.local} Підключаємо Wialon Local / Hosting, налаштовуємо звіти і супроводжуємо клієнта після монтажу.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.REGION_HERO)}>
               Заявка на виїзд →
             </button>
             <PhoneLink className="btn btn-outline" phone={site.phonePrimary}>Подзвонити</PhoneLink>
@@ -2137,7 +2142,7 @@ function RegionPage({ region, navigate }) {
               <p>
                 Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — техпідтримка враховує специфіку маршруту і техніки.
               </p>
-              <CtaBox title={`Підключити автопарк ${region.inCity}`} />
+              <CtaBox title={`Підключити автопарк ${region.inCity}`} context={LEAD_CONTEXTS.REGION_CTA} />
               <h2>Рішення для регіону</h2>
               <div className="related-articles">
                 {industries.slice(0, 4).map((item) => (
@@ -2178,7 +2183,7 @@ function IndustryPage({ industry, navigate }) {
           <h1 className="title title-lg">{industry.title} в Україні</h1>
           <p className="subtitle">{industry.intro}</p>
           <div className="hero-actions">
-            <button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>
+            <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.INDUSTRY_HERO)}>
               Спробувати 14 днів →
             </button>
             <button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>
@@ -2209,7 +2214,7 @@ function IndustryPage({ industry, navigate }) {
               </p>
               <h2>Покриття</h2>
               <p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p>
-              <CtaBox title={`${industry.title} — тест 14 днів`} />
+              <CtaBox title={`${industry.title} — тест 14 днів`} context={LEAD_CONTEXTS.INDUSTRY_CTA} />
             </main>
             <aside className="sidebar">
               <Sidebar />
@@ -2285,7 +2290,7 @@ function ArticlePage({ article, navigate }) {
                 <li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li>
                 <li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li>
               </ul>
-              <CtaBox title="Хочете перевірити це на своєму автопарку?" />
+              <CtaBox title="Хочете перевірити це на своєму автопарку?" context={LEAD_CONTEXTS.ARTICLE_CTA} />
               <h2>Читайте також</h2>
               <div className="related-articles">
                 {related.map((item) => (
@@ -2359,12 +2364,12 @@ function ArticleCard({ article, navigate }) {
   );
 }
 
-function CtaBox({ title = "Готові спробувати на своєму автопарку?" }) {
-  return <div className="article-cta-box"><h3>{title}</h3><p>14 днів тест-драйву на 1 авто. Виїжджаємо по {regionCount} областях України.</p><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Спробувати безкоштовно →</button></div>;
+function CtaBox({ title = "Готові спробувати на своєму автопарку?", context = LEAD_CONTEXTS.ARTICLE_CTA }) {
+  return <div className="article-cta-box"><h3>{title}</h3><p>14 днів тест-драйву на 1 авто. Виїжджаємо по {regionCount} областях України.</p><button className="btn btn-primary" type="button" onClick={() => scrollToForm(context)}>Спробувати безкоштовно →</button></div>;
 }
 
-function Sidebar({ region = "захід України" }) {
-  return <div className="sidebar-card"><h3>КМ Трейд поруч</h3><div className="sidebar-stat"><span>Регіон</span><b>{region}</b></div><div className="sidebar-stat"><span>Абонплата</span><b>від 250 грн вкл. моб.зв'язок</b></div><div className="sidebar-stat"><span>Тест-драйв</span><b>14 днів</b></div><div className="sidebar-stat"><span>Сервіс</span><b>1 рік безкоштовно</b></div><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>;
+function Sidebar({ region = "захід України", context = LEAD_CONTEXTS.SIDEBAR }) {
+  return <div className="sidebar-card"><h3>КМ Трейд поруч</h3><div className="sidebar-stat"><span>Регіон</span><b>{region}</b></div><div className="sidebar-stat"><span>Абонплата</span><b>від 250 грн вкл. моб.зв'язок</b></div><div className="sidebar-stat"><span>Тест-драйв</span><b>14 днів</b></div><div className="sidebar-stat"><span>Сервіс</span><b>1 рік безкоштовно</b></div><button className="btn btn-primary" type="button" onClick={() => scrollToForm(context)}>Залишити заявку</button></div>;
 }
 
 function Footer({ navigate }) {
@@ -2425,7 +2430,7 @@ function Footer({ navigate }) {
           <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
         </div>
       </footer>
-      <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm()}>Залишити заявку</button></div>
+      <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_CONTEXTS.STICKY_CTA)}>Залишити заявку</button></div>
     </>
   );
 }
@@ -2434,7 +2439,8 @@ function FooterColumn({ title, items, navigate }) {
   return <div><div className="footer-col-title">{title}</div><div className="footer-links">{items.map(([label, href]) => <button type="button" key={href} onClick={() => navigate(href)}>{label}</button>)}</div></div>;
 }
 
-function scrollToForm() {
+function scrollToForm(context = LEAD_CONTEXTS.TRIAL_FORM) {
+  setLeadContext(context);
   const target = document.getElementById("trial") || document.getElementById("lead-form");
   if (!target) return;
   target.scrollIntoView({ behavior: "smooth", block: "start" });

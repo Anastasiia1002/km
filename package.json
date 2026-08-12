@@ -9,9 +9,10 @@
     "build": "vite build",
     "build:pages": "VITE_BASE=/km/ vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node scripts/check-fuel-savings.js && node scripts/check-portal.js && node scripts/check-site.js",
+    "check": "node scripts/check-fuel-savings.js && node scripts/check-portal.js && node scripts/check-lead-context.js && node scripts/check-site.js",
     "check:portal": "node scripts/check-portal.js",
-    "check:calc": "node scripts/check-fuel-savings.js"
+    "check:calc": "node scripts/check-fuel-savings.js",
+    "check:lead": "node scripts/check-lead-context.js"
   },
   "engines": {
     "node": ">=24"
