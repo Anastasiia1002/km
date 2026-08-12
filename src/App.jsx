@@ -1503,21 +1503,17 @@ function LeadForm({ region = "" }) {
     utmKeys.forEach((key) => {
       leadBody[key] = localStorage.getItem(`km_${key}`) || "";
     });
-    console.log("[lead] POST body", leadBody);
     pushEvent("form_submit", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
     pushEvent("Lead", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
     setSubmitting(true);
     try {
-      const response = await fetch(LEAD_API_URL, {
+      await fetch(LEAD_API_URL, {
         method: "POST",
         headers: leadRequestHeaders(),
         body: JSON.stringify(leadBody),
       });
-      if (!response.ok) {
-        console.warn("Lead endpoint rejected request", response.status);
-      }
-    } catch (error) {
-      console.warn("Lead endpoint unavailable", error);
+    } catch {
+      // Ignore network errors — UI still shows success toast.
     } finally {
       setSubmitting(false);
     }
