@@ -81,7 +81,6 @@ vercel.json            # налаштування функції /api/lead
   "phone": "+38 095 058-43-85",
   "cars": "4-10 авто",
   "region": "Чернівці",
-  "savings": "12 400 грн/міс",
   "page": "/km/",
   "context": "Головна / Хедер",
   "utm_source": "",

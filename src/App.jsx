@@ -916,11 +916,6 @@ function Calculator() {
   const subscription = values.count * 250;
   const roi = subscription > 0 ? (savings / subscription).toFixed(1) : "0.0";
 
-  useEffect(() => {
-    const hidden = document.getElementById("lead-savings");
-    if (hidden) hidden.value = `${money(savings)} грн/міс`;
-  }, [savings]);
-
   const update = (field, value) => {
     setValues((current) => ({ ...current, [field]: field === "type" ? value : Number(value) }));
     pushEvent("calculator_used", { field });
@@ -1491,7 +1486,6 @@ function LeadForm({ region = "" }) {
       company_site: state.company_site,
       page: window.location.pathname,
       context,
-      savings: document.getElementById("lead-savings")?.value || "",
     };
     utmKeys.forEach((key) => {
       leadBody[key] = localStorage.getItem(`km_${key}`) || "";
@@ -1529,7 +1523,6 @@ function LeadForm({ region = "" }) {
   return (
     <form className="trial-form lead-form" id="lead-form" data-form-name="trial" onSubmit={submit} noValidate>
       <input type="text" name="company_site" className="hp" tabIndex="-1" autoComplete="off" aria-hidden="true" value={state.company_site} onChange={(e) => update("company_site", e.target.value)} />
-      <input type="hidden" id="lead-savings" name="savings" />
       <h3>Залишити заявку</h3>
       <div className="form-row">
         <div className="form-field"><label htmlFor="lead-name">Ім'я</label><input id="lead-name" type="text" placeholder="Іван Коваленко" value={state.name} onChange={(e) => update("name", e.target.value)} required /></div>
