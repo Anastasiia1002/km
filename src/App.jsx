@@ -1496,6 +1496,7 @@ function LeadForm({ region = "" }) {
     utmKeys.forEach((key) => {
       leadBody[key] = localStorage.getItem(`km_${key}`) || "";
     });
+    console.log("[lead] POST body", leadBody);
     pushEvent("form_submit", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
     pushEvent("Lead", { region: leadBody.region, cars: leadBody.cars, form_name: "trial", context });
     setSubmitting(true);
