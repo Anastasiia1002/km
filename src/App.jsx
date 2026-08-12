@@ -1451,8 +1451,21 @@ function isValidUaPhone(value) {
 }
 
 const LEAD_API_URL =
-  (import.meta.env.VITE_LEAD_API_URL || "https://km-trade.net/api/lead").replace(/\/$/, "") ||
-  "https://km-trade.net/api/lead";
+  (import.meta.env.VITE_LEAD_API_URL || "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead").replace(/\/$/, "") ||
+  "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead";
+
+function leadRequestHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  try {
+    if (/ngrok-free\.dev$/i.test(new URL(LEAD_API_URL).hostname)) {
+      // Free ngrok shows an interstitial unless this header is present.
+      headers["ngrok-skip-browser-warning"] = "true";
+    }
+  } catch {
+    // Ignore invalid URL — Content-Type alone is enough.
+  }
+  return headers;
+}
 
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });
@@ -1497,7 +1510,7 @@ function LeadForm({ region = "" }) {
     try {
       const response = await fetch(LEAD_API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: leadRequestHeaders(),
         body: JSON.stringify(leadBody),
       });
       if (!response.ok) {

@@ -70,7 +70,8 @@ vercel.json            # налаштування функції /api/lead
 
 ## Telegram-заявки (`POST https://km-trade.net/api/lead`)
 
-Форма «Залишити заявку» надсилає `POST` на `https://km-trade.net/api/lead`
+Форма «Залишити заявку» надсилає `POST` на
+`https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead`
 (можна перевизначити через `VITE_LEAD_API_URL`; локально — Vite middleware на `/api/lead`).
 
 ### Тіло запиту
@@ -147,10 +148,11 @@ vercel.json            # налаштування функції /api/lead
 
 ### Налаштування
 
-1. На проді API доступний як **`https://km-trade.net/api/lead`** (`api/lead.js` / той самий handler на хості).
+1. Заявки з GitHub Pages ідуть на ngrok-тунель  
+   **`https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead`**  
+   (тунель має проксувати на локальний Vite/`/api/lead` або інший handler з `processLead`).
 2. **`TELEGRAM_BOT_TOKEN` і `TELEGRAM_CHAT_ID` — лише на сервері API** (не у фронт / не в Vite). Без них заявка приймається, але в Telegram не йде.
-3. У GitHub Actions secrets (для Pages) додайте  
-   `VITE_LEAD_API_URL` = `https://km-trade.net/api/lead`.
+3. URL API задається через `VITE_LEAD_API_URL` у білді Pages (див. `.github/workflows/deploy-pages.yml`).
 4. Локально: скопіюйте `.env.example` → `.env` (лише `VITE_*`). Для локального `/api/lead` токени Telegram можна передати в shell env процесу `npm run dev`, не в клієнтський бандл.
 
 ## SEO-чекліст

@@ -17,7 +17,7 @@ export function getCorsOrigin(requestOrigin = "") {
 export function applyCors(response, requestOrigin = "") {
   response.setHeader("Access-Control-Allow-Origin", getCorsOrigin(requestOrigin));
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type, ngrok-skip-browser-warning");
   response.setHeader("Access-Control-Max-Age", "86400");
   response.setHeader("Vary", "Origin");
 }

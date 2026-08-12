@@ -35,7 +35,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE: /km/
-          VITE_LEAD_API_URL: ${{ secrets.VITE_LEAD_API_URL }}
+          VITE_LEAD_API_URL: https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
