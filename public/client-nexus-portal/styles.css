@@ -95,13 +95,6 @@ body.is-embed {
   height: auto;
 }
 
-.portal-brand-text {
-  display: inline-block;
-  font: 800 28px/1 var(--font-display);
-  letter-spacing: 0.04em;
-  color: var(--white);
-}
-
 .portal-footer {
   color: rgba(255, 255, 255, 0.88);
   padding: 20px;
