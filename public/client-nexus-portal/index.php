@@ -165,8 +165,7 @@ $homeUrl = portal_site_asset_url('');
 <?php if (!$embed): ?>
 <header class="portal-header">
     <a class="portal-brand" href="<?= htmlspecialchars($homeUrl) ?>" aria-label="КМ Трейд — на головну">
-        <img src="<?= htmlspecialchars($logoUrl) ?>" alt="КМ Трейд" width="180" height="48" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />
-        <span class="portal-brand-text" hidden>КМ Трейд</span>
+        <img src="<?= htmlspecialchars($logoUrl) ?>" alt="КМ Трейд" width="180" height="48" />
     </a>
 </header>
 <?php endif; ?>
