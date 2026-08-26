@@ -253,6 +253,8 @@ export const articles = [
   {
     slug: "okupnist-gps-monitoringu",
     icon: "💰",
+    image: "/assets/articles/okupnist-gps-monitoringu.jpg",
+    imagePosition: "50% 42%",
     category: "Бізнес",
     date: "Лютий 2026",
     title: "За скільки окупиться GPS-моніторинг: розрахунок для бізнесу",
