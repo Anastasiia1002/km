@@ -190,6 +190,16 @@ function App() {
   const page = useMemo(() => resolvePage(path), [path]);
 
   useEffect(() => {
+    const match = path.match(/^\/novyny\/([^/]+)\/$/);
+    if (!match) return;
+    const article = articles.find((item) => item.slug === match[1]);
+    if (!article) return;
+    const target = withBase(`/statti/${article.slug}/`);
+    window.history.replaceState({}, "", target);
+    setPath(normalizePath(new URL(target, window.location.origin).pathname));
+  }, [path]);
+
+  useEffect(() => {
     setMeta(page.meta);
     pushEvent("page_view_init", { page_type: page.type, page_path: path });
     pushEvent("ViewContent", { page_type: page.type, page_path: path });
@@ -291,8 +301,9 @@ function resolvePage(path) {
     };
   }
 
-  const article = articles.find((item) => path === `/statti/${item.slug}/`);
+  const article = articleFromPath(path);
   if (article) {
+    const articlePath = `/statti/${article.slug}/`;
     return {
       type: "article",
       data: article,
@@ -300,19 +311,20 @@ function resolvePage(path) {
         title: `${article.title} — КМ Трейд`,
         description: article.description,
         type: "article",
-        path,
+        path: articlePath,
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
             { name: "Статті", path: "/statti/" },
-            { name: article.title, path: `/statti/${article.slug}/` },
+            { name: article.title, path: articlePath },
           ]),
           {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: article.title,
             description: article.description,
-            datePublished: article.date,
+            datePublished: article.dateIso || article.date,
+            articleSection: article.category,
             inLanguage: "uk-UA",
             author: { "@type": "Organization", name: site.name },
             publisher: {
@@ -320,7 +332,7 @@ function resolvePage(path) {
               name: site.name,
               logo: { "@type": "ImageObject", url: site.ogImage },
             },
-            mainEntityOfPage: absoluteUrl(`/statti/${article.slug}/`),
+            mainEntityOfPage: absoluteUrl(articlePath),
           },
         ],
       },
@@ -359,6 +371,12 @@ function resolvePage(path) {
       jsonLd: null,
     },
   };
+}
+
+function articleFromPath(path) {
+  const match = path.match(/^\/(?:statti|novyny)\/([^/]+)\/$/);
+  if (!match) return null;
+  return articles.find((item) => item.slug === match[1]) || null;
 }
 
 function renderPage(page, navigate) {
@@ -2260,7 +2278,11 @@ function BlogPage({ navigate }) {
 }
 
 function ArticlePage({ article, navigate }) {
-  const related = articles.filter((item) => item.slug !== article.slug).slice(0, 3);
+  const related = [
+    ...articles.filter((item) => item.slug !== article.slug && item.category === article.category),
+    ...articles.filter((item) => item.slug !== article.slug && item.category !== article.category),
+  ].slice(0, 3);
+  const readTime = article.readTime || "5 хв читання";
 
   return (
     <>
@@ -2275,7 +2297,7 @@ function ArticlePage({ article, navigate }) {
           </div>
           <div className="article-meta article-meta-hero">
             <span>{article.category}</span>
-            <small>{article.date} · 5 хв читання</small>
+            <small>{article.date} · {readTime}</small>
           </div>
           <h1 className="title title-lg">{article.title}</h1>
         </div>
@@ -2284,15 +2306,21 @@ function ArticlePage({ article, navigate }) {
         <div className="container">
           <div className="page-inner">
             <main className="article-body">
-              <p className="lead">{article.excerpt}</p>
-              <h2>Що важливо знати</h2>
-              <p>{article.description}</p>
-              <h2>Як допомагає Wialon</h2>
-              <ul>
-                <li>Показує транспорт онлайн і зберігає історію маршрутів.</li>
-                <li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li>
-                <li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li>
-              </ul>
+              {article.html ? (
+                <div className="article-html" dangerouslySetInnerHTML={{ __html: article.html }} />
+              ) : (
+                <>
+                  <p className="lead">{article.excerpt}</p>
+                  <h2>Що важливо знати</h2>
+                  <p>{article.description}</p>
+                  <h2>Як допомагає Wialon</h2>
+                  <ul>
+                    <li>Показує транспорт онлайн і зберігає історію маршрутів.</li>
+                    <li>Фіксує пробіг, стоянки, швидкість, запалювання і датчики пального.</li>
+                    <li>Дозволяє налаштовувати геозони, сповіщення і звіти під ваш бізнес.</li>
+                  </ul>
+                </>
+              )}
               <CtaBox title="Хочете перевірити це на своєму автопарку?" />
               <h2>Читайте також</h2>
               <div className="related-articles">

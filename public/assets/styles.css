@@ -4333,6 +4333,32 @@ tr:last-child td {
   padding-left: 22px;
 }
 
+.article-html p {
+  margin: 0 0 16px;
+}
+
+.article-html p:last-child {
+  margin-bottom: 0;
+}
+
+.article-html a {
+  color: #6272BD;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.article-html ul {
+  margin: 8px 0 20px;
+}
+
+.article-html li + li {
+  margin-top: 8px;
+}
+
+.article-html strong {
+  color: var(--navy);
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

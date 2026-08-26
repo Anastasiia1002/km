@@ -1,3 +1,5 @@
+import { articles } from "../src/data.js";
+import { importedArticles } from "../src/content/importedArticles.js";
 import assert from "node:assert/strict";
 import {
   LEAD_BLOCKS,
@@ -14,6 +16,8 @@ assert.equal(resolvePageLabel("/"), "Головна");
 assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
 assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці");
 assert.equal(resolvePageLabel("/statti/kontrol-palnoho/"), "Пальне");
+assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Пальне");
+assert.equal(resolvePageLabel("/novyny/optymizatsiia-karsherynhu/"), "Бізнес");
 assert.equal(resolvePageLabel("/oferta/"), "Оферта");
 
 assert.equal(formatLeadContext("Доставка", "Банер"), "Доставка / Банер");
@@ -39,6 +43,15 @@ assert.equal(lead.context, "Доставка / Банер");
 assert.equal(sanitizeLead(lead).context, "Доставка / Банер");
 
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
+
+assert.equal(importedArticles.length, 9);
+assert.equal(articles.length, 15);
+const slugs = articles.map((item) => item.slug);
+assert.equal(new Set(slugs).size, slugs.length);
+for (const item of importedArticles) {
+  assert.ok(item.html && item.html.includes("<p>"), `${item.slug} is missing HTML content`);
+  assert.ok(item.dateIso, `${item.slug} is missing dateIso`);
+}
 
 const blocks = Object.values(LEAD_BLOCKS);
 assert.ok(blocks.includes("Банер"));
