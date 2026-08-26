@@ -8,6 +8,7 @@ import { normalizePath, withBase } from "./lib/routes.js";
 import { canPlacePhoneCall, telHref } from "./lib/phone.js";
 import { LEAD_BLOCKS, clearLeadContext, leadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
+import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
 
 const routes = {
   home: "/",
@@ -497,12 +498,12 @@ function Header({ navigate }) {
                 <span className="nav-chevron" aria-hidden="true">▾</span>
               </span>
               <div className="dropdown-menu">
-                <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="nofollow noopener noreferrer">
+                <SeoNeutralLink className="nav-link" to="https://gps.km-trade.net/">
                   <span className="di">🛰</span>Wialon Local
-                </a>
-                <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="nofollow noopener noreferrer">
+                </SeoNeutralLink>
+                <SeoNeutralLink className="nav-link" to="https://hosting.km-trade.net/?lang=uk">
                   <span className="di">☁️</span>Wialon Hosting
-                </a>
+                </SeoNeutralLink>
               </div>
             </div>
             <NavLink href="/oferta/" navigate={navigate}>
@@ -611,12 +612,12 @@ function Header({ navigate }) {
                     </button>
                     {openSection === "wialon" ? (
                       <div className="header-mobile-panel">
-                        <a className="header-mobile-link header-mobile-sublink" href="https://gps.km-trade.net/" target="_blank" rel="nofollow noopener noreferrer" onClick={closeMenu}>
+                        <SeoNeutralLink className="header-mobile-link header-mobile-sublink" to="https://gps.km-trade.net/" onClick={closeMenu}>
                           <span className="di">🛰</span>Wialon Local
-                        </a>
-                        <a className="header-mobile-link header-mobile-sublink" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="nofollow noopener noreferrer" onClick={closeMenu}>
+                        </SeoNeutralLink>
+                        <SeoNeutralLink className="header-mobile-link header-mobile-sublink" to="https://hosting.km-trade.net/?lang=uk" onClick={closeMenu}>
                           <span className="di">☁️</span>Wialon Hosting
-                        </a>
+                        </SeoNeutralLink>
                       </div>
                     ) : null}
                   </div>
