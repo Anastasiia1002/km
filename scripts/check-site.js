@@ -13,6 +13,7 @@ const requiredPublicFiles = [
   "assets/articles/hotuiemos-do-ahrosezonu.jpg",
   "assets/articles/monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva.jpg",
   "assets/articles/gps-dlya-traktora-zakhid-ukraina.jpg",
+  "assets/articles/yak-pereviryty-vodiya-gps.jpg",
 ];
 
 const expectedSitemapRoutes = [

@@ -273,6 +273,8 @@ export const articles = [
   {
     slug: "yak-pereviryty-vodiya-gps",
     icon: "🧭",
+    image: "/assets/articles/yak-pereviryty-vodiya-gps.jpg",
+    imagePosition: "50% 38%",
     category: "Водії",
     date: "Травень 2026",
     title: "Як перевірити водія через GPS без конфліктів і ручних дзвінків",
