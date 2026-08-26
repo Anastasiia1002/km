@@ -262,6 +262,8 @@ export const articles = [
   {
     slug: "gps-dlya-traktora-zakhid-ukraina",
     icon: "🌾",
+    image: "/assets/articles/gps-dlya-traktora-zakhid-ukraina.jpg",
+    imagePosition: "50% 52%",
     category: "Агро",
     date: "Квітень 2026",
     title: "GPS для трактора на заході України: контроль поля, дизелю і механізатора",
