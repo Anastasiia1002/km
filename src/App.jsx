@@ -313,6 +313,7 @@ function resolvePage(path) {
         description: article.description,
         type: "article",
         path: articlePath,
+        image: article.image ? `${site.baseUrl}${article.image}` : site.ogImage,
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -324,6 +325,7 @@ function resolvePage(path) {
             "@type": "Article",
             headline: article.title,
             description: article.description,
+            image: article.image ? `${site.baseUrl}${article.image}` : site.ogImage,
             datePublished: article.dateIso || article.date,
             articleSection: article.category,
             inLanguage: "uk-UA",
@@ -2307,6 +2309,11 @@ function ArticlePage({ article, navigate }) {
         <div className="container">
           <div className="page-inner">
             <main className="article-body">
+              {article.image ? (
+                <figure className="article-cover">
+                  <img src={withBase(article.image)} alt={article.title} />
+                </figure>
+              ) : null}
               {article.html ? (
                 <div className="article-html" dangerouslySetInnerHTML={{ __html: article.html }} />
               ) : (
@@ -2375,10 +2382,15 @@ function LegalPage({ title, kind, navigate }) {
 }
 
 function ArticleCard({ article, navigate }) {
+  const cover = article.image ? withBase(article.image) : null;
   return (
     <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}>
-      <div className="article-img" aria-hidden="true">
-        <span className="article-img-icon">{article.icon}</span>
+      <div className={`article-img${cover ? " has-photo" : ""}`} aria-hidden="true">
+        {cover ? (
+          <img className="article-img-photo" src={cover} alt="" loading="lazy" decoding="async" />
+        ) : (
+          <span className="article-img-icon">{article.icon}</span>
+        )}
       </div>
       <div className="article-body-card">
         <div className="article-meta">
