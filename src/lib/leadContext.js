@@ -44,7 +44,7 @@ export function resolvePageLabel(pathname) {
 
   if (path === "/statti/") return "Статті";
 
-  const article = articles.find((item) => path === `/statti/${item.slug}/`);
+  const article = articles.find((item) => path === `/statti/${item.slug}/` || path === `/novyny/${item.slug}/`);
   if (article) return article.category;
 
   if (path === "/oferta/") return "Оферта";

@@ -1,3 +1,5 @@
+import { importedArticles } from "./content/importedArticles.js";
+
 export const site = {
   baseUrl: "https://km-trade.net",
   phonePrimary: "+380950584385",
@@ -284,6 +286,7 @@ export const articles = [
     description: "Чому для GPS-моніторингу важливий локальний партнер у Чернівцях, Івано-Франківську, Тернополі і Хмельницькому.",
     excerpt: "Локальна команда швидше монтує обладнання і супроводжує автопарк після запуску.",
   },
+  ...importedArticles,
 ];
 
 export const painCards = [
