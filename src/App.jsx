@@ -497,10 +497,10 @@ function Header({ navigate }) {
                 <span className="nav-chevron" aria-hidden="true">▾</span>
               </span>
               <div className="dropdown-menu">
-                <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer">
+                <a className="nav-link" href="https://gps.km-trade.net/" target="_blank" rel="nofollow noopener noreferrer">
                   <span className="di">🛰</span>Wialon Local
                 </a>
-                <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer">
+                <a className="nav-link" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="nofollow noopener noreferrer">
                   <span className="di">☁️</span>Wialon Hosting
                 </a>
               </div>
@@ -611,10 +611,10 @@ function Header({ navigate }) {
                     </button>
                     {openSection === "wialon" ? (
                       <div className="header-mobile-panel">
-                        <a className="header-mobile-link header-mobile-sublink" href="https://gps.km-trade.net/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                        <a className="header-mobile-link header-mobile-sublink" href="https://gps.km-trade.net/" target="_blank" rel="nofollow noopener noreferrer" onClick={closeMenu}>
                           <span className="di">🛰</span>Wialon Local
                         </a>
-                        <a className="header-mobile-link header-mobile-sublink" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+                        <a className="header-mobile-link header-mobile-sublink" href="https://hosting.km-trade.net/?lang=uk" target="_blank" rel="nofollow noopener noreferrer" onClick={closeMenu}>
                           <span className="di">☁️</span>Wialon Hosting
                         </a>
                       </div>
