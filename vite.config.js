@@ -89,6 +89,14 @@ function stripPortalSecretsPlugin() {
 export default defineConfig({
   base: process.env.VITE_BASE || "/km/",
   plugins: [react(), leadApiPlugin(), stripPortalSecretsPlugin()],
+  server: {
+    host: true,
+    allowedHosts: true,
+  },
+  preview: {
+    host: true,
+    allowedHosts: true,
+  },
   build: {
     outDir: "dist",
     sourcemap: false,
