@@ -14,6 +14,7 @@ const requiredPublicFiles = [
   "assets/articles/monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva.jpg",
   "assets/articles/gps-dlya-traktora-zakhid-ukraina.jpg",
   "assets/articles/yak-pereviryty-vodiya-gps.jpg",
+  "assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg",
 ];
 
 const expectedSitemapRoutes = [
