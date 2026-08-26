@@ -10,6 +10,7 @@ const requiredPublicFiles = [
   "sitemap.xml",
   "robots.txt",
   "assets/styles.css",
+  "assets/articles/hotuiemos-do-ahrosezonu.jpg",
 ];
 
 const expectedSitemapRoutes = [

@@ -81,6 +81,7 @@ export const importedArticles = [
   {
     "slug": "hotuiemos-do-ahrosezonu",
     "icon": "🌾",
+    "image": "/assets/articles/hotuiemos-do-ahrosezonu.jpg",
     "category": "Агро",
     "date": "Серпень 2024",
     "dateIso": "2024-08-23",
