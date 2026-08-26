@@ -4574,6 +4574,8 @@ tr:last-child td {
 }
 
 .article-img.has-photo {
+  display: block;
+  place-items: unset;
   background-color: #2a2418;
   background-image: none;
 }
