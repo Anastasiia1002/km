@@ -42,6 +42,8 @@ export const importedArticles = [
   {
     "slug": "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
     "icon": "⛽",
+    "image": "/assets/articles/monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva.jpg",
+    "imagePosition": "50% 42%",
     "category": "Пальне",
     "date": "Жовтень 2024",
     "dateIso": "2024-10-08",

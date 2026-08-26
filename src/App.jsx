@@ -2311,7 +2311,11 @@ function ArticlePage({ article, navigate }) {
             <main className="article-body">
               {article.image ? (
                 <figure className="article-cover">
-                  <img src={withBase(article.image)} alt={article.title} />
+                  <img
+                    src={withBase(article.image)}
+                    alt={article.title}
+                    style={article.imagePosition ? { objectPosition: article.imagePosition } : undefined}
+                  />
                 </figure>
               ) : null}
               {article.html ? (
@@ -2387,7 +2391,14 @@ function ArticleCard({ article, navigate }) {
     <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}>
       <div className={`article-img${cover ? " has-photo" : ""}`} aria-hidden="true">
         {cover ? (
-          <img className="article-img-photo" src={cover} alt="" loading="lazy" decoding="async" />
+          <img
+            className="article-img-photo"
+            src={cover}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            style={article.imagePosition ? { objectPosition: article.imagePosition } : undefined}
+          />
         ) : (
           <span className="article-img-icon">{article.icon}</span>
         )}
