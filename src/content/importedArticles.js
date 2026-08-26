@@ -57,8 +57,8 @@ export const importedArticles = [
   {
     "slug": "zchytuvannia-danykh-z-takhohrafa",
     "icon": "⏱",
-    "image": "/assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg",
-    "imagePosition": "50% 36%",
+    "image": "/assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg?v=2",
+    "imagePosition": "50% 40%",
     "category": "Технологія",
     "date": "Жовтень 2024",
     "dateIso": "2024-10-07",
