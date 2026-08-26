@@ -4609,9 +4609,9 @@ tr:last-child td {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 1;
+  max-height: 560px;
   object-fit: cover;
-  object-position: 50% 58%;
+  object-position: center;
 }
 
 .article-body-card {
