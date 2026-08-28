@@ -3,6 +3,7 @@ import { existsSync, rmSync } from "node:fs";
 import path from "node:path";
 import { defineConfig, loadEnv } from "vite";
 import { applyCors, processLead } from "./server/processLead.js";
+import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, homeKeywords } from "./src/lib/seoConfig.js";
 
 function leadApiPlugin() {
   return {
@@ -74,6 +75,18 @@ function leadApiPlugin() {
   };
 }
 
+function seoHtmlPlugin() {
+  return {
+    name: "km-seo-html",
+    transformIndexHtml(html) {
+      return html
+        .replaceAll("%GOOGLE_SITE_VERIFICATION%", GOOGLE_SITE_VERIFICATION)
+        .replaceAll("%GA_MEASUREMENT_ID%", GA_MEASUREMENT_ID)
+        .replaceAll("%HOME_KEYWORDS%", homeKeywords.join(", "));
+    },
+  };
+}
+
 function stripPortalSecretsPlugin() {
   return {
     name: "km-strip-portal-secrets",
@@ -88,7 +101,7 @@ function stripPortalSecretsPlugin() {
 
 export default defineConfig({
   base: process.env.VITE_BASE || "/km/",
-  plugins: [react(), leadApiPlugin(), stripPortalSecretsPlugin()],
+  plugins: [react(), leadApiPlugin(), seoHtmlPlugin(), stripPortalSecretsPlugin()],
   server: {
     host: true,
     allowedHosts: true,

@@ -9,6 +9,8 @@ import { canPlacePhoneCall, telHref } from "./lib/phone.js";
 import { LEAD_BLOCKS, clearLeadContext, leadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
+import { pushEvent, trackPageView } from "./lib/analytics.js";
+import { homeKeywords } from "./lib/seoConfig.js";
 
 const routes = {
   home: "/",
@@ -34,15 +36,13 @@ function PhoneLink({ phone, className, children, onClick, ...rest }) {
   );
 }
 
-function pushEvent(event, payload = {}) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...payload });
-}
-
-function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null }) {
+function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null, keywords = null }) {
   document.title = title;
   upsertMeta("description", description);
   upsertMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  if (keywords?.length) {
+    upsertMeta("keywords", Array.isArray(keywords) ? keywords.join(", ") : keywords);
+  }
   upsertMeta("og:title", title, "property");
   upsertMeta("og:description", description, "property");
   upsertMeta("og:type", type, "property");
@@ -202,6 +202,7 @@ function App() {
 
   useEffect(() => {
     setMeta(page.meta);
+    trackPageView({ title: page.meta.title, path });
     pushEvent("page_view_init", { page_type: page.type, page_path: path });
     pushEvent("ViewContent", { page_type: page.type, page_path: path });
     if (page.type === "region") pushEvent("region_page_view", { region: page.data.city });
@@ -239,6 +240,7 @@ function resolvePage(path) {
         description: region.description,
         type: "website",
         path,
+        keywords: region.keys,
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -268,6 +270,7 @@ function resolvePage(path) {
         description: industry.description,
         type: "website",
         path,
+        keywords: [industry.title, industry.name, "GPS моніторинг", "Wialon"],
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -294,6 +297,7 @@ function resolvePage(path) {
         description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків в Україні.",
         type: "website",
         path,
+        keywords: ["GPS моніторинг", "Wialon", "контроль пального", "статті"],
         jsonLd: breadcrumbJsonLd([
           { name: "Головна", path: "/" },
           { name: "Статті", path: "/statti/" },
@@ -314,6 +318,7 @@ function resolvePage(path) {
         type: "article",
         path: articlePath,
         image: article.image ? `${site.baseUrl}${article.image}` : site.ogImage,
+        keywords: [article.category, "GPS моніторинг", "Wialon"].filter(Boolean),
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -371,6 +376,7 @@ function resolvePage(path) {
         "Авторизований партнер Wialon / Gurtam. GPS-моніторинг транспорту у 7 областях України. Офіс у місті Чернівці. Від 250 грн з моб.зв'язком, тест 14 днів, виїзд на монтаж.",
       type: "website",
       path: "/",
+      keywords: homeKeywords,
       jsonLd: null,
     },
   };

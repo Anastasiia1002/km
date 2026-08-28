@@ -93,10 +93,22 @@ if (cssAssets.length === 0) {
 }
 
 const index = await readFile(path.join(distDir, "index.html"), "utf8");
-for (const snippet of ["<title>", 'name="description"', 'id="root"', 'type="module"']) {
+for (const snippet of [
+  "<title>",
+  'name="description"',
+  'name="google-site-verification"',
+  "QrF2hqH_IzUAZe0nkb3LvNstSQJcfpfTpRa7UBx15fk",
+  "G-65HEG2DBC7",
+  "googletagmanager.com/gtag/js",
+  'id="root"',
+  'type="module"',
+]) {
   if (!index.includes(snippet)) {
     throw new Error(`dist/index.html is missing ${snippet}`);
   }
+}
+if (index.includes("%GOOGLE_SITE_VERIFICATION%") || index.includes("%GA_MEASUREMENT_ID%") || index.includes("%HOME_KEYWORDS%")) {
+  throw new Error("dist/index.html still contains unreplaced SEO placeholders");
 }
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
