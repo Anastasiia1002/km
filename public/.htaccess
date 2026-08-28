@@ -3,7 +3,19 @@
   RewriteEngine On
   RewriteBase /
 
-  # Do not rewrite real files/dirs (including client-nexus-portal/)
+  # Canonical host: www → apex
+  RewriteCond %{HTTP_HOST} ^www\.km-trade\.net$ [NC]
+  RewriteRule ^(.*)$ https://km-trade.net/$1 [L,R=301]
+
+  # Legacy WordPress / marketing URLs
+  RewriteRule ^novyny/?$ /statti/ [L,R=301]
+  RewriteRule ^novyny/(.+)$ /statti/$1 [L,R=301]
+  RewriteRule ^kontakty/?$ /#contacts [NE,L,R=301]
+  RewriteRule ^contacts/?$ /#contacts [NE,L,R=301]
+  RewriteRule ^spetstekhnika/?$ /gps-dlya-budtekhniky/ [L,R=301]
+  RewriteRule ^gps-monitoring/?$ / [L,R=301]
+
+  # Do not rewrite real files/dirs (including prerendered routes and client-nexus-portal/)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]

@@ -37,6 +37,7 @@ jobs:
         run: npm run build
         env:
           VITE_BASE: /km/
+          VITE_INDEXING: "false"
           VITE_LEAD_API_URL: https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead
 
       - name: Upload artifact
