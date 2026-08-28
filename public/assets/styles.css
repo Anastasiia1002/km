@@ -2450,6 +2450,8 @@ tr:last-child td {
 .industry-card,
 .region-card {
   text-decoration: none;
+  color: inherit;
+  display: block;
   border: 1px solid rgba(219, 220, 233, 0.95);
   border-radius: var(--radius-lg);
   padding: 26px 20px;
@@ -4426,6 +4428,7 @@ tr:last-child td {
   flex-direction: column;
   gap: 8px;
   text-decoration: none;
+  color: inherit;
   border: 1px solid rgba(219, 220, 233, 0.95);
   border-radius: 18px;
   padding: 20px;
@@ -4516,6 +4519,7 @@ tr:last-child td {
   width: 100%;
   padding: 0;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   font: inherit;
   color: inherit;
@@ -4961,6 +4965,19 @@ button {
   align-items: center;
   padding: 0;
   text-align: left;
+  text-decoration: none;
+  color: inherit;
+}
+
+.seo-faq {
+  margin: 8px 0 22px;
+}
+
+.seo-faq h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 0 0 8px;
+  color: var(--navy);
 }
 
 .industry-card,

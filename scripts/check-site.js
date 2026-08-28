@@ -1,6 +1,7 @@
 import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { listSeoPages } from "../src/lib/seoPages.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const publicDir = path.join(root, "public");
@@ -93,14 +94,44 @@ if (cssAssets.length === 0) {
 }
 
 const index = await readFile(path.join(distDir, "index.html"), "utf8");
-for (const snippet of ["<title>", 'name="description"', 'id="root"', 'type="module"']) {
+for (const snippet of [
+  "<title>",
+  'name="description"',
+  'name="google-site-verification"',
+  "QrF2hqH_IzUAZe0nkb3LvNstSQJcfpfTpRa7UBx15fk",
+  "G-65HEG2DBC7",
+  "googletagmanager.com/gtag/js",
+  'id="root"',
+  'type="module"',
+]) {
   if (!index.includes(snippet)) {
     throw new Error(`dist/index.html is missing ${snippet}`);
   }
 }
+if (index.includes("%GOOGLE_SITE_VERIFICATION%") || index.includes("%GA_MEASUREMENT_ID%") || index.includes("%HOME_KEYWORDS%") || index.includes("%ROBOTS_CONTENT%")) {
+  throw new Error("dist/index.html still contains unreplaced SEO placeholders");
+}
+
+const seoPages = listSeoPages();
+if (seoPages.length !== expectedSitemapRoutes.length) {
+  throw new Error(`SEO page count (${seoPages.length}) does not match sitemap route count (${expectedSitemapRoutes.length})`);
+}
+
+for (const page of seoPages) {
+  const relative = page.path === "/" ? "index.html" : `${page.path.replace(/^\//, "")}index.html`;
+  const htmlPath = path.join(distDir, relative);
+  await assertFile(distDir, relative);
+  const pageHtml = await readFile(htmlPath, "utf8");
+  if (!pageHtml.includes(`<title>${page.title}</title>`)) {
+    throw new Error(`${relative} is missing unique title ${page.title}`);
+  }
+  if (!pageHtml.includes(`https://km-trade.net${page.path === "/" ? "/" : page.path}`)) {
+    throw new Error(`${relative} is missing canonical for ${page.path}`);
+  }
+}
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
-for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "SupportCabinetModal", "calculator_used", "region_page_view", "monthlyFuelSavings"]) {
+for (const snippet of ["function HomePage", "function RegionPage", "function IndustryPage", "function LeadForm", "function NotFoundPage", "SupportCabinetModal", "calculator_used", "region_page_view", "monthlyFuelSavings", "InternalLink"]) {
   if (!appSource.includes(snippet)) {
     throw new Error(`src/App.jsx is missing ${snippet}`);
   }
@@ -117,6 +148,7 @@ await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "get_list.p
 await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "update_status.php");
 await assertFile(path.join(publicDir, "client-nexus-portal", "api"), "auth.php");
 await assertFile(publicDir, ".htaccess");
+await assertFile(publicDir, "nginx-seo.snippet.conf");
 
 const publishedSecret = path.join(distDir, "client-nexus-portal", "config.local.php");
 try {

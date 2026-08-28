@@ -20,8 +20,8 @@ Canonical, `sitemap.xml` і `robots.txt` налаштовані на **km-trade.
 - **6 статей** у розділі `/statti/`.
 - **Юридичні сторінки:** оферта, конфіденційність.
 - **Документи:** Silver Partner, авторизаційний лист Gurtam, сертифікати команди (Level 1 / Level 2).
-- **SEO:** meta/OG/Twitter, canonical, JSON-LD (Organization, LocalBusiness, WebSite, Article, BreadcrumbList), `sitemap.xml`, `robots.txt`.
-- **Аналітика:** UTM capture, `dataLayer` події для GTM/GA4/Meta.
+- **SEO:** meta/OG/Twitter, canonical, JSON-LD (Organization, LocalBusiness, WebSite, Article, BreadcrumbList), `sitemap.xml`, `robots.txt`, Google Search Console verification, GA4.
+- **Аналітика:** GA4 `G-65HEG2DBC7` (ключ з попереднього WordPress), UTM capture, `dataLayer` + `gtag` події.
 - **Ліди:** форма з honeypot + `POST https://km-trade.net/api/lead` (Telegram).
 - **Online-кабінет:** оригінальна PHP-форма (`public/client-nexus-portal/`) — окрема сторінка на production і модалка на сайті. Клік у «Про компанію» / футері відкриває форму. API BAF: `get_list.php`, `update_status.php`.
 
@@ -163,8 +163,15 @@ vercel.json            # налаштування функції /api/lead
 - [x] JSON-LD: Organization, LocalBusiness, WebSite, Article, BreadcrumbList
 - [x] `sitemap.xml` + `robots.txt`
 - [x] `lang="uk"`, семантичні `h1`/`h2`, внутрішні лінки футера
-- [ ] Підключити Search Console / Bing Webmaster на production-домені
-- [ ] Перевірити індексацію після DNS / custom domain на Pages
+- [x] Google Search Console: DNS-запис `google-site-verification=QrF2hqH_IzUAZe0nkb3LvNstSQJcfpfTpRa7UBx15fk` уже був на домені з попереднього сайту; той самий токен додано в HTML
+- [x] GA4 `G-65HEG2DBC7` з попереднього WordPress GPS-сайту
+- [x] Унікальний HTML (title/canonical) на кожен URL після `npm run build` (prerender)
+- [x] Реальні внутрішні `<a href>` замість кнопок, 404 для невідомих адрес, 301 зі старих WP URL
+- [x] `www` → `km-trade.net`, `noindex` для GitHub Pages
+- [ ] У Search Console надіслати `https://km-trade.net/sitemap.xml` (вебмайстер, один раз)
+- [ ] На nginx production підключити `public/nginx-seo.snippet.conf` (www + старі URL)
+
+Попередній WordPress **не мав** HTML-мета `google-site-verification` — домен уже підтверджений через DNS. У новому React-коді цих ключів раніше не було. HTML-мета keywords зі 100+ фразами зі старого WP навмисно не копіювали (спам для Google); регіональні ключі з `data.js` підставляються в `meta keywords` і в текст сторінок.
 
 ## Що ще бажано від КМ Трейд
 

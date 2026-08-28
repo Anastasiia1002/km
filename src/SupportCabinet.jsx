@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { site } from "./data.js";
+import { pushEvent } from "./lib/analytics.js";
 import { getUaPhoneError, UA_PHONE_HINT } from "./lib/uaPhone.js";
 
 const MAX_FILE_SIZE = 1048576;
@@ -12,11 +13,6 @@ const PORTAL_BASE = site.clientPortalUrl.replace(/\/?$/, "/");
 const CSRF_URL = `${PORTAL_BASE}csrf.php`;
 const SUBMIT_URL = `${PORTAL_BASE}index.php`;
 const HEALTH_URL = `${PORTAL_BASE}health.php`;
-
-function pushEvent(event, payload = {}) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...payload });
-}
 
 function getFileIcon(filename) {
   const ext = filename.split(".").pop()?.toLowerCase() || "";
