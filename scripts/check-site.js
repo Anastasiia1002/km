@@ -23,6 +23,7 @@ const requiredPublicFiles = [
   "assets/articles/aktsiia-dytyna-pid-kontrolem.jpg",
   "assets/articles/novyj-rejtynh-vid-gurtam.jpg",
   "assets/articles/pryvit-svit.jpg",
+  "assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
 ];
 
 const expectedSitemapRoutes = [

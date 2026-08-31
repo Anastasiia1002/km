@@ -279,6 +279,8 @@ export const articles = [
   {
     slug: "gps-monitoring-u-zakhidniy-ukraini",
     icon: "📍",
+    image: "/assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
+    imagePosition: "50% 48%",
     category: "Регіони",
     date: "Червень 2026",
     title: "GPS-моніторинг на заході України: чому локальний монтаж важливий",
