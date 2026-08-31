@@ -4658,10 +4658,11 @@ tr:last-child td {
 .article-card h3 {
   font-family: var(--font-display);
   font-size: 16px;
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: -0.02em;
   color: var(--navy);
   margin: 0;
+  flex-shrink: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -5166,11 +5167,15 @@ button {
   }
 
   .article-body-card {
-    padding: 8px 14px;
+    height: auto;
+    max-height: none;
+    min-height: 30%;
+    padding: 10px 14px 12px;
   }
 
   .article-card h3 {
     font-size: 15px;
+    line-height: 1.35;
   }
 
   .article-meta-hero {
@@ -5621,11 +5626,14 @@ button {
   }
 
   .article-body-card {
-    padding: 8px 12px;
+    height: auto;
+    max-height: none;
+    padding: 10px 12px 12px;
   }
 
   .article-card h3 {
     font-size: 15px;
+    line-height: 1.35;
     -webkit-line-clamp: 2;
   }
 
