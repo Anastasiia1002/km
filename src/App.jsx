@@ -2120,7 +2120,7 @@ function BlogPreview({ navigate }) {
           </button>
         </div>
         <div className="articles-grid">
-          {articles.slice(0, 4).map((article) => (
+          {articles.slice(0, 6).map((article) => (
             <ArticleCard key={article.slug} article={article} navigate={navigate} />
           ))}
         </div>
