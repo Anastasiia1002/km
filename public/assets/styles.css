@@ -4525,7 +4525,8 @@ tr:last-child td {
   border: 1px solid rgba(219, 220, 233, 0.95);
   border-radius: 22px;
   overflow: hidden;
-  background: #1c1c24;
+  background: transparent;
+  isolation: isolate;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
   transition:
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
@@ -4548,6 +4549,7 @@ tr:last-child td {
   display: grid;
   place-items: center;
   overflow: hidden;
+  border-radius: inherit;
   background-color: #464C6E;
   background-image: linear-gradient(135deg, #464C6E 0%, #6272BD 100%);
   background-size: 100% 100%;
@@ -4994,7 +4996,7 @@ button {
 }
 
 .articles-grid .article-card {
-  background: #1c1c24;
+  background: transparent;
 }
 
 .contact-card button {
