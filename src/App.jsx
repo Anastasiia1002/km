@@ -9,6 +9,11 @@ import { canPlacePhoneCall, telHref } from "./lib/phone.js";
 import { LEAD_BLOCKS, clearLeadContext, leadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
+import { InternalLink } from "./lib/InternalLink.jsx";
+import { pushEvent, trackPageView } from "./lib/analytics.js";
+import { homeKeywords, robotsMetaContent } from "./lib/seoConfig.js";
+import { faqJsonLd, homeFaq } from "./lib/seoPages.js";
+import { resolveLegacyRedirect } from "./lib/legacyRedirects.js";
 
 const routes = {
   home: "/",
@@ -34,15 +39,13 @@ function PhoneLink({ phone, className, children, onClick, ...rest }) {
   );
 }
 
-function pushEvent(event, payload = {}) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...payload });
-}
-
-function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null }) {
+function setMeta({ title, description, type = "website", path = "/", image = site.ogImage, jsonLd = null, keywords = null, robots = null }) {
   document.title = title;
   upsertMeta("description", description);
-  upsertMeta("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  upsertMeta("robots", robots || robotsMetaContent({ hostname: window.location.hostname }));
+  if (keywords?.length) {
+    upsertMeta("keywords", Array.isArray(keywords) ? keywords.join(", ") : keywords);
+  }
   upsertMeta("og:title", title, "property");
   upsertMeta("og:description", description, "property");
   upsertMeta("og:type", type, "property");
@@ -191,24 +194,24 @@ function App() {
   const page = useMemo(() => resolvePage(path), [path]);
 
   useEffect(() => {
-    const match = path.match(/^\/novyny\/([^/]+)\/$/);
-    if (!match) return;
-    const article = articles.find((item) => item.slug === match[1]);
-    if (!article) return;
-    const target = withBase(`/statti/${article.slug}/`);
+    if (page.type !== "redirect") return;
+    const redirectTo = page.to;
+    const target = withBase(redirectTo);
     window.history.replaceState({}, "", target);
+    if (redirectTo.includes("#")) {
+      const [nextPath, hash] = redirectTo.split("#");
+      setPath(normalizePath(nextPath || "/"));
+      window.setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 80);
+      return;
+    }
     setPath(normalizePath(new URL(target, window.location.origin).pathname));
-  }, [path]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
   useEffect(() => {
-    if (path !== "/statti/kontrol-palnoho/") return;
-    const target = withBase("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/");
-    window.history.replaceState({}, "", target);
-    setPath(normalizePath(new URL(target, window.location.origin).pathname));
-  }, [path]);
-
-  useEffect(() => {
+    if (page.type === "redirect") return;
     setMeta(page.meta);
+    trackPageView({ title: page.meta.title, path });
     pushEvent("page_view_init", { page_type: page.type, page_path: path });
     pushEvent("ViewContent", { page_type: page.type, page_path: path });
     if (page.type === "region") pushEvent("region_page_view", { region: page.data.city });
@@ -236,6 +239,9 @@ function App() {
 }
 
 function resolvePage(path) {
+  const redirected = resolveLegacyRedirect(path, articles.map((item) => item.slug));
+  if (redirected) return { type: "redirect", to: redirected };
+
   const region = regions.find((item) => path === `/${item.slug}/`);
   if (region) {
     return {
@@ -246,6 +252,7 @@ function resolvePage(path) {
         description: region.description,
         type: "website",
         path,
+        keywords: region.keys,
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -260,7 +267,8 @@ function resolvePage(path) {
             areaServed: region.oblast,
             url: absoluteUrl(`/${region.slug}/`),
           },
-        ],
+          region.faq?.length ? faqJsonLd(region.faq) : null,
+        ].filter(Boolean),
       },
     };
   }
@@ -275,6 +283,7 @@ function resolvePage(path) {
         description: industry.description,
         type: "website",
         path,
+        keywords: [industry.title, industry.name, "GPS моніторинг", "Wialon"],
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -301,6 +310,7 @@ function resolvePage(path) {
         description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків в Україні.",
         type: "website",
         path,
+        keywords: ["GPS моніторинг", "Wialon", "контроль пального", "статті"],
         jsonLd: breadcrumbJsonLd([
           { name: "Головна", path: "/" },
           { name: "Статті", path: "/statti/" },
@@ -320,7 +330,8 @@ function resolvePage(path) {
         description: article.description,
         type: "article",
         path: articlePath,
-        image: article.image ? `${site.baseUrl}${article.image}` : site.ogImage,
+        image: article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage,
+        keywords: [article.category, "GPS моніторинг", "Wialon"].filter(Boolean),
         jsonLd: [
           breadcrumbJsonLd([
             { name: "Головна", path: "/" },
@@ -332,7 +343,7 @@ function resolvePage(path) {
             "@type": "Article",
             headline: article.title,
             description: article.description,
-            image: article.image ? `${site.baseUrl}${article.image}` : site.ogImage,
+            image: article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage,
             datePublished: article.dateIso || article.date,
             articleSection: article.category,
             inLanguage: "uk-UA",
@@ -370,14 +381,29 @@ function resolvePage(path) {
     };
   }
 
+  if (path === "/" || path === "") {
+    return {
+      type: "home",
+      meta: {
+        title: "КМ Трейд — GPS-моніторинг автопарку в Україні | Wialon",
+        description:
+          "Авторизований партнер Wialon / Gurtam. GPS-моніторинг транспорту у 7 областях України. Офіс у місті Чернівці. Від 250 грн з моб.зв'язком, тест 14 днів, виїзд на монтаж.",
+        type: "website",
+        path: "/",
+        jsonLd: faqJsonLd(homeFaq),
+        keywords: homeKeywords,
+      },
+    };
+  }
+
   return {
-    type: "home",
+    type: "notfound",
     meta: {
-      title: "КМ Трейд — GPS-моніторинг автопарку в Україні | Wialon",
-      description:
-        "Авторизований партнер Wialon / Gurtam. GPS-моніторинг транспорту у 7 областях України. Офіс у місті Чернівці. Від 250 грн з моб.зв'язком, тест 14 днів, виїзд на монтаж.",
+      title: "Сторінку не знайдено — КМ Трейд",
+      description: "Цієї сторінки немає. Відкрийте головну КМ Трейд або розділ статей про GPS-моніторинг.",
       type: "website",
-      path: "/",
+      path,
+      robots: "noindex, follow",
       jsonLd: null,
     },
   };
@@ -390,6 +416,8 @@ function articleFromPath(path) {
 }
 
 function renderPage(page, navigate) {
+  if (page.type === "redirect") return null;
+  if (page.type === "notfound") return <NotFoundPage navigate={navigate} />;
   if (page.type === "region") return <RegionPage region={page.data} navigate={navigate} />;
   if (page.type === "industry") return <IndustryPage industry={page.data} navigate={navigate} />;
   if (page.type === "blog") return <BlogPage navigate={navigate} />;
@@ -734,7 +762,7 @@ function Header({ navigate }) {
 function Logo({ navigate, variant = "default" }) {
   const src = variant === "light" ? "/assets/logo-on-dark.png" : "/assets/logo-full.png";
   return (
-    <button className="logo logo-button" type="button" onClick={() => navigate("/")}>
+    <InternalLink className="logo logo-button" href="/" navigate={navigate} aria-label="КМ Трейд — на головну">
       <img
         className={`logo-img${variant === "light" ? " logo-img-light" : ""}`}
         src={withBase(src)}
@@ -742,7 +770,7 @@ function Logo({ navigate, variant = "default" }) {
         width="202"
         height="40"
       />
-    </button>
+    </InternalLink>
   );
 }
 
@@ -760,26 +788,9 @@ function Dropdown({ label, href, navigate, children }) {
 
 function NavLink({ href, navigate, children, className = "", onNavigate }) {
   return (
-    <a
-      className={`nav-link ${className}`.trim()}
-      href={withBase(href)}
-      onClick={(event) => {
-        event.preventDefault();
-        onNavigate?.();
-        if (href.includes("#")) {
-          const [path, hash] = href.split("#");
-          if (path && normalizePath(window.location.pathname) !== normalizePath(path)) {
-            navigate(href);
-            return;
-          }
-          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-          return;
-        }
-        navigate(href);
-      }}
-    >
+    <InternalLink className={`nav-link ${className}`.trim()} href={href} navigate={navigate} onNavigate={onNavigate}>
       {children}
-    </a>
+    </InternalLink>
   );
 }
 
@@ -801,6 +812,7 @@ function HomePage({ navigate }) {
       <Testimonials />
       <About />
       <Certificates />
+      <HomeFaq />
       <BlogPreview navigate={navigate} />
     </>
   );
@@ -1255,11 +1267,11 @@ function Industries({ navigate }) {
         <p className="subtitle">Вантажівки, агро, громадський транспорт, ЖКГ та інші напрями — окремі сценарії контролю й звіти Wialon.</p>
         <div className="industry-grid">
           {industries.map((item) => (
-            <button className="industry-card" type="button" key={item.slug} onClick={() => navigate(`/${item.slug}/`)}>
+            <InternalLink className="industry-card" href={`/${item.slug}/`} navigate={navigate} key={item.slug}>
               <span>{item.icon}</span>
               <b>{item.name}</b>
               <small>{item.short}</small>
-            </button>
+            </InternalLink>
           ))}
         </div>
       </div>
@@ -1268,7 +1280,23 @@ function Industries({ navigate }) {
 }
 
 function Regions({ navigate }) {
-  return <section className="section region-section" id="regions"><div className="container"><div className="tag">📍 Регіони</div><h2 className="title">Працюємо в західній Україні та Києві</h2><div className="region-grid">{regions.map((region) => <button className="region-card" type="button" key={region.slug} onClick={() => navigate(`/${region.slug}/`)}><b>{region.city}</b><span>{region.oblast}</span><small>Детальніше про регіон →</small></button>)}</div></div></section>;
+  return (
+    <section className="section region-section" id="regions">
+      <div className="container">
+        <div className="tag">📍 Регіони</div>
+        <h2 className="title">Працюємо в західній Україні та Києві</h2>
+        <div className="region-grid">
+          {regions.map((region) => (
+            <InternalLink className="region-card" href={`/${region.slug}/`} navigate={navigate} key={region.slug}>
+              <b>{region.city}</b>
+              <span>{region.oblast}</span>
+              <small>Детальніше про регіон →</small>
+            </InternalLink>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function HowItWorks() {
@@ -2112,6 +2140,23 @@ function ContactCard() {
   );
 }
 
+function HomeFaq() {
+  return (
+    <section className="section" id="faq">
+      <div className="container">
+        <div className="tag">Питання</div>
+        <h2 className="title">Часті питання про GPS-моніторинг</h2>
+        {homeFaq.map((item) => (
+          <div className="seo-faq" key={item.q}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function BlogPreview({ navigate }) {
   return (
     <section className="section blog-section" id="blog">
@@ -2122,9 +2167,9 @@ function BlogPreview({ navigate }) {
             <h2 className="title">Корисні матеріали про GPS</h2>
             <p className="subtitle blog-subtitle">Короткі статті про пальне, Wialon і контроль автопарку — без зайвого жаргону.</p>
           </div>
-          <button className="btn btn-outline" type="button" onClick={() => navigate("/statti/")}>
+          <InternalLink className="btn btn-outline" href="/statti/" navigate={navigate}>
             Всі статті →
-          </button>
+          </InternalLink>
         </div>
         <div className="articles-grid">
           {articles.slice(0, 4).map((article) => (
@@ -2142,9 +2187,9 @@ function RegionPage({ region, navigate }) {
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <InternalLink href="/" navigate={navigate}>Головна</InternalLink>
             <span>›</span>
-            <button type="button" onClick={() => navigate("/#regions")}>Регіони</button>
+            <InternalLink href="/#regions" navigate={navigate}>Регіони</InternalLink>
             <span>›</span>
             {region.city}
           </div>
@@ -2169,23 +2214,43 @@ function RegionPage({ region, navigate }) {
               <p>
                 КМ Трейд працює з автопарками від 3 авто: логістика, агро, будтехніка, таксі, доставка і корпоративний транспорт. Ми не просто продаємо трекер — встановлюємо, налаштовуємо Wialon, навчаємо диспетчера і допомагаємо читати звіти.
               </p>
+              {(region.seo || []).map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
+              {region.areas ? (
+                <>
+                  <h2>Куди виїжджаємо {region.inCity}</h2>
+                  <p>{region.areas}.</p>
+                </>
+              ) : null}
               <h2>Чому локальний партнер важливий</h2>
               <p>
                 Якщо обладнання потрібно встановити або перевірити терміново, локальна команда реагує швидше за провайдера з іншого регіону. Ваш автопарк не простоює — техпідтримка враховує специфіку маршруту і техніки.
               </p>
+              {region.faq?.length ? (
+                <>
+                  <h2>Питання про GPS {region.inCity}</h2>
+                  {region.faq.map((item) => (
+                    <div className="seo-faq" key={item.q}>
+                      <h3>{item.q}</h3>
+                      <p>{item.a}</p>
+                    </div>
+                  ))}
+                </>
+              ) : null}
               <CtaBox title={`Підключити автопарк ${region.inCity}`} />
               <h2>Рішення для регіону</h2>
               <div className="related-articles">
                 {industries.slice(0, 4).map((item) => (
-                  <button
+                  <InternalLink
                     className="related-card"
-                    type="button"
+                    href={`/${item.slug}/`}
+                    navigate={navigate}
                     key={item.slug}
-                    onClick={() => navigate(`/${item.slug}/`)}
                   >
                     <span>{item.icon}</span>
                     <b>{item.name}</b>
-                  </button>
+                  </InternalLink>
                 ))}
               </div>
             </main>
@@ -2206,7 +2271,7 @@ function IndustryPage({ industry, navigate }) {
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <InternalLink href="/" navigate={navigate}>Головна</InternalLink>
             <span>›</span>
             {industry.name}
           </div>
@@ -2217,9 +2282,9 @@ function IndustryPage({ industry, navigate }) {
             <button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_BLOCKS.BANNER)}>
               Спробувати 14 днів →
             </button>
-            <button className="btn btn-outline" type="button" onClick={() => navigate("/#calc")}>
+            <InternalLink className="btn btn-outline" href="/#calc" navigate={navigate}>
               Порахувати економію
-            </button>
+            </InternalLink>
           </div>
         </div>
       </section>
@@ -2243,8 +2308,24 @@ function IndustryPage({ industry, navigate }) {
               <p>
                 Ми підбираємо трекер і датчики під конкретну техніку, монтуємо без тривалої зупинки роботи, налаштовуємо Wialon, геозони, сповіщення і звіти для керівника, диспетчера або бухгалтера.
               </p>
+              {(industry.seo || []).map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
               <h2>Покриття</h2>
-              <p>Виїжджаємо у Чернівецьку, Івано-Франківську, Тернопільську та Хмельницьку області.</p>
+              <p>Виїжджаємо у {regionOblastsLine}.</p>
+              <div className="related-articles">
+                {regions.slice(0, 4).map((region) => (
+                  <InternalLink
+                    className="related-card"
+                    href={`/${region.slug}/`}
+                    navigate={navigate}
+                    key={region.slug}
+                  >
+                    <span>📍</span>
+                    <b>{region.city}</b>
+                  </InternalLink>
+                ))}
+              </div>
               <CtaBox title={`${industry.title} — тест 14 днів`} />
             </main>
             <aside className="sidebar">
@@ -2264,7 +2345,7 @@ function BlogPage({ navigate }) {
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <InternalLink href="/" navigate={navigate}>Головна</InternalLink>
             <span>›</span>
             Статті
           </div>
@@ -2299,9 +2380,9 @@ function ArticlePage({ article, navigate }) {
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <InternalLink href="/" navigate={navigate}>Головна</InternalLink>
             <span>›</span>
-            <button type="button" onClick={() => navigate("/statti/")}>Статті</button>
+            <InternalLink href="/statti/" navigate={navigate}>Статті</InternalLink>
             <span>›</span>
             {article.category}
           </div>
@@ -2344,15 +2425,15 @@ function ArticlePage({ article, navigate }) {
               <h2>Читайте також</h2>
               <div className="related-articles">
                 {related.map((item) => (
-                  <button
+                  <InternalLink
                     className="related-card"
-                    type="button"
+                    href={`/statti/${item.slug}/`}
+                    navigate={navigate}
                     key={item.slug}
-                    onClick={() => navigate(`/statti/${item.slug}/`)}
                   >
                     <span>{item.icon}</span>
                     <b>{item.title}</b>
-                  </button>
+                  </InternalLink>
                 ))}
               </div>
             </main>
@@ -2373,7 +2454,7 @@ function LegalPage({ title, kind, navigate }) {
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>Головна</button>
+            <InternalLink href="/" navigate={navigate}>Головна</InternalLink>
             <span>›</span>
             {title}
           </div>
@@ -2395,19 +2476,19 @@ function LegalPage({ title, kind, navigate }) {
 function ArticleCard({ article, navigate }) {
   const cover = article.image ? withBase(article.image) : null;
   return (
-    <button className="article-card" type="button" onClick={() => navigate(`/statti/${article.slug}/`)}>
-      <div className={`article-img${cover ? " has-photo" : ""}`} aria-hidden="true">
+    <InternalLink className="article-card" href={`/statti/${article.slug}/`} navigate={navigate}>
+      <div className={`article-img${cover ? " has-photo" : ""}`}>
         {cover ? (
           <img
             className="article-img-photo"
             src={cover}
-            alt=""
+            alt={article.title}
             loading="lazy"
             decoding="async"
             style={article.imagePosition ? { objectPosition: article.imagePosition } : undefined}
           />
         ) : (
-          <span className="article-img-icon">{article.icon}</span>
+          <span className="article-img-icon" aria-hidden="true">{article.icon}</span>
         )}
       </div>
       <div className="article-body-card">
@@ -2422,7 +2503,7 @@ function ArticleCard({ article, navigate }) {
           <span aria-hidden="true">→</span>
         </span>
       </div>
-    </button>
+    </InternalLink>
   );
 }
 
@@ -2489,7 +2570,7 @@ function Footer({ navigate }) {
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
           <div className="footer-divider" />
-          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><button type="button" onClick={() => navigate("/oferta/")}>Оферта</button><button type="button" onClick={() => navigate("/konfidentsiynist/")}>Конфіденційність</button></div></div>
+          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink><InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink></div></div>
         </div>
       </footer>
       <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_BLOCKS.STICKY_CTA)}>Залишити заявку</button></div>
@@ -2498,7 +2579,32 @@ function Footer({ navigate }) {
 }
 
 function FooterColumn({ title, items, navigate }) {
-  return <div><div className="footer-col-title">{title}</div><div className="footer-links">{items.map(([label, href]) => <button type="button" key={href} onClick={() => navigate(href)}>{label}</button>)}</div></div>;
+  return (
+    <div>
+      <div className="footer-col-title">{title}</div>
+      <div className="footer-links">
+        {items.map(([label, href]) => (
+          <InternalLink href={href} navigate={navigate} key={href}>{label}</InternalLink>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function NotFoundPage({ navigate }) {
+  return (
+    <section className="page-hero">
+      <div className="container">
+        <div className="tag">404</div>
+        <h1 className="title title-lg">Сторінку не знайдено</h1>
+        <p className="subtitle">Адреса могла залишитися зі старого сайту. Відкрийте головну або статті про GPS-моніторинг.</p>
+        <div className="hero-actions">
+          <InternalLink className="btn btn-primary" href="/" navigate={navigate}>На головну</InternalLink>
+          <InternalLink className="btn btn-outline" href="/statti/" navigate={navigate}>Статті</InternalLink>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function scrollToForm(block = LEAD_BLOCKS.TRIAL_FORM) {
