@@ -16,6 +16,13 @@ const requiredPublicFiles = [
   "assets/articles/yak-pereviryty-vodiya-gps.jpg",
   "assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg",
   "assets/articles/okupnist-gps-monitoringu.jpg",
+  "assets/articles/kontrol-palnoho.jpg",
+  "assets/articles/shcho-take-wialon.jpg",
+  "assets/articles/shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent.jpg",
+  "assets/articles/optymizatsiia-karsherynhu.jpg",
+  "assets/articles/aktsiia-dytyna-pid-kontrolem.jpg",
+  "assets/articles/novyj-rejtynh-vid-gurtam.jpg",
+  "assets/articles/pryvit-svit.jpg",
 ];
 
 const expectedSitemapRoutes = [

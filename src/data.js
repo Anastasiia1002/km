@@ -235,6 +235,8 @@ export const articles = [
   {
     slug: "kontrol-palnoho",
     icon: "⛽",
+    image: "/assets/articles/kontrol-palnoho.jpg",
+    imagePosition: "50% 48%",
     category: "Пальне",
     date: "Квітень 2026",
     title: "Як зупинити злив пального: покроковий гід для власника автопарку",
@@ -244,6 +246,8 @@ export const articles = [
   {
     slug: "shcho-take-wialon",
     icon: "🛰",
+    image: "/assets/articles/shcho-take-wialon.jpg",
+    imagePosition: "50% 42%",
     category: "Технологія",
     date: "Березень 2026",
     title: "Що таке Wialon і чому його обирають для GPS-моніторингу",
