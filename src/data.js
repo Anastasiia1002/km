@@ -233,17 +233,6 @@ export const industries = [
 
 export const articles = [
   {
-    slug: "kontrol-palnoho",
-    icon: "⛽",
-    image: "/assets/articles/kontrol-palnoho.jpg",
-    imagePosition: "50% 48%",
-    category: "Пальне",
-    date: "Квітень 2026",
-    title: "Як зупинити злив пального: покроковий гід для власника автопарку",
-    description: "Як виявити і зупинити злив пального за допомогою GPS, датчиків рівня пального, геозон і звітів Wialon.",
-    excerpt: "Реальні способи виявлення та запобігання несанкціонованим зливам пального.",
-  },
-  {
     slug: "shcho-take-wialon",
     icon: "🛰",
     image: "/assets/articles/shcho-take-wialon.jpg",

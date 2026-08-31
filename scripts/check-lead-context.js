@@ -15,7 +15,6 @@ import { normalizeLead, sanitizeLead } from "../server/processLead.js";
 assert.equal(resolvePageLabel("/"), "Головна");
 assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
 assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці");
-assert.equal(resolvePageLabel("/statti/kontrol-palnoho/"), "Пальне");
 assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Пальне");
 assert.equal(resolvePageLabel("/novyny/optymizatsiia-karsherynhu/"), "Бізнес");
 assert.equal(resolvePageLabel("/oferta/"), "Оферта");
@@ -45,7 +44,7 @@ assert.equal(sanitizeLead(lead).context, "Доставка / Банер");
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
 assert.equal(importedArticles.length, 9);
-assert.equal(articles.length, 15);
+assert.equal(articles.length, 14);
 const slugs = articles.map((item) => item.slug);
 assert.equal(new Set(slugs).size, slugs.length);
 for (const item of importedArticles) {

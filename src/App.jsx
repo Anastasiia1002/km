@@ -201,6 +201,13 @@ function App() {
   }, [path]);
 
   useEffect(() => {
+    if (path !== "/statti/kontrol-palnoho/") return;
+    const target = withBase("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/");
+    window.history.replaceState({}, "", target);
+    setPath(normalizePath(new URL(target, window.location.origin).pathname));
+  }, [path]);
+
+  useEffect(() => {
     setMeta(page.meta);
     pushEvent("page_view_init", { page_type: page.type, page_path: path });
     pushEvent("ViewContent", { page_type: page.type, page_path: path });

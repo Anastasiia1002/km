@@ -18,6 +18,8 @@ export const importedArticles = [
   {
     "slug": "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
     "icon": "⛽",
+    "image": "/assets/articles/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho.jpg",
+    "imagePosition": "50% 48%",
     "category": "Пальне",
     "date": "Жовтень 2024",
     "dateIso": "2024-10-14",

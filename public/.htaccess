@@ -11,6 +11,8 @@
   # Never send client-nexus-portal into the SPA
   RewriteRule ^client-nexus-portal(?:/|$) - [L]
 
+  RewriteRule ^statti/kontrol-palnoho/?$ /statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/ [R=301,L]
+
   # React Router fallback
   RewriteRule ^ index.html [L]
 </IfModule>
