@@ -8,7 +8,9 @@
       name="description"
       content="Авторизований партнер Wialon / Gurtam. GPS-моніторинг транспорту у 7 областях України. Офіс у місті Чернівці. Від 250 грн з моб.зв'язком, тест 14 днів, виїзд на монтаж."
     />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content="%ROBOTS_CONTENT%" />
+    <meta name="google-site-verification" content="%GOOGLE_SITE_VERIFICATION%" />
+    <meta name="keywords" content="%HOME_KEYWORDS%" />
     <meta name="author" content="КМ Трейд" />
     <meta name="theme-color" content="#6272BD" />
     <meta name="geo.region" content="UA-77" />
@@ -46,7 +48,7 @@
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="/assets/styles.css?v=article-card-title-mobile" />
+    <link rel="stylesheet" href="/assets/styles.css?v=seo-crawl-2" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -59,7 +61,11 @@
             "logo": "https://km-trade.net/assets/logo-full.png",
             "email": "gps@km-trade.net",
             "telephone": ["+380950584385", "+380961584385"],
-            "sameAs": ["https://anastasiia1002.github.io/km/"]
+            "sameAs": [
+              "https://www.instagram.com/km_trade__monitoring",
+              "https://www.facebook.com/gps.kmtrade",
+              "https://t.me/KM_trade1"
+            ]
           },
           {
             "@type": "LocalBusiness",
@@ -100,8 +106,14 @@
         ]
       }
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%GA_MEASUREMENT_ID%"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "%GA_MEASUREMENT_ID%", { send_page_view: false });
     </script>
     <script type="text/javascript">
       (function (locationRef) {
