@@ -4490,7 +4490,7 @@ tr:last-child td {
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
   margin-top: 36px;
 }
@@ -4512,7 +4512,9 @@ tr:last-child td {
 
 .article-card {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(340px, 1fr);
+  min-height: 360px;
   width: 100%;
   padding: 0;
   text-align: left;
@@ -4522,7 +4524,7 @@ tr:last-child td {
   border: 1px solid rgba(219, 220, 233, 0.95);
   border-radius: 22px;
   overflow: hidden;
-  background: #fff;
+  background: #1c1c24;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
   transition:
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
@@ -4539,8 +4541,10 @@ tr:last-child td {
 }
 
 .article-img {
+  grid-area: 1 / 1;
   position: relative;
-  height: 148px;
+  min-height: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -4615,11 +4619,17 @@ tr:last-child td {
 }
 
 .article-body-card {
+  grid-area: 1 / 1;
+  z-index: 1;
+  align-self: end;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 0;
-  padding: 22px 22px 20px;
+  padding: 18px 20px 18px;
   min-height: 0;
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .article-meta {
@@ -4985,6 +4995,10 @@ button {
   width: 100%;
 }
 
+.articles-grid .article-card {
+  background: #1c1c24;
+}
+
 .contact-card button {
   width: 100%;
 }
@@ -5128,7 +5142,7 @@ button {
   }
 
   .articles-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
     margin-top: 0;
   }
@@ -5139,10 +5153,8 @@ button {
 
   .article-card {
     border-radius: 18px;
-  }
-
-  .article-img {
-    height: 132px;
+    min-height: 300px;
+    grid-template-rows: minmax(300px, 1fr);
   }
 
   .article-cover {
@@ -5401,16 +5413,11 @@ button {
 
   .related-articles,
   .articles-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .related-articles,
-  .articles-grid {
-    grid-template-columns: 1fr;
-  }
-
   .cases-track {
     gap: 12px;
     margin-top: 22px;
@@ -5618,8 +5625,9 @@ button {
     line-height: 1.6;
   }
 
-  .article-img {
-    height: 120px;
+  .article-card {
+    min-height: 280px;
+    grid-template-rows: minmax(280px, 1fr);
   }
 
   .article-body-card {
