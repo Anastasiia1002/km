@@ -4490,7 +4490,7 @@ tr:last-child td {
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
   margin-top: 36px;
 }
@@ -5128,7 +5128,7 @@ button {
   }
 
   .articles-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
     margin-top: 0;
   }
@@ -5401,11 +5401,16 @@ button {
 
   .related-articles,
   .articles-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
+  .related-articles,
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cases-track {
     gap: 12px;
     margin-top: 22px;
