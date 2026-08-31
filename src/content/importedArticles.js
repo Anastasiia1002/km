@@ -3,6 +3,8 @@ export const importedArticles = [
   {
     "slug": "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent",
     "icon": "🌍",
+    "image": "/assets/articles/shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent.jpg",
+    "imagePosition": "50% 50%",
     "category": "Міжнародні",
     "date": "Листопад 2024",
     "dateIso": "2024-11-11",
@@ -29,6 +31,8 @@ export const importedArticles = [
   {
     "slug": "optymizatsiia-karsherynhu",
     "icon": "🚗",
+    "image": "/assets/articles/optymizatsiia-karsherynhu.jpg",
+    "imagePosition": "50% 50%",
     "category": "Бізнес",
     "date": "Жовтень 2024",
     "dateIso": "2024-10-14",
@@ -57,7 +61,7 @@ export const importedArticles = [
   {
     "slug": "zchytuvannia-danykh-z-takhohrafa",
     "icon": "⏱",
-    "image": "/assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg?v=2",
+    "image": "/assets/articles/zchytuvannia-danykh-z-takhohrafa.jpg?v=3",
     "imagePosition": "50% 40%",
     "category": "Технологія",
     "date": "Жовтень 2024",
@@ -72,6 +76,8 @@ export const importedArticles = [
   {
     "slug": "aktsiia-dytyna-pid-kontrolem",
     "icon": "📱",
+    "image": "/assets/articles/aktsiia-dytyna-pid-kontrolem.jpg",
+    "imagePosition": "50% 40%",
     "category": "Новини",
     "date": "Серпень 2024",
     "dateIso": "2024-08-23",
@@ -85,7 +91,8 @@ export const importedArticles = [
   {
     "slug": "hotuiemos-do-ahrosezonu",
     "icon": "🌾",
-    "image": "/assets/articles/hotuiemos-do-ahrosezonu.jpg",
+    "image": "/assets/articles/hotuiemos-do-ahrosezonu.jpg?v=2",
+    "imagePosition": "50% 50%",
     "category": "Агро",
     "date": "Серпень 2024",
     "dateIso": "2024-08-23",
@@ -99,6 +106,8 @@ export const importedArticles = [
   {
     "slug": "novyj-rejtynh-vid-gurtam",
     "icon": "🛰",
+    "image": "/assets/articles/novyj-rejtynh-vid-gurtam.jpg",
+    "imagePosition": "50% 50%",
     "category": "Технологія",
     "date": "Серпень 2024",
     "dateIso": "2024-08-23",
@@ -112,6 +121,8 @@ export const importedArticles = [
   {
     "slug": "pryvit-svit",
     "icon": "🌾",
+    "image": "/assets/articles/pryvit-svit.jpg",
+    "imagePosition": "50% 48%",
     "category": "Агро",
     "date": "Серпень 2024",
     "dateIso": "2024-08-23",
