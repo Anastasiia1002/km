@@ -25,6 +25,7 @@ const requiredPublicFiles = [
   "assets/articles/novyj-rejtynh-vid-gurtam.jpg",
   "assets/articles/pryvit-svit.jpg",
   "assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
+  "assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
 ];
 
 const expectedSitemapRoutes = [

@@ -3,8 +3,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-rishennya-dlya-mizhnarodnykh-perevezen",
     "icon": "🌍",
-    "image": "/assets/articles/shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent.jpg",
-    "imagePosition": "50% 50%",
+    "image": "/assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
+    "imagePosition": "46% 50%",
     "category": "Міжнародні",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
