@@ -12,7 +12,8 @@ import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
 import { InternalLink } from "./lib/InternalLink.jsx";
 import { pushEvent, trackPageView } from "./lib/analytics.js";
 import { homeKeywords, robotsMetaContent } from "./lib/seoConfig.js";
-import { faqJsonLd, homeFaq } from "./lib/seoPages.js";
+import { articleSeo, blogSeo, faqJsonLd, homeFaq, industrySeo, regionSeo } from "./lib/seoPages.js";
+import { articlesForIndustry, industryForArticle, relatedArticlesFor } from "./lib/seoRelations.js";
 import { resolveLegacyRedirect } from "./lib/legacyRedirects.js";
 
 const routes = {
@@ -75,24 +76,6 @@ function upsertJsonLd(id, data) {
     document.head.appendChild(tag);
   }
   tag.textContent = JSON.stringify(data);
-}
-
-function absoluteUrl(path = "/") {
-  if (!path || path === "/") return `${site.baseUrl}/`;
-  return `${site.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
-}
-
-function breadcrumbJsonLd(items) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: absoluteUrl(item.path),
-    })),
-  };
 }
 
 function upsertMeta(name, content, attr = "name") {
@@ -244,120 +227,21 @@ function resolvePage(path) {
 
   const region = regions.find((item) => path === `/${item.slug}/`);
   if (region) {
-    return {
-      type: "region",
-      data: region,
-      meta: {
-        title: `${region.title} — КМ Трейд Wialon`,
-        description: region.description,
-        type: "website",
-        path,
-        keywords: region.keys,
-        jsonLd: [
-          breadcrumbJsonLd([
-            { name: "Головна", path: "/" },
-            { name: region.city, path: `/${region.slug}/` },
-          ]),
-          {
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: region.title,
-            description: region.description,
-            provider: { "@type": "LocalBusiness", name: site.name, url: site.baseUrl },
-            areaServed: region.oblast,
-            url: absoluteUrl(`/${region.slug}/`),
-          },
-          region.faq?.length ? faqJsonLd(region.faq) : null,
-        ].filter(Boolean),
-      },
-    };
+    return { type: "region", data: region, meta: regionSeo(region) };
   }
 
-  const industry = industries.find((item) => path === `/${item.slug}/`);
+  const industry = industries.find((item) => path === `/${industry.slug}/`);
   if (industry) {
-    return {
-      type: "industry",
-      data: industry,
-      meta: {
-        title: `${industry.title} — КМ Трейд`,
-        description: industry.description,
-        type: "website",
-        path,
-        keywords: [industry.title, industry.name, "GPS моніторинг", "Wialon"],
-        jsonLd: [
-          breadcrumbJsonLd([
-            { name: "Головна", path: "/" },
-            { name: industry.name, path: `/${industry.slug}/` },
-          ]),
-          {
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: industry.title,
-            description: industry.description,
-            provider: { "@type": "Organization", name: site.name, url: site.baseUrl },
-            url: absoluteUrl(`/${industry.slug}/`),
-          },
-        ],
-      },
-    };
+    return { type: "industry", data: industry, meta: industrySeo(industry) };
   }
 
   if (path === routes.blog) {
-    return {
-      type: "blog",
-      meta: {
-        title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
-        description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків в Україні.",
-        type: "website",
-        path,
-        keywords: ["GPS моніторинг", "Wialon", "контроль пального", "статті"],
-        jsonLd: breadcrumbJsonLd([
-          { name: "Головна", path: "/" },
-          { name: "Статті", path: "/statti/" },
-        ]),
-      },
-    };
+    return { type: "blog", meta: blogSeo() };
   }
 
   const article = articleFromPath(path);
   if (article) {
-    const articlePath = `/statti/${article.slug}/`;
-    return {
-      type: "article",
-      data: article,
-      meta: {
-        title: `${article.title} — КМ Трейд`,
-        description: article.description,
-        type: "article",
-        path: articlePath,
-        image: article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage,
-        keywords: [article.category, "GPS моніторинг", "Wialon"].filter(Boolean),
-        jsonLd: [
-          breadcrumbJsonLd([
-            { name: "Головна", path: "/" },
-            { name: "Статті", path: "/statti/" },
-            { name: article.title, path: articlePath },
-          ]),
-          {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: article.title,
-            description: article.description,
-            image: article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage,
-            datePublished: article.dateIso || article.date,
-            articleSection: article.category,
-            inLanguage: "uk-UA",
-            author: { "@type": "Organization", name: site.name },
-            publisher: {
-              "@type": "Organization",
-              name: site.name,
-              logo: { "@type": "ImageObject", url: site.ogImage },
-            },
-            mainEntityOfPage: absoluteUrl(articlePath),
-          },
-        ],
-      },
-    };
+    return { type: "article", data: article, meta: articleSeo(article) };
   }
 
   if (path === "/oferta/" || path === "/konfidentsiynist/") {
@@ -373,10 +257,6 @@ function resolvePage(path) {
           : "Політика конфіденційності КМ Трейд: збір, обробка та захист персональних даних користувачів сайту.",
         type: "website",
         path,
-        jsonLd: breadcrumbJsonLd([
-          { name: "Головна", path: "/" },
-          { name: title, path },
-        ]),
       },
     };
   }
@@ -2266,6 +2146,7 @@ function RegionPage({ region, navigate }) {
 }
 
 function IndustryPage({ industry, navigate }) {
+  const relatedArticles = articlesForIndustry(industry);
   return (
     <>
       <section className="page-hero">
@@ -2326,6 +2207,24 @@ function IndustryPage({ industry, navigate }) {
                   </InternalLink>
                 ))}
               </div>
+              {relatedArticles.length ? (
+                <>
+                  <h2>Статті за цим напрямом</h2>
+                  <div className="related-articles">
+                    {relatedArticles.map((item) => (
+                      <InternalLink
+                        className="related-card"
+                        href={`/statti/${item.slug}/`}
+                        navigate={navigate}
+                        key={item.slug}
+                      >
+                        <span>{item.icon}</span>
+                        <b>{item.title}</b>
+                      </InternalLink>
+                    ))}
+                  </div>
+                </>
+              ) : null}
               <CtaBox title={`${industry.title} — тест 14 днів`} />
             </main>
             <aside className="sidebar">
@@ -2351,7 +2250,7 @@ function BlogPage({ navigate }) {
           </div>
           <div className="tag">📚 Блог</div>
           <h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1>
-          <p className="subtitle">Практичні матеріали про контроль пального, Wialon, окупність GPS і роботу автопарку.</p>
+          <p className="subtitle">Практичні матеріали про GPS-моніторинг: бензовози, каршеринг, агро, спецтехніка, міжнародні рейси і Wialon.</p>
         </div>
       </section>
       <section className="section blog-listing">
@@ -2369,10 +2268,8 @@ function BlogPage({ navigate }) {
 }
 
 function ArticlePage({ article, navigate }) {
-  const related = [
-    ...articles.filter((item) => item.slug !== article.slug && item.category === article.category),
-    ...articles.filter((item) => item.slug !== article.slug && item.category !== article.category),
-  ].slice(0, 3);
+  const related = relatedArticlesFor(article);
+  const industry = industryForArticle(article);
   const readTime = article.readTime || "5 хв читання";
 
   return (
@@ -2422,6 +2319,17 @@ function ArticlePage({ article, navigate }) {
                 </>
               )}
               <CtaBox title="Хочете перевірити це на своєму автопарку?" />
+              {industry ? (
+                <>
+                  <h2>Рішення для цього напряму</h2>
+                  <div className="related-articles">
+                    <InternalLink className="related-card" href={`/${industry.slug}/`} navigate={navigate}>
+                      <span>{industry.icon}</span>
+                      <b>{industry.title}</b>
+                    </InternalLink>
+                  </div>
+                </>
+              ) : null}
               <h2>Читайте також</h2>
               <div className="related-articles">
                 {related.map((item) => (

@@ -1,6 +1,11 @@
 import { articles, industries, regions, site } from "../data.js";
 import { homeKeywords } from "./seoConfig.js";
 
+function absoluteUrl(path = "/") {
+  if (!path || path === "/") return `${site.baseUrl}/`;
+  return `${site.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 function faqJsonLd(items) {
   return {
     "@context": "https://schema.org",
@@ -10,6 +15,118 @@ function faqJsonLd(items) {
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
+  };
+}
+
+function breadcrumbJsonLd(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function articleKeywords(article) {
+  if (Array.isArray(article.keywords) && article.keywords.length) return article.keywords;
+  return [article.category, "GPS моніторинг", "Wialon"].filter(Boolean);
+}
+
+export function articleImageUrl(article) {
+  return article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage;
+}
+
+export function articleSeo(article) {
+  const path = `/statti/${article.slug}/`;
+  const image = articleImageUrl(article);
+  const published = article.dateIso || undefined;
+  return {
+    path,
+    title: `${article.title} — КМ Трейд`,
+    description: article.description,
+    type: "article",
+    image,
+    keywords: articleKeywords(article),
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: "Статті", path: "/statti/" },
+        { name: article.title, path },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: article.title,
+        description: article.description,
+        image,
+        ...(published ? { datePublished: published, dateModified: published } : {}),
+        articleSection: article.category,
+        inLanguage: "uk-UA",
+        author: { "@type": "Organization", name: site.name },
+        publisher: {
+          "@type": "Organization",
+          name: site.name,
+          logo: { "@type": "ImageObject", url: site.ogImage },
+        },
+        mainEntityOfPage: absoluteUrl(path),
+      },
+    ],
+  };
+}
+
+export function regionSeo(region) {
+  const path = `/${region.slug}/`;
+  return {
+    path,
+    title: `${region.title} — КМ Трейд Wialon`,
+    description: region.description,
+    type: "website",
+    keywords: region.keys,
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: region.city, path },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: region.title,
+        description: region.description,
+        provider: { "@type": "LocalBusiness", name: site.name, url: site.baseUrl },
+        areaServed: region.oblast,
+        url: absoluteUrl(path),
+      },
+      region.faq?.length ? faqJsonLd(region.faq) : null,
+    ].filter(Boolean),
+  };
+}
+
+export function industrySeo(industry) {
+  const path = `/${industry.slug}/`;
+  return {
+    path,
+    title: `${industry.title} — КМ Трейд`,
+    description: industry.description,
+    type: "website",
+    keywords: [industry.title, industry.name, "GPS моніторинг", "Wialon"],
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: industry.name, path },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: industry.title,
+        description: industry.description,
+        provider: { "@type": "Organization", name: site.name, url: site.baseUrl },
+        url: absoluteUrl(path),
+      },
+    ],
   };
 }
 
@@ -28,6 +145,34 @@ const homeFaq = [
   },
 ];
 
+const blogKeywords = ["GPS моніторинг", "Wialon", "контроль пального", "статті", "бензовози", "сільгосптехніка"];
+const blogDescription =
+  "Практичні статті про GPS-моніторинг: бензовози, каршеринг, агро, спецтехніка, міжнародні рейси, Wialon і контроль пального.";
+
+export function blogSeo() {
+  return {
+    path: "/statti/",
+    title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
+    description: blogDescription,
+    keywords: blogKeywords,
+    type: "website",
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: "Статті", path: "/statti/" },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Статті про GPS-моніторинг транспорту",
+        description: blogDescription,
+        url: absoluteUrl("/statti/"),
+        inLanguage: "uk-UA",
+      },
+    ],
+  };
+}
+
 export function listSeoPages() {
   const pages = [
     {
@@ -39,60 +184,42 @@ export function listSeoPages() {
       type: "website",
       jsonLd: faqJsonLd(homeFaq),
     },
-    {
-      path: "/statti/",
-      title: "Статті про GPS-моніторинг транспорту — КМ Трейд",
-      description: "Практичні статті про Wialon, контроль пального, GPS для агро, вантажівок і автопарків в Україні.",
-      keywords: ["GPS моніторинг", "Wialon", "контроль пального", "статті"],
-      type: "website",
-    },
+    blogSeo(),
     {
       path: "/oferta/",
       title: "Оферта — КМ Трейд",
       description: "Договір публічної оферти на платне надання послуг GPS моніторингу КМ Трейд.",
       type: "website",
+      jsonLd: breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: "Оферта", path: "/oferta/" },
+      ]),
     },
     {
       path: "/konfidentsiynist/",
       title: "Політика конфіденційності — КМ Трейд",
       description: "Політика конфіденційності КМ Трейд: збір, обробка та захист персональних даних користувачів сайту.",
       type: "website",
+      jsonLd: breadcrumbJsonLd([
+        { name: "Головна", path: "/" },
+        { name: "Політика конфіденційності", path: "/konfidentsiynist/" },
+      ]),
     },
   ];
 
   for (const region of regions) {
-    pages.push({
-      path: `/${region.slug}/`,
-      title: `${region.title} — КМ Трейд Wialon`,
-      description: region.description,
-      keywords: region.keys,
-      type: "website",
-      jsonLd: region.faq?.length ? faqJsonLd(region.faq) : null,
-    });
+    pages.push(regionSeo(region));
   }
 
   for (const industry of industries) {
-    pages.push({
-      path: `/${industry.slug}/`,
-      title: `${industry.title} — КМ Трейд`,
-      description: industry.description,
-      keywords: [industry.title, industry.name, "GPS моніторинг", "Wialon"],
-      type: "website",
-    });
+    pages.push(industrySeo(industry));
   }
 
   for (const article of articles) {
-    pages.push({
-      path: `/statti/${article.slug}/`,
-      title: `${article.title} — КМ Трейд`,
-      description: article.description,
-      keywords: [article.category, "GPS моніторинг", "Wialon"].filter(Boolean),
-      type: "article",
-      image: article.image ? `${site.baseUrl}${article.image.split("?")[0]}` : site.ogImage,
-    });
+    pages.push(articleSeo(article));
   }
 
   return pages;
 }
 
-export { faqJsonLd, homeFaq };
+export { faqJsonLd, homeFaq, breadcrumbJsonLd, absoluteUrl, blogKeywords, blogDescription };

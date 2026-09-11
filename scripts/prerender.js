@@ -37,6 +37,7 @@ function injectPage(html, page) {
   next = replaceAttr(next, "property", "og:url", url);
   next = replaceAttr(next, "property", "og:type", page.type || "website");
   next = replaceAttr(next, "property", "og:image", image);
+  next = replaceAttr(next, "property", "og:image:alt", page.title);
   next = replaceAttr(next, "name", "twitter:title", page.title);
   next = replaceAttr(next, "name", "twitter:description", page.description);
   next = replaceAttr(next, "name", "twitter:image", image);

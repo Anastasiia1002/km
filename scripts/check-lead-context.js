@@ -55,9 +55,13 @@ for (const item of [...importedArticles, ...googleDocArticles]) {
   assert.ok(item.html && item.html.includes("<p>"), `${item.slug} is missing HTML content`);
   assert.ok(item.dateIso, `${item.slug} is missing dateIso`);
 }
+for (const item of articles) {
+  assert.ok(!item.description.endsWith("…"), `${item.slug} has a truncated SEO description`);
+}
 for (const item of googleDocArticles) {
   assert.equal(item.source, "google-doc");
   assert.ok(item.html.includes("<h2>Висновок</h2>"), `${item.slug} is missing conclusion heading`);
+  assert.ok(item.keywords?.length >= 4, `${item.slug} is missing topic keywords`);
 }
 
 const blocks = Object.values(LEAD_BLOCKS);

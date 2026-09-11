@@ -148,6 +148,17 @@ for (const page of seoPages) {
   if (!pageHtml.includes(`https://km-trade.net${page.path === "/" ? "/" : page.path}`)) {
     throw new Error(`${relative} is missing canonical for ${page.path}`);
   }
+  if (page.type === "article") {
+    if (!pageHtml.includes('"@type":"Article"') && !pageHtml.includes('"@type": "Article"')) {
+      throw new Error(`${relative} is missing Article JSON-LD`);
+    }
+    if (!pageHtml.includes('property="og:image:alt"')) {
+      throw new Error(`${relative} is missing og:image:alt`);
+    }
+  }
+  if (page.path.startsWith("/gps-dlya-") && !pageHtml.includes('"@type":"Service"') && !pageHtml.includes('"@type": "Service"')) {
+    throw new Error(`${relative} is missing Service JSON-LD`);
+  }
 }
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
