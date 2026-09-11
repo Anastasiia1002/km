@@ -1,3 +1,4 @@
+import { googleDocArticles } from "./content/googleDocArticles.js";
 import { importedArticles } from "./content/importedArticles.js";
 
 export const site = {
@@ -369,6 +370,7 @@ export const industries = [
 ];
 
 export const articles = [
+  ...googleDocArticles,
   {
     slug: "shcho-take-wialon",
     icon: "🛰",
