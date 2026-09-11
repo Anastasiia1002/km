@@ -26,6 +26,7 @@ const requiredPublicFiles = [
   "assets/articles/pryvit-svit.jpg",
   "assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
   "assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
+  "assets/articles/gps-monitorynh-benzovoziv.jpg",
 ];
 
 const expectedSitemapRoutes = [

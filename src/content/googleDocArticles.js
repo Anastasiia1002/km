@@ -18,8 +18,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-benzovoziv",
     "icon": "⛽",
-    "image": "/assets/articles/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho.jpg",
-    "imagePosition": "50% 48%",
+    "image": "/assets/articles/gps-monitorynh-benzovoziv.jpg",
+    "imagePosition": "68% 50%",
     "category": "Пальне",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
