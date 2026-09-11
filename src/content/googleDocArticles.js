@@ -78,8 +78,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-silhosptekhniky",
     "icon": "🌾",
-    "image": "/assets/articles/gps-dlya-traktora-zakhid-ukraina.jpg",
-    "imagePosition": "50% 52%",
+    "image": "/assets/articles/gps-monitorynh-silhosptekhniky.jpg",
+    "imagePosition": "50% 42%",
     "category": "Агро",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
