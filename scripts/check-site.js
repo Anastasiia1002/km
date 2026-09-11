@@ -27,6 +27,7 @@ const requiredPublicFiles = [
   "assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
   "assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
   "assets/articles/gps-monitorynh-benzovoziv.jpg",
+  "assets/articles/gps-monitorynh-dlya-karsherynhu.jpg",
 ];
 
 const expectedSitemapRoutes = [

@@ -33,8 +33,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-dlya-karsherynhu",
     "icon": "🚗",
-    "image": "/assets/articles/optymizatsiia-karsherynhu.jpg",
-    "imagePosition": "50% 50%",
+    "image": "/assets/articles/gps-monitorynh-dlya-karsherynhu.jpg",
+    "imagePosition": "58% 48%",
     "category": "Бізнес",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
