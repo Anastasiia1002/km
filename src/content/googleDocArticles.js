@@ -93,8 +93,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-spectekhniky",
     "icon": "🏗",
-    "image": "/assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
-    "imagePosition": "50% 48%",
+    "image": "/assets/articles/gps-monitorynh-spectekhniky.jpg",
+    "imagePosition": "50% 45%",
     "category": "Будтехніка",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
