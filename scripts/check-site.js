@@ -29,6 +29,7 @@ const requiredPublicFiles = [
   "assets/articles/gps-monitorynh-benzovoziv.jpg",
   "assets/articles/gps-monitorynh-dlya-karsherynhu.jpg",
   "assets/articles/gps-monitorynh-lehkovykh-avto.jpg",
+  "assets/articles/gps-monitorynh-pasazhyrskykh-perevezen.jpg",
 ];
 
 const expectedSitemapRoutes = [

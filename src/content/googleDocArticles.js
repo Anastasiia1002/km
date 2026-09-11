@@ -63,8 +63,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-pasazhyrskykh-perevezen",
     "icon": "🚌",
-    "image": "/assets/articles/shcho-take-wialon.jpg",
-    "imagePosition": "50% 42%",
+    "image": "/assets/articles/gps-monitorynh-pasazhyrskykh-perevezen.jpg",
+    "imagePosition": "48% 50%",
     "category": "Пасажирські перевезення",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
