@@ -1,4 +1,5 @@
 import { articles } from "../src/data.js";
+import { googleDocArticles } from "../src/content/googleDocArticles.js";
 import { importedArticles } from "../src/content/importedArticles.js";
 import assert from "node:assert/strict";
 import {
@@ -16,6 +17,8 @@ assert.equal(resolvePageLabel("/"), "Головна");
 assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
 assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці");
 assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Пальне");
+assert.equal(resolvePageLabel("/statti/gps-monitorynh-benzovoziv/"), "Пальне");
+assert.equal(resolvePageLabel("/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/"), "Міжнародні");
 assert.equal(resolvePageLabel("/novyny/optymizatsiia-karsherynhu/"), "Бізнес");
 assert.equal(resolvePageLabel("/oferta/"), "Оферта");
 
@@ -44,12 +47,17 @@ assert.equal(sanitizeLead(lead).context, "Доставка / Банер");
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
 assert.equal(importedArticles.length, 9);
-assert.equal(articles.length, 14);
+assert.equal(googleDocArticles.length, 7);
+assert.equal(articles.length, 21);
 const slugs = articles.map((item) => item.slug);
 assert.equal(new Set(slugs).size, slugs.length);
-for (const item of importedArticles) {
+for (const item of [...importedArticles, ...googleDocArticles]) {
   assert.ok(item.html && item.html.includes("<p>"), `${item.slug} is missing HTML content`);
   assert.ok(item.dateIso, `${item.slug} is missing dateIso`);
+}
+for (const item of googleDocArticles) {
+  assert.equal(item.source, "google-doc");
+  assert.ok(item.html.includes("<h2>Висновок</h2>"), `${item.slug} is missing conclusion heading`);
 }
 
 const blocks = Object.values(LEAD_BLOCKS);

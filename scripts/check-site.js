@@ -25,6 +25,13 @@ const requiredPublicFiles = [
   "assets/articles/novyj-rejtynh-vid-gurtam.jpg",
   "assets/articles/pryvit-svit.jpg",
   "assets/articles/gps-monitoring-u-zakhidniy-ukraini.jpg",
+  "assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
+  "assets/articles/gps-monitorynh-benzovoziv.jpg",
+  "assets/articles/gps-monitorynh-dlya-karsherynhu.jpg",
+  "assets/articles/gps-monitorynh-lehkovykh-avto.jpg",
+  "assets/articles/gps-monitorynh-pasazhyrskykh-perevezen.jpg",
+  "assets/articles/gps-monitorynh-silhosptekhniky.jpg",
+  "assets/articles/gps-monitorynh-spectekhniky.jpg",
 ];
 
 const expectedSitemapRoutes = [
@@ -45,6 +52,13 @@ const expectedSitemapRoutes = [
   "/gps-dlya-azs/",
   "/gps-dlya-mizhnarodnykh-reysiv/",
   "/statti/",
+  "/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/",
+  "/statti/gps-monitorynh-benzovoziv/",
+  "/statti/gps-monitorynh-dlya-karsherynhu/",
+  "/statti/gps-monitorynh-lehkovykh-avto/",
+  "/statti/gps-monitorynh-pasazhyrskykh-perevezen/",
+  "/statti/gps-monitorynh-silhosptekhniky/",
+  "/statti/gps-monitorynh-spectekhniky/",
   "/statti/shcho-take-wialon/",
   "/statti/okupnist-gps-monitoringu/",
   "/statti/gps-dlya-traktora-zakhid-ukraina/",
