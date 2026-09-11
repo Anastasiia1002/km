@@ -28,6 +28,7 @@ const requiredPublicFiles = [
   "assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
   "assets/articles/gps-monitorynh-benzovoziv.jpg",
   "assets/articles/gps-monitorynh-dlya-karsherynhu.jpg",
+  "assets/articles/gps-monitorynh-lehkovykh-avto.jpg",
 ];
 
 const expectedSitemapRoutes = [

@@ -48,8 +48,8 @@ export const googleDocArticles = [
   {
     "slug": "gps-monitorynh-lehkovykh-avto",
     "icon": "🚘",
-    "image": "/assets/articles/yak-pereviryty-vodiya-gps.jpg",
-    "imagePosition": "50% 38%",
+    "image": "/assets/articles/gps-monitorynh-lehkovykh-avto.jpg",
+    "imagePosition": "58% 48%",
     "category": "Корпоративний парк",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
