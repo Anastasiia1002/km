@@ -24,7 +24,7 @@ assert.match(html, /%ROBOTS_CONTENT%/);
 
 assert.match(vite, /seoHtmlPlugin/);
 assert.match(app, /regionSeo/);
-assert.match(app, /industrySeo/);
+assert.match(app, /industries\.find\(\(item\) => path === `\/\$\{item\.slug\}\/`\)/);
 assert.match(app, /articleSeo/);
 assert.match(app, /relatedArticlesFor/);
 assert.match(app, /articlesForIndustry/);

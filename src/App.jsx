@@ -230,7 +230,7 @@ function resolvePage(path) {
     return { type: "region", data: region, meta: regionSeo(region) };
   }
 
-  const industry = industries.find((item) => path === `/${industry.slug}/`);
+  const industry = industries.find((item) => path === `/${item.slug}/`);
   if (industry) {
     return { type: "industry", data: industry, meta: industrySeo(industry) };
   }
