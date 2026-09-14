@@ -5,7 +5,7 @@ import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
-import { canPlacePhoneCall, telegramChatHref, telHref, viberChatHref, whatsappChatHref } from "./lib/phone.js";
+import { canPlacePhoneCall, telegramChatHref, telHref, whatsappChatHref } from "./lib/phone.js";
 import { LEAD_BLOCKS, clearLeadContext, leadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
@@ -42,7 +42,7 @@ function PhoneLink({ phone, className, children, onClick, ...rest }) {
 
 const SALES_MESSENGERS = [
   { id: "telegram", label: "Telegram", href: telegramChatHref },
-  { id: "viber", label: "Viber", href: viberChatHref },
+  { id: "viber", label: "Viber", href: () => withBase("/viber.html") },
   { id: "whatsapp", label: "WhatsApp", href: whatsappChatHref },
 ];
 
