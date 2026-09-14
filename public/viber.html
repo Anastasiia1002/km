@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Viber — КМ Трейд</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 28rem;
+        margin: 12vh auto;
+        padding: 0 20px;
+        color: #1b1b1b;
+        line-height: 1.5;
+      }
+      a {
+        color: #7360f2;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Відкриваємо чат у Viber…</p>
+    <p>
+      Якщо застосунок не відкрився, напишіть нам:
+      <a id="viber-link" href="viber://chat/?number=%2B380950584385">+38 095 058-43-85</a>
+    </p>
+    <script>
+      (function () {
+        var number = "%2B380950584385";
+        var viber = "viber://chat/?number=" + number;
+        var intent =
+          "intent://chat/?number=" + number + "#Intent;scheme=viber;package=com.viber.voip;end";
+        window.location.replace(/Android/i.test(navigator.userAgent) ? intent : viber);
+      })();
+    </script>
+  </body>
+</html>
