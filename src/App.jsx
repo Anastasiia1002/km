@@ -49,18 +49,21 @@ const SALES_MESSENGERS = [
 function SalesMessengerChips({ phone }) {
   return (
     <span className="about-messenger-chips">
-      {SALES_MESSENGERS.map((item) => (
-        <a
-          key={item.id}
-          href={item.href(phone)}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Написати в ${item.label} на ${phone}`}
-          onClick={() => pushEvent("Contact", { type: item.id, phone, dept: "sales" })}
-        >
-          {item.label}
-        </a>
-      ))}
+      {SALES_MESSENGERS.map((item) => {
+        const href = item.href(phone);
+        const opensWeb = href.startsWith("http");
+        return (
+          <a
+            key={item.id}
+            href={href}
+            {...(opensWeb ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            aria-label={`Написати в ${item.label} на ${phone}`}
+            onClick={() => pushEvent("Contact", { type: item.id, phone, dept: "sales" })}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </span>
   );
 }
