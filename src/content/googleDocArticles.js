@@ -136,7 +136,7 @@ export const googleDocArticles = [
     "icon": "🏗",
     "image": "/assets/articles/gps-monitorynh-spectekhniky.jpg",
     "imagePosition": "50% 45%",
-    "category": "Будтехніка",
+    "category": "Спецтехніка",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
     "readTime": "2 хв читання",
