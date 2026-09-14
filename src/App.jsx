@@ -1249,7 +1249,7 @@ function HowItWorks() {
     {
       n: "04",
       title: "Техпідтримка",
-      text: "Гарантія 1 рік і допомога зі звітами.",
+      text: "Гарантія 1 рік і допомога зі звітами. Перша реакція до 3 годин.",
       icon: (
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-7a5 5 0 1 0-10 0v7H6a2 2 0 0 1-2-2v-5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
