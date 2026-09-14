@@ -3595,9 +3595,19 @@ tr:last-child td {
   background: rgba(98, 114, 189, 0.08);
 }
 
-.about-phone-line:focus-visible {
+.about-phone-line:focus-visible,
+.about-phone-num-link:focus-visible {
   outline: 3px solid rgba(98, 114, 189, 0.45);
   outline-offset: 2px;
+}
+
+.about-phone-num-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
 }
 
 .about-phone-num {
@@ -3619,7 +3629,7 @@ tr:last-child td {
   gap: 6px;
 }
 
-.about-messenger-chips span {
+.about-messenger-chips a {
   display: inline-flex;
   align-items: center;
   min-height: 24px;
@@ -3632,6 +3642,18 @@ tr:last-child td {
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.about-messenger-chips a:hover {
+  background: rgba(98, 114, 189, 0.2);
+  color: var(--blue);
+}
+
+.about-messenger-chips a:focus-visible {
+  outline: 3px solid rgba(98, 114, 189, 0.45);
+  outline-offset: 2px;
 }
 
 .about-portal-link {
@@ -3755,7 +3777,8 @@ tr:last-child td {
 @media (prefers-reduced-motion: reduce) {
   .about-phone-line,
   .about-portal-link,
-  .about-social-link {
+  .about-social-link,
+  .about-messenger-chips a {
     transition: none;
   }
 

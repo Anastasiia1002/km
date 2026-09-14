@@ -23,3 +23,19 @@ export function canPlacePhoneCall() {
 export function telHref(phone) {
   return `tel:${String(phone).replace(/\s+/g, "")}`;
 }
+
+export function phoneDigits(phone) {
+  return String(phone).replace(/\D/g, "");
+}
+
+export function telegramChatHref(phone) {
+  return `https://t.me/+${phoneDigits(phone)}`;
+}
+
+export function viberChatHref(phone) {
+  return `viber://chat?number=%2B${phoneDigits(phone)}`;
+}
+
+export function whatsappChatHref(phone) {
+  return `https://wa.me/${phoneDigits(phone)}`;
+}

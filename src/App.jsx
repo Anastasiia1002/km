@@ -5,7 +5,7 @@ import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
 import { normalizePath, withBase } from "./lib/routes.js";
-import { canPlacePhoneCall, telHref } from "./lib/phone.js";
+import { canPlacePhoneCall, telegramChatHref, telHref, viberChatHref, whatsappChatHref } from "./lib/phone.js";
 import { LEAD_BLOCKS, clearLeadContext, leadContext, resolveLeadContext, setLeadContext } from "./lib/leadContext.js";
 import { SupportCabinetModal, openSupportCabinet } from "./SupportCabinet.jsx";
 import { SeoNeutralLink } from "./lib/SeoNeutralLink.jsx";
@@ -37,6 +37,34 @@ function PhoneLink({ phone, className, children, onClick, ...rest }) {
     >
       {children}
     </a>
+  );
+}
+
+const SALES_MESSENGERS = [
+  { id: "telegram", label: "Telegram", href: telegramChatHref },
+  { id: "viber", label: "Viber", href: viberChatHref },
+  { id: "whatsapp", label: "WhatsApp", href: whatsappChatHref },
+];
+
+function SalesMessengerChips({ phone }) {
+  return (
+    <span className="about-messenger-chips">
+      {SALES_MESSENGERS.map((item) => {
+        const href = item.href(phone);
+        const opensWeb = href.startsWith("http");
+        return (
+          <a
+            key={item.id}
+            href={href}
+            {...(opensWeb ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            aria-label={`Написати в ${item.label} на ${phone}`}
+            onClick={() => pushEvent("Contact", { type: item.id, phone, dept: "sales" })}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </span>
   );
 }
 
@@ -1629,18 +1657,16 @@ function About() {
                   <h3 className="about-channel-title">Відділ продажу</h3>
                 </div>
                 <div className="about-channel-body">
-                  <PhoneLink
-                    className="about-phone-line"
-                    phone={site.phonePrimary}
-                    onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
-                  >
-                    <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
-                    <span className="about-messenger-chips" aria-label="Доступно в месенджерах">
-                      <span>Telegram</span>
-                      <span>Viber</span>
-                      <span>WhatsApp</span>
-                    </span>
-                  </PhoneLink>
+                  <div className="about-phone-line">
+                    <PhoneLink
+                      className="about-phone-num-link"
+                      phone={site.phonePrimary}
+                      onClick={() => pushEvent("Contact", { phone: site.phonePrimary, dept: "sales" })}
+                    >
+                      <span className="about-phone-num">{formatPhoneLabel(site.phoneDisplay)}</span>
+                    </PhoneLink>
+                    <SalesMessengerChips phone={site.phonePrimary} />
+                  </div>
                   <PhoneLink
                     className="about-phone-line"
                     phone={site.phoneSecondary}
