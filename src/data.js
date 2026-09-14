@@ -555,7 +555,8 @@ export const cases = [
       "Повна звітність перед замовником щодо обліку нормогодин, обліку витратних матеріалів, гсм, а також звітність щодо обслужених ділянок доріг перед МР.",
     metrics: [],
     url: "https://www.facebook.com/mistoservis.cv/",
-    logo: "",
+    logo: "/assets/partners/mistoservis.png?v=brand-1",
+    brand: "mistoservis",
   },
   {
     name: "Конфіденційний клієнт",
