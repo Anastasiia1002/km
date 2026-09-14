@@ -1181,11 +1181,22 @@ function Industries({ navigate }) {
         <p className="subtitle">Вантажівки, агро, громадський транспорт, ЖКГ та інші напрями — окремі сценарії контролю й звіти Wialon.</p>
         <div className="industry-grid">
           {industries.map((item) => (
-            <InternalLink className="industry-card" href={`/${item.slug}/`} navigate={navigate} key={item.slug}>
-              <span>{item.icon}</span>
-              <b>{item.name}</b>
-              <small>{item.short}</small>
-            </InternalLink>
+            <article className="industry-card" key={item.slug}>
+              <InternalLink className="industry-card-main" href={`/${item.slug}/`} navigate={navigate}>
+                <span>{item.icon}</span>
+                <b>{item.name}</b>
+                <small>{item.short}</small>
+              </InternalLink>
+              {item.articleSlug ? (
+                <InternalLink
+                  className="industry-card-article"
+                  href={`/statti/${item.articleSlug}/`}
+                  navigate={navigate}
+                >
+                  Читати статтю →
+                </InternalLink>
+              ) : null}
+            </article>
           ))}
         </div>
       </div>
