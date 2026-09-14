@@ -6,32 +6,84 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Viber — КМ Трейд</title>
     <style>
+      :root {
+        --navy: #464c6e;
+        --blue: #6272bd;
+      }
       body {
         font-family: system-ui, sans-serif;
-        max-width: 28rem;
-        margin: 12vh auto;
-        padding: 0 20px;
-        color: #1b1b1b;
+        max-width: 26rem;
+        margin: 10vh auto;
+        padding: 0 20px 40px;
+        color: #111;
         line-height: 1.5;
+        text-align: center;
       }
-      a {
-        color: #7360f2;
+      h1 {
+        font-size: 1.35rem;
+        margin: 0 0 8px;
+      }
+      p {
+        color: var(--navy);
+        margin: 0 0 16px;
+      }
+      img {
+        width: 198px;
+        height: 198px;
+        display: block;
+        margin: 8px auto 16px;
+        background: #fff;
+      }
+      .phone {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #111;
+        text-decoration: none;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        margin-top: 8px;
+        padding: 10px 18px;
+        border: 0;
+        border-radius: 12px;
+        background: #7360f2;
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .note {
+        font-size: 0.9rem;
       }
     </style>
   </head>
   <body>
-    <p>Відкриваємо чат у Viber…</p>
+    <h1>Напишіть нам у Viber</h1>
+    <p class="note" id="hint">Відскануйте QR телефоном або відкрийте застосунок.</p>
+    <img src="assets/viber-chat-qr.svg" width="198" height="198" alt="QR-код чату Viber КМ Трейд" />
     <p>
-      Якщо застосунок не відкрився, напишіть нам:
-      <a id="viber-link" href="viber://chat/?number=%2B380950584385">+38 095 058-43-85</a>
+      <a class="phone" href="tel:+380950584385">+38 095 058-43-85</a>
     </p>
+    <a class="btn" id="open-viber" href="viber://chat/?number=%2B380950584385">Відкрити Viber</a>
     <script>
       (function () {
         var number = "%2B380950584385";
         var viber = "viber://chat/?number=" + number;
         var intent =
           "intent://chat/?number=" + number + "#Intent;scheme=viber;package=com.viber.voip;end";
-        window.location.replace(/Android/i.test(navigator.userAgent) ? intent : viber);
+        var mobile = /Android|iPhone|iPod|Windows Phone/i.test(navigator.userAgent);
+        var open = document.getElementById("open-viber");
+        var hint = document.getElementById("hint");
+        open.href = /Android/i.test(navigator.userAgent) ? intent : viber;
+        if (mobile) {
+          hint.textContent = "Відкриваємо Viber…";
+          window.location.replace(open.href);
+        }
       })();
     </script>
   </body>
