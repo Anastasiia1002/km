@@ -244,6 +244,7 @@ export const industries = [
     icon: "🚚",
     name: "Вантажні перевезення",
     short: "Фури, фургони, рефрижератори",
+    articleSlug: "gps-rishennya-dlya-mizhnarodnykh-perevezen",
     title: "GPS-моніторинг для вантажних перевезень",
     description:
       "GPS для вантажівок на Wialon: контроль маршрутів, пального, швидкості, рефрижераторів і водіїв по західній Україні.",
@@ -260,6 +261,7 @@ export const industries = [
     icon: "🌾",
     name: "Агросектор",
     short: "Трактори, комбайни, агротехніка",
+    articleSlug: "gps-monitorynh-silhosptekhniky",
     title: "GPS-моніторинг для агротехніки",
     description:
       "GPS для агро у 7 областях покриття КМ Трейд: контроль ДП, площ і техніки.",
@@ -276,6 +278,7 @@ export const industries = [
     icon: "🏗",
     name: "Будтехніка",
     short: "Екскаватори, крани, бетономішалки",
+    articleSlug: "gps-monitorynh-spectekhniky",
     title: "GPS-моніторинг будівельної техніки",
     description:
       "GPS для будтехніки: контроль мотогодин, простоїв, пального і геозон будмайданчиків у 7 областях покриття.",
@@ -292,6 +295,7 @@ export const industries = [
     icon: "🚕",
     name: "Пасажирський громадський транспорт",
     short: "Громадський транспорт",
+    articleSlug: "gps-monitorynh-pasazhyrskykh-perevezen",
     title: "GPS-моніторинг для громадського транспорту",
     description:
       "GPS для громадського транспорту: контроль розкладу, швидкості, маршрутів і безпеки.",
@@ -324,6 +328,7 @@ export const industries = [
     icon: "🏭",
     name: "Корпоративний парк",
     short: "Підприємства, торгові команди",
+    articleSlug: "gps-monitorynh-dlya-karsherynhu",
     title: "GPS-моніторинг корпоративного автопарку",
     description:
       "GPS для корпоративних авто: контроль службових поїздок, пробігу, пального, графіків і звітності для бухгалтерії.",
@@ -340,6 +345,7 @@ export const industries = [
     icon: "⛽",
     name: "АЗС і паливна логістика",
     short: "Бензовози, заправки",
+    articleSlug: "gps-monitorynh-benzovoziv",
     title: "GPS-моніторинг для АЗС і паливної логістики",
     description:
       "GPS для бензовозів і паливної логістики: контроль маршрутів, геозон АЗС і безпеки перевезень.",

@@ -2481,6 +2481,36 @@ tr:last-child td {
   box-shadow: var(--shadow);
 }
 
+.industry-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.industry-card-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.industry-card-article {
+  margin-top: auto;
+  padding-top: 4px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.industry-card-article:hover,
+.industry-card-article:focus-visible {
+  text-decoration: underline;
+}
+
 .industry-card:hover,
 .region-card:hover {
   border-color: rgba(98, 114, 189, 0.24);
@@ -4998,7 +5028,6 @@ button {
 }
 
 .logo-button,
-.industry-card,
 .region-card,
 .article-card,
 .related-card,
