@@ -33,7 +33,7 @@ export function telegramChatHref(phone) {
 }
 
 export function viberChatHref(phone) {
-  return `viber://chat?number=%2B${phoneDigits(phone)}`;
+  return `viber://chat?number=${phoneDigits(phone)}`;
 }
 
 export function whatsappChatHref(phone) {
