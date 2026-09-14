@@ -930,7 +930,13 @@ function WhySection() {
         <p className="subtitle">Локальна команда поруч: швидкий виїзд, монтаж і підтримка без довгого очікування.</p>
         <div className="usp-grid">{usp.map(([icon, title, text]) => <article className="usp-card" key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
         <div className="partner-strip">
-          <div className="partner-logo">
+          <a
+            className="partner-logo"
+            href="https://wialon.com/ru/dealers"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Карта партнерів Wialon"
+          >
             <img
               src={withBase("/assets/partners/wialon-silver-partner.png?v=official-1")}
               alt="Wialon Silver Partner"
@@ -938,7 +944,7 @@ function WhySection() {
               height="68"
               loading="lazy"
             />
-          </div>
+          </a>
           <div>
             <b>Авторизований партнер Wialon / Gurtam</b>
             <span>Авторизований партнер Wialon / Gurtam в Україні з виїздом сьогодні</span>

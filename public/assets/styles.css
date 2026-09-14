@@ -1650,12 +1650,24 @@ header.is-menu-open .header-burger-lines span:nth-child(3) {
   height: auto;
   min-height: 0;
   padding: 0;
-  border-radius: 0;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+.partner-logo:hover img,
+.partner-logo:focus-visible img {
+  opacity: 0.88;
+}
+
+.partner-logo:focus-visible {
+  outline: 3px solid rgba(98, 114, 189, 0.45);
+  outline-offset: 4px;
 }
 
 .partner-logo img {
