@@ -15,6 +15,7 @@ import { homeKeywords, robotsMetaContent } from "./lib/seoConfig.js";
 import { articleSeo, blogSeo, faqJsonLd, homeFaq, industrySeo, regionSeo } from "./lib/seoPages.js";
 import { articlesForIndustry, industryForArticle, relatedArticlesFor } from "./lib/seoRelations.js";
 import { resolveLegacyRedirect } from "./lib/legacyRedirects.js";
+import { collectLeadFormErrors, LEAD_FLEET_OPTIONS, LEAD_FORM_FIELDS, leadFieldError } from "./lib/leadSchema.js";
 
 const routes = {
   home: "/",
@@ -1424,13 +1425,6 @@ function TrialSection({ region = "" }) {
   return <section className="trial-section" id="trial"><div className="container"><h2 className="trial-title">14 днів безкоштовно</h2><p className="trial-sub">Встановимо трекер на 1 авто без оплати. Ви побачите маршрути, стоянки і звіти Wialon — і тільки тоді вирішите щодо всього парку.</p><div className="trial-perks"><span className="trial-perk">Без передоплати</span><span className="trial-perk">Встановлення за 1 день</span><span className="trial-perk">Техпідтримка</span><span className="trial-perk">Повний доступ Wialon</span><span className="trial-perk">Звіт після тесту</span></div><LeadForm region={region} /></div></section>;
 }
 
-function isValidUaPhone(value) {
-  const digits = String(value || "").replace(/\D/g, "");
-  if (/^0\d{9}$/.test(digits)) return true;
-  if (/^380\d{9}$/.test(digits)) return true;
-  return false;
-}
-
 const LEAD_API_URL =
   (import.meta.env.VITE_LEAD_API_URL || "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead").replace(/\/$/, "") ||
   "https://nonastronomically-tasteful-booker.ngrok-free.dev/api/lead";
@@ -1446,22 +1440,6 @@ function leadRequestHeaders() {
     // Ignore invalid URL — Content-Type alone is enough.
   }
   return headers;
-}
-
-const LEAD_FLEET_OPTIONS = ["1-3 авто", "4-10 авто", "11-30 авто", "31-50 авто", "50+ авто"];
-const LEAD_FIELD_ORDER = ["name", "phone", "cars", "region"];
-
-function validateLeadForm(state) {
-  const errors = {};
-  if (!String(state.name || "").trim()) errors.name = "Вкажіть ім'я";
-  if (!String(state.phone || "").trim()) {
-    errors.phone = "Вкажіть телефон";
-  } else if (!isValidUaPhone(state.phone)) {
-    errors.phone = "Вкажіть номер у форматі +38 0XX XXX XX XX";
-  }
-  if (!String(state.cars || "").trim()) errors.cars = "Оберіть кількість авто";
-  if (!String(state.region || "").trim()) errors.region = "Оберіть регіон";
-  return errors;
 }
 
 function LeadForm({ region = "" }) {
@@ -1481,9 +1459,9 @@ function LeadForm({ region = "" }) {
   const submit = async (event) => {
     event.preventDefault();
     if (state.company_site) return;
-    const nextErrors = validateLeadForm(state);
+    const nextErrors = collectLeadFormErrors(state);
     setErrors(nextErrors);
-    const firstInvalid = LEAD_FIELD_ORDER.find((field) => nextErrors[field]);
+    const firstInvalid = LEAD_FORM_FIELDS.find((field) => nextErrors[field]);
     if (firstInvalid) {
       document.getElementById(`lead-${firstInvalid}`)?.focus();
       return;
@@ -1560,12 +1538,15 @@ function LeadForm({ region = "" }) {
             placeholder="+38 095 ..."
             value={state.phone}
             onChange={(e) => update("phone", e.target.value)}
-            onBlur={() => {
-              if (!state.phone.trim()) {
-                setErrors((current) => ({ ...current, phone: "Вкажіть телефон" }));
-              } else if (!isValidUaPhone(state.phone)) {
-                setErrors((current) => ({ ...current, phone: "Вкажіть номер у форматі +38 0XX XXX XX XX" }));
-              }
+            onBlur={(event) => {
+              const message = leadFieldError("phone", event.target.value);
+              setErrors((current) => {
+                if (message) return { ...current, phone: message };
+                if (!current.phone) return current;
+                const next = { ...current };
+                delete next.phone;
+                return next;
+              });
             }}
             aria-invalid={errors.phone ? "true" : "false"}
             aria-describedby={errors.phone ? "lead-phone-error" : undefined}

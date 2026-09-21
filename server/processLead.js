@@ -1,3 +1,5 @@
+import { leadFormSchema } from "../src/lib/leadSchema.js";
+
 const ALLOWED_ORIGINS = [
   "https://km-trade.net",
   "https://www.km-trade.net",
@@ -45,11 +47,9 @@ export function normalizeLead(payload = {}) {
 }
 
 export function validateLead(lead) {
-  if (!lead.name) return "Вкажіть ім'я";
-  if (!isValidUaPhone(lead.phone)) return "Некоректний телефон";
-  if (!lead.cars) return "Оберіть кількість авто";
-  if (!lead.region) return "Оберіть регіон";
-  return null;
+  const result = leadFormSchema.safeParse(lead);
+  if (result.success) return null;
+  return result.error.issues[0]?.message || "Некоректні дані";
 }
 
 export function sanitizeLead(lead) {

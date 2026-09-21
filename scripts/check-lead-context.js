@@ -11,6 +11,7 @@ import {
   resolveLeadContext,
   resolvePageLabel,
 } from "../src/lib/leadContext.js";
+import { collectLeadFormErrors, leadFormSchema } from "../src/lib/leadSchema.js";
 import { normalizeLead, sanitizeLead, validateLead } from "../server/processLead.js";
 
 assert.equal(resolvePageLabel("/"), "Головна");
@@ -47,6 +48,14 @@ assert.equal(validateLead(lead), null);
 assert.equal(validateLead({ ...lead, name: "" }), "Вкажіть ім'я");
 assert.equal(validateLead({ ...lead, cars: "" }), "Оберіть кількість авто");
 assert.equal(validateLead({ ...lead, region: "" }), "Оберіть регіон");
+assert.equal(validateLead({ ...lead, phone: "123" }), "Вкажіть номер у форматі +38 0XX XXX XX XX");
+assert.equal(leadFormSchema.safeParse(lead).success, true);
+assert.deepEqual(collectLeadFormErrors({ name: "", phone: "", cars: "", region: "" }), {
+  name: "Вкажіть ім'я",
+  phone: "Вкажіть телефон",
+  cars: "Оберіть кількість авто",
+  region: "Оберіть регіон",
+});
 
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
