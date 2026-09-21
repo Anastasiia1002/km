@@ -11,7 +11,7 @@ import {
   resolveLeadContext,
   resolvePageLabel,
 } from "../src/lib/leadContext.js";
-import { normalizeLead, sanitizeLead } from "../server/processLead.js";
+import { normalizeLead, sanitizeLead, validateLead } from "../server/processLead.js";
 
 assert.equal(resolvePageLabel("/"), "Головна");
 assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
@@ -43,6 +43,10 @@ const lead = normalizeLead({
 
 assert.equal(lead.context, "Доставка / Банер");
 assert.equal(sanitizeLead(lead).context, "Доставка / Банер");
+assert.equal(validateLead(lead), null);
+assert.equal(validateLead({ ...lead, name: "" }), "Вкажіть ім'я");
+assert.equal(validateLead({ ...lead, cars: "" }), "Оберіть кількість авто");
+assert.equal(validateLead({ ...lead, region: "" }), "Оберіть регіон");
 
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 

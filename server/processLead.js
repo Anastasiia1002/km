@@ -47,6 +47,8 @@ export function normalizeLead(payload = {}) {
 export function validateLead(lead) {
   if (!lead.name) return "Вкажіть ім'я";
   if (!isValidUaPhone(lead.phone)) return "Некоректний телефон";
+  if (!lead.cars) return "Оберіть кількість авто";
+  if (!lead.region) return "Оберіть регіон";
   return null;
 }
 

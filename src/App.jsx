@@ -1448,9 +1448,25 @@ function leadRequestHeaders() {
   return headers;
 }
 
+const LEAD_FLEET_OPTIONS = ["1-3 авто", "4-10 авто", "11-30 авто", "31-50 авто", "50+ авто"];
+const LEAD_FIELD_ORDER = ["name", "phone", "cars", "region"];
+
+function validateLeadForm(state) {
+  const errors = {};
+  if (!String(state.name || "").trim()) errors.name = "Вкажіть ім'я";
+  if (!String(state.phone || "").trim()) {
+    errors.phone = "Вкажіть телефон";
+  } else if (!isValidUaPhone(state.phone)) {
+    errors.phone = "Вкажіть номер у форматі +38 0XX XXX XX XX";
+  }
+  if (!String(state.cars || "").trim()) errors.cars = "Оберіть кількість авто";
+  if (!String(state.region || "").trim()) errors.region = "Оберіть регіон";
+  return errors;
+}
+
 function LeadForm({ region = "" }) {
   const [state, setState] = useState({ name: "", phone: "", cars: "", region, company_site: "" });
-  const [phoneError, setPhoneError] = useState("");
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
@@ -1465,12 +1481,13 @@ function LeadForm({ region = "" }) {
   const submit = async (event) => {
     event.preventDefault();
     if (state.company_site) return;
-    if (!isValidUaPhone(state.phone)) {
-      setPhoneError("Вкажіть номер у форматі +38 0XX XXX XX XX");
-      document.getElementById("lead-phone")?.focus();
+    const nextErrors = validateLeadForm(state);
+    setErrors(nextErrors);
+    const firstInvalid = LEAD_FIELD_ORDER.find((field) => nextErrors[field]);
+    if (firstInvalid) {
+      document.getElementById(`lead-${firstInvalid}`)?.focus();
       return;
     }
-    setPhoneError("");
     const context = resolveLeadContext();
     const leadBody = {
       name: state.name.trim(),
@@ -1501,13 +1518,17 @@ function LeadForm({ region = "" }) {
     clearLeadContext();
     window.dispatchEvent(new Event("km:lead-success"));
     setState({ name: "", phone: "", cars: "", region, company_site: "" });
+    setErrors({});
   };
 
   const update = (field, value) => {
     setState((current) => ({ ...current, [field]: value }));
-    if (field === "phone" && (isValidUaPhone(value) || !value)) {
-      setPhoneError("");
-    }
+    setErrors((current) => {
+      if (!current[field]) return current;
+      const next = { ...current };
+      delete next[field];
+      return next;
+    });
   };
 
   return (
@@ -1515,9 +1536,22 @@ function LeadForm({ region = "" }) {
       <input type="text" name="company_site" className="hp" tabIndex="-1" autoComplete="off" aria-hidden="true" value={state.company_site} onChange={(e) => update("company_site", e.target.value)} />
       <h3>Залишити заявку</h3>
       <div className="form-row">
-        <div className="form-field"><label htmlFor="lead-name">Ім'я</label><input id="lead-name" type="text" placeholder="Іван Коваленко" value={state.name} onChange={(e) => update("name", e.target.value)} required /></div>
-        <div className={`form-field${phoneError ? " is-invalid" : ""}`}>
-          <label htmlFor="lead-phone">Телефон</label>
+        <div className={`form-field${errors.name ? " is-invalid" : ""}`}>
+          <label htmlFor="lead-name">Ім'я *</label>
+          <input
+            id="lead-name"
+            type="text"
+            placeholder="Іван Коваленко"
+            value={state.name}
+            onChange={(e) => update("name", e.target.value)}
+            aria-invalid={errors.name ? "true" : "false"}
+            aria-describedby={errors.name ? "lead-name-error" : undefined}
+            required
+          />
+          {errors.name ? <p className="form-error" id="lead-name-error" role="alert">{errors.name}</p> : null}
+        </div>
+        <div className={`form-field${errors.phone ? " is-invalid" : ""}`}>
+          <label htmlFor="lead-phone">Телефон *</label>
           <input
             id="lead-phone"
             type="tel"
@@ -1527,25 +1561,58 @@ function LeadForm({ region = "" }) {
             value={state.phone}
             onChange={(e) => update("phone", e.target.value)}
             onBlur={() => {
-              if (state.phone && !isValidUaPhone(state.phone)) {
-                setPhoneError("Вкажіть номер у форматі +38 0XX XXX XX XX");
+              if (!state.phone.trim()) {
+                setErrors((current) => ({ ...current, phone: "Вкажіть телефон" }));
+              } else if (!isValidUaPhone(state.phone)) {
+                setErrors((current) => ({ ...current, phone: "Вкажіть номер у форматі +38 0XX XXX XX XX" }));
               }
             }}
-            aria-invalid={phoneError ? "true" : "false"}
-            aria-describedby={phoneError ? "lead-phone-error" : undefined}
+            aria-invalid={errors.phone ? "true" : "false"}
+            aria-describedby={errors.phone ? "lead-phone-error" : undefined}
             required
           />
-          {phoneError ? <p className="form-error" id="lead-phone-error" role="alert">{phoneError}</p> : null}
+          {errors.phone ? <p className="form-error" id="lead-phone-error" role="alert">{errors.phone}</p> : null}
         </div>
       </div>
       <div className="form-row">
-        <div className="form-field"><label htmlFor="lead-cars">Кількість авто</label><select id="lead-cars" value={state.cars} onChange={(e) => update("cars", e.target.value)} required><option value="">Оберіть</option><option>1-3 авто</option><option>4-10 авто</option><option>11-30 авто</option><option>31-50 авто</option><option>50+ авто</option></select></div>
-        <div className="form-field"><label htmlFor="lead-region">Регіон</label><select id="lead-region" value={state.region} onChange={(e) => update("region", e.target.value)} required><option value="">Оберіть регіон</option>{regions.map((item) => <option key={item.city}>{item.city}</option>)}<option>Інше місто</option></select></div>
+        <div className={`form-field${errors.cars ? " is-invalid" : ""}`}>
+          <label htmlFor="lead-cars">Кількість авто *</label>
+          <select
+            id="lead-cars"
+            value={state.cars}
+            onChange={(e) => update("cars", e.target.value)}
+            aria-invalid={errors.cars ? "true" : "false"}
+            aria-describedby={errors.cars ? "lead-cars-error" : undefined}
+            required
+          >
+            <option value="" disabled>Оберіть</option>
+            {LEAD_FLEET_OPTIONS.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          {errors.cars ? <p className="form-error" id="lead-cars-error" role="alert">{errors.cars}</p> : null}
+        </div>
+        <div className={`form-field${errors.region ? " is-invalid" : ""}`}>
+          <label htmlFor="lead-region">Регіон *</label>
+          <select
+            id="lead-region"
+            value={state.region}
+            onChange={(e) => update("region", e.target.value)}
+            aria-invalid={errors.region ? "true" : "false"}
+            aria-describedby={errors.region ? "lead-region-error" : undefined}
+            required
+          >
+            <option value="" disabled>Оберіть регіон</option>
+            {regions.map((item) => <option key={item.city} value={item.city}>{item.city}</option>)}
+            <option value="Інше місто">Інше місто</option>
+          </select>
+          {errors.region ? <p className="form-error" id="lead-region-error" role="alert">{errors.region}</p> : null}
+        </div>
       </div>
       <button className="btn btn-primary form-submit" type="submit" disabled={submitting}>
         {submitting ? "Надсилаємо…" : "Отримати безкоштовний тест-драйв →"}
       </button>
-      <p className="form-note">Передзвонимо за 15 хвилин · Дані заявки передаються менеджеру в Telegram</p>
+      <p className="form-note">Усі поля обов’язкові · Передзвонимо за 15 хвилин · Дані заявки передаються менеджеру в Telegram</p>
     </form>
   );
 }
