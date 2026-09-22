@@ -46,10 +46,10 @@ export const googleDocArticles = [
 },
   {
     "slug": "gps-rishennya-dlya-mizhnarodnykh-perevezen",
-    "icon": "🌍",
+    "icon": "🚚",
     "image": "/assets/articles/gps-rishennya-dlya-mizhnarodnykh-perevezen.jpg",
     "imagePosition": "46% 50%",
-    "category": "Міжнародні",
+    "category": "Вантажні",
     "date": "Вересень 2026",
     "dateIso": "2026-09-11",
     "readTime": "3 хв читання",
