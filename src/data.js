@@ -313,6 +313,7 @@ export const industries = [
     name: "Доставка",
     short: "Кур'єри, e-commerce, остання миля",
     articleSlug: "gps-monitorynh-dlya-sluzhb-dostavky",
+    cardOpensArticle: true,
     title: "GPS-моніторинг для служб доставки",
     description:
       "GPS для кур'єрів і доставки: оптимізація маршрутів, контроль запізнень, пробігу і службового транспорту.",
@@ -364,6 +365,7 @@ export const industries = [
     name: "Міжнародні рейси",
     short: "Рейси Україна — закордон",
     articleSlug: "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen",
+    cardOpensArticle: true,
     title: "GPS-моніторинг міжнародних рейсів",
     description:
       "GPS для міжнародних перевезень: моніторинг рейсів за кордоном, контроль маршруту, стоянок і температури.",
@@ -455,6 +457,13 @@ export function isListedArticle(article) {
 }
 
 export const listedArticles = articles.filter(isListedArticle);
+
+export function industryCardHref(item) {
+  if (item?.cardOpensArticle && item.articleSlug) {
+    return `/statti/${item.articleSlug}/`;
+  }
+  return `/${item.slug}/`;
+}
 
 export const painCards = [
   {

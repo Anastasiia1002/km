@@ -29,6 +29,7 @@ assert.match(app, /articleSeo/);
 assert.match(app, /relatedArticlesFor/);
 assert.match(app, /articlesForIndustry/);
 assert.match(app, /listedArticles/);
+assert.match(app, /industryCardHref/);
 assert.match(app, /region\.seo/);
 assert.match(app, /industry\.seo/);
 assert.match(app, /trackPageView/);
@@ -44,7 +45,7 @@ assert.match(redirects, /\/spetstekhnika\//);
 const { resolveLegacyRedirect } = await import("../src/lib/legacyRedirects.js");
 const { articleSeo, listSeoPages, industrySeo } = await import("../src/lib/seoPages.js");
 const { relatedArticlesFor, articlesForIndustry } = await import("../src/lib/seoRelations.js");
-const { articles, industries, listedArticles, isListedArticle } = await import("../src/data.js");
+const { articles, industries, listedArticles, isListedArticle, industryCardHref } = await import("../src/data.js");
 
 const international = articles.find((item) => item.slug === "gps-rishennya-dlya-mizhnarodnykh-perevezen");
 assert.ok(international);
@@ -59,6 +60,9 @@ assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).some((item) => item.slug === "gps-monitorynh-dlya-sluzhb-dostavky"));
 assert.equal(industries.find((item) => item.slug === "gps-dlya-dostavky").articleSlug, "gps-monitorynh-dlya-sluzhb-dostavky");
 assert.equal(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv").articleSlug, "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-dostavky")), "/statti/gps-monitorynh-dlya-sluzhb-dostavky/");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv")), "/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-agro")), "/gps-dlya-agro/");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).length >= 2);
 
 const pages = listSeoPages();
