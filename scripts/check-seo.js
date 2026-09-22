@@ -67,6 +67,8 @@ assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-
 assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-azs")), "/statti/gps-monitorynh-benzovoziv/");
 assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-agro")), "/gps-dlya-agro/");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).length >= 2);
+assert.equal(articles.find((item) => item.slug === "gps-rishennya-dlya-mizhnarodnykh-perevezen").category, "Вантажні");
+assert.equal(new Set(listedArticles.slice(0, 3).map((item) => item.category)).size, 3);
 
 const pages = listSeoPages();
 assert.ok(pages.find((page) => page.path === "/statti/gps-monitorynh-benzovoziv/").jsonLd);
