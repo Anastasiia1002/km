@@ -1,4 +1,4 @@
-import { articles, industries } from "../data.js";
+import { articles, industries, isListedArticle } from "../data.js";
 
 export const articleIndustryBySlug = {
   "gps-monitorynh-dlya-sluzhb-dostavky": "gps-dlya-dostavky",
@@ -178,9 +178,12 @@ export const industryArticleSlugs = {
 export function relatedArticlesFor(article) {
   const preferred = (relatedArticleSlugs[article.slug] || [])
     .map((slug) => articles.find((item) => item.slug === slug))
-    .filter(Boolean);
+    .filter((item) => item && isListedArticle(item));
   const rest = articles.filter(
-    (item) => item.slug !== article.slug && !preferred.some((related) => related.slug === item.slug),
+    (item) =>
+      isListedArticle(item) &&
+      item.slug !== article.slug &&
+      !preferred.some((related) => related.slug === item.slug),
   );
   const sameCategory = rest.filter((item) => item.category === article.category);
   const other = rest.filter((item) => item.category !== article.category);
@@ -195,5 +198,5 @@ export function industryForArticle(article) {
 export function articlesForIndustry(industry) {
   return (industryArticleSlugs[industry.slug] || [])
     .map((slug) => articles.find((item) => item.slug === slug))
-    .filter(Boolean);
+    .filter((item) => item && isListedArticle(item));
 }

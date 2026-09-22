@@ -447,6 +447,15 @@ export const articles = [
   ...importedArticles,
 ];
 
+/** Public listing starts from September 2026; older pieces stay in `articles` for redirects and checks. */
+export const listedFromIso = "2026-09-01";
+
+export function isListedArticle(article) {
+  return Boolean(article?.dateIso && article.dateIso >= listedFromIso);
+}
+
+export const listedArticles = articles.filter(isListedArticle);
+
 export const painCards = [
   {
     icon: "⛽",
