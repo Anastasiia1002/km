@@ -52,6 +52,9 @@ assert.ok(articleSeo(international).jsonLd.some((node) => node["@type"] === "Art
 assert.match(articleSeo(international).jsonLd.find((node) => node["@type"] === "Article").datePublished, /^\d{4}-\d{2}-\d{2}$/);
 assert.equal(relatedArticlesFor(international)[0].slug, "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-agro")).some((item) => item.slug === "gps-monitorynh-silhosptekhniky"));
+assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).some((item) => item.slug === "gps-monitorynh-dlya-sluzhb-dostavky"));
+assert.equal(industries.find((item) => item.slug === "gps-dlya-dostavky").articleSlug, "gps-monitorynh-dlya-sluzhb-dostavky");
+assert.equal(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv").articleSlug, "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).length >= 2);
 
 const pages = listSeoPages();
