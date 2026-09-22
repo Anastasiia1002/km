@@ -32,6 +32,8 @@ const requiredPublicFiles = [
   "assets/articles/gps-monitorynh-pasazhyrskykh-perevezen.jpg",
   "assets/articles/gps-monitorynh-silhosptekhniky.jpg",
   "assets/articles/gps-monitorynh-spectekhniky.jpg",
+  "assets/articles/gps-monitorynh-dlya-sluzhb-dostavky.jpg",
+  "assets/articles/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen.jpg",
 ];
 
 const expectedSitemapRoutes = [
@@ -52,6 +54,8 @@ const expectedSitemapRoutes = [
   "/gps-dlya-azs/",
   "/gps-dlya-mizhnarodnykh-reysiv/",
   "/statti/",
+  "/statti/gps-monitorynh-dlya-sluzhb-dostavky/",
+  "/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/",
   "/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/",
   "/statti/gps-monitorynh-benzovoziv/",
   "/statti/gps-monitorynh-dlya-karsherynhu/",
@@ -59,20 +63,6 @@ const expectedSitemapRoutes = [
   "/statti/gps-monitorynh-pasazhyrskykh-perevezen/",
   "/statti/gps-monitorynh-silhosptekhniky/",
   "/statti/gps-monitorynh-spectekhniky/",
-  "/statti/shcho-take-wialon/",
-  "/statti/okupnist-gps-monitoringu/",
-  "/statti/gps-dlya-traktora-zakhid-ukraina/",
-  "/statti/yak-pereviryty-vodiya-gps/",
-  "/statti/gps-monitoring-u-zakhidniy-ukraini/",
-  "/statti/shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent/",
-  "/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/",
-  "/statti/optymizatsiia-karsherynhu/",
-  "/statti/monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva/",
-  "/statti/zchytuvannia-danykh-z-takhohrafa/",
-  "/statti/aktsiia-dytyna-pid-kontrolem/",
-  "/statti/hotuiemos-do-ahrosezonu/",
-  "/statti/novyj-rejtynh-vid-gurtam/",
-  "/statti/pryvit-svit/",
   "/oferta/",
   "/konfidentsiynist/",
 ];

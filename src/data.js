@@ -312,6 +312,7 @@ export const industries = [
     icon: "📦",
     name: "Доставка",
     short: "Кур'єри, e-commerce, остання миля",
+    articleSlug: "gps-monitorynh-dlya-sluzhb-dostavky",
     title: "GPS-моніторинг для служб доставки",
     description:
       "GPS для кур'єрів і доставки: оптимізація маршрутів, контроль запізнень, пробігу і службового транспорту.",
@@ -362,6 +363,7 @@ export const industries = [
     icon: "🌍",
     name: "Міжнародні рейси",
     short: "Рейси Україна — закордон",
+    articleSlug: "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen",
     title: "GPS-моніторинг міжнародних рейсів",
     description:
       "GPS для міжнародних перевезень: моніторинг рейсів за кордоном, контроль маршруту, стоянок і температури.",
@@ -444,6 +446,15 @@ export const articles = [
   },
   ...importedArticles,
 ];
+
+/** Public listing starts from September 2026; older pieces stay in `articles` for redirects and checks. */
+export const listedFromIso = "2026-09-01";
+
+export function isListedArticle(article) {
+  return Boolean(article?.dateIso && article.dateIso >= listedFromIso);
+}
+
+export const listedArticles = articles.filter(isListedArticle);
 
 export const painCards = [
   {

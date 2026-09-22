@@ -28,6 +28,7 @@ assert.match(app, /industries\.find\(\(item\) => path === `\/\$\{item\.slug\}\/`
 assert.match(app, /articleSeo/);
 assert.match(app, /relatedArticlesFor/);
 assert.match(app, /articlesForIndustry/);
+assert.match(app, /listedArticles/);
 assert.match(app, /region\.seo/);
 assert.match(app, /industry\.seo/);
 assert.match(app, /trackPageView/);
@@ -43,15 +44,21 @@ assert.match(redirects, /\/spetstekhnika\//);
 const { resolveLegacyRedirect } = await import("../src/lib/legacyRedirects.js");
 const { articleSeo, listSeoPages, industrySeo } = await import("../src/lib/seoPages.js");
 const { relatedArticlesFor, articlesForIndustry } = await import("../src/lib/seoRelations.js");
-const { articles, industries } = await import("../src/data.js");
+const { articles, industries, listedArticles, isListedArticle } = await import("../src/data.js");
 
 const international = articles.find((item) => item.slug === "gps-rishennya-dlya-mizhnarodnykh-perevezen");
 assert.ok(international);
 assert.ok(articleSeo(international).keywords.includes("SENT"));
 assert.ok(articleSeo(international).jsonLd.some((node) => node["@type"] === "Article"));
 assert.match(articleSeo(international).jsonLd.find((node) => node["@type"] === "Article").datePublished, /^\d{4}-\d{2}-\d{2}$/);
-assert.equal(relatedArticlesFor(international)[0].slug, "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent");
+assert.equal(relatedArticlesFor(international)[0].slug, "gps-monitorynh-benzovoziv");
+assert.equal(listedArticles.length, 9);
+assert.ok(listedArticles.every(isListedArticle));
+assert.ok(!listedArticles.some((item) => item.dateIso < "2026-09-01"));
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-agro")).some((item) => item.slug === "gps-monitorynh-silhosptekhniky"));
+assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).some((item) => item.slug === "gps-monitorynh-dlya-sluzhb-dostavky"));
+assert.equal(industries.find((item) => item.slug === "gps-dlya-dostavky").articleSlug, "gps-monitorynh-dlya-sluzhb-dostavky");
+assert.equal(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv").articleSlug, "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).length >= 2);
 
 const pages = listSeoPages();
@@ -59,6 +66,8 @@ assert.ok(pages.find((page) => page.path === "/statti/gps-monitorynh-benzovoziv/
 assert.ok(industrySeo(industries[0]).jsonLd.some((node) => node["@type"] === "Service"));
 assert.ok(pages.find((page) => page.path === "/gps-dlya-agro/").jsonLd.some((node) => node["@type"] === "Service"));
 assert.ok(pages.find((page) => page.path === "/statti/").jsonLd.some((node) => node["@type"] === "CollectionPage"));
+assert.equal(pages.filter((page) => page.path.startsWith("/statti/") && page.path !== "/statti/").length, 9);
+assert.ok(!pages.find((page) => page.path === "/statti/shcho-take-wialon/"));
 
 for (const article of articles) {
   assert.ok(article.dateIso, `${article.slug} is missing dateIso`);

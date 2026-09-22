@@ -1,4 +1,4 @@
-import { articles, industries, regions, site } from "../data.js";
+import { listedArticles, industries, regions, site } from "../data.js";
 import { homeKeywords } from "./seoConfig.js";
 
 function absoluteUrl(path = "/") {
@@ -215,7 +215,7 @@ export function listSeoPages() {
     pages.push(industrySeo(industry));
   }
 
-  for (const article of articles) {
+  for (const article of listedArticles) {
     pages.push(articleSeo(article));
   }
 

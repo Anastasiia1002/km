@@ -60,8 +60,10 @@ assert.deepEqual(collectLeadFormErrors({ name: "", phone: "", cars: "", region: 
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
 assert.equal(importedArticles.length, 9);
-assert.equal(googleDocArticles.length, 7);
-assert.equal(articles.length, 21);
+assert.equal(googleDocArticles.length, 9);
+assert.equal(articles.length, 23);
+assert.equal(resolvePageLabel("/statti/gps-monitorynh-dlya-sluzhb-dostavky/"), "Доставка");
+assert.equal(resolvePageLabel("/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/"), "Міжнародні");
 const slugs = articles.map((item) => item.slug);
 assert.equal(new Set(slugs).size, slugs.length);
 for (const item of [...importedArticles, ...googleDocArticles]) {

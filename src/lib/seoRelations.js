@@ -1,6 +1,8 @@
-import { articles, industries } from "../data.js";
+import { articles, industries, isListedArticle } from "../data.js";
 
 export const articleIndustryBySlug = {
+  "gps-monitorynh-dlya-sluzhb-dostavky": "gps-dlya-dostavky",
+  "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen": "gps-dlya-mizhnarodnykh-reysiv",
   "gps-rishennya-dlya-mizhnarodnykh-perevezen": "gps-dlya-mizhnarodnykh-reysiv",
   "gps-monitorynh-benzovoziv": "gps-dlya-azs",
   "gps-monitorynh-dlya-karsherynhu": "gps-dlya-korporatyvnoho-parku",
@@ -22,6 +24,16 @@ export const articleIndustryBySlug = {
 };
 
 export const relatedArticleSlugs = {
+  "gps-monitorynh-dlya-sluzhb-dostavky": [
+    "gps-monitorynh-lehkovykh-avto",
+    "yak-pereviryty-vodiya-gps",
+    "okupnist-gps-monitoringu",
+  ],
+  "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen": [
+    "gps-monitorynh-pasazhyrskykh-perevezen",
+    "gps-rishennya-dlya-mizhnarodnykh-perevezen",
+    "zchytuvannia-danykh-z-takhohrafa",
+  ],
   "gps-rishennya-dlya-mizhnarodnykh-perevezen": [
     "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent",
     "zchytuvannia-danykh-z-takhohrafa",
@@ -126,9 +138,9 @@ export const relatedArticleSlugs = {
 
 export const industryArticleSlugs = {
   "gps-dlya-mizhnarodnykh-reysiv": [
+    "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen",
     "gps-rishennya-dlya-mizhnarodnykh-perevezen",
     "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent",
-    "zchytuvannia-danykh-z-takhohrafa",
   ],
   "gps-dlya-azs": [
     "gps-monitorynh-benzovoziv",
@@ -153,22 +165,25 @@ export const industryArticleSlugs = {
   ],
   "gps-dlya-taksi": [
     "gps-monitorynh-pasazhyrskykh-perevezen",
-    "gps-monitorynh-lehkovykh-avto",
+    "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen",
     "yak-pereviryty-vodiya-gps",
   ],
   "gps-dlya-dostavky": [
+    "gps-monitorynh-dlya-sluzhb-dostavky",
     "gps-monitorynh-lehkovykh-avto",
     "yak-pereviryty-vodiya-gps",
-    "okupnist-gps-monitoringu",
   ],
 };
 
 export function relatedArticlesFor(article) {
   const preferred = (relatedArticleSlugs[article.slug] || [])
     .map((slug) => articles.find((item) => item.slug === slug))
-    .filter(Boolean);
+    .filter((item) => item && isListedArticle(item));
   const rest = articles.filter(
-    (item) => item.slug !== article.slug && !preferred.some((related) => related.slug === item.slug),
+    (item) =>
+      isListedArticle(item) &&
+      item.slug !== article.slug &&
+      !preferred.some((related) => related.slug === item.slug),
   );
   const sameCategory = rest.filter((item) => item.category === article.category);
   const other = rest.filter((item) => item.category !== article.category);
@@ -183,5 +198,5 @@ export function industryForArticle(article) {
 export function articlesForIndustry(industry) {
   return (industryArticleSlugs[industry.slug] || [])
     .map((slug) => articles.find((item) => item.slug === slug))
-    .filter(Boolean);
+    .filter((item) => item && isListedArticle(item));
 }
