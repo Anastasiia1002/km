@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, cases, certificates, industries, isListedArticle, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
+import { articles, cases, certificates, industries, industryCardHref, isListedArticle, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
@@ -1196,7 +1196,7 @@ function Industries({ navigate }) {
         <div className="industry-grid">
           {industries.map((item) => (
             <article className="industry-card" key={item.slug}>
-              <InternalLink className="industry-card-main" href={`/${item.slug}/`} navigate={navigate}>
+              <InternalLink className="industry-card-main" href={industryCardHref(item)} navigate={navigate}>
                 <span>{item.icon}</span>
                 <b>{item.name}</b>
                 <small>{item.short}</small>
