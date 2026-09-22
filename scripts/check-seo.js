@@ -62,6 +62,9 @@ assert.equal(industries.find((item) => item.slug === "gps-dlya-dostavky").articl
 assert.equal(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv").articleSlug, "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen");
 assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-dostavky")), "/statti/gps-monitorynh-dlya-sluzhb-dostavky/");
 assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-mizhnarodnykh-reysiv")), "/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-vantazhivok")), "/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-korporatyvnoho-parku")), "/statti/gps-monitorynh-dlya-karsherynhu/");
+assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-azs")), "/statti/gps-monitorynh-benzovoziv/");
 assert.equal(industryCardHref(industries.find((item) => item.slug === "gps-dlya-agro")), "/gps-dlya-agro/");
 assert.ok(articlesForIndustry(industries.find((item) => item.slug === "gps-dlya-dostavky")).length >= 2);
 

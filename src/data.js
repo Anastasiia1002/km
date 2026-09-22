@@ -245,6 +245,7 @@ export const industries = [
     name: "Вантажні перевезення",
     short: "Фури, фургони, рефрижератори",
     articleSlug: "gps-rishennya-dlya-mizhnarodnykh-perevezen",
+    cardOpensArticle: true,
     title: "GPS-моніторинг для вантажних перевезень",
     description:
       "GPS для вантажівок на Wialon: контроль маршрутів, пального, швидкості, рефрижераторів і водіїв по західній Україні.",
@@ -331,6 +332,7 @@ export const industries = [
     name: "Корпоративний парк",
     short: "Підприємства, торгові команди",
     articleSlug: "gps-monitorynh-dlya-karsherynhu",
+    cardOpensArticle: true,
     title: "GPS-моніторинг корпоративного автопарку",
     description:
       "GPS для корпоративних авто: контроль службових поїздок, пробігу, пального, графіків і звітності для бухгалтерії.",
@@ -348,6 +350,7 @@ export const industries = [
     name: "АЗС і паливна логістика",
     short: "Бензовози, заправки",
     articleSlug: "gps-monitorynh-benzovoziv",
+    cardOpensArticle: true,
     title: "GPS-моніторинг для АЗС і паливної логістики",
     description:
       "GPS для бензовозів і паливної логістики: контроль маршрутів, геозон АЗС і безпеки перевезень.",
