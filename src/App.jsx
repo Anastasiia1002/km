@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, cases, certificates, industries, industryCardHref, isListedArticle, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
+import { articles, cases, certificates, industries, industryCardHref, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
@@ -270,19 +270,6 @@ function resolvePage(path) {
 
   const article = articleFromPath(path);
   if (article) {
-    if (!isListedArticle(article)) {
-      return {
-        type: "notfound",
-        meta: {
-          title: "Сторінку не знайдено — КМ Трейд",
-          description: "Цієї сторінки немає. Відкрийте головну КМ Трейд або розділ статей про GPS-моніторинг.",
-          type: "website",
-          path,
-          robots: "noindex, follow",
-          jsonLd: null,
-        },
-      };
-    }
     return { type: "article", data: article, meta: articleSeo(article) };
   }
 
