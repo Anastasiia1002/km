@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { articles, cases, certificates, industries, industryCardHref, isListedArticle, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
+import { articleLabel, articles, cases, certificates, industries, industryCardHref, isListedArticle, listedArticles, painCards, partners, prices, regionCitiesLine, regionCount, regionOblastsLine, regions, site, testimonials } from "./data.js";
 import { OfertaContent } from "./content/oferta.jsx";
 import { PrivacyContent } from "./content/privacy.jsx";
 import { VEHICLE_TYPES, formatPercent, getVehicleType, monthlyFuelSavings } from "./lib/fuelSavings.js";
@@ -483,7 +483,7 @@ function Header({ navigate }) {
               {listedArticles.slice(0, 3).map((item) => (
                 <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate}>
                   <span className="di">{item.icon}</span>
-                  {item.category}
+                  {articleLabel(item)}
                 </NavLink>
               ))}
             </Dropdown>
@@ -622,7 +622,7 @@ function Header({ navigate }) {
                         {listedArticles.slice(0, 3).map((item) => (
                           <NavLink key={item.slug} href={`/statti/${item.slug}/`} navigate={navigate} onNavigate={closeMenu} className="header-mobile-link header-mobile-sublink">
                             <span className="di">{item.icon}</span>
-                            {item.category}
+                            {articleLabel(item)}
                           </NavLink>
                         ))}
                       </div>
@@ -2385,10 +2385,10 @@ function ArticlePage({ article, navigate }) {
             <span>›</span>
             <InternalLink href="/statti/" navigate={navigate}>Статті</InternalLink>
             <span>›</span>
-            {article.category}
+            {articleLabel(article)}
           </div>
           <div className="article-meta article-meta-hero">
-            <span>{article.category}</span>
+            <span>{articleLabel(article)}</span>
             <small>{article.date} · {readTime}</small>
           </div>
           <h1 className="title title-lg">{article.title}</h1>
@@ -2505,7 +2505,7 @@ function ArticleCard({ article, navigate }) {
       </div>
       <div className="article-body-card">
         <div className="article-meta">
-          <span>{article.category}</span>
+          <span>{articleLabel(article)}</span>
           <small>{article.date}</small>
         </div>
         <h3>{article.title}</h3>
@@ -2578,7 +2578,7 @@ function Footer({ navigate }) {
               </div>
             </div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
-            <FooterColumn title="Статті" items={listedArticles.slice(0, 5).map((item) => [item.category, `/statti/${item.slug}/`])} navigate={navigate} />
+            <FooterColumn title="Статті" items={listedArticles.slice(0, 5).map((item) => [articleLabel(item), `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
           <div className="footer-divider" />

@@ -63,6 +63,10 @@ const expectedSitemapRoutes = [
   "/statti/gps-monitorynh-pasazhyrskykh-perevezen/",
   "/statti/gps-monitorynh-silhosptekhniky/",
   "/statti/gps-monitorynh-spectekhniky/",
+  "/statti/zchytuvannia-danykh-z-takhohrafa/",
+  "/statti/monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva/",
+  "/statti/optymizatsiia-karsherynhu/",
+  "/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/",
   "/oferta/",
   "/konfidentsiynist/",
 ];

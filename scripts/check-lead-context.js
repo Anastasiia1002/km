@@ -17,10 +17,11 @@ import { normalizeLead, sanitizeLead, validateLead } from "../server/processLead
 assert.equal(resolvePageLabel("/"), "Головна");
 assert.equal(resolvePageLabel("/gps-dlya-dostavky/"), "Доставка");
 assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці");
-assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Пальне");
+assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Блог");
+assert.equal(resolvePageLabel("/statti/zchytuvannia-danykh-z-takhohrafa/"), "Блог");
 assert.equal(resolvePageLabel("/statti/gps-monitorynh-benzovoziv/"), "Пальне");
 assert.equal(resolvePageLabel("/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/"), "Вантажні");
-assert.equal(resolvePageLabel("/novyny/optymizatsiia-karsherynhu/"), "Бізнес");
+assert.equal(resolvePageLabel("/novyny/optymizatsiia-karsherynhu/"), "Блог");
 assert.equal(resolvePageLabel("/oferta/"), "Оферта");
 
 assert.equal(formatLeadContext("Доставка", "Банер"), "Доставка / Банер");
