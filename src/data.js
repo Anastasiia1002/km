@@ -452,11 +452,15 @@ export const articles = [
   ...importedArticles,
 ];
 
-/** Public listing starts from September 2026; older pieces stay in `articles` for redirects and checks. */
+/** Public listing starts from September 2026; older pieces stay hidden unless `listed` is set. */
 export const listedFromIso = "2026-09-01";
 
 export function isListedArticle(article) {
-  return Boolean(article?.dateIso && article.dateIso >= listedFromIso);
+  return Boolean(article?.listed || (article?.dateIso && article.dateIso >= listedFromIso));
+}
+
+export function articleLabel(article) {
+  return article?.badge || article?.category;
 }
 
 export const listedArticles = articles.filter(isListedArticle);
