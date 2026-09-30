@@ -2581,6 +2581,19 @@ function Footer({ navigate }) {
             <FooterColumn title="Статті" items={listedArticles.slice(0, 5).map((item) => [articleLabel(item), `/statti/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Регіони" items={regions.map((item) => [item.city, `/${item.slug}/`])} navigate={navigate} />
           </div>
+          <div className="footer-pay">
+            <p className="footer-pay-note">Оплата послуг GPS-моніторингу</p>
+            <a
+              className="btn btn-primary footer-pay-link"
+              href={site.paymentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Оплатити послуги — відкрити у новій вкладці"
+              onClick={() => pushEvent("Contact", { type: "payment", source: "footer" })}
+            >
+              Оплатити
+            </a>
+          </div>
           <div className="footer-divider" />
           <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink><InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink></div></div>
         </div>

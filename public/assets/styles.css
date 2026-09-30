@@ -4787,7 +4787,7 @@ footer {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 .footer-logo .logo-sub {
@@ -4907,6 +4907,43 @@ footer {
   outline: 2px solid rgba(159, 167, 211, 0.7);
   outline-offset: 4px;
   border-radius: 4px;
+}
+
+.footer-pay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.footer-pay-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.footer-pay-link {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.footer-pay-link:focus-visible {
+  outline: 2px solid rgba(159, 167, 211, 0.7);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6014,6 +6051,12 @@ button {
 
   .mini-cost {
     text-align: left;
+  }
+
+  .footer-pay {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .footer-bottom {
