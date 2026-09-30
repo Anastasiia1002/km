@@ -22,6 +22,7 @@ export const site = {
   name: "КМ Трейд",
   legalName: "КМ Трейд",
   clientPortalUrl: "https://km-trade.net/client-nexus-portal/",
+  paymentUrl: "https://www.liqpay.ua/uk/checkout/card/i75133799421",
   social: {
     instagram: "https://www.instagram.com/km_trade__monitoring",
     facebook: "https://www.facebook.com/gps.kmtrade",

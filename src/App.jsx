@@ -2574,6 +2574,16 @@ function Footer({ navigate }) {
                     Online-кабінет
                     <span aria-hidden="true">→</span>
                   </button>
+                  <a
+                    className="btn btn-primary footer-pay-link"
+                    href={site.paymentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Оплата — відкрити у новій вкладці"
+                    onClick={() => pushEvent("Contact", { type: "payment", source: "footer" })}
+                  >
+                    Оплата
+                  </a>
                 </div>
               </div>
             </div>

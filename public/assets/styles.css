@@ -4909,6 +4909,19 @@ footer {
   border-radius: 4px;
 }
 
+.footer-pay-link {
+  margin-top: 8px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.footer-pay-link:focus-visible {
+  outline: 2px solid rgba(159, 167, 211, 0.7);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .footer-portal-link,
   .footer-portal-link span {
