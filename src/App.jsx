@@ -2562,28 +2562,30 @@ function Footer({ navigate }) {
                   >
                     {formatPhoneLabel(site.phoneDisplaySupport)}
                   </PhoneLink>
-                  <button
-                    type="button"
-                    className="footer-portal-link"
-                    aria-label="Відкрити Online-кабінет клієнта"
-                    onClick={() => {
-                      pushEvent("Contact", { type: "client_portal", source: "footer" });
-                      openSupportCabinet();
-                    }}
-                  >
-                    Online-кабінет
-                    <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    className="btn btn-primary footer-pay-link"
-                    href={site.paymentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Оплата — відкрити у новій вкладці"
-                    onClick={() => pushEvent("Contact", { type: "payment", source: "footer" })}
-                  >
-                    Оплата
-                  </a>
+                  <div className="footer-client-actions">
+                    <button
+                      type="button"
+                      className="footer-portal-link"
+                      aria-label="Відкрити Online-кабінет клієнта"
+                      onClick={() => {
+                        pushEvent("Contact", { type: "client_portal", source: "footer" });
+                        openSupportCabinet();
+                      }}
+                    >
+                      Online-кабінет
+                      <span aria-hidden="true">→</span>
+                    </button>
+                    <a
+                      className="btn btn-primary footer-pay-link"
+                      href={site.paymentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Оплатити — відкрити у новій вкладці"
+                      onClick={() => pushEvent("Contact", { type: "payment", source: "footer" })}
+                    >
+                      Оплатити
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

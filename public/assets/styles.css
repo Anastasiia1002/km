@@ -4909,12 +4909,23 @@ footer {
   border-radius: 4px;
 }
 
+.footer-client-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 2px;
+}
+
 .footer-pay-link {
-  margin-top: 8px;
-  min-height: 40px;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
+  min-height: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  box-shadow: none;
 }
 
 .footer-pay-link:focus-visible {
