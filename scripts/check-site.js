@@ -127,8 +127,15 @@ for (const snippet of [
     throw new Error(`dist/index.html is missing ${snippet}`);
   }
 }
-if (index.includes("%GOOGLE_SITE_VERIFICATION%") || index.includes("%GA_MEASUREMENT_ID%") || index.includes("%HOME_KEYWORDS%") || index.includes("%ROBOTS_CONTENT%")) {
+if (index.includes("%GOOGLE_SITE_VERIFICATION%") || index.includes("%GA_MEASUREMENT_ID%") || index.includes("%HOME_KEYWORDS%") || index.includes("%ROBOTS_CONTENT%") || index.includes("%BASE_URL%")) {
   throw new Error("dist/index.html still contains unreplaced SEO placeholders");
+}
+if (!index.includes('href="/km/assets/styles.css?v=')) {
+  throw new Error("dist/index.html stylesheet is not served from the /km/ base");
+}
+const moduleScript = index.match(/<script type="module"[^>]*\ssrc="([^"]+)"/);
+if (!moduleScript || !moduleScript[1].startsWith("/km/assets/") || !moduleScript[1].endsWith(".js")) {
+  throw new Error(`dist/index.html module script is not a /km/ bundle: ${moduleScript?.[1] || "missing"}`);
 }
 
 const seoPages = listSeoPages();
