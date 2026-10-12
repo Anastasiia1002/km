@@ -33,6 +33,9 @@ const requiredPublicFiles = [
   "assets/articles/gps-monitorynh-silhosptekhniky.jpg",
   "assets/articles/gps-monitorynh-spectekhniky.jpg",
   "assets/articles/gps-monitorynh-dlya-sluzhb-dostavky.jpg",
+  "assets/articles/avtomatyzatsiia-pryvatnykh-azs.jpg",
+  "assets/articles/avtomatyzatsiia-pryvatnykh-azs-kolonka.jpg",
+  "assets/articles/avtomatyzatsiia-pryvatnykh-azs-rezervuar.jpg",
   "assets/articles/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen.jpg",
 ];
 
@@ -54,6 +57,7 @@ const expectedSitemapRoutes = [
   "/gps-dlya-azs/",
   "/gps-dlya-mizhnarodnykh-reysiv/",
   "/statti/",
+  "/statti/avtomatyzatsiia-pryvatnykh-azs/",
   "/statti/gps-monitorynh-dlya-sluzhb-dostavky/",
   "/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/",
   "/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/",
