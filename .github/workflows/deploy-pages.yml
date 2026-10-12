@@ -9,7 +9,7 @@ on:
     types: [deploy-pages]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[pages publish]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,7 +52,21 @@ jobs:
         with:
           path: dist
 
+      - name: Publish built files on main
+        run: |
+          node scripts/publish-pages-tree.js
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Pages tree already matches the build"
+          else
+            git commit -m "Publish GitHub Pages build [pages publish]"
+            git push origin HEAD:main
+          fi
+
   deploy:
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[pages publish]') }}
     needs: build
     runs-on: ubuntu-latest
     environment:

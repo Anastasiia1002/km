@@ -6,7 +6,7 @@ import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, homeKeywords } from "../sr
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-const html = await readFile(path.join(root, "index.html"), "utf8");
+const html = await readFile(path.join(root, "index.template.html"), "utf8");
 const app = await readFile(path.join(root, "src/App.jsx"), "utf8");
 const analytics = await readFile(path.join(root, "src/lib/analytics.js"), "utf8");
 const vite = await readFile(path.join(root, "vite.config.js"), "utf8");
