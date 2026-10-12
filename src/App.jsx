@@ -2354,7 +2354,7 @@ function BlogPage({ navigate }) {
           </div>
           <div className="tag">📚 Блог</div>
           <h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1>
-          <p className="subtitle">Практичні матеріали про GPS-моніторинг: бензовози, каршеринг, агро, спецтехніка, міжнародні рейси і Wialon.</p>
+          <p className="subtitle">Практичні матеріали про GPS-моніторинг: автоматизація приватних АЗС, бензовози, агро, спецтехніка і Wialon.</p>
         </div>
       </section>
       <section className="section blog-listing">
@@ -2368,6 +2368,13 @@ function BlogPage({ navigate }) {
       </section>
       <TrialSection />
     </>
+  );
+}
+
+function articleHtml(html) {
+  return String(html || "").replace(
+    /src=(["'])(\/[^"']+)\1/g,
+    (_, quote, url) => `src=${quote}${withBase(url)}${quote}`,
   );
 }
 
@@ -2408,7 +2415,7 @@ function ArticlePage({ article, navigate }) {
                 </figure>
               ) : null}
               {article.html ? (
-                <div className="article-html" dangerouslySetInnerHTML={{ __html: article.html }} />
+                <div className="article-html" dangerouslySetInnerHTML={{ __html: articleHtml(article.html) }} />
               ) : (
                 <>
                   <p className="lead">{article.excerpt}</p>

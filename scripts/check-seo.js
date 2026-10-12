@@ -53,7 +53,7 @@ assert.ok(articleSeo(international).keywords.includes("SENT"));
 assert.ok(articleSeo(international).jsonLd.some((node) => node["@type"] === "Article"));
 assert.match(articleSeo(international).jsonLd.find((node) => node["@type"] === "Article").datePublished, /^\d{4}-\d{2}-\d{2}$/);
 assert.equal(relatedArticlesFor(international)[0].slug, "zchytuvannia-danykh-z-takhohrafa");
-assert.equal(listedArticles.length, 13);
+assert.equal(listedArticles.length, 14);
 assert.ok(listedArticles.every(isListedArticle));
 assert.equal(listedArticles.filter((item) => item.dateIso < "2026-09-01").length, 4);
 assert.ok(listedArticles.filter((item) => item.dateIso < "2026-09-01").every((item) => item.badge === "Блог"));
@@ -76,7 +76,8 @@ assert.ok(pages.find((page) => page.path === "/statti/gps-monitorynh-benzovoziv/
 assert.ok(industrySeo(industries[0]).jsonLd.some((node) => node["@type"] === "Service"));
 assert.ok(pages.find((page) => page.path === "/gps-dlya-agro/").jsonLd.some((node) => node["@type"] === "Service"));
 assert.ok(pages.find((page) => page.path === "/statti/").jsonLd.some((node) => node["@type"] === "CollectionPage"));
-assert.equal(pages.filter((page) => page.path.startsWith("/statti/") && page.path !== "/statti/").length, 13);
+assert.equal(pages.filter((page) => page.path.startsWith("/statti/") && page.path !== "/statti/").length, 14);
+assert.ok(pages.find((page) => page.path === "/statti/avtomatyzatsiia-pryvatnykh-azs/"));
 assert.ok(pages.find((page) => page.path === "/statti/zchytuvannia-danykh-z-takhohrafa/"));
 assert.ok(!pages.find((page) => page.path === "/statti/shcho-take-wialon/"));
 

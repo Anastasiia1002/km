@@ -1,6 +1,7 @@
 import { articles, industries, isListedArticle } from "../data.js";
 
 export const articleIndustryBySlug = {
+  "avtomatyzatsiia-pryvatnykh-azs": "gps-dlya-azs",
   "gps-monitorynh-dlya-sluzhb-dostavky": "gps-dlya-dostavky",
   "gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen": "gps-dlya-mizhnarodnykh-reysiv",
   "gps-rishennya-dlya-mizhnarodnykh-perevezen": "gps-dlya-mizhnarodnykh-reysiv",
@@ -24,6 +25,11 @@ export const articleIndustryBySlug = {
 };
 
 export const relatedArticleSlugs = {
+  "avtomatyzatsiia-pryvatnykh-azs": [
+    "gps-monitorynh-benzovoziv",
+    "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
+    "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
+  ],
   "gps-monitorynh-dlya-sluzhb-dostavky": [
     "gps-monitorynh-lehkovykh-avto",
     "yak-pereviryty-vodiya-gps",
@@ -40,8 +46,8 @@ export const relatedArticleSlugs = {
     "gps-monitorynh-benzovoziv",
   ],
   "gps-monitorynh-benzovoziv": [
+    "avtomatyzatsiia-pryvatnykh-azs",
     "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
-    "gps-rishennya-dlya-mizhnarodnykh-perevezen",
     "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
   ],
   "gps-monitorynh-dlya-karsherynhu": [
@@ -143,6 +149,7 @@ export const industryArticleSlugs = {
     "shtraf-20-tysiach-zlotykh-za-vidsutnist-pidkliuchennia-do-sent",
   ],
   "gps-dlya-azs": [
+    "avtomatyzatsiia-pryvatnykh-azs",
     "gps-monitorynh-benzovoziv",
     "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
     "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
