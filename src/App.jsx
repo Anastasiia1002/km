@@ -2354,7 +2354,7 @@ function BlogPage({ navigate }) {
           </div>
           <div className="tag">📚 Блог</div>
           <h1 className="title title-lg">Корисні статті про GPS-моніторинг</h1>
-          <p className="subtitle">Практичні матеріали про GPS-моніторинг: автоматизація приватних АЗС, бензовози, агро, спецтехніка і Wialon.</p>
+          <p className="subtitle">Практичні матеріали про GPS-моніторинг: собівартість кілометра, Fleetrun, пальне, АЗС, агро і спецтехніка.</p>
         </div>
       </section>
       <section className="section blog-listing">
