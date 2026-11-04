@@ -4991,6 +4991,12 @@ footer {
   margin-top: 0;
 }
 
+.footer-social-list .about-social-link--viber svg,
+.footer-social-list .about-social-link--whatsapp svg {
+  width: 24px;
+  height: 24px;
+}
+
 .footer-social-list .about-social-link--telegram svg path {
   fill: currentColor;
 }
