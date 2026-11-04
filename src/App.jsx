@@ -2026,6 +2026,23 @@ function SocialIconFacebook() {
   );
 }
 
+function SocialIconViber() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M8.05 3.35c.62-.22 1.3-.02 1.72.48l1.15 1.38c.38.46.4 1.1.06 1.58l-.9 1.26a.9.9 0 0 0 .08.98c.62 1.05 1.48 1.98 2.5 2.7.28.2.66.22.96.05l1.22-.68c.5-.28 1.12-.16 1.48.28l1.05 1.28c.4.48.36 1.18-.08 1.62l-.95.95c-.55.55-1.38.78-2.16.6-1.9-.44-3.72-1.72-5.12-3.6-1.4-1.88-2.1-4.04-1.96-6.08.06-.86.5-1.66 1.2-2.16l.75-.64Z" />
+    </svg>
+  );
+}
+
+function SocialIconWhatsApp() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 3.15a8.55 8.55 0 0 0-7.32 12.9L3.5 20.85l4.92-1.29A8.55 8.55 0 1 0 12.04 3.15Zm0 1.55a7 7 0 0 1 6.05 10.48 7 7 0 0 1-9.78 2.15l-.34-.2-2.7.7.72-2.63-.22-.33A7 7 0 0 1 12.04 4.7Z" />
+      <path d="M9.28 8.22c.17-.38.35-.39.52-.39h.45c.14 0 .32.05.49.37.18.42.62 1.46.67 1.57.06.11.09.24.02.38-.07.14-.1.24-.2.36-.1.12-.21.28-.09.52.12.25.72 1.19 1.55 1.92.66.58 1.22.76 1.42.85.2.09.32.08.44-.05.12-.13.51-.6.65-.8.14-.21.27-.17.45-.1.18.07 1.15.54 1.35.64.2.1.33.15.38.23.05.08.05.75-.17 1.47-.22.7-.9 1.32-1.25 1.4-.34.09-.76.13-2.55-.64-1.7-.73-2.96-2.5-3.22-2.85-.26-.35-1.08-1.44-1.08-2.75 0-1.3.68-1.94.92-2.2.12-.14.27-.3.4-.43Z" />
+    </svg>
+  );
+}
+
 function SocialIconTelegram() {
   return (
     <svg viewBox="48 66 132 116" width="22" height="22" aria-hidden="true">
@@ -2602,7 +2619,72 @@ function Footer({ navigate }) {
             </a>
           </div>
           <div className="footer-divider" />
-          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink><InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink></div></div>
+          <div className="footer-bottom">
+            <span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span>
+            <div className="footer-social">
+              <div className="about-social-list footer-social-list" role="list" aria-label="Соцмережі та месенджери">
+                <a
+                  className="about-social-link about-social-link--instagram"
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "instagram", source: "footer" })}
+                >
+                  <SocialIconInstagram />
+                </a>
+                <a
+                  className="about-social-link about-social-link--facebook"
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "facebook", source: "footer" })}
+                >
+                  <SocialIconFacebook />
+                </a>
+                <a
+                  className="about-social-link about-social-link--telegram"
+                  href={site.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "telegram", source: "footer" })}
+                >
+                  <SocialIconTelegram />
+                </a>
+                <a
+                  className="about-social-link about-social-link--viber"
+                  href={withBase("/viber.html")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Viber КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "viber", phone: site.phonePrimary, dept: "sales", source: "footer" })}
+                >
+                  <SocialIconViber />
+                </a>
+                <a
+                  className="about-social-link about-social-link--whatsapp"
+                  href={whatsappChatHref(site.phonePrimary)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`WhatsApp КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "whatsapp", phone: site.phonePrimary, dept: "sales", source: "footer" })}
+                >
+                  <SocialIconWhatsApp />
+                </a>
+              </div>
+            </div>
+            <div className="footer-bottom-links">
+              <InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink>
+              <InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink>
+            </div>
+          </div>
         </div>
       </footer>
       <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_BLOCKS.STICKY_CTA)}>Залишити заявку</button></div>
