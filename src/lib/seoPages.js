@@ -145,9 +145,9 @@ const homeFaq = [
   },
 ];
 
-const blogKeywords = ["GPS моніторинг", "Wialon", "вартість кілометра", "Fleetrun", "контроль пального", "автоматизація АЗС"];
+const blogKeywords = ["GPS моніторинг", "Wialon", "CAN-шина", "Teltonika", "контроль пального", "вартість кілометра"];
 const blogDescription =
-  "Практичні статті про GPS-моніторинг: вартість кілометра і Fleetrun, автоматизація АЗС, бензовози, агро та контроль пального.";
+  "Практичні статті про GPS-моніторинг: дані з CAN-шини, вартість кілометра, Fleetrun, пальне та агро.";
 
 export function blogSeo() {
   return {
