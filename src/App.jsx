@@ -2583,6 +2583,46 @@ function Footer({ navigate }) {
                   </button>
                 </div>
               </div>
+              <div className="footer-social">
+                <div className="footer-social-label" id="footer-social-label">
+                  Соцмережі
+                </div>
+                <div className="about-social-list footer-social-list" role="list" aria-labelledby="footer-social-label">
+                  <a
+                    className="about-social-link about-social-link--instagram"
+                    href={site.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "instagram", source: "footer" })}
+                  >
+                    <SocialIconInstagram />
+                  </a>
+                  <a
+                    className="about-social-link about-social-link--facebook"
+                    href={site.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "facebook", source: "footer" })}
+                  >
+                    <SocialIconFacebook />
+                  </a>
+                  <a
+                    className="about-social-link about-social-link--telegram"
+                    href={site.social.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
+                    role="listitem"
+                    onClick={() => pushEvent("Contact", { type: "telegram", source: "footer" })}
+                  >
+                    <SocialIconTelegram />
+                  </a>
+                </div>
+              </div>
             </div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={listedArticles.slice(0, 5).map((item) => [articleLabel(item), `/statti/${item.slug}/`])} navigate={navigate} />
