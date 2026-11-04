@@ -20,6 +20,7 @@ assert.equal(resolvePageLabel("/gps-monitoring-chernivtsi/"), "Чернівці"
 assert.equal(resolvePageLabel("/statti/iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho/"), "Блог");
 assert.equal(resolvePageLabel("/statti/zchytuvannia-danykh-z-takhohrafa/"), "Блог");
 assert.equal(resolvePageLabel("/statti/gps-monitorynh-benzovoziv/"), "Пальне");
+assert.equal(resolvePageLabel("/statti/dani-z-can-shyny/"), "Технологія");
 assert.equal(resolvePageLabel("/statti/realna-vartist-kilometra/"), "Сервіс");
 assert.equal(resolvePageLabel("/statti/avtomatyzatsiia-pryvatnykh-azs/"), "Пальне");
 assert.equal(resolvePageLabel("/statti/gps-rishennya-dlya-mizhnarodnykh-perevezen/"), "Вантажні");
@@ -63,8 +64,8 @@ assert.deepEqual(collectLeadFormErrors({ name: "", phone: "", cars: "", region: 
 assert.equal(resolveLeadContext(), leadContext(LEAD_BLOCKS.TRIAL_FORM, resolvePageLabel("/")));
 
 assert.equal(importedArticles.length, 9);
-assert.equal(googleDocArticles.length, 11);
-assert.equal(articles.length, 25);
+assert.equal(googleDocArticles.length, 12);
+assert.equal(articles.length, 26);
 assert.equal(resolvePageLabel("/statti/gps-monitorynh-dlya-sluzhb-dostavky/"), "Доставка");
 assert.equal(resolvePageLabel("/statti/gps-monitorynh-mizhnarodnykh-pasazhyrskykh-perevezen/"), "Міжнародні");
 const slugs = articles.map((item) => item.slug);

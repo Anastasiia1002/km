@@ -1,6 +1,7 @@
 import { articles, industries, isListedArticle } from "../data.js";
 
 export const articleIndustryBySlug = {
+  "dani-z-can-shyny": "gps-dlya-korporatyvnoho-parku",
   "realna-vartist-kilometra": "gps-dlya-korporatyvnoho-parku",
   "avtomatyzatsiia-pryvatnykh-azs": "gps-dlya-azs",
   "gps-monitorynh-dlya-sluzhb-dostavky": "gps-dlya-dostavky",
@@ -26,10 +27,15 @@ export const articleIndustryBySlug = {
 };
 
 export const relatedArticleSlugs = {
-  "realna-vartist-kilometra": [
+  "dani-z-can-shyny": [
     "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
     "gps-monitorynh-lehkovykh-avto",
-    "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
+    "realna-vartist-kilometra",
+  ],
+  "realna-vartist-kilometra": [
+    "dani-z-can-shyny",
+    "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
+    "gps-monitorynh-lehkovykh-avto",
   ],
   "avtomatyzatsiia-pryvatnykh-azs": [
     "gps-monitorynh-benzovoziv",
@@ -62,9 +68,9 @@ export const relatedArticleSlugs = {
     "yak-pereviryty-vodiya-gps",
   ],
   "gps-monitorynh-lehkovykh-avto": [
+    "dani-z-can-shyny",
     "realna-vartist-kilometra",
     "yak-pereviryty-vodiya-gps",
-    "gps-monitorynh-dlya-karsherynhu",
   ],
   "gps-monitorynh-pasazhyrskykh-perevezen": [
     "shcho-take-wialon",
@@ -122,9 +128,9 @@ export const relatedArticleSlugs = {
     "yak-pereviryty-vodiya-gps",
   ],
   "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva": [
+    "dani-z-can-shyny",
     "realna-vartist-kilometra",
     "iak-gps-monitorynh-dopomahaie-zapobihty-zlyvam-palnoho",
-    "gps-monitorynh-benzovoziv",
   ],
   "zchytuvannia-danykh-z-takhohrafa": [
     "gps-rishennya-dlya-mizhnarodnykh-perevezen",
@@ -161,6 +167,7 @@ export const industryArticleSlugs = {
     "monitorynh-vytrat-na-palyvo-dlia-pidpryiemstva",
   ],
   "gps-dlya-korporatyvnoho-parku": [
+    "dani-z-can-shyny",
     "realna-vartist-kilometra",
     "gps-monitorynh-lehkovykh-avto",
     "gps-monitorynh-dlya-karsherynhu",
