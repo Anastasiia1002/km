@@ -2600,68 +2600,6 @@ function Footer({ navigate }) {
                   </button>
                 </div>
               </div>
-              <div className="footer-social">
-                <div className="footer-social-label" id="footer-social-label">
-                  Соцмережі
-                </div>
-                <div className="about-social-list footer-social-list" role="list" aria-labelledby="footer-social-label">
-                  <a
-                    className="about-social-link about-social-link--instagram"
-                    href={site.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
-                    role="listitem"
-                    onClick={() => pushEvent("Contact", { type: "instagram", source: "footer" })}
-                  >
-                    <SocialIconInstagram />
-                  </a>
-                  <a
-                    className="about-social-link about-social-link--facebook"
-                    href={site.social.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
-                    role="listitem"
-                    onClick={() => pushEvent("Contact", { type: "facebook", source: "footer" })}
-                  >
-                    <SocialIconFacebook />
-                  </a>
-                  <a
-                    className="about-social-link about-social-link--telegram"
-                    href={site.social.telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
-                    role="listitem"
-                    onClick={() => pushEvent("Contact", { type: "telegram", source: "footer" })}
-                  >
-                    <SocialIconTelegram />
-                  </a>
-                  <a
-                    className="about-social-link about-social-link--viber"
-                    href={withBase("/viber.html")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Viber КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
-                    role="listitem"
-                    onClick={() => pushEvent("Contact", { type: "viber", phone: site.phonePrimary, dept: "sales", source: "footer" })}
-                  >
-                    <SocialIconViber />
-                  </a>
-                  <a
-                    className="about-social-link about-social-link--whatsapp"
-                    href={whatsappChatHref(site.phonePrimary)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`WhatsApp КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
-                    role="listitem"
-                    onClick={() => pushEvent("Contact", { type: "whatsapp", phone: site.phonePrimary, dept: "sales", source: "footer" })}
-                  >
-                    <SocialIconWhatsApp />
-                  </a>
-                </div>
-              </div>
             </div>
             <FooterColumn title="Рішення" items={industries.slice(0, 6).map((item) => [item.name, `/${item.slug}/`])} navigate={navigate} />
             <FooterColumn title="Статті" items={listedArticles.slice(0, 5).map((item) => [articleLabel(item), `/statti/${item.slug}/`])} navigate={navigate} />
@@ -2681,7 +2619,72 @@ function Footer({ navigate }) {
             </a>
           </div>
           <div className="footer-divider" />
-          <div className="footer-bottom"><span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span><div className="footer-bottom-links"><InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink><InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink></div></div>
+          <div className="footer-bottom">
+            <span className="footer-copy">© 2026 КМ Трейд. GPS-моніторинг транспорту на заході України.</span>
+            <div className="footer-social">
+              <div className="about-social-list footer-social-list" role="list" aria-label="Соцмережі та месенджери">
+                <a
+                  className="about-social-link about-social-link--instagram"
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "instagram", source: "footer" })}
+                >
+                  <SocialIconInstagram />
+                </a>
+                <a
+                  className="about-social-link about-social-link--facebook"
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "facebook", source: "footer" })}
+                >
+                  <SocialIconFacebook />
+                </a>
+                <a
+                  className="about-social-link about-social-link--telegram"
+                  href={site.social.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram канал КМ Трейд — відкрити в новій вкладці"
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "telegram", source: "footer" })}
+                >
+                  <SocialIconTelegram />
+                </a>
+                <a
+                  className="about-social-link about-social-link--viber"
+                  href={withBase("/viber.html")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Viber КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "viber", phone: site.phonePrimary, dept: "sales", source: "footer" })}
+                >
+                  <SocialIconViber />
+                </a>
+                <a
+                  className="about-social-link about-social-link--whatsapp"
+                  href={whatsappChatHref(site.phonePrimary)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`WhatsApp КМ Трейд — написати на ${site.phoneDisplay}, відкрити в новій вкладці`}
+                  role="listitem"
+                  onClick={() => pushEvent("Contact", { type: "whatsapp", phone: site.phonePrimary, dept: "sales", source: "footer" })}
+                >
+                  <SocialIconWhatsApp />
+                </a>
+              </div>
+            </div>
+            <div className="footer-bottom-links">
+              <InternalLink href="/oferta/" navigate={navigate}>Оферта</InternalLink>
+              <InternalLink href="/konfidentsiynist/" navigate={navigate}>Конфіденційність</InternalLink>
+            </div>
+          </div>
         </div>
       </footer>
       <div className="sticky-cta"><PhoneLink phone={site.phonePrimary} className="btn btn-outline">📞 Дзвінок</PhoneLink><button className="btn btn-primary" type="button" onClick={() => scrollToForm(LEAD_BLOCKS.STICKY_CTA)}>Залишити заявку</button></div>
