@@ -3800,6 +3800,14 @@ tr:last-child td {
   background: #24a1de;
 }
 
+.about-social-link--viber {
+  background: #7360f2;
+}
+
+.about-social-link--whatsapp {
+  background: #25d366;
+}
+
 .about-social-link:hover {
   transform: translateY(-2px);
   filter: brightness(1.05);
@@ -3816,6 +3824,14 @@ tr:last-child td {
 
 .about-social-link--telegram:hover {
   box-shadow: 0 12px 26px rgba(36, 161, 222, 0.4);
+}
+
+.about-social-link--viber:hover {
+  box-shadow: 0 12px 26px rgba(115, 96, 242, 0.42);
+}
+
+.about-social-link--whatsapp:hover {
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.42);
 }
 
 .about-social-link:focus-visible {
@@ -4951,6 +4967,11 @@ footer {
   letter-spacing: 0.01em;
   line-height: 1.3;
   color: var(--accent-light);
+}
+
+.footer-social-list {
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .footer-social-list .about-social-link {
