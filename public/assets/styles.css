@@ -4966,20 +4966,45 @@ footer {
   max-width: 100%;
 }
 
-.footer-social-list .about-social-link {
+.footer-social-list .about-social-link,
+.footer-social-list .about-social-link--instagram,
+.footer-social-list .about-social-link--facebook,
+.footer-social-list .about-social-link--telegram,
+.footer-social-list .about-social-link--viber,
+.footer-social-list .about-social-link--whatsapp {
   width: 40px;
   height: 40px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
 }
 
 .footer-social-list .about-social-link svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .footer-social-list .about-social-link--facebook svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  margin-top: 0;
+}
+
+.footer-social-list .about-social-link--telegram svg path {
+  fill: currentColor;
+}
+
+.footer-social-list .about-social-link:hover,
+.footer-social-list .about-social-link--instagram:hover,
+.footer-social-list .about-social-link--facebook:hover,
+.footer-social-list .about-social-link--telegram:hover,
+.footer-social-list .about-social-link--viber:hover,
+.footer-social-list .about-social-link--whatsapp:hover {
+  background: #fff;
+  color: #111;
+  filter: none;
+  box-shadow: none;
 }
 
 .footer-social-list .about-social-link:focus-visible {
